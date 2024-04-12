@@ -13,6 +13,7 @@
 		DF839D5F2BC93B94001FE924 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = DF839D5E2BC93B94001FE924 /* Base */; };
 		DF839D612BC93B97001FE924 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DF839D602BC93B97001FE924 /* Assets.xcassets */; };
 		DF839D642BC93B97001FE924 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = DF839D632BC93B97001FE924 /* Base */; };
+		DF839D6C2BC93BC9001FE924 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = DF839D6B2BC93BC9001FE924 /* .gitignore */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,7 @@
 		DF839D602BC93B97001FE924 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DF839D632BC93B97001FE924 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		DF839D652BC93B97001FE924 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DF839D6B2BC93BC9001FE924 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -40,6 +42,7 @@
 		DF839D4B2BC93B94001FE924 = {
 			isa = PBXGroup;
 			children = (
+				DF839D6B2BC93BC9001FE924 /* .gitignore */,
 				DF839D562BC93B94001FE924 /* RealHealthKing */,
 				DF839D552BC93B94001FE924 /* Products */,
 			);
@@ -125,6 +128,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DF839D6C2BC93BC9001FE924 /* .gitignore in Resources */,
 				DF839D612BC93B97001FE924 /* Assets.xcassets in Resources */,
 				DF839D642BC93B97001FE924 /* Base in Resources */,
 				DF839D5F2BC93B94001FE924 /* Base in Resources */,
