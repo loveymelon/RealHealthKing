@@ -9,23 +9,32 @@
 /* Begin PBXBuildFile section */
 		DF839D582BC93B94001FE924 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF839D572BC93B94001FE924 /* AppDelegate.swift */; };
 		DF839D5A2BC93B94001FE924 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF839D592BC93B94001FE924 /* SceneDelegate.swift */; };
-		DF839D5C2BC93B94001FE924 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF839D5B2BC93B94001FE924 /* ViewController.swift */; };
 		DF839D5F2BC93B94001FE924 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = DF839D5E2BC93B94001FE924 /* Base */; };
 		DF839D612BC93B97001FE924 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DF839D602BC93B97001FE924 /* Assets.xcassets */; };
 		DF839D642BC93B97001FE924 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = DF839D632BC93B97001FE924 /* Base */; };
 		DF839D6C2BC93BC9001FE924 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = DF839D6B2BC93BC9001FE924 /* .gitignore */; };
+		DF839D6F2BC93C67001FE924 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = DF839D6E2BC93C67001FE924 /* SnapKit */; };
+		DF839D722BC93C72001FE924 /* Then in Frameworks */ = {isa = PBXBuildFile; productRef = DF839D712BC93C72001FE924 /* Then */; };
+		DF839D752BC93C93001FE924 /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = DF839D742BC93C93001FE924 /* RxCocoa */; };
+		DF839D772BC93C93001FE924 /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = DF839D762BC93C93001FE924 /* RxSwift */; };
+		DF839D7A2BC93CA4001FE924 /* TextFieldEffects in Frameworks */ = {isa = PBXBuildFile; productRef = DF839D792BC93CA4001FE924 /* TextFieldEffects */; };
+		DF839D7D2BC93CB3001FE924 /* IQKeyboardManagerSwift in Frameworks */ = {isa = PBXBuildFile; productRef = DF839D7C2BC93CB3001FE924 /* IQKeyboardManagerSwift */; };
+		DF839D802BC93CC2001FE924 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = DF839D7F2BC93CC2001FE924 /* Alamofire */; };
+		DF839D842BC93D2C001FE924 /* BaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF839D832BC93D2C001FE924 /* BaseView.swift */; };
+		DF839D862BC93D3E001FE924 /* BaseController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF839D852BC93D3E001FE924 /* BaseController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		DF839D542BC93B94001FE924 /* RealHealthKing.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RealHealthKing.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DF839D572BC93B94001FE924 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DF839D592BC93B94001FE924 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		DF839D5B2BC93B94001FE924 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		DF839D5E2BC93B94001FE924 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		DF839D602BC93B97001FE924 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DF839D632BC93B97001FE924 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		DF839D652BC93B97001FE924 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DF839D6B2BC93BC9001FE924 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+		DF839D832BC93D2C001FE924 /* BaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseView.swift; sourceTree = "<group>"; };
+		DF839D852BC93D3E001FE924 /* BaseController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -33,6 +42,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DF839D752BC93C93001FE924 /* RxCocoa in Frameworks */,
+				DF839D802BC93CC2001FE924 /* Alamofire in Frameworks */,
+				DF839D6F2BC93C67001FE924 /* SnapKit in Frameworks */,
+				DF839D772BC93C93001FE924 /* RxSwift in Frameworks */,
+				DF839D722BC93C72001FE924 /* Then in Frameworks */,
+				DF839D7A2BC93CA4001FE924 /* TextFieldEffects in Frameworks */,
+				DF839D7D2BC93CB3001FE924 /* IQKeyboardManagerSwift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -59,15 +75,32 @@
 		DF839D562BC93B94001FE924 /* RealHealthKing */ = {
 			isa = PBXGroup;
 			children = (
+				DF839D812BC93D05001FE924 /* Scene */,
 				DF839D572BC93B94001FE924 /* AppDelegate.swift */,
 				DF839D592BC93B94001FE924 /* SceneDelegate.swift */,
-				DF839D5B2BC93B94001FE924 /* ViewController.swift */,
 				DF839D5D2BC93B94001FE924 /* Main.storyboard */,
 				DF839D602BC93B97001FE924 /* Assets.xcassets */,
 				DF839D622BC93B97001FE924 /* LaunchScreen.storyboard */,
 				DF839D652BC93B97001FE924 /* Info.plist */,
 			);
 			path = RealHealthKing;
+			sourceTree = "<group>";
+		};
+		DF839D812BC93D05001FE924 /* Scene */ = {
+			isa = PBXGroup;
+			children = (
+				DF839D822BC93D13001FE924 /* Base */,
+			);
+			path = Scene;
+			sourceTree = "<group>";
+		};
+		DF839D822BC93D13001FE924 /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				DF839D832BC93D2C001FE924 /* BaseView.swift */,
+				DF839D852BC93D3E001FE924 /* BaseController.swift */,
+			);
+			path = Base;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -86,6 +119,15 @@
 			dependencies = (
 			);
 			name = RealHealthKing;
+			packageProductDependencies = (
+				DF839D6E2BC93C67001FE924 /* SnapKit */,
+				DF839D712BC93C72001FE924 /* Then */,
+				DF839D742BC93C93001FE924 /* RxCocoa */,
+				DF839D762BC93C93001FE924 /* RxSwift */,
+				DF839D792BC93CA4001FE924 /* TextFieldEffects */,
+				DF839D7C2BC93CB3001FE924 /* IQKeyboardManagerSwift */,
+				DF839D7F2BC93CC2001FE924 /* Alamofire */,
+			);
 			productName = RealHealthKing;
 			productReference = DF839D542BC93B94001FE924 /* RealHealthKing.app */;
 			productType = "com.apple.product-type.application";
@@ -114,6 +156,14 @@
 				Base,
 			);
 			mainGroup = DF839D4B2BC93B94001FE924;
+			packageReferences = (
+				DF839D6D2BC93C67001FE924 /* XCRemoteSwiftPackageReference "SnapKit" */,
+				DF839D702BC93C72001FE924 /* XCRemoteSwiftPackageReference "Then" */,
+				DF839D732BC93C92001FE924 /* XCRemoteSwiftPackageReference "RxSwift" */,
+				DF839D782BC93CA4001FE924 /* XCRemoteSwiftPackageReference "TextFieldEffects" */,
+				DF839D7B2BC93CB3001FE924 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */,
+				DF839D7E2BC93CC1001FE924 /* XCRemoteSwiftPackageReference "Alamofire" */,
+			);
 			productRefGroup = DF839D552BC93B94001FE924 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -142,8 +192,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DF839D5C2BC93B94001FE924 /* ViewController.swift in Sources */,
+				DF839D842BC93D2C001FE924 /* BaseView.swift in Sources */,
 				DF839D582BC93B94001FE924 /* AppDelegate.swift in Sources */,
+				DF839D862BC93D3E001FE924 /* BaseController.swift in Sources */,
 				DF839D5A2BC93B94001FE924 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -367,6 +418,95 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		DF839D6D2BC93C67001FE924 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SnapKit/SnapKit";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.7.1;
+			};
+		};
+		DF839D702BC93C72001FE924 /* XCRemoteSwiftPackageReference "Then" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/devxoul/Then.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.0.0;
+			};
+		};
+		DF839D732BC93C92001FE924 /* XCRemoteSwiftPackageReference "RxSwift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ReactiveX/RxSwift";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 6.6.0;
+			};
+		};
+		DF839D782BC93CA4001FE924 /* XCRemoteSwiftPackageReference "TextFieldEffects" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/raulriera/TextFieldEffects.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.7.0;
+			};
+		};
+		DF839D7B2BC93CB3001FE924 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/hackiftekhar/IQKeyboardManager.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.0.2;
+			};
+		};
+		DF839D7E2BC93CC1001FE924 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.9.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		DF839D6E2BC93C67001FE924 /* SnapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DF839D6D2BC93C67001FE924 /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = SnapKit;
+		};
+		DF839D712BC93C72001FE924 /* Then */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DF839D702BC93C72001FE924 /* XCRemoteSwiftPackageReference "Then" */;
+			productName = Then;
+		};
+		DF839D742BC93C93001FE924 /* RxCocoa */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DF839D732BC93C92001FE924 /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxCocoa;
+		};
+		DF839D762BC93C93001FE924 /* RxSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DF839D732BC93C92001FE924 /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxSwift;
+		};
+		DF839D792BC93CA4001FE924 /* TextFieldEffects */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DF839D782BC93CA4001FE924 /* XCRemoteSwiftPackageReference "TextFieldEffects" */;
+			productName = TextFieldEffects;
+		};
+		DF839D7C2BC93CB3001FE924 /* IQKeyboardManagerSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DF839D7B2BC93CB3001FE924 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */;
+			productName = IQKeyboardManagerSwift;
+		};
+		DF839D7F2BC93CC2001FE924 /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DF839D7E2BC93CC1001FE924 /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = DF839D4C2BC93B94001FE924 /* Project object */;
 }
