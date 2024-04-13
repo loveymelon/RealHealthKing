@@ -13,6 +13,14 @@
 		DF82CCE02BCA8DA70089989E /* TextFieldViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF82CCDF2BCA8DA70089989E /* TextFieldViewModel.swift */; };
 		DF82CCE22BCA8DF80089989E /* ViewModelType.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF82CCE12BCA8DF80089989E /* ViewModelType.swift */; };
 		DF82CCE42BCA9CAB0089989E /* SignInViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF82CCE32BCA9CAB0089989E /* SignInViewModel.swift */; };
+		DF82CCE72BCA9E9E0089989E /* Headers.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF82CCE62BCA9E9E0089989E /* Headers.swift */; };
+		DF82CCE92BCA9ECA0089989E /* APIKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF82CCE82BCA9ECA0089989E /* APIKey.swift */; };
+		DF82CCEB2BCA9EE10089989E /* NetworkVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF82CCEA2BCA9EE10089989E /* NetworkVersion.swift */; };
+		DF82CCEE2BCA9F0B0089989E /* TokenModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF82CCED2BCA9F0B0089989E /* TokenModel.swift */; };
+		DF82CCF02BCA9F190089989E /* LoginQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF82CCEF2BCA9F190089989E /* LoginQuery.swift */; };
+		DF82CCF32BCA9F480089989E /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF82CCF22BCA9F480089989E /* NetworkManager.swift */; };
+		DF82CCF52BCA9F670089989E /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF82CCF42BCA9F670089989E /* Router.swift */; };
+		DF82CCF72BCA9F7E0089989E /* TargetType.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF82CCF62BCA9F7E0089989E /* TargetType.swift */; };
 		DF839D582BC93B94001FE924 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF839D572BC93B94001FE924 /* AppDelegate.swift */; };
 		DF839D5A2BC93B94001FE924 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF839D592BC93B94001FE924 /* SceneDelegate.swift */; };
 		DF839D5F2BC93B94001FE924 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = DF839D5E2BC93B94001FE924 /* Base */; };
@@ -40,6 +48,14 @@
 		DF82CCDF2BCA8DA70089989E /* TextFieldViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldViewModel.swift; sourceTree = "<group>"; };
 		DF82CCE12BCA8DF80089989E /* ViewModelType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModelType.swift; sourceTree = "<group>"; };
 		DF82CCE32BCA9CAB0089989E /* SignInViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewModel.swift; sourceTree = "<group>"; };
+		DF82CCE62BCA9E9E0089989E /* Headers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Headers.swift; sourceTree = "<group>"; };
+		DF82CCE82BCA9ECA0089989E /* APIKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIKey.swift; sourceTree = "<group>"; };
+		DF82CCEA2BCA9EE10089989E /* NetworkVersion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkVersion.swift; sourceTree = "<group>"; };
+		DF82CCED2BCA9F0B0089989E /* TokenModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenModel.swift; sourceTree = "<group>"; };
+		DF82CCEF2BCA9F190089989E /* LoginQuery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginQuery.swift; sourceTree = "<group>"; };
+		DF82CCF22BCA9F480089989E /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		DF82CCF42BCA9F670089989E /* Router.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
+		DF82CCF62BCA9F7E0089989E /* TargetType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TargetType.swift; sourceTree = "<group>"; };
 		DF839D542BC93B94001FE924 /* RealHealthKing.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RealHealthKing.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DF839D572BC93B94001FE924 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DF839D592BC93B94001FE924 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -107,6 +123,37 @@
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
+		DF82CCE52BCA9E860089989E /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				DF82CCF12BCA9F2F0089989E /* Model */,
+				DF82CCEC2BCA9EEC0089989E /* Enum */,
+				DF82CCF22BCA9F480089989E /* NetworkManager.swift */,
+				DF82CCF42BCA9F670089989E /* Router.swift */,
+				DF82CCF62BCA9F7E0089989E /* TargetType.swift */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		DF82CCEC2BCA9EEC0089989E /* Enum */ = {
+			isa = PBXGroup;
+			children = (
+				DF82CCE62BCA9E9E0089989E /* Headers.swift */,
+				DF82CCE82BCA9ECA0089989E /* APIKey.swift */,
+				DF82CCEA2BCA9EE10089989E /* NetworkVersion.swift */,
+			);
+			path = Enum;
+			sourceTree = "<group>";
+		};
+		DF82CCF12BCA9F2F0089989E /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				DF82CCED2BCA9F0B0089989E /* TokenModel.swift */,
+				DF82CCEF2BCA9F190089989E /* LoginQuery.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		DF839D4B2BC93B94001FE924 = {
 			isa = PBXGroup;
 			children = (
@@ -127,6 +174,7 @@
 		DF839D562BC93B94001FE924 /* RealHealthKing */ = {
 			isa = PBXGroup;
 			children = (
+				DF82CCE52BCA9E860089989E /* Network */,
 				DF82CCD42BCA85660089989E /* Protocol */,
 				DF839D812BC93D05001FE924 /* Scene */,
 				DF839D572BC93B94001FE924 /* AppDelegate.swift */,
@@ -283,19 +331,27 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DF82CCF32BCA9F480089989E /* NetworkManager.swift in Sources */,
 				DF82CCDB2BCA87910089989E /* InfoLabel.swift in Sources */,
 				DF839D922BC9A87C001FE924 /* CustomTextField.swift in Sources */,
 				DF839D8D2BC93DCF001FE924 /* SignInView.swift in Sources */,
 				DF82CCE02BCA8DA70089989E /* TextFieldViewModel.swift in Sources */,
+				DF82CCF02BCA9F190089989E /* LoginQuery.swift in Sources */,
+				DF82CCF72BCA9F7E0089989E /* TargetType.swift in Sources */,
+				DF82CCE92BCA9ECA0089989E /* APIKey.swift in Sources */,
 				DF82CCE42BCA9CAB0089989E /* SignInViewModel.swift in Sources */,
 				DF839D842BC93D2C001FE924 /* BaseView.swift in Sources */,
+				DF82CCE72BCA9E9E0089989E /* Headers.swift in Sources */,
 				DF839D582BC93B94001FE924 /* AppDelegate.swift in Sources */,
 				DF839D862BC93D3E001FE924 /* BaseController.swift in Sources */,
+				DF82CCF52BCA9F670089989E /* Router.swift in Sources */,
 				DF839D8B2BC93DC1001FE924 /* SignInViewController.swift in Sources */,
+				DF82CCEE2BCA9F0B0089989E /* TokenModel.swift in Sources */,
 				DF82CCE22BCA8DF80089989E /* ViewModelType.swift in Sources */,
 				DF82CCD62BCA85800089989E /* ConfigureProtocol.swift in Sources */,
 				DF839D5A2BC93B94001FE924 /* SceneDelegate.swift in Sources */,
 				DF82CCD92BCA87090089989E /* TextFieldView.swift in Sources */,
+				DF82CCEB2BCA9EE10089989E /* NetworkVersion.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
