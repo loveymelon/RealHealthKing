@@ -8,12 +8,12 @@
 import UIKit
 import SnapKit
 import Then
+import RxSwift
+import RxCocoa
 
 class TextFieldView: UIView, UIConfigureProtocol {
     
-    let textField = CustomTextField().then {
-        $0.backgroundColor = .blue
-    }
+    let textField = CustomTextField()
     let infoLabel = InfoLabel()
     let secureButton = UIButton().then {
         $0.setTitle("표시", for: .normal)
@@ -24,15 +24,46 @@ class TextFieldView: UIView, UIConfigureProtocol {
     }
     
     var infoLabelConstraint: Constraint?
+    
+    let viewModel = TextFieldViewModel()
+    let disposeBag = DisposeBag()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
         
         configureUI()
+        bind()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func bind() {
+        let textFieldEndEdit = textField.rx.controlEvent(.editingDidEnd).withLatestFrom(textField.rx.text.orEmpty)
+            .map { String($0) }
+            .asObservable()
+        
+        let input = TextFieldViewModel.Input(textFieldEndEdit: textFieldEndEdit)
+        
+        let output = viewModel.transform(input: input)
+        
+        textField.rx.controlEvent(.editingDidBegin).bind(with: self) { owner, _ in
+            owner.infoLabel.font = UIFont.systemFont(ofSize: 11)
+            owner.infoLabelConstraint?.update(offset: -13)
+        }.disposed(by: disposeBag)
+        
+        secureButton.rx.tap.bind(with: self) { owner, _ in
+            owner.textField.isSecureTextEntry.toggle()
+        }.disposed(by: disposeBag)
+        
+        output.textInfoLayoutUpdate.drive(with: self) { owner, check in
+            if !check {
+                owner.infoLabel.font = UIFont.systemFont(ofSize: 18)
+                owner.infoLabelConstraint?.update(offset: 0)
+            }
+        }.disposed(by: disposeBag)
+        
     }
     
     func configureUI() {

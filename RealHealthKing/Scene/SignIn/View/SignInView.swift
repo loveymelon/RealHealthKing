@@ -12,11 +12,11 @@ import TextFieldEffects
 
 class SignInView: BaseView {
     
-    private let emailTextFieldView = TextFieldView().then {
+    let emailTextFieldView = TextFieldView().then {
         $0.infoLabel.text = "이메일 주소"
     }
     
-    private let passwordTextFieldView = TextFieldView().then {
+    let passwordTextFieldView = TextFieldView().then {
         $0.infoLabel.text = "비밀번호"
         $0.textField.isSecureTextEntry = true
         $0.secureButton.isHidden = false

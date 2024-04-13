@@ -11,16 +11,22 @@ import RxCocoa
 
 class TextFieldViewModel: ViewModelType {
     struct Input {
-        
+        let textFieldEndEdit: Observable<String>
     }
     
     struct Output {
-        
+        let textInfoLayoutUpdate: Driver<Bool>
     }
     
     var disposeBag = DisposeBag()
     
     func transform(input: Input) -> Output {
-        return Output()
+        let resultTextField = BehaviorRelay(value: false)
+        
+        input.textFieldEndEdit.map { !$0.isEmpty }.subscribe { check in
+            resultTextField.accept(check)
+        }.disposed(by: disposeBag)
+        
+        return Output(textInfoLayoutUpdate: resultTextField.asDriver())
     }
 }

@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
 
 class SignInViewController: BaseViewController<SignInView> {
 
@@ -15,5 +17,10 @@ class SignInViewController: BaseViewController<SignInView> {
         
     }
     
+    override func bind() {
+        mainView.signUpButton.rx.tap.bind(with: self) { owner, _ in
+            self.navigationController
+        }
+    }
 
 }
