@@ -23,6 +23,8 @@ struct NetworkManager {
                         case .success(let loginModel):
                             single(.success(loginModel))
                         case .failure(let error):
+                            print(response.response?.statusCode)
+                            
                             single(.failure(error))
                         }
                     }

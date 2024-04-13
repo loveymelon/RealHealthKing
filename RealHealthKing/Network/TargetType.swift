@@ -12,6 +12,7 @@ protocol TargetType: URLRequestConvertible {
     
     var baseURL: String { get }
     var method: HTTPMethod { get }
+    var version: String { get }
     var path: String { get }
     var header: [String: String] { get }
     var parameters: String? { get }
@@ -25,7 +26,9 @@ extension TargetType {
     func asURLRequest() throws -> URLRequest {
         let url = try baseURL.asURL() // url로 변환
         
-        var urlRequest = try URLRequest(url: url.appendingPathComponent(path), method: method, headers: HTTPHeaders(header))
+        var urlRequest = try URLRequest(url: url.appendingPathComponent(version + path), method: method, headers: HTTPHeaders(header))
+        
+        print(urlRequest.url)
         
         urlRequest.httpBody = parameters?.data(using: .utf8)
         urlRequest.httpBody = body

@@ -25,9 +25,15 @@ class SignInViewController: BaseViewController<SignInView> {
             self.navigationController
         }.disposed(by: disposeBag)
         
-        let signInButton = mainView.signInButton.rx.tap.asObservable()
+        let emailPassword = Observable.combineLatest(mainView.emailTextFieldView.textField.rx.text.orEmpty.asObservable(), mainView.passwordTextFieldView.textField.rx.text.orEmpty.asObservable()).asObservable()
+        let signInButtonTap = mainView.signInButton.rx.tap.withLatestFrom(emailPassword)
         
-        let input = SignInViewModel.Input(signInButtonTap: signInButton)
+        let input = SignInViewModel.Input(signInButtonTap: signInButtonTap)
+        
+        let output = viewModel.transform(input: input)
+        
+        
+        
     }
 
 }

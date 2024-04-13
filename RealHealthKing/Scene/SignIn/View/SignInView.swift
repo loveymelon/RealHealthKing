@@ -30,7 +30,7 @@ class SignInView: BaseView {
         $0.layer.borderColor = UIColor.lightGray.cgColor
         $0.setTitle("로그인", for: .normal)
         $0.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
-        $0.isEnabled = false
+        $0.isEnabled = true
     }
     
     private let stackView = UIStackView().then {

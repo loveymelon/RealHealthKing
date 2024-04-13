@@ -20,6 +20,10 @@ extension Router: TargetType {
         return APIKey.baseURL.rawValue
     }
     
+    var version: String {
+        return NetworkVersion.version.rawValue
+    }
+    
     var method: Alamofire.HTTPMethod {
         switch self {
         case .login:

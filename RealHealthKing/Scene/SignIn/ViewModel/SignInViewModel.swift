@@ -12,20 +12,25 @@ import RxCocoa
 final class SignInViewModel: ViewModelType {
     
     struct Input {
-        let signInButtonTap: Observable<Void>
+        let signInButtonTap: Observable<(String, String)>
     }
     
     struct Output {
-
+        
     }
     
     var disposeBag = DisposeBag()
     
     func transform(input: Input) -> Output {
         
-        input.signInButtonTap.subscribe { _ in
-            <#code#>
+        input.signInButtonTap.flatMap { text in
+            return NetworkManager.createLogin(query: LoginQuery(email: text.0, password: text.1))
+        }.subscribe { tokenModel in
+            print(tokenModel.accessToken)
+            UserDefaults.standard.set(tokenModel.accessToken, forKey: "accessToken")
+            UserDefaults.standard.set(tokenModel.refreshToken, forKey: "refreshToken")
         }.disposed(by: disposeBag)
+
         
         return Output()
     }
