@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DF82CCD62BCA85800089989E /* ConfigureProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF82CCD52BCA85800089989E /* ConfigureProtocol.swift */; };
 		DF839D582BC93B94001FE924 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF839D572BC93B94001FE924 /* AppDelegate.swift */; };
 		DF839D5A2BC93B94001FE924 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF839D592BC93B94001FE924 /* SceneDelegate.swift */; };
 		DF839D5F2BC93B94001FE924 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = DF839D5E2BC93B94001FE924 /* Base */; };
@@ -28,6 +29,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		DF82CCD52BCA85800089989E /* ConfigureProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigureProtocol.swift; sourceTree = "<group>"; };
 		DF839D542BC93B94001FE924 /* RealHealthKing.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RealHealthKing.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DF839D572BC93B94001FE924 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DF839D592BC93B94001FE924 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -61,6 +63,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		DF82CCD42BCA85660089989E /* Protocol */ = {
+			isa = PBXGroup;
+			children = (
+				DF82CCD52BCA85800089989E /* ConfigureProtocol.swift */,
+			);
+			path = Protocol;
+			sourceTree = "<group>";
+		};
 		DF839D4B2BC93B94001FE924 = {
 			isa = PBXGroup;
 			children = (
@@ -81,6 +91,7 @@
 		DF839D562BC93B94001FE924 /* RealHealthKing */ = {
 			isa = PBXGroup;
 			children = (
+				DF82CCD42BCA85660089989E /* Protocol */,
 				DF839D812BC93D05001FE924 /* Scene */,
 				DF839D572BC93B94001FE924 /* AppDelegate.swift */,
 				DF839D592BC93B94001FE924 /* SceneDelegate.swift */,
@@ -239,6 +250,7 @@
 				DF839D582BC93B94001FE924 /* AppDelegate.swift in Sources */,
 				DF839D862BC93D3E001FE924 /* BaseController.swift in Sources */,
 				DF839D8B2BC93DC1001FE924 /* SignInViewController.swift in Sources */,
+				DF82CCD62BCA85800089989E /* ConfigureProtocol.swift in Sources */,
 				DF839D5A2BC93B94001FE924 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
