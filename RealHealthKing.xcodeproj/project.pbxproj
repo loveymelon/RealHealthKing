@@ -10,6 +10,8 @@
 		DF82CCD62BCA85800089989E /* ConfigureProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF82CCD52BCA85800089989E /* ConfigureProtocol.swift */; };
 		DF82CCD92BCA87090089989E /* TextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF82CCD82BCA87090089989E /* TextFieldView.swift */; };
 		DF82CCDB2BCA87910089989E /* InfoLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF82CCDA2BCA87910089989E /* InfoLabel.swift */; };
+		DF82CCE02BCA8DA70089989E /* TextFieldViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF82CCDF2BCA8DA70089989E /* TextFieldViewModel.swift */; };
+		DF82CCE22BCA8DF80089989E /* ViewModelType.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF82CCE12BCA8DF80089989E /* ViewModelType.swift */; };
 		DF839D582BC93B94001FE924 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF839D572BC93B94001FE924 /* AppDelegate.swift */; };
 		DF839D5A2BC93B94001FE924 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF839D592BC93B94001FE924 /* SceneDelegate.swift */; };
 		DF839D5F2BC93B94001FE924 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = DF839D5E2BC93B94001FE924 /* Base */; };
@@ -34,6 +36,8 @@
 		DF82CCD52BCA85800089989E /* ConfigureProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigureProtocol.swift; sourceTree = "<group>"; };
 		DF82CCD82BCA87090089989E /* TextFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldView.swift; sourceTree = "<group>"; };
 		DF82CCDA2BCA87910089989E /* InfoLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoLabel.swift; sourceTree = "<group>"; };
+		DF82CCDF2BCA8DA70089989E /* TextFieldViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldViewModel.swift; sourceTree = "<group>"; };
+		DF82CCE12BCA8DF80089989E /* ViewModelType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModelType.swift; sourceTree = "<group>"; };
 		DF839D542BC93B94001FE924 /* RealHealthKing.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RealHealthKing.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DF839D572BC93B94001FE924 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DF839D592BC93B94001FE924 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -71,8 +75,34 @@
 			isa = PBXGroup;
 			children = (
 				DF82CCD52BCA85800089989E /* ConfigureProtocol.swift */,
+				DF82CCE12BCA8DF80089989E /* ViewModelType.swift */,
 			);
 			path = Protocol;
+			sourceTree = "<group>";
+		};
+		DF82CCDC2BCA8D860089989E /* TextFieldView */ = {
+			isa = PBXGroup;
+			children = (
+				DF82CCDE2BCA8D980089989E /* ViewModel */,
+				DF82CCDD2BCA8D930089989E /* View */,
+			);
+			path = TextFieldView;
+			sourceTree = "<group>";
+		};
+		DF82CCDD2BCA8D930089989E /* View */ = {
+			isa = PBXGroup;
+			children = (
+				DF82CCD82BCA87090089989E /* TextFieldView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		DF82CCDE2BCA8D980089989E /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				DF82CCDF2BCA8DA70089989E /* TextFieldViewModel.swift */,
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		DF839D4B2BC93B94001FE924 = {
@@ -154,8 +184,8 @@
 		DF839D902BC9A859001FE924 /* Custom */ = {
 			isa = PBXGroup;
 			children = (
+				DF82CCDC2BCA8D860089989E /* TextFieldView */,
 				DF839D912BC9A87C001FE924 /* CustomTextField.swift */,
-				DF82CCD82BCA87090089989E /* TextFieldView.swift */,
 				DF82CCDA2BCA87910089989E /* InfoLabel.swift */,
 			);
 			path = Custom;
@@ -253,10 +283,12 @@
 				DF82CCDB2BCA87910089989E /* InfoLabel.swift in Sources */,
 				DF839D922BC9A87C001FE924 /* CustomTextField.swift in Sources */,
 				DF839D8D2BC93DCF001FE924 /* SignInView.swift in Sources */,
+				DF82CCE02BCA8DA70089989E /* TextFieldViewModel.swift in Sources */,
 				DF839D842BC93D2C001FE924 /* BaseView.swift in Sources */,
 				DF839D582BC93B94001FE924 /* AppDelegate.swift in Sources */,
 				DF839D862BC93D3E001FE924 /* BaseController.swift in Sources */,
 				DF839D8B2BC93DC1001FE924 /* SignInViewController.swift in Sources */,
+				DF82CCE22BCA8DF80089989E /* ViewModelType.swift in Sources */,
 				DF82CCD62BCA85800089989E /* ConfigureProtocol.swift in Sources */,
 				DF839D5A2BC93B94001FE924 /* SceneDelegate.swift in Sources */,
 				DF82CCD92BCA87090089989E /* TextFieldView.swift in Sources */,
