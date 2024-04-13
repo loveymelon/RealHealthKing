@@ -1,18 +1,16 @@
 //
-//  CustomTextField.swift
+//  InfoLabel.swift
 //  RealHealthKing
 //
 //  Created by 김진수 on 4/13/24.
 //
 
 import UIKit
-import Then
 
-class CustomTextField: UITextField {
+class InfoLabel: UILabel {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
         configureUI()
     }
     
@@ -21,11 +19,7 @@ class CustomTextField: UITextField {
     }
     
     func configureUI() {
-        backgroundColor = .clear
         textColor = .white
-        tintColor = .white
-        autocorrectionType = .no
-        spellCheckingType = .no
     }
     
 }
