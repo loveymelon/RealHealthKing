@@ -28,8 +28,6 @@ extension TargetType {
         
         var urlRequest = try URLRequest(url: url.appendingPathComponent(version + path), method: method, headers: HTTPHeaders(header))
         
-        print(urlRequest.url)
-        
         urlRequest.httpBody = parameters?.data(using: .utf8)
         urlRequest.httpBody = body
         

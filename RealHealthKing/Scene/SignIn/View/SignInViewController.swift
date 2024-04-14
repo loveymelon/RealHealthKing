@@ -17,7 +17,7 @@ class SignInViewController: BaseViewController<SignInView> {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
     }
     
     override func bind() {
@@ -32,7 +32,30 @@ class SignInViewController: BaseViewController<SignInView> {
         
         let output = viewModel.transform(input: input)
         
-        
+        output.networkError.drive(with: self) { owner, networkResult in
+            switch networkResult {
+            case NetworkError.noSesacKey:
+                print("noSesacKey")
+            case NetworkError.overCall:
+                print("overCall")
+            case NetworkError.invalidURL:
+                print("invalidURL")
+            case NetworkError.severError:
+                print("severError")
+            case NetworkError.unownedError:
+                print("unowned")
+            case NetworkError.noError:
+                print("success")
+            case NetworkError.blank:
+                print("blank")
+            case LoginError.omission:
+                print("누락")
+            case LoginError.checkCount:
+                print("미회원 혹은 비번 확인")
+            default:
+                print("default")
+            }
+        }.disposed(by: disposeBag)
         
     }
 

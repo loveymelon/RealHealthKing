@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DF6367DF2BCB8F480087A075 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF6367DE2BCB8F480087A075 /* NetworkError.swift */; };
 		DF82CCD62BCA85800089989E /* ConfigureProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF82CCD52BCA85800089989E /* ConfigureProtocol.swift */; };
 		DF82CCD92BCA87090089989E /* TextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF82CCD82BCA87090089989E /* TextFieldView.swift */; };
 		DF82CCDB2BCA87910089989E /* InfoLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF82CCDA2BCA87910089989E /* InfoLabel.swift */; };
@@ -42,6 +43,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		DF6367DE2BCB8F480087A075 /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
 		DF82CCD52BCA85800089989E /* ConfigureProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigureProtocol.swift; sourceTree = "<group>"; };
 		DF82CCD82BCA87090089989E /* TextFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldView.swift; sourceTree = "<group>"; };
 		DF82CCDA2BCA87910089989E /* InfoLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoLabel.swift; sourceTree = "<group>"; };
@@ -141,6 +143,7 @@
 				DF82CCE62BCA9E9E0089989E /* Headers.swift */,
 				DF82CCE82BCA9ECA0089989E /* APIKey.swift */,
 				DF82CCEA2BCA9EE10089989E /* NetworkVersion.swift */,
+				DF6367DE2BCB8F480087A075 /* NetworkError.swift */,
 			);
 			path = Enum;
 			sourceTree = "<group>";
@@ -340,6 +343,7 @@
 				DF82CCF72BCA9F7E0089989E /* TargetType.swift in Sources */,
 				DF82CCE92BCA9ECA0089989E /* APIKey.swift in Sources */,
 				DF82CCE42BCA9CAB0089989E /* SignInViewModel.swift in Sources */,
+				DF6367DF2BCB8F480087A075 /* NetworkError.swift in Sources */,
 				DF839D842BC93D2C001FE924 /* BaseView.swift in Sources */,
 				DF82CCE72BCA9E9E0089989E /* Headers.swift in Sources */,
 				DF839D582BC93B94001FE924 /* AppDelegate.swift in Sources */,

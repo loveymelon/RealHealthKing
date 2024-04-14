@@ -16,23 +16,30 @@ final class SignInViewModel: ViewModelType {
     }
     
     struct Output {
-        
+        let networkError: Driver<Error>
     }
     
     var disposeBag = DisposeBag()
     
     func transform(input: Input) -> Output {
+        let networkResult = BehaviorRelay<Error>(value: NetworkError.blank)
         
         input.signInButtonTap.flatMap { text in
-            return NetworkManager.createLogin(query: LoginQuery(email: text.0, password: text.1))
-        }.subscribe { tokenModel in
-            print(tokenModel.accessToken)
-            UserDefaults.standard.set(tokenModel.accessToken, forKey: "accessToken")
-            UserDefaults.standard.set(tokenModel.refreshToken, forKey: "refreshToken")
+            return NetworkManager.createLogin(query: LoginQuery(email: text.0, password: text.1)).asObservable()
+        }.subscribe { result in
+            
+            switch result {
+            case .success(let data):
+                UserDefaults.standard.set(data.accessToken, forKey: "accessToken")
+                UserDefaults.standard.set(data.refreshToken, forKey: "refreshToken")
+                networkResult.accept(NetworkError.noError)
+            case .failure(let error):
+                networkResult.accept(error)
+            }
+            
         }.disposed(by: disposeBag)
-
         
-        return Output()
+        return Output(networkError: networkResult.asDriver())
     }
     
 }
