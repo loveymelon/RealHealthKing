@@ -13,7 +13,13 @@ import RxCocoa
 
 class TextFieldView: UIView, UIConfigureProtocol {
     
-    let textField = CustomTextField()
+    let textField = UITextField().then {
+        $0.backgroundColor = .clear
+        $0.textColor = .white
+        $0.tintColor = .white
+        $0.autocorrectionType = .no
+        $0.spellCheckingType = .no
+    }
     let infoLabel = InfoLabel()
     let secureButton = UIButton().then {
         $0.setTitle("표시", for: .normal)
@@ -25,7 +31,6 @@ class TextFieldView: UIView, UIConfigureProtocol {
     
     var infoLabelConstraint: Constraint?
     
-    let viewModel = TextFieldViewModel()
     let disposeBag = DisposeBag()
 
     override init(frame: CGRect) {
@@ -40,30 +45,9 @@ class TextFieldView: UIView, UIConfigureProtocol {
     }
     
     func bind() {
-        let textFieldEndEdit = textField.rx.controlEvent(.editingDidEnd).withLatestFrom(textField.rx.text.orEmpty)
-            .map { String($0) }
-            .asObservable()
-        
-        let input = TextFieldViewModel.Input(textFieldEndEdit: textFieldEndEdit)
-        
-        let output = viewModel.transform(input: input)
-        
-        textField.rx.controlEvent(.editingDidBegin).bind(with: self) { owner, _ in
-            owner.infoLabel.font = UIFont.systemFont(ofSize: 11)
-            owner.infoLabelConstraint?.update(offset: -13)
-        }.disposed(by: disposeBag)
-        
         secureButton.rx.tap.bind(with: self) { owner, _ in
             owner.textField.isSecureTextEntry.toggle()
         }.disposed(by: disposeBag)
-        
-        output.textInfoLayoutUpdate.drive(with: self) { owner, check in
-            if !check {
-                owner.infoLabel.font = UIFont.systemFont(ofSize: 18)
-                owner.infoLabelConstraint?.update(offset: 0)
-            }
-        }.disposed(by: disposeBag)
-        
     }
     
     func configureUI() {

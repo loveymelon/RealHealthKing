@@ -12,15 +12,15 @@ import TextFieldEffects
 
 class SignInView: BaseView {
     
-    let emailTextFieldView = TextFieldView().then {
-        $0.infoLabel.text = "이메일 주소"
+    let emailTextFieldView = TextViewWithHelperView().then {
+        $0.textFieldView.infoLabel.text = "이메일 주소"
     }
     
-    let passwordTextFieldView = TextFieldView().then {
-        $0.infoLabel.text = "비밀번호"
-        $0.textField.isSecureTextEntry = true
-        $0.secureButton.isHidden = false
-        $0.secureButton.isEnabled = true
+    let passwordTextFieldView = TextViewWithHelperView().then {
+        $0.textFieldView.infoLabel.text = "비밀번호"
+        $0.textFieldView.textField.isSecureTextEntry = true
+        $0.textFieldView.secureButton.isHidden = false
+        $0.textFieldView.secureButton.isEnabled = true
     }
     
     let signInButton = UIButton().then {
@@ -46,14 +46,7 @@ class SignInView: BaseView {
         $0.titleLabel?.font = UIFont.boldSystemFont(ofSize: 14)
     }
     
-    let helperView = HelperView().then {
-        $0.isHidden = true
-    }
-    
-    var emailConstraint: Constraint?
-    var passwordConstraint: Constraint?
-    
-    private let textViewHeight: CGFloat = 48
+    private let textViewHeight: CGFloat = 62
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -65,13 +58,13 @@ class SignInView: BaseView {
     
     override func configureHierarchy() {
         
-        [emailTextFieldView, passwordTextFieldView, signInButton].forEach { item in
+        [emailTextFieldView, passwordTextFieldView].forEach { item in
             stackView.addArrangedSubview(item)
         }
         
         addSubview(stackView)
+        addSubview(signInButton)
         addSubview(signUpButton)
-        addSubview(helperView)
     }
     
     override func configureLayout() {
@@ -79,19 +72,19 @@ class SignInView: BaseView {
         stackView.snp.makeConstraints { make in
             make.center.equalTo(snp.center)
             make.horizontalEdges.equalTo(snp.horizontalEdges).inset(30)
-            make.height.equalTo(textViewHeight * 3 + 36)
+            make.height.equalTo(textViewHeight * 2 + 18)
+        }
+        
+        signInButton.snp.makeConstraints { make in
+            make.top.equalTo(stackView.snp.bottom).offset(18)
+            make.horizontalEdges.equalTo(stackView.snp.horizontalEdges)
+            make.height.equalTo(48)
         }
         
         signUpButton.snp.makeConstraints { make in
-            make.top.equalTo(stackView.snp.bottom).offset(10)
+            make.top.equalTo(signInButton.snp.bottom).offset(10)
             make.horizontalEdges.equalTo(safeAreaLayoutGuide.snp.horizontalEdges)
             make.height.equalTo(textViewHeight)
-        }
-        
-        helperView.snp.makeConstraints { make in
-            make.height.equalTo(30)
-            make.bottom.equalTo(stackView.snp.top).offset(-3)
-            make.horizontalEdges.equalTo(stackView.snp.horizontalEdges).inset(5)
         }
         
     }

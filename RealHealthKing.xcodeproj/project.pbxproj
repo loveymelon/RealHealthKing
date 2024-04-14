@@ -12,6 +12,8 @@
 		DF6367E42BCBD1A90087A075 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF6367E32BCBD1A90087A075 /* SignUpViewController.swift */; };
 		DF6367E62BCBD1B90087A075 /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF6367E52BCBD1B90087A075 /* SignUpView.swift */; };
 		DF6367E82BCBE28B0087A075 /* HelperView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF6367E72BCBE28B0087A075 /* HelperView.swift */; };
+		DF6367EA2BCBF3030087A075 /* TextViewWithHelperView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF6367E92BCBF3030087A075 /* TextViewWithHelperView.swift */; };
+		DF6367EC2BCBF3540087A075 /* TextWithHelperViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF6367EB2BCBF3540087A075 /* TextWithHelperViewModel.swift */; };
 		DF82CCD62BCA85800089989E /* ConfigureProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF82CCD52BCA85800089989E /* ConfigureProtocol.swift */; };
 		DF82CCD92BCA87090089989E /* TextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF82CCD82BCA87090089989E /* TextFieldView.swift */; };
 		DF82CCDB2BCA87910089989E /* InfoLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF82CCDA2BCA87910089989E /* InfoLabel.swift */; };
@@ -43,7 +45,6 @@
 		DF839D862BC93D3E001FE924 /* BaseController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF839D852BC93D3E001FE924 /* BaseController.swift */; };
 		DF839D8B2BC93DC1001FE924 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF839D8A2BC93DC1001FE924 /* SignInViewController.swift */; };
 		DF839D8D2BC93DCF001FE924 /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF839D8C2BC93DCF001FE924 /* SignInView.swift */; };
-		DF839D922BC9A87C001FE924 /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF839D912BC9A87C001FE924 /* CustomTextField.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -52,6 +53,8 @@
 		DF6367E32BCBD1A90087A075 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		DF6367E52BCBD1B90087A075 /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
 		DF6367E72BCBE28B0087A075 /* HelperView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelperView.swift; sourceTree = "<group>"; };
+		DF6367E92BCBF3030087A075 /* TextViewWithHelperView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextViewWithHelperView.swift; sourceTree = "<group>"; };
+		DF6367EB2BCBF3540087A075 /* TextWithHelperViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextWithHelperViewModel.swift; sourceTree = "<group>"; };
 		DF82CCD52BCA85800089989E /* ConfigureProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigureProtocol.swift; sourceTree = "<group>"; };
 		DF82CCD82BCA87090089989E /* TextFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldView.swift; sourceTree = "<group>"; };
 		DF82CCDA2BCA87910089989E /* InfoLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoLabel.swift; sourceTree = "<group>"; };
@@ -78,7 +81,6 @@
 		DF839D852BC93D3E001FE924 /* BaseController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseController.swift; sourceTree = "<group>"; };
 		DF839D8A2BC93DC1001FE924 /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
 		DF839D8C2BC93DCF001FE924 /* SignInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
-		DF839D912BC9A87C001FE924 /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -258,9 +260,10 @@
 			isa = PBXGroup;
 			children = (
 				DF82CCDC2BCA8D860089989E /* TextFieldView */,
-				DF839D912BC9A87C001FE924 /* CustomTextField.swift */,
 				DF82CCDA2BCA87910089989E /* InfoLabel.swift */,
 				DF6367E72BCBE28B0087A075 /* HelperView.swift */,
+				DF6367E92BCBF3030087A075 /* TextViewWithHelperView.swift */,
+				DF6367EB2BCBF3540087A075 /* TextWithHelperViewModel.swift */,
 			);
 			path = Custom;
 			sourceTree = "<group>";
@@ -357,7 +360,6 @@
 				DF82CCF32BCA9F480089989E /* NetworkManager.swift in Sources */,
 				DF82CCDB2BCA87910089989E /* InfoLabel.swift in Sources */,
 				DF6367E12BCBD0CA0087A075 /* SignUpModel.swift in Sources */,
-				DF839D922BC9A87C001FE924 /* CustomTextField.swift in Sources */,
 				DF839D8D2BC93DCF001FE924 /* SignInView.swift in Sources */,
 				DF82CCE02BCA8DA70089989E /* TextFieldViewModel.swift in Sources */,
 				DF82CCF02BCA9F190089989E /* LoginQuery.swift in Sources */,
@@ -370,6 +372,7 @@
 				DF82CCE72BCA9E9E0089989E /* Headers.swift in Sources */,
 				DF839D582BC93B94001FE924 /* AppDelegate.swift in Sources */,
 				DF839D862BC93D3E001FE924 /* BaseController.swift in Sources */,
+				DF6367EA2BCBF3030087A075 /* TextViewWithHelperView.swift in Sources */,
 				DF82CCF52BCA9F670089989E /* Router.swift in Sources */,
 				DF6367E62BCBD1B90087A075 /* SignUpView.swift in Sources */,
 				DF839D8B2BC93DC1001FE924 /* SignInViewController.swift in Sources */,
@@ -378,6 +381,7 @@
 				DF82CCE22BCA8DF80089989E /* ViewModelType.swift in Sources */,
 				DF82CCD62BCA85800089989E /* ConfigureProtocol.swift in Sources */,
 				DF839D5A2BC93B94001FE924 /* SceneDelegate.swift in Sources */,
+				DF6367EC2BCBF3540087A075 /* TextWithHelperViewModel.swift in Sources */,
 				DF82CCD92BCA87090089989E /* TextFieldView.swift in Sources */,
 				DF82CCEB2BCA9EE10089989E /* NetworkVersion.swift in Sources */,
 			);

@@ -11,8 +11,8 @@ import SnapKit
 
 class SignUpView: BaseView {
 
-    let emailTextFieldView = TextFieldView().then {
-        $0.infoLabel.text = "이메일 주소"
+    let emailTextFieldView = TextViewWithHelperView().then {
+        $0.textFieldView.infoLabel.text = "이메일 주소"
     }
     
     let emailCheckButton = UIButton().then {
@@ -23,12 +23,6 @@ class SignUpView: BaseView {
         $0.layer.cornerRadius = 10
     }
     
-    let emailHelperView = HelperView().then {
-        $0.label.text = "이메일이메일이메일"
-        $0.label.textColor = .white
-        $0.imageView.tintColor = .white
-    }
-    
     let emailCehckStackView = UIStackView().then {
         $0.spacing = 15
         $0.axis = .horizontal
@@ -36,33 +30,36 @@ class SignUpView: BaseView {
         $0.alignment = .fill
     }
     
-    let emailStackView = UIStackView().then {
-        $0.spacing = 5
-        $0.axis = .vertical
-        $0.distribution = .fillProportionally
-        $0.alignment = .fill
+    let passwordTextFieldView = TextViewWithHelperView().then {
+        $0.textFieldView.infoLabel.text = "비밀번호"
     }
     
-    let passwordTextFieldView = TextFieldView().then {
-        $0.infoLabel.text = "비밀번호"
+    let checkPasswordTextFieldView = TextViewWithHelperView().then {
+        $0.textFieldView.infoLabel.text = "비밀번호 확인"
     }
     
-    let checkPasswordTextFieldView = TextFieldView().then {
-        $0.infoLabel.text = "비밀번호 확인"
-    }
-    
-    let nickTextFieldView = TextFieldView().then {
-        $0.infoLabel.text = "닉네임"
+    let nickTextFieldView = TextViewWithHelperView().then {
+        $0.textFieldView.infoLabel.text = "닉네임"
     }
     
     let stackView = UIStackView().then {
-        $0.spacing = 32
+        $0.spacing = 5
         $0.axis = .vertical
         $0.distribution = .fillEqually
         $0.alignment = .fill
     }
     
-    private let textViewHeight: CGFloat = 48
+    let signUpButton = UIButton().then {
+        $0.backgroundColor = .clear
+        $0.layer.cornerRadius = 5
+        $0.layer.borderWidth = 1
+        $0.layer.borderColor = UIColor.lightGray.cgColor
+        $0.setTitle("완료", for: .normal)
+        $0.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
+        $0.isEnabled = true
+    }
+    
+    private let textViewHeight: CGFloat = 64
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -77,27 +74,32 @@ class SignUpView: BaseView {
             emailCehckStackView.addArrangedSubview(view)
         }
         
-        [emailCehckStackView, emailHelperView].forEach { view in
-            emailStackView.addArrangedSubview(view)
-        }
-        
-        [emailStackView, passwordTextFieldView, checkPasswordTextFieldView, nickTextFieldView].forEach { textField in
-            stackView.addArrangedSubview(textField)
+        [emailCehckStackView, passwordTextFieldView, checkPasswordTextFieldView, nickTextFieldView].forEach { view in
+            stackView.addArrangedSubview(view)
         }
         
         addSubview(stackView)
+        addSubview(signUpButton)
     }
     
     override func configureLayout() {
         stackView.snp.makeConstraints { make in
             make.center.equalTo(snp.center)
             make.horizontalEdges.equalTo(snp.horizontalEdges).inset(30)
-            make.height.equalTo(textViewHeight * 4 + 128)
+            make.height.equalTo(textViewHeight * 4 + 15)
         }
         
         emailCheckButton.snp.makeConstraints { make in
-            make.height.equalTo(emailTextFieldView.snp.height)
+            make.top.equalTo(emailTextFieldView.snp.top)
+//            make.bottom.equalTo(emailTextFieldView.snp.bottom)
+            make.height.equalToSuperview().multipliedBy(0.7)
             make.width.equalTo(emailTextFieldView.snp.width).multipliedBy(0.2)
+        }
+        
+        signUpButton.snp.makeConstraints { make in
+            make.horizontalEdges.equalTo(stackView)
+            make.top.equalTo(stackView.snp.bottom).offset(20)
+            make.height.equalTo(48)
         }
         
     }
