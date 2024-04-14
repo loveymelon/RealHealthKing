@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		DF6367DF2BCB8F480087A075 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF6367DE2BCB8F480087A075 /* NetworkError.swift */; };
+		DF6367E12BCBD0CA0087A075 /* SignUpModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF6367E02BCBD0CA0087A075 /* SignUpModel.swift */; };
 		DF82CCD62BCA85800089989E /* ConfigureProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF82CCD52BCA85800089989E /* ConfigureProtocol.swift */; };
 		DF82CCD92BCA87090089989E /* TextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF82CCD82BCA87090089989E /* TextFieldView.swift */; };
 		DF82CCDB2BCA87910089989E /* InfoLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF82CCDA2BCA87910089989E /* InfoLabel.swift */; };
@@ -44,6 +45,7 @@
 
 /* Begin PBXFileReference section */
 		DF6367DE2BCB8F480087A075 /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
+		DF6367E02BCBD0CA0087A075 /* SignUpModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpModel.swift; sourceTree = "<group>"; };
 		DF82CCD52BCA85800089989E /* ConfigureProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigureProtocol.swift; sourceTree = "<group>"; };
 		DF82CCD82BCA87090089989E /* TextFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldView.swift; sourceTree = "<group>"; };
 		DF82CCDA2BCA87910089989E /* InfoLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoLabel.swift; sourceTree = "<group>"; };
@@ -153,6 +155,7 @@
 			children = (
 				DF82CCED2BCA9F0B0089989E /* TokenModel.swift */,
 				DF82CCEF2BCA9F190089989E /* LoginQuery.swift */,
+				DF6367E02BCBD0CA0087A075 /* SignUpModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -336,6 +339,7 @@
 			files = (
 				DF82CCF32BCA9F480089989E /* NetworkManager.swift in Sources */,
 				DF82CCDB2BCA87910089989E /* InfoLabel.swift in Sources */,
+				DF6367E12BCBD0CA0087A075 /* SignUpModel.swift in Sources */,
 				DF839D922BC9A87C001FE924 /* CustomTextField.swift in Sources */,
 				DF839D8D2BC93DCF001FE924 /* SignInView.swift in Sources */,
 				DF82CCE02BCA8DA70089989E /* TextFieldViewModel.swift in Sources */,
