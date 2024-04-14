@@ -46,6 +46,10 @@ class SignInView: BaseView {
         $0.titleLabel?.font = UIFont.boldSystemFont(ofSize: 14)
     }
     
+    let helperView = HelperView().then {
+        $0.isHidden = true
+    }
+    
     var emailConstraint: Constraint?
     var passwordConstraint: Constraint?
     
@@ -67,6 +71,7 @@ class SignInView: BaseView {
         
         addSubview(stackView)
         addSubview(signUpButton)
+        addSubview(helperView)
     }
     
     override func configureLayout() {
@@ -81,6 +86,12 @@ class SignInView: BaseView {
             make.top.equalTo(stackView.snp.bottom).offset(10)
             make.horizontalEdges.equalTo(safeAreaLayoutGuide.snp.horizontalEdges)
             make.height.equalTo(textViewHeight)
+        }
+        
+        helperView.snp.makeConstraints { make in
+            make.height.equalTo(30)
+            make.bottom.equalTo(stackView.snp.top).offset(-3)
+            make.horizontalEdges.equalTo(stackView.snp.horizontalEdges).inset(5)
         }
         
     }

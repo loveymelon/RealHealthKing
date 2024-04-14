@@ -97,6 +97,7 @@ class TextFieldView: UIView, UIConfigureProtocol {
             make.verticalEdges.equalTo(snp.verticalEdges).inset(15)
             make.trailing.equalTo(snp.trailing).inset(8)
         }
+        
     }
     
 }

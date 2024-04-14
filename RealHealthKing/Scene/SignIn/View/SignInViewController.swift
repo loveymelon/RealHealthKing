@@ -22,7 +22,7 @@ class SignInViewController: BaseViewController<SignInView> {
     
     override func bind() {
         mainView.signUpButton.rx.tap.bind(with: self) { owner, _ in
-            self.navigationController
+            self.navigationController?.pushViewController(SignUpViewController(), animated: true)
         }.disposed(by: disposeBag)
         
         let emailPassword = Observable.combineLatest(mainView.emailTextFieldView.textField.rx.text.orEmpty.asObservable(), mainView.passwordTextFieldView.textField.rx.text.orEmpty.asObservable()).asObservable()
@@ -49,9 +49,11 @@ class SignInViewController: BaseViewController<SignInView> {
             case NetworkError.blank:
                 print("blank")
             case LoginError.omission:
-                print("누락")
+                owner.mainView.helperView.label.text = "이메일 혹은 비밀번호가 빠졌습니다!"
+                owner.mainView.helperView.isHidden = false
             case LoginError.checkCount:
-                print("미회원 혹은 비번 확인")
+                owner.mainView.helperView.label.text = " 비밀번호가 틀렸습니다"
+                owner.mainView.helperView.isHidden = false
             default:
                 print("default")
             }

@@ -23,7 +23,7 @@ class BaseViewController<T: BaseView>: UIViewController {
     }
     
     func configureNav() {
-        
+       
     }
     
     func bind() {
