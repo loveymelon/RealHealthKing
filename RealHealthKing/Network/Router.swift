@@ -8,10 +8,12 @@
 import Foundation
 import Alamofire
 
+
 enum Router {
     case login(query: LoginQuery)
     case emailCheck(model: EmailCheckModel)
     case signUp(model: UserQuery)
+    case tokenRefresh(model: TokenModel)
 //    case withdraw
 //    case fetchPost
 //    case uploadPost
@@ -34,6 +36,8 @@ extension Router: TargetType {
             return .post
         case .signUp:
             return .post
+        case .tokenRefresh:
+            return .get
         }
     }
     
@@ -45,6 +49,8 @@ extension Router: TargetType {
             return "/validation/email"
         case .signUp:
             return "/users/join"
+        case .tokenRefresh:
+            return "/auth/refresh"
         }
     }
     
@@ -59,6 +65,10 @@ extension Router: TargetType {
         case .signUp:
             return [HTTPHeader.contentType.rawValue: HTTPHeader.json.rawValue,
                     HTTPHeader.sesacKey.rawValue: APIKey.secretKey.rawValue]
+        case .tokenRefresh(let token):
+            return [HTTPHeader.authorization.rawValue: token.accessToken,
+                    HTTPHeader.sesacKey.rawValue: APIKey.secretKey.rawValue,
+                    HTTPHeader.refresh.rawValue: token.refreshToken ?? "Empty"]
         }
     }
     
@@ -77,7 +87,6 @@ extension Router: TargetType {
             encoder.keyEncodingStrategy =
                 .convertToSnakeCase
             
-            
             return try? encoder.encode(query)
         case .emailCheck(let model):
             let encoder = JSONEncoder()
@@ -91,6 +100,8 @@ extension Router: TargetType {
                 .convertToSnakeCase
             
             return try? encoder.encode(model)
+        case .tokenRefresh:
+            return .none
         }
     }
 }

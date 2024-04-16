@@ -7,13 +7,18 @@
 
 import Foundation
 
-struct TokenModel: Decodable {
+struct TokenModel: Codable {
     let accessToken: String
     let refreshToken: String?
     
     enum CodingKeys: CodingKey {
         case accessToken
         case refreshToken
+    }
+    
+    init(accessToken: String, refreshToken: String) {
+        self.accessToken = accessToken
+        self.refreshToken = refreshToken
     }
     
     init(from decoder: any Decoder) throws {

@@ -8,6 +8,7 @@
 import Foundation
 import RxSwift
 import RxCocoa
+import KeychainSwift
 
 final class SignInViewModel: ViewModelType {
     
@@ -18,6 +19,7 @@ final class SignInViewModel: ViewModelType {
     struct Output {
         let networkError: Driver<Error>
     }
+    
     
     var disposeBag = DisposeBag()
     
@@ -30,8 +32,9 @@ final class SignInViewModel: ViewModelType {
             
             switch result {
             case .success(let data):
-                UserDefaults.standard.set(data.accessToken, forKey: "accessToken")
-                UserDefaults.standard.set(data.refreshToken, forKey: "refreshToken")
+                let keychain = KeychainSwift()
+                keychain.set(data.accessToken, forKey: "accessToken")
+                keychain.set(data.refreshToken ?? "empty", forKey: "refreshToken")
                 networkResult.accept(NetworkError.noError)
             case .failure(let error):
                 networkResult.accept(error)
