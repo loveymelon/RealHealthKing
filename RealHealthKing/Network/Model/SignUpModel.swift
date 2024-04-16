@@ -7,8 +7,8 @@
 
 import Foundation
 
-struct SignUpModel: Encodable {
+struct UserQuery: Codable {
     let email: String
-    let password: String
+    let password: String?
     let nick: String
 }

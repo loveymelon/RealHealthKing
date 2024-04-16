@@ -14,6 +14,8 @@ class SignInView: BaseView {
     
     let emailTextFieldView = TextViewWithHelperView().then {
         $0.textFieldView.infoLabel.text = "이메일 주소"
+        $0.helperView.isHidden = true
+        $0.helperView.imageView.tintColor = .red
     }
     
     let passwordTextFieldView = TextViewWithHelperView().then {
@@ -21,6 +23,8 @@ class SignInView: BaseView {
         $0.textFieldView.textField.isSecureTextEntry = true
         $0.textFieldView.secureButton.isHidden = false
         $0.textFieldView.secureButton.isEnabled = true
+        $0.helperView.isHidden = true
+        $0.helperView.imageView.tintColor = .red
     }
     
     let signInButton = UIButton().then {

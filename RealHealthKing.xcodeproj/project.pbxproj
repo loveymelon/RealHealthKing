@@ -14,6 +14,7 @@
 		DF6367E82BCBE28B0087A075 /* HelperView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF6367E72BCBE28B0087A075 /* HelperView.swift */; };
 		DF6367EA2BCBF3030087A075 /* TextViewWithHelperView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF6367E92BCBF3030087A075 /* TextViewWithHelperView.swift */; };
 		DF6367EC2BCBF3540087A075 /* TextWithHelperViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF6367EB2BCBF3540087A075 /* TextWithHelperViewModel.swift */; };
+		DF8135BF2BCD1E9900126B9F /* EmailCheckModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF8135BE2BCD1E9900126B9F /* EmailCheckModel.swift */; };
 		DF82CCD62BCA85800089989E /* ConfigureProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF82CCD52BCA85800089989E /* ConfigureProtocol.swift */; };
 		DF82CCD92BCA87090089989E /* TextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF82CCD82BCA87090089989E /* TextFieldView.swift */; };
 		DF82CCDB2BCA87910089989E /* InfoLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF82CCDA2BCA87910089989E /* InfoLabel.swift */; };
@@ -45,6 +46,8 @@
 		DF839D862BC93D3E001FE924 /* BaseController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF839D852BC93D3E001FE924 /* BaseController.swift */; };
 		DF839D8B2BC93DC1001FE924 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF839D8A2BC93DC1001FE924 /* SignInViewController.swift */; };
 		DF839D8D2BC93DCF001FE924 /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF839D8C2BC93DCF001FE924 /* SignInView.swift */; };
+		DF892AC02BCC44B8006C69AA /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF892ABF2BCC44B8006C69AA /* SignUpViewModel.swift */; };
+		DF892AC32BCC50B7006C69AA /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF892AC22BCC50B7006C69AA /* String+Extension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -55,6 +58,7 @@
 		DF6367E72BCBE28B0087A075 /* HelperView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelperView.swift; sourceTree = "<group>"; };
 		DF6367E92BCBF3030087A075 /* TextViewWithHelperView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextViewWithHelperView.swift; sourceTree = "<group>"; };
 		DF6367EB2BCBF3540087A075 /* TextWithHelperViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextWithHelperViewModel.swift; sourceTree = "<group>"; };
+		DF8135BE2BCD1E9900126B9F /* EmailCheckModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailCheckModel.swift; sourceTree = "<group>"; };
 		DF82CCD52BCA85800089989E /* ConfigureProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigureProtocol.swift; sourceTree = "<group>"; };
 		DF82CCD82BCA87090089989E /* TextFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldView.swift; sourceTree = "<group>"; };
 		DF82CCDA2BCA87910089989E /* InfoLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoLabel.swift; sourceTree = "<group>"; };
@@ -81,6 +85,8 @@
 		DF839D852BC93D3E001FE924 /* BaseController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseController.swift; sourceTree = "<group>"; };
 		DF839D8A2BC93DC1001FE924 /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
 		DF839D8C2BC93DCF001FE924 /* SignInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
+		DF892ABF2BCC44B8006C69AA /* SignUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
+		DF892AC22BCC50B7006C69AA /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,8 +110,8 @@
 		DF6367E22BCBD1930087A075 /* SignUp */ = {
 			isa = PBXGroup;
 			children = (
-				DF6367E32BCBD1A90087A075 /* SignUpViewController.swift */,
-				DF6367E52BCBD1B90087A075 /* SignUpView.swift */,
+				DF892ABE2BCC44A7006C69AA /* SignUpViewModel */,
+				DF892ABD2BCC449A006C69AA /* SignUpView */,
 			);
 			path = SignUp;
 			sourceTree = "<group>";
@@ -173,6 +179,7 @@
 				DF82CCED2BCA9F0B0089989E /* TokenModel.swift */,
 				DF82CCEF2BCA9F190089989E /* LoginQuery.swift */,
 				DF6367E02BCBD0CA0087A075 /* SignUpModel.swift */,
+				DF8135BE2BCD1E9900126B9F /* EmailCheckModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -197,6 +204,7 @@
 		DF839D562BC93B94001FE924 /* RealHealthKing */ = {
 			isa = PBXGroup;
 			children = (
+				DF892AC12BCC50A9006C69AA /* Extension */,
 				DF82CCE52BCA9E860089989E /* Network */,
 				DF82CCD42BCA85660089989E /* Protocol */,
 				DF839D812BC93D05001FE924 /* Scene */,
@@ -259,13 +267,46 @@
 		DF839D902BC9A859001FE924 /* Custom */ = {
 			isa = PBXGroup;
 			children = (
+				DF8A7F322BCE159000DA9C33 /* TextWithHelper */,
 				DF82CCDC2BCA8D860089989E /* TextFieldView */,
 				DF82CCDA2BCA87910089989E /* InfoLabel.swift */,
 				DF6367E72BCBE28B0087A075 /* HelperView.swift */,
-				DF6367E92BCBF3030087A075 /* TextViewWithHelperView.swift */,
-				DF6367EB2BCBF3540087A075 /* TextWithHelperViewModel.swift */,
 			);
 			path = Custom;
+			sourceTree = "<group>";
+		};
+		DF892ABD2BCC449A006C69AA /* SignUpView */ = {
+			isa = PBXGroup;
+			children = (
+				DF6367E32BCBD1A90087A075 /* SignUpViewController.swift */,
+				DF6367E52BCBD1B90087A075 /* SignUpView.swift */,
+			);
+			path = SignUpView;
+			sourceTree = "<group>";
+		};
+		DF892ABE2BCC44A7006C69AA /* SignUpViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				DF892ABF2BCC44B8006C69AA /* SignUpViewModel.swift */,
+			);
+			path = SignUpViewModel;
+			sourceTree = "<group>";
+		};
+		DF892AC12BCC50A9006C69AA /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				DF892AC22BCC50B7006C69AA /* String+Extension.swift */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
+		DF8A7F322BCE159000DA9C33 /* TextWithHelper */ = {
+			isa = PBXGroup;
+			children = (
+				DF6367EB2BCBF3540087A075 /* TextWithHelperViewModel.swift */,
+				DF6367E92BCBF3030087A075 /* TextViewWithHelperView.swift */,
+			);
+			path = TextWithHelper;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -363,12 +404,14 @@
 				DF839D8D2BC93DCF001FE924 /* SignInView.swift in Sources */,
 				DF82CCE02BCA8DA70089989E /* TextFieldViewModel.swift in Sources */,
 				DF82CCF02BCA9F190089989E /* LoginQuery.swift in Sources */,
+				DF892AC02BCC44B8006C69AA /* SignUpViewModel.swift in Sources */,
 				DF82CCF72BCA9F7E0089989E /* TargetType.swift in Sources */,
 				DF82CCE92BCA9ECA0089989E /* APIKey.swift in Sources */,
 				DF82CCE42BCA9CAB0089989E /* SignInViewModel.swift in Sources */,
 				DF6367DF2BCB8F480087A075 /* NetworkError.swift in Sources */,
 				DF839D842BC93D2C001FE924 /* BaseView.swift in Sources */,
 				DF6367E82BCBE28B0087A075 /* HelperView.swift in Sources */,
+				DF8135BF2BCD1E9900126B9F /* EmailCheckModel.swift in Sources */,
 				DF82CCE72BCA9E9E0089989E /* Headers.swift in Sources */,
 				DF839D582BC93B94001FE924 /* AppDelegate.swift in Sources */,
 				DF839D862BC93D3E001FE924 /* BaseController.swift in Sources */,
@@ -383,6 +426,7 @@
 				DF839D5A2BC93B94001FE924 /* SceneDelegate.swift in Sources */,
 				DF6367EC2BCBF3540087A075 /* TextWithHelperViewModel.swift in Sources */,
 				DF82CCD92BCA87090089989E /* TextFieldView.swift in Sources */,
+				DF892AC32BCC50B7006C69AA /* String+Extension.swift in Sources */,
 				DF82CCEB2BCA9EE10089989E /* NetworkVersion.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

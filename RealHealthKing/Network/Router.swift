@@ -10,7 +10,8 @@ import Alamofire
 
 enum Router {
     case login(query: LoginQuery)
-    case signUp(model: SignUpModel)
+    case emailCheck(model: EmailCheckModel)
+    case signUp(model: UserQuery)
 //    case withdraw
 //    case fetchPost
 //    case uploadPost
@@ -29,6 +30,8 @@ extension Router: TargetType {
         switch self {
         case .login:
             return .post
+        case .emailCheck:
+            return .post
         case .signUp:
             return .post
         }
@@ -38,6 +41,8 @@ extension Router: TargetType {
         switch self {
         case .login:
             return "/users/login"
+        case .emailCheck:
+            return "/validation/email"
         case .signUp:
             return "/users/join"
         }
@@ -46,6 +51,9 @@ extension Router: TargetType {
     var header: [String : String] {
         switch self {
         case .login:
+            return [HTTPHeader.contentType.rawValue: HTTPHeader.json.rawValue,
+                    HTTPHeader.sesacKey.rawValue: APIKey.secretKey.rawValue]
+        case .emailCheck:
             return [HTTPHeader.contentType.rawValue: HTTPHeader.json.rawValue,
                     HTTPHeader.sesacKey.rawValue: APIKey.secretKey.rawValue]
         case .signUp:
@@ -71,8 +79,14 @@ extension Router: TargetType {
             
             
             return try? encoder.encode(query)
+        case .emailCheck(let model):
+            let encoder = JSONEncoder()
+            encoder.keyEncodingStrategy =
+                .convertToSnakeCase
+            
+            return try? encoder.encode(model)
         case .signUp(let model):
-            let encoder = JSONEncoder() // 서버에서 알 수 있게 JSON으로 인코딩 하도록 도와주는것 (swift에서 만듦)
+            let encoder = JSONEncoder()
             encoder.keyEncodingStrategy =
                 .convertToSnakeCase
             

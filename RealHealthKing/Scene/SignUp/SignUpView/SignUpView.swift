@@ -13,6 +13,8 @@ class SignUpView: BaseView {
 
     let emailTextFieldView = TextViewWithHelperView().then {
         $0.textFieldView.infoLabel.text = "이메일 주소"
+        $0.helperView.label.text = "이메일 형식이 맞지 않습니다."
+        $0.helperView.isHidden = false
     }
     
     let emailCheckButton = UIButton().then {
@@ -32,18 +34,22 @@ class SignUpView: BaseView {
     
     let passwordTextFieldView = TextViewWithHelperView().then {
         $0.textFieldView.infoLabel.text = "비밀번호"
+        $0.helperView.label.text = "비밀번호는 8자 이상 20자 이하여야 합니다."
+//        $0.helperView.backgroundColor = .red
     }
     
     let checkPasswordTextFieldView = TextViewWithHelperView().then {
         $0.textFieldView.infoLabel.text = "비밀번호 확인"
+        $0.helperView.label.text = "비밀번호와 일치하지 않습니다."
     }
     
     let nickTextFieldView = TextViewWithHelperView().then {
         $0.textFieldView.infoLabel.text = "닉네임"
+        $0.helperView.label.text = "닉네임은 2글자 이상 8자 이하이여야 합니다."
     }
     
     let stackView = UIStackView().then {
-        $0.spacing = 5
+        $0.spacing = 10
         $0.axis = .vertical
         $0.distribution = .fillEqually
         $0.alignment = .fill
@@ -56,7 +62,7 @@ class SignUpView: BaseView {
         $0.layer.borderColor = UIColor.lightGray.cgColor
         $0.setTitle("완료", for: .normal)
         $0.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
-        $0.isEnabled = true
+        $0.isEnabled = false
     }
     
     private let textViewHeight: CGFloat = 64
@@ -86,7 +92,7 @@ class SignUpView: BaseView {
         stackView.snp.makeConstraints { make in
             make.center.equalTo(snp.center)
             make.horizontalEdges.equalTo(snp.horizontalEdges).inset(30)
-            make.height.equalTo(textViewHeight * 4 + 15)
+            make.height.equalTo(textViewHeight * 4 + 30)
         }
         
         emailCheckButton.snp.makeConstraints { make in

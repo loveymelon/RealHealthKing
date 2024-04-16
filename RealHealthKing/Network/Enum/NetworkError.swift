@@ -21,3 +21,13 @@ enum LoginError: Int, Error {
     case omission = 400 // 누락
     case checkCount = 401 // 미가입 유저, 비번 확인
 }
+
+enum DuplicateError: Int, Error {
+    case emptyValue = 400
+    case invalidEmail = 409
+}
+
+enum SignUpError: Int, Error {
+    case emptyValue = 400
+    case existingUser = 409
+}
