@@ -11,7 +11,7 @@ import RxSwift
 
 struct NetworkManager {
     
-    static func createLogin(query: LoginQuery) -> Single<Result<TokenModel, Error>> {
+    static func createLogin(query: LoginQuery) -> Single<Result<TokenModel, AppError>> {
         return Single.create { single in
             do {
                 let urlRequest = try Router.login(query: query).asURLRequest()
@@ -24,11 +24,11 @@ struct NetworkManager {
                             single(.success(.success(loginModel)))
                         case .failure(_):
                             if let statusCode = response.response?.statusCode, let netError = NetworkError(rawValue: statusCode) {
-                                single(.success(.failure(netError)))
+                                single(.success(.failure(AppError.networkError(netError))))
                             } else if let statusCode = response.response?.statusCode, let netError = LoginError(rawValue: statusCode) {
-                                single(.success(.failure(netError)))
+                                single(.success(.failure(AppError.loginError(netError))))
                             }
-                            single(.success(.failure(NetworkError.unownedError)))
+                            single(.success(.failure(AppError.unowned)))
                         }
                     }
             } catch {
@@ -39,7 +39,7 @@ struct NetworkManager {
         }
     }
     
-    static func duplicateEmail(model: EmailCheckModel) -> Single<Result<Bool, Error>> {
+    static func duplicateEmail(model: EmailCheckModel) -> Single<Result<Bool, AppError>> {
         return Single.create { single in
             do {
                 let urlRequest = try Router.emailCheck(model: model).asURLRequest()
@@ -52,13 +52,13 @@ struct NetworkManager {
                             single(.success(.success(true)))
                         case .failure(_):
                             if let statusCode = response.response?.statusCode, let netError = NetworkError(rawValue: statusCode) {
-                                single(.success(.failure(netError)))
+                                single(.success(.failure(AppError.networkError(netError))))
                             } else if let statusCode = response.response?.statusCode, let netError = DuplicateError(rawValue: statusCode) {
-                                single(.success(.failure(netError)))
+                                single(.success(.failure(AppError.duplicateError(netError))))
                             } else if let statusCode = response.response?.statusCode, statusCode == 200 {
                                 single(.success(.success(true)))
                             }
-                            single(.success(.failure(NetworkError.unownedError)))
+                            single(.success(.failure(AppError.unowned)))
                         }
                     }
             } catch {
@@ -69,7 +69,7 @@ struct NetworkManager {
         }
     }
     
-    static func createAccount(query: UserQuery) -> Single<Result<UserQuery, Error>> {
+    static func createAccount(query: UserQuery) -> Single<Result<UserQuery, AppError>> {
         return Single.create { single in
             do {
                 let urlRequest = try Router.signUp(model: query).asURLRequest()
@@ -82,11 +82,11 @@ struct NetworkManager {
                             single(.success(.success(userData)))
                         case .failure(_):
                             if let statusCode = response.response?.statusCode, let netError = NetworkError(rawValue: statusCode) {
-                                single(.success(.failure(netError)))
+                                single(.success(.failure(AppError.networkError(netError))))
                             } else if let statusCode = response.response?.statusCode, let netError = SignUpError(rawValue: statusCode) {
-                                single(.success(.failure(netError)))
+                                single(.success(.failure(AppError.signUpError(netError))))
                             }
-                            single(.success(.failure(NetworkError.unownedError)))
+                            single(.success(.failure(AppError.unowned)))
                         }
                     }
             } catch {
@@ -94,6 +94,25 @@ struct NetworkManager {
             }
             
             return Disposables.create()
+        }
+    }
+    
+    static func fetchPosts() {
+        do {
+            let urlRequest = try Router.postFetch.postURLRequest()
+            
+            AF.request(urlRequest, interceptor: NetworkInterceptor())
+                .validate(statusCode: 200..<300)
+                .responseDecodable(of: PostsModel.self) { response in
+                    switch response.result {
+                    case .success(let data):
+                        print(data.data)
+                    case .failure(let error):
+                        print(error)
+                    }
+                }
+        } catch {
+            print(error)
         }
     }
 }

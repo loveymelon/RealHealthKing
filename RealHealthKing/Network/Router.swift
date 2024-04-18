@@ -7,6 +7,7 @@
 
 import Foundation
 import Alamofire
+import KeychainSwift
 
 
 enum Router {
@@ -14,6 +15,7 @@ enum Router {
     case emailCheck(model: EmailCheckModel)
     case signUp(model: UserQuery)
     case tokenRefresh(model: TokenModel)
+    case postFetch
 //    case withdraw
 //    case fetchPost
 //    case uploadPost
@@ -38,6 +40,8 @@ extension Router: TargetType {
             return .post
         case .tokenRefresh:
             return .get
+        case .postFetch:
+            return .get
         }
     }
     
@@ -51,10 +55,15 @@ extension Router: TargetType {
             return "/users/join"
         case .tokenRefresh:
             return "/auth/refresh"
+        case .postFetch:
+            return "/posts"
         }
     }
     
     var header: [String : String] {
+        
+        let keyChain = KeychainSwift()
+        
         switch self {
         case .login:
             return [HTTPHeader.contentType.rawValue: HTTPHeader.json.rawValue,
@@ -65,10 +74,13 @@ extension Router: TargetType {
         case .signUp:
             return [HTTPHeader.contentType.rawValue: HTTPHeader.json.rawValue,
                     HTTPHeader.sesacKey.rawValue: APIKey.secretKey.rawValue]
-        case .tokenRefresh(let token):
-            return [HTTPHeader.authorization.rawValue: token.accessToken,
+        case .tokenRefresh:
+            return [HTTPHeader.authorization.rawValue: keyChain.get("accessToken") ?? "empty",
                     HTTPHeader.sesacKey.rawValue: APIKey.secretKey.rawValue,
-                    HTTPHeader.refresh.rawValue: token.refreshToken ?? "Empty"]
+                    HTTPHeader.refresh.rawValue: keyChain.get("refreshToken") ?? "Empty"]
+        case .postFetch:
+            return [HTTPHeader.authorization.rawValue: keyChain.get("accessToken") ?? "empty",
+                    HTTPHeader.sesacKey.rawValue: APIKey.secretKey.rawValue]
         }
     }
     
@@ -101,6 +113,8 @@ extension Router: TargetType {
             
             return try? encoder.encode(model)
         case .tokenRefresh:
+            return .none
+        case .postFetch:
             return .none
         }
     }

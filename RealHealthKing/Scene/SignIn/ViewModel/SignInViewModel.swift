@@ -17,14 +17,15 @@ final class SignInViewModel: ViewModelType {
     }
     
     struct Output {
-        let networkError: Driver<Error>
+        let networkSuccess: Driver<Bool>
+        let networkError: Driver<String>
     }
-    
     
     var disposeBag = DisposeBag()
     
     func transform(input: Input) -> Output {
-        let networkResult = BehaviorRelay<Error>(value: NetworkError.blank)
+        let networkResult = BehaviorRelay<String>(value: "")
+        let networkSuccess = BehaviorRelay<Bool>(value: false)
         
         input.signInButtonTap.flatMap { text in
             return NetworkManager.createLogin(query: LoginQuery(email: text.0, password: text.1)).asObservable()
@@ -35,16 +36,16 @@ final class SignInViewModel: ViewModelType {
                 let keychain = KeychainSwift()
                 keychain.set(data.accessToken, forKey: "accessToken")
                 keychain.set(data.refreshToken ?? "empty", forKey: "refreshToken")
-                networkResult.accept(NetworkError.noError)
+                networkSuccess.accept(true)
             case .failure(let error):
-                networkResult.accept(error)
+                networkSuccess.accept(false)
+                networkResult.accept(error.description)
             }
             
         }.disposed(by: disposeBag)
         
         
-        
-        return Output(networkError: networkResult.asDriver())
+        return Output(networkSuccess: networkSuccess.asDriver(), networkError: networkResult.asDriver())
     }
     
 }

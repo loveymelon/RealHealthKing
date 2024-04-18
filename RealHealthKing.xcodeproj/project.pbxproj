@@ -16,6 +16,9 @@
 		DF6367EC2BCBF3540087A075 /* TextWithHelperViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF6367EB2BCBF3540087A075 /* TextWithHelperViewModel.swift */; };
 		DF690D952BCECA3E00F3D1E0 /* KeychainSwift in Frameworks */ = {isa = PBXBuildFile; productRef = DF690D942BCECA3E00F3D1E0 /* KeychainSwift */; };
 		DF690D972BCECA7700F3D1E0 /* NetworkInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF690D962BCECA7700F3D1E0 /* NetworkInterceptor.swift */; };
+		DF690D992BCED7C200F3D1E0 /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF690D982BCED7C200F3D1E0 /* TestViewController.swift */; };
+		DF690D9B2BCEDB7700F3D1E0 /* PostsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF690D9A2BCEDB7700F3D1E0 /* PostsModel.swift */; };
+		DF690D9D2BCEDFD600F3D1E0 /* NextViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF690D9C2BCEDFD600F3D1E0 /* NextViewController.swift */; };
 		DF8135BF2BCD1E9900126B9F /* EmailCheckModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF8135BE2BCD1E9900126B9F /* EmailCheckModel.swift */; };
 		DF82CCD62BCA85800089989E /* ConfigureProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF82CCD52BCA85800089989E /* ConfigureProtocol.swift */; };
 		DF82CCD92BCA87090089989E /* TextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF82CCD82BCA87090089989E /* TextFieldView.swift */; };
@@ -48,8 +51,12 @@
 		DF839D862BC93D3E001FE924 /* BaseController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF839D852BC93D3E001FE924 /* BaseController.swift */; };
 		DF839D8B2BC93DC1001FE924 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF839D8A2BC93DC1001FE924 /* SignInViewController.swift */; };
 		DF839D8D2BC93DCF001FE924 /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF839D8C2BC93DCF001FE924 /* SignInView.swift */; };
+		DF856B442BD18B1200221DFA /* Toast in Frameworks */ = {isa = PBXBuildFile; productRef = DF856B432BD18B1200221DFA /* Toast */; };
 		DF892AC02BCC44B8006C69AA /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF892ABF2BCC44B8006C69AA /* SignUpViewModel.swift */; };
 		DF892AC32BCC50B7006C69AA /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF892AC22BCC50B7006C69AA /* String+Extension.swift */; };
+		DF95A51B2BD0FA4D00E6FCC4 /* PostingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF95A51A2BD0FA4D00E6FCC4 /* PostingView.swift */; };
+		DF95A51D2BD0FA5B00E6FCC4 /* PostingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF95A51C2BD0FA5B00E6FCC4 /* PostingViewController.swift */; };
+		DF95A51F2BD0FA6700E6FCC4 /* PostingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF95A51E2BD0FA6700E6FCC4 /* PostingViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -61,6 +68,9 @@
 		DF6367E92BCBF3030087A075 /* TextViewWithHelperView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextViewWithHelperView.swift; sourceTree = "<group>"; };
 		DF6367EB2BCBF3540087A075 /* TextWithHelperViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextWithHelperViewModel.swift; sourceTree = "<group>"; };
 		DF690D962BCECA7700F3D1E0 /* NetworkInterceptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkInterceptor.swift; sourceTree = "<group>"; };
+		DF690D982BCED7C200F3D1E0 /* TestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
+		DF690D9A2BCEDB7700F3D1E0 /* PostsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostsModel.swift; sourceTree = "<group>"; };
+		DF690D9C2BCEDFD600F3D1E0 /* NextViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NextViewController.swift; sourceTree = "<group>"; };
 		DF8135BE2BCD1E9900126B9F /* EmailCheckModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailCheckModel.swift; sourceTree = "<group>"; };
 		DF82CCD52BCA85800089989E /* ConfigureProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigureProtocol.swift; sourceTree = "<group>"; };
 		DF82CCD82BCA87090089989E /* TextFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldView.swift; sourceTree = "<group>"; };
@@ -90,6 +100,9 @@
 		DF839D8C2BC93DCF001FE924 /* SignInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
 		DF892ABF2BCC44B8006C69AA /* SignUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
 		DF892AC22BCC50B7006C69AA /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
+		DF95A51A2BD0FA4D00E6FCC4 /* PostingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostingView.swift; sourceTree = "<group>"; };
+		DF95A51C2BD0FA5B00E6FCC4 /* PostingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostingViewController.swift; sourceTree = "<group>"; };
+		DF95A51E2BD0FA6700E6FCC4 /* PostingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostingViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,6 +113,7 @@
 				DF839D752BC93C93001FE924 /* RxCocoa in Frameworks */,
 				DF839D802BC93CC2001FE924 /* Alamofire in Frameworks */,
 				DF839D6F2BC93C67001FE924 /* SnapKit in Frameworks */,
+				DF856B442BD18B1200221DFA /* Toast in Frameworks */,
 				DF839D772BC93C93001FE924 /* RxSwift in Frameworks */,
 				DF839D722BC93C72001FE924 /* Then in Frameworks */,
 				DF839D7A2BC93CA4001FE924 /* TextFieldEffects in Frameworks */,
@@ -185,6 +199,7 @@
 				DF82CCEF2BCA9F190089989E /* LoginQuery.swift */,
 				DF6367E02BCBD0CA0087A075 /* SignUpModel.swift */,
 				DF8135BE2BCD1E9900126B9F /* EmailCheckModel.swift */,
+				DF690D9A2BCEDB7700F3D1E0 /* PostsModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -226,10 +241,13 @@
 		DF839D812BC93D05001FE924 /* Scene */ = {
 			isa = PBXGroup;
 			children = (
+				DF95A5172BD0FA2100E6FCC4 /* Posting */,
 				DF6367E22BCBD1930087A075 /* SignUp */,
 				DF839D902BC9A859001FE924 /* Custom */,
 				DF839D872BC93D99001FE924 /* SignIn */,
 				DF839D822BC93D13001FE924 /* Base */,
+				DF690D982BCED7C200F3D1E0 /* TestViewController.swift */,
+				DF690D9C2BCEDFD600F3D1E0 /* NextViewController.swift */,
 			);
 			path = Scene;
 			sourceTree = "<group>";
@@ -314,6 +332,32 @@
 			path = TextWithHelper;
 			sourceTree = "<group>";
 		};
+		DF95A5172BD0FA2100E6FCC4 /* Posting */ = {
+			isa = PBXGroup;
+			children = (
+				DF95A5192BD0FA3600E6FCC4 /* ViewModel */,
+				DF95A5182BD0FA3100E6FCC4 /* View */,
+			);
+			path = Posting;
+			sourceTree = "<group>";
+		};
+		DF95A5182BD0FA3100E6FCC4 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				DF95A51A2BD0FA4D00E6FCC4 /* PostingView.swift */,
+				DF95A51C2BD0FA5B00E6FCC4 /* PostingViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		DF95A5192BD0FA3600E6FCC4 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				DF95A51E2BD0FA6700E6FCC4 /* PostingViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -339,6 +383,7 @@
 				DF839D7C2BC93CB3001FE924 /* IQKeyboardManagerSwift */,
 				DF839D7F2BC93CC2001FE924 /* Alamofire */,
 				DF690D942BCECA3E00F3D1E0 /* KeychainSwift */,
+				DF856B432BD18B1200221DFA /* Toast */,
 			);
 			productName = RealHealthKing;
 			productReference = DF839D542BC93B94001FE924 /* RealHealthKing.app */;
@@ -376,6 +421,7 @@
 				DF839D7B2BC93CB3001FE924 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */,
 				DF839D7E2BC93CC1001FE924 /* XCRemoteSwiftPackageReference "Alamofire" */,
 				DF690D932BCECA3E00F3D1E0 /* XCRemoteSwiftPackageReference "keychain-swift" */,
+				DF856B422BD18B1200221DFA /* XCRemoteSwiftPackageReference "Toast-Swift" */,
 			);
 			productRefGroup = DF839D552BC93B94001FE924 /* Products */;
 			projectDirPath = "";
@@ -407,9 +453,11 @@
 			files = (
 				DF82CCF32BCA9F480089989E /* NetworkManager.swift in Sources */,
 				DF82CCDB2BCA87910089989E /* InfoLabel.swift in Sources */,
+				DF95A51F2BD0FA6700E6FCC4 /* PostingViewModel.swift in Sources */,
 				DF6367E12BCBD0CA0087A075 /* SignUpModel.swift in Sources */,
 				DF839D8D2BC93DCF001FE924 /* SignInView.swift in Sources */,
 				DF82CCE02BCA8DA70089989E /* TextFieldViewModel.swift in Sources */,
+				DF690D9B2BCEDB7700F3D1E0 /* PostsModel.swift in Sources */,
 				DF82CCF02BCA9F190089989E /* LoginQuery.swift in Sources */,
 				DF892AC02BCC44B8006C69AA /* SignUpViewModel.swift in Sources */,
 				DF82CCF72BCA9F7E0089989E /* TargetType.swift in Sources */,
@@ -421,10 +469,14 @@
 				DF6367E82BCBE28B0087A075 /* HelperView.swift in Sources */,
 				DF8135BF2BCD1E9900126B9F /* EmailCheckModel.swift in Sources */,
 				DF82CCE72BCA9E9E0089989E /* Headers.swift in Sources */,
+				DF95A51D2BD0FA5B00E6FCC4 /* PostingViewController.swift in Sources */,
+				DF690D9D2BCEDFD600F3D1E0 /* NextViewController.swift in Sources */,
 				DF839D582BC93B94001FE924 /* AppDelegate.swift in Sources */,
 				DF839D862BC93D3E001FE924 /* BaseController.swift in Sources */,
+				DF690D992BCED7C200F3D1E0 /* TestViewController.swift in Sources */,
 				DF6367EA2BCBF3030087A075 /* TextViewWithHelperView.swift in Sources */,
 				DF82CCF52BCA9F670089989E /* Router.swift in Sources */,
+				DF95A51B2BD0FA4D00E6FCC4 /* PostingView.swift in Sources */,
 				DF6367E62BCBD1B90087A075 /* SignUpView.swift in Sources */,
 				DF839D8B2BC93DC1001FE924 /* SignInViewController.swift in Sources */,
 				DF82CCEE2BCA9F0B0089989E /* TokenModel.swift in Sources */,
@@ -716,6 +768,14 @@
 				minimumVersion = 5.9.1;
 			};
 		};
+		DF856B422BD18B1200221DFA /* XCRemoteSwiftPackageReference "Toast-Swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/scalessec/Toast-Swift.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.1.1;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -758,6 +818,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = DF839D7E2BC93CC1001FE924 /* XCRemoteSwiftPackageReference "Alamofire" */;
 			productName = Alamofire;
+		};
+		DF856B432BD18B1200221DFA /* Toast */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DF856B422BD18B1200221DFA /* XCRemoteSwiftPackageReference "Toast-Swift" */;
+			productName = Toast;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

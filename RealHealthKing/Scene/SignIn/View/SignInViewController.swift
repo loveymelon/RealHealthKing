@@ -8,6 +8,7 @@
 import UIKit
 import RxSwift
 import RxCocoa
+import Toast
 
 class SignInViewController: BaseViewController<SignInView> {
 
@@ -40,36 +41,17 @@ class SignInViewController: BaseViewController<SignInView> {
         let output = viewModel.transform(input: input)
         
         output.networkError.drive(with: self) { owner, networkResult in
-            switch networkResult {
-            case NetworkError.noSesacKey:
-                print("noSesacKey")
-            case NetworkError.overCall:
-                print("overCall")
-            case NetworkError.invalidURL:
-                print("invalidURL")
-            case NetworkError.severError:
-                print("severError")
-            case NetworkError.unownedError:
-                print("unowned")
-            case NetworkError.noError:
-                owner.mainView.emailTextFieldView.helperView.isHidden = true
-                print("success")
-            case NetworkError.blank:
-                owner.mainView.emailTextFieldView.helperView.isHidden = true
-                print("blank")
-            case LoginError.omission:
-                owner.mainView.emailTextFieldView.helperView.label.text = "이메일 혹은 비밀번호가 빠졌습니다!"
-                owner.mainView.emailTextFieldView.helperView.isHidden = false
-                print("omission")
-            case LoginError.checkCount:
-                owner.mainView.emailTextFieldView.helperView.label.text = "이메일 비밀번호가 틀렸거나 미회원일 수 있습니다!"
-                owner.mainView.emailTextFieldView.helperView.isHidden = false
-                print("checkCount")
-            default:
-                print("default")
+            if networkResult != "" {
+                owner.mainView.makeToast(networkResult, position: .center, title: "에러!!!")
             }
         }.disposed(by: disposeBag)
         
+        output.networkSuccess.drive(with: self) { owner, isValid in
+            if isValid {
+                owner.navigationController?.pushViewController(TestViewController(), animated: true)
+                print(isValid)
+            }
+        }.disposed(by: disposeBag)
     }
 
 }

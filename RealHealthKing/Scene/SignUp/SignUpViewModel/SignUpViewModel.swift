@@ -21,7 +21,7 @@ class SignUpViewModel: ViewModelType {
     
     struct Output {
         let checkButtonIs: Driver<Bool>
-        let networkError: Driver<Error>
+        let networkError: Driver<String>
         let isEmailValid: Driver<Bool>
         let isPasswordValid: Driver<Bool>
         let isCheckPasswordValid: Driver<Bool>
@@ -38,7 +38,8 @@ class SignUpViewModel: ViewModelType {
         let checkPasswordValidResult = BehaviorRelay(value: false)
         let nickValidResult = BehaviorRelay(value: false)
         let isSignUpButtonEnabled = BehaviorRelay(value: false)
-        let networkResult = BehaviorRelay<Error>(value: NetworkError.blank)
+        
+        let networkResult = BehaviorRelay(value: "")
         
         input.emailText.map { $0.checkEmail(str: $0) }.bind(to: checkButtonIs).disposed(by: disposeBag)
         
@@ -56,10 +57,9 @@ class SignUpViewModel: ViewModelType {
             case .success(let data):
                 print(data)
                 emailValidResult.accept(data)
-                networkResult.accept(NetworkError.noError)
             case .failure(let error):
                 print(error)
-                networkResult.accept(error)
+                networkResult.accept(error.description)
             }
         }.disposed(by: disposeBag)
         
@@ -84,9 +84,8 @@ class SignUpViewModel: ViewModelType {
                 switch result {
                 case .success(let data):
                     print(data)
-                    networkResult.accept(NetworkError.noError)
                 case .failure(let error):
-                    networkResult.accept(error)
+                    networkResult.accept(error.description)
                 }
             }
         
