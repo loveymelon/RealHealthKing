@@ -11,15 +11,15 @@ import RxCocoa
 import PhotosUI
 import RxGesture
 
-class PostingViewController: BaseViewController<PostingView> {
+final class PostingViewController: BaseViewController<PostingView> {
     
-    let viewModel = PostingViewModel()
+    private let viewModel = PostingViewModel()
     
-    let disposeBag = DisposeBag()
+    private let disposeBag = DisposeBag()
     
-    var userImageArray: [UIImage] = []
-    var userImages = BehaviorRelay<[UIImage]>(value: [])
-    var configuration = PHPickerConfiguration()
+    private var userImageArray: [UIImage] = []
+    private var userImages = BehaviorRelay<[UIImage]>(value: [])
+    private var configuration = PHPickerConfiguration()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -102,20 +102,68 @@ class PostingViewController: BaseViewController<PostingView> {
                 owner.mainView.imageInfoLabel.isHidden = true
             }
             
-            for num in 0..<imageCount {
-                let imageView = UIImageView()
-                let postionX = owner.mainView.frame.width * CGFloat(num)
-                imageView.frame = CGRect(x: postionX, y: 0, width: owner.mainView.frame.width, height: owner.mainView.scrollView.bounds.height)
-                
-                imageView.image = owner.userImageArray[num]
-                owner.mainView.scrollView.addSubview(imageView)
-                
-                owner.mainView.scrollView.contentSize.width = owner.mainView.frame.width * CGFloat(1+num) // scrollView의 넓이 설정
-            }
-            
-            owner.mainView.pageControl.numberOfPages = imageCount
+            owner.updateImageViews(imageCount: imageCount)
             
         }.disposed(by: disposeBag)
+        
+    }
+    
+}
+
+extension PostingViewController: PHPickerViewControllerDelegate, UINavigationControllerDelegate {
+    func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
+        
+        var selectedImages: [UIImage] = []
+        
+        for result in results where result.itemProvider.canLoadObject(ofClass: UIImage.self) {
+            
+            result.itemProvider.loadObject(ofClass: UIImage.self) { [weak self] (image, _ ) in
+                guard let self = self else { return }
+                
+                guard let image = image as? UIImage else { return }
+                selectedImages.append(image)
+                
+                guard selectedImages.count == results.count else { return }
+                
+                DispatchQueue.main.async { [weak self] in
+                    guard let self = self else { return }
+                    
+                    userImageArray.append(contentsOf: selectedImages)
+                    userImages.accept(userImageArray)
+                    
+                    picker.dismiss(animated: true, completion: nil)
+                }
+                
+            }
+            
+        }
+        
+    }
+    
+}
+
+extension PostingViewController: UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        mainView.pageControl.currentPage = Int(round(mainView.scrollView.contentOffset.x / UIScreen.main.bounds.width))
+        mainView.imageNumberLabel.text = "\(mainView.pageControl.currentPage+1)/\(mainView.pageControl.numberOfPages)"
+    }
+}
+
+extension PostingViewController {
+    private func updateImageViews(imageCount: Int) {
+        
+        for num in 0..<imageCount {
+            let imageView = UIImageView()
+            let postionX = mainView.frame.width * CGFloat(num)
+            imageView.frame = CGRect(x: postionX, y: 0, width: mainView.frame.width, height: mainView.scrollView.bounds.height)
+            
+            imageView.image = userImageArray[num]
+            mainView.scrollView.addSubview(imageView)
+            
+            mainView.scrollView.contentSize.width = mainView.frame.width * CGFloat(1+num) // scrollView의 넓이 설정
+        }
+        
+        mainView.pageControl.numberOfPages = imageCount
         
     }
     
@@ -154,47 +202,5 @@ class PostingViewController: BaseViewController<PostingView> {
             }
             
         }
-    }
-
-}
-
-// 선택할때마다 뷰모델
-
-extension PostingViewController: PHPickerViewControllerDelegate, UINavigationControllerDelegate {
-    func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
-        
-        var selectedImages: [UIImage] = []
-        
-        for result in results where result.itemProvider.canLoadObject(ofClass: UIImage.self) {
-            
-            result.itemProvider.loadObject(ofClass: UIImage.self) { [weak self] (image, _ ) in
-                guard let self = self else { return }
-                
-                guard let image = image as? UIImage else { return }
-                selectedImages.append(image)
-                
-                guard selectedImages.count == results.count else { return }
-                
-                DispatchQueue.main.async { [weak self] in
-                    guard let self = self else { return }
-                    
-                    userImageArray.append(contentsOf: selectedImages)
-                    userImages.accept(userImageArray)
-                    
-                    picker.dismiss(animated: true, completion: nil)
-                }
-                
-            }
-            
-        }
-        
-    }
-    
-}
-
-extension PostingViewController: UIScrollViewDelegate {
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        mainView.pageControl.currentPage = Int(round(mainView.scrollView.contentOffset.x / UIScreen.main.bounds.width))
-        mainView.imageNumberLabel.text = "\(mainView.pageControl.currentPage+1)/\(mainView.pageControl.numberOfPages)"
     }
 }

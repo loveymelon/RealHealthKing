@@ -9,7 +9,7 @@ import UIKit
 import Then
 import SnapKit
 
-class PostingView: BaseView {
+final class PostingView: BaseView {
     
     let scrollView = UIScrollView().then {
         $0.isPagingEnabled = true
@@ -53,7 +53,7 @@ class PostingView: BaseView {
         $0.layer.borderColor = UIColor.lightGray.cgColor
     }
     
-    let stackView = UIStackView().then {
+    private let stackView = UIStackView().then {
         $0.axis = .vertical
         $0.spacing = 10
         $0.alignment = .fill
