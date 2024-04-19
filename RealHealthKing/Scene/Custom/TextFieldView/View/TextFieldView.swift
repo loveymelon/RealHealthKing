@@ -31,6 +31,8 @@ class TextFieldView: UIView, UIConfigureProtocol {
     
     var infoLabelConstraint: Constraint?
     
+    let viewModel = TextFieldViewModel()
+    
     let disposeBag = DisposeBag()
 
     override init(frame: CGRect) {
@@ -47,6 +49,26 @@ class TextFieldView: UIView, UIConfigureProtocol {
     func bind() {
         secureButton.rx.tap.bind(with: self) { owner, _ in
             owner.textField.isSecureTextEntry.toggle()
+        }.disposed(by: disposeBag)
+        
+        let textFieldEndEdit = textField.rx.controlEvent(.editingDidEnd).withLatestFrom(textField.rx.text.orEmpty)
+            .map { String($0) }
+            .asObservable()
+        
+        let input = TextFieldViewModel.Input(textFieldEndEdit: textFieldEndEdit)
+        
+        let output = viewModel.transform(input: input)
+        
+        textField.rx.controlEvent(.editingDidBegin).bind(with: self) { owner, _ in
+            owner.infoLabel.font = UIFont.systemFont(ofSize: 11)
+            owner.infoLabelConstraint?.update(offset: -13)
+        }.disposed(by: disposeBag)
+        
+        output.textInfoLayoutUpdate.drive(with: self) { owner, check in
+            if !check {
+                owner.infoLabel.font = UIFont.systemFont(ofSize: 18)
+                owner.infoLabelConstraint?.update(offset: 0)
+            }
         }.disposed(by: disposeBag)
     }
     

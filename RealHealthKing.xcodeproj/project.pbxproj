@@ -19,6 +19,8 @@
 		DF690D992BCED7C200F3D1E0 /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF690D982BCED7C200F3D1E0 /* TestViewController.swift */; };
 		DF690D9B2BCEDB7700F3D1E0 /* PostsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF690D9A2BCEDB7700F3D1E0 /* PostsModel.swift */; };
 		DF690D9D2BCEDFD600F3D1E0 /* NextViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF690D9C2BCEDFD600F3D1E0 /* NextViewController.swift */; };
+		DF76D1CD2BD23EED00257C38 /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF76D1CC2BD23EED00257C38 /* UIViewController+Extension.swift */; };
+		DF76D1D02BD2521A00257C38 /* RxGesture in Frameworks */ = {isa = PBXBuildFile; productRef = DF76D1CF2BD2521A00257C38 /* RxGesture */; };
 		DF8135BF2BCD1E9900126B9F /* EmailCheckModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF8135BE2BCD1E9900126B9F /* EmailCheckModel.swift */; };
 		DF82CCD62BCA85800089989E /* ConfigureProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF82CCD52BCA85800089989E /* ConfigureProtocol.swift */; };
 		DF82CCD92BCA87090089989E /* TextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF82CCD82BCA87090089989E /* TextFieldView.swift */; };
@@ -71,6 +73,7 @@
 		DF690D982BCED7C200F3D1E0 /* TestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
 		DF690D9A2BCEDB7700F3D1E0 /* PostsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostsModel.swift; sourceTree = "<group>"; };
 		DF690D9C2BCEDFD600F3D1E0 /* NextViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NextViewController.swift; sourceTree = "<group>"; };
+		DF76D1CC2BD23EED00257C38 /* UIViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; };
 		DF8135BE2BCD1E9900126B9F /* EmailCheckModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailCheckModel.swift; sourceTree = "<group>"; };
 		DF82CCD52BCA85800089989E /* ConfigureProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigureProtocol.swift; sourceTree = "<group>"; };
 		DF82CCD82BCA87090089989E /* TextFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldView.swift; sourceTree = "<group>"; };
@@ -112,6 +115,7 @@
 			files = (
 				DF839D752BC93C93001FE924 /* RxCocoa in Frameworks */,
 				DF839D802BC93CC2001FE924 /* Alamofire in Frameworks */,
+				DF76D1D02BD2521A00257C38 /* RxGesture in Frameworks */,
 				DF839D6F2BC93C67001FE924 /* SnapKit in Frameworks */,
 				DF856B442BD18B1200221DFA /* Toast in Frameworks */,
 				DF839D772BC93C93001FE924 /* RxSwift in Frameworks */,
@@ -319,6 +323,7 @@
 			isa = PBXGroup;
 			children = (
 				DF892AC22BCC50B7006C69AA /* String+Extension.swift */,
+				DF76D1CC2BD23EED00257C38 /* UIViewController+Extension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -384,6 +389,7 @@
 				DF839D7F2BC93CC2001FE924 /* Alamofire */,
 				DF690D942BCECA3E00F3D1E0 /* KeychainSwift */,
 				DF856B432BD18B1200221DFA /* Toast */,
+				DF76D1CF2BD2521A00257C38 /* RxGesture */,
 			);
 			productName = RealHealthKing;
 			productReference = DF839D542BC93B94001FE924 /* RealHealthKing.app */;
@@ -422,6 +428,7 @@
 				DF839D7E2BC93CC1001FE924 /* XCRemoteSwiftPackageReference "Alamofire" */,
 				DF690D932BCECA3E00F3D1E0 /* XCRemoteSwiftPackageReference "keychain-swift" */,
 				DF856B422BD18B1200221DFA /* XCRemoteSwiftPackageReference "Toast-Swift" */,
+				DF76D1CE2BD2521A00257C38 /* XCRemoteSwiftPackageReference "RxGesture" */,
 			);
 			productRefGroup = DF839D552BC93B94001FE924 /* Products */;
 			projectDirPath = "";
@@ -459,6 +466,7 @@
 				DF82CCE02BCA8DA70089989E /* TextFieldViewModel.swift in Sources */,
 				DF690D9B2BCEDB7700F3D1E0 /* PostsModel.swift in Sources */,
 				DF82CCF02BCA9F190089989E /* LoginQuery.swift in Sources */,
+				DF76D1CD2BD23EED00257C38 /* UIViewController+Extension.swift in Sources */,
 				DF892AC02BCC44B8006C69AA /* SignUpViewModel.swift in Sources */,
 				DF82CCF72BCA9F7E0089989E /* TargetType.swift in Sources */,
 				DF82CCE92BCA9ECA0089989E /* APIKey.swift in Sources */,
@@ -720,6 +728,14 @@
 				minimumVersion = 22.0.0;
 			};
 		};
+		DF76D1CE2BD2521A00257C38 /* XCRemoteSwiftPackageReference "RxGesture" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/RxSwiftCommunity/RxGesture.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.0.4;
+			};
+		};
 		DF839D6D2BC93C67001FE924 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SnapKit/SnapKit";
@@ -783,6 +799,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = DF690D932BCECA3E00F3D1E0 /* XCRemoteSwiftPackageReference "keychain-swift" */;
 			productName = KeychainSwift;
+		};
+		DF76D1CF2BD2521A00257C38 /* RxGesture */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DF76D1CE2BD2521A00257C38 /* XCRemoteSwiftPackageReference "RxGesture" */;
+			productName = RxGesture;
 		};
 		DF839D6E2BC93C67001FE924 /* SnapKit */ = {
 			isa = XCSwiftPackageProductDependency;

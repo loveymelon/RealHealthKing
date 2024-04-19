@@ -27,33 +27,10 @@ class TextViewWithHelperView: UIView {
         super.init(frame: frame)
         
         configureUI()
-        bind()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-    
-    func bind() {
-        let textFieldEndEdit = textFieldView.textField.rx.controlEvent(.editingDidEnd).withLatestFrom(textFieldView.textField.rx.text.orEmpty)
-            .map { String($0) }
-            .asObservable()
-        
-        let input = TextWithHelperViewModel.Input(textFieldEndEdit: textFieldEndEdit)
-        
-        let output = viewModel.transform(input: input)
-        
-        textFieldView.textField.rx.controlEvent(.editingDidBegin).bind(with: self) { owner, _ in
-            owner.textFieldView.infoLabel.font = UIFont.systemFont(ofSize: 11)
-            owner.textFieldView.infoLabelConstraint?.update(offset: -13)
-        }.disposed(by: disposeBag)
-        
-        output.textInfoLayoutUpdate.drive(with: self) { owner, check in
-            if !check {
-                owner.textFieldView.infoLabel.font = UIFont.systemFont(ofSize: 18)
-                owner.textFieldView.infoLabelConstraint?.update(offset: 0)
-            }
-        }.disposed(by: disposeBag)
     }
     
 }
