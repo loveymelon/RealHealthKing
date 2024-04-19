@@ -43,7 +43,6 @@ class PostingViewController: BaseViewController<PostingView> {
                 if textView.text == "본인의 내용을 작성해주세요" {
                     textView.text = nil
                     textView.textColor = .systemGray5
-                    
                 }
             }).disposed(by: disposeBag)
         
@@ -60,10 +59,29 @@ class PostingViewController: BaseViewController<PostingView> {
         mainView.scrollView.rx.tapGesture().when(.recognized).bind(with: self) { owner, _ in
             owner.photoAuth()
             owner.showImageAlert(bool: true) {
-                owner.userImageArray.remove(at: owner.mainView.pageControl.currentPage)
-                print(owner.userImageArray.count)
+                
+                output.hasImages.drive(with: self) { owner, isValid in
+                    
+                    if isValid {
+                        owner.userImageArray.remove(at: owner.mainView.pageControl.currentPage)
+                        owner.userImages.accept(owner.userImageArray)
+                    }
+                    
+                }.disposed(by: owner.disposeBag)
+                
+                
             } completionHandler: {
+                
+//                output.limitedImageCount.drive(with: self) { owner, imageCount in
+//                    
+//                    if imageCount != 0 {
+//                        owner.openPhotoLibrary()
+//                    }
+//                    
+//                }.disposed(by: owner.disposeBag)
+                
                 owner.openPhotoLibrary()
+                
             }
 
         }.disposed(by: disposeBag)
@@ -137,10 +155,6 @@ class PostingViewController: BaseViewController<PostingView> {
             
         }
     }
-    
-//    func selectedPage(currentPage: Int) {
-//        mainView.pageControl.currentPage = currentPage
-//    }
 
 }
 
