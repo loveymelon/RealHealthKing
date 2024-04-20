@@ -117,7 +117,7 @@ struct NetworkManager {
         }
     }
     
-    static func uploadImage(images: [Data]) {
+    static func uploadImage(images: [Data], completionHandler: @escaping ([String]) -> Void) {
         
         AF.upload(multipartFormData: { multipartForm in
             for image in images {
@@ -128,12 +128,32 @@ struct NetworkManager {
         .responseDecodable(of: ImageFilesModel.self) { response in
             switch response.result {
             case .success(let data):
-                print(data)
+                completionHandler(data.files)
             case .failure(let error):
                 print(response.response?.statusCode)
             }
         }
         
+    }
+    
+    static func uploadPostContents(model: PostTest) {
+        
+        do {
+            
+            let urlRequest = try Router.posting(model: model).postURLRequest()
+            
+            AF.request(urlRequest).responseDecodable(of: Posts.self) { response in
+                switch response.result {
+                case .success(let value):
+                    print(value)
+                case .failure(let error):
+                    print(error)
+                }
+            }
+            
+        } catch {
+            print(error)
+        }
     }
 }
 

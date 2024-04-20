@@ -17,6 +17,7 @@ enum Router {
     case tokenRefresh(model: TokenModel)
     case postFetch
     case imageUpload
+    case posting(model: PostTest)
 //    case withdraw
 //    case fetchPost
 //    case uploadPost
@@ -45,6 +46,8 @@ extension Router: TargetType {
             return .get
         case .imageUpload:
             return .post
+        case .posting:
+            return .post
         }
     }
     
@@ -62,6 +65,8 @@ extension Router: TargetType {
             return "/posts"
         case .imageUpload:
             return "/posts/files"
+        case .posting:
+            return "/posts"
         }
     }
     
@@ -90,6 +95,12 @@ extension Router: TargetType {
             return [HTTPHeader.authorization.rawValue: keyChain.get("accessToken") ?? "empty",
                     HTTPHeader.contentType.rawValue: HTTPHeader.multipart.rawValue,
                     HTTPHeader.sesacKey.rawValue: APIKey.secretKey.rawValue]
+        case .posting:
+            return [
+                HTTPHeader.contentType.rawValue: HTTPHeader.json.rawValue,
+                HTTPHeader.sesacKey.rawValue: APIKey.secretKey.rawValue,
+                HTTPHeader.authorization.rawValue: keyChain.get("accessToken") ?? "empty"
+            ]
         }
     }
     
@@ -127,6 +138,12 @@ extension Router: TargetType {
             return .none
         case .imageUpload:
             return .none
+        case .posting(let model):
+            let encoder = JSONEncoder()
+            encoder.keyEncodingStrategy =
+                .convertToSnakeCase
+            
+            return try? encoder.encode(model)
         }
     }
 }

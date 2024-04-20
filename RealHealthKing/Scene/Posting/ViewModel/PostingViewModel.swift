@@ -15,6 +15,8 @@ class PostingViewModel: ViewModelType {
     struct Input {
         let imageCount: Observable<Int>
         
+        let titleText: Observable<String>
+        
         let textBeginEdit: Observable<String>
         let textEndEdit: Observable<String>
         let textValues: Observable<String>
@@ -83,7 +85,6 @@ class PostingViewModel: ViewModelType {
             
             for image in images {
                 if let imageData = image.resizeWithWidth(width: 700)?.jpegData(compressionQuality: 1) {
-                    print(imageData.count)
                     datas.append(imageData)
                 } else {
                     print("Failed to get image data.")
@@ -91,8 +92,15 @@ class PostingViewModel: ViewModelType {
             }
             
             if !datas.isEmpty {
-                NetworkManager.uploadImage(images: datas)
+                NetworkManager.uploadImage(images: datas) { result in
+                    Observable.combineLatest(input.titleText, input.textValues).subscribe { text in
+                        print(text.0, text.1)
+                        NetworkManager.uploadPostContents(model: PostTest(productId: "abc123", title: text.0, content: text.1, files: result))
+                    }.disposed(by: owner.disposeBag)
+                }
             }
+            
+            
             
         }.disposed(by: disposeBag)
         

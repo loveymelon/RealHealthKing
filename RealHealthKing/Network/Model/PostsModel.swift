@@ -7,20 +7,36 @@
 
 import Foundation
 
-struct PostsModel: Decodable {
+struct PostsModel: Codable {
     let data: [Posts]
 }
 
-struct Posts: Decodable {
+struct Posts: Codable {
     let postId: String?
     let productId: String?
     let title: String?
     let content: String?
+    let files: [String]
     
     enum CodingKeys: String, CodingKey {
         case postId = "post_id"
         case productId = "product_id"
         case title
         case content
+        case files
+    }
+}
+
+struct PostTest: Encodable {
+    let productId: String?
+    let title: String?
+    let content: String?
+    let files: [String]
+    
+    enum CodingKeys: String, CodingKey {
+        case productId = "product_id"
+        case title
+        case content
+        case files
     }
 }
