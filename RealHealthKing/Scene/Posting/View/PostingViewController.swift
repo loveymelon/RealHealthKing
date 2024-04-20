@@ -10,6 +10,7 @@ import RxSwift
 import RxCocoa
 import PhotosUI
 import RxGesture
+import Toast
 
 final class PostingViewController: BaseViewController<PostingView> {
     
@@ -54,44 +55,20 @@ final class PostingViewController: BaseViewController<PostingView> {
                 textView.text = "본인의 내용을 작성해주세요"
                 textView.textColor = .systemGray3
             }
-        }
+        }.disposed(by: disposeBag)
+        
+        mainView.scrollView.rx.tapGesture().when(.recognized).withLatestFrom(userImages).bind(with: self) { owner, images in
+            owner.handleImage(images: images)
+        }.disposed(by: disposeBag)
         
         // 터치시 갤러리 접근
-        mainView.scrollView.rx.tapGesture().when(.recognized).bind(with: self) { owner, _ in
-            owner.photoAuth()
-            owner.showImageAlert(bool: true) {
-                
-                output.hasImages.drive(with: self) { owner, isValid in
-                    
-                    if isValid {
-                        owner.userImageArray.remove(at: owner.mainView.pageControl.currentPage)
-                        owner.userImages.accept(owner.userImageArray)
-                    }
-                    
-                }.disposed(by: owner.disposeBag)
-                
-                
-            } completionHandler: {
-                
-//                output.limitedImageCount.drive(with: self) { owner, imageCount in
-//                    
-//                    if imageCount != 0 {
-//                        owner.openPhotoLibrary()
-//                    }
-//                    
-//                }.disposed(by: owner.disposeBag)
-                
-                owner.openPhotoLibrary()
-                
-            }
-
-        }.disposed(by: disposeBag)
         
         // 이미지 선택 제한
         output.limitedImageCount.drive(with: self, onNext: { owner, imageCount in
             owner.configuration.selectionLimit = imageCount
         }).disposed(by: disposeBag)
         
+        // 이미지 수에 맞는 UI변경
         output.currentImageCount.drive(with: self) { owner, imageCount in
             
             owner.updateImageLabels(imageCount: imageCount)
@@ -144,6 +121,28 @@ extension PostingViewController: UIScrollViewDelegate {
 }
 
 extension PostingViewController {
+    
+    private func handleImage(images: [UIImage]) {
+        photoAuth()
+        showImageAlert(bool: true) { [unowned self] in
+            
+            if images.count != 0 {
+                userImageArray.remove(at: mainView.pageControl.currentPage)
+                userImages.accept(userImageArray)
+            } else {
+                mainView.makeToast("사진이 5개 일때는 삭제가 불가능합니다.", duration: 1.0, position: .center)
+            }
+            
+        } completionHandler: { [unowned self] in
+            
+            if images.count != 5 {
+                openPhotoLibrary()
+            } else {
+                mainView.makeToast("사진은 최대 5개까지 등록가능합니다.", duration: 1.0, position: .center)
+            }
+        }
+    }
+    
     private func updateImageViews(imageCount: Int) {
         
         for num in 0..<imageCount {
@@ -196,6 +195,7 @@ extension PostingViewController {
         if PHPhotoLibrary.authorizationStatus() == .authorized || PHPhotoLibrary.authorizationStatus() == .restricted {
             
             configuration.filter = .any(of: [.images])
+            configuration.preferredAssetRepresentationMode = .current
             
             let picker = PHPickerViewController(configuration: configuration)
             picker.delegate = self
