@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		DF5FDA8E2BD418530013E1D3 /* UIImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF5FDA8D2BD418520013E1D3 /* UIImage+Extension.swift */; };
+		DF5FDA902BD43D6F0013E1D3 /* ImageFilesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF5FDA8F2BD43D6F0013E1D3 /* ImageFilesModel.swift */; };
 		DF6367DF2BCB8F480087A075 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF6367DE2BCB8F480087A075 /* NetworkError.swift */; };
 		DF6367E12BCBD0CA0087A075 /* SignUpModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF6367E02BCBD0CA0087A075 /* SignUpModel.swift */; };
 		DF6367E42BCBD1A90087A075 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF6367E32BCBD1A90087A075 /* SignUpViewController.swift */; };
@@ -64,6 +65,7 @@
 
 /* Begin PBXFileReference section */
 		DF5FDA8D2BD418520013E1D3 /* UIImage+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extension.swift"; sourceTree = "<group>"; };
+		DF5FDA8F2BD43D6F0013E1D3 /* ImageFilesModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageFilesModel.swift; sourceTree = "<group>"; };
 		DF6367DE2BCB8F480087A075 /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
 		DF6367E02BCBD0CA0087A075 /* SignUpModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpModel.swift; sourceTree = "<group>"; };
 		DF6367E32BCBD1A90087A075 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
@@ -206,6 +208,7 @@
 				DF6367E02BCBD0CA0087A075 /* SignUpModel.swift */,
 				DF8135BE2BCD1E9900126B9F /* EmailCheckModel.swift */,
 				DF690D9A2BCEDB7700F3D1E0 /* PostsModel.swift */,
+				DF5FDA8F2BD43D6F0013E1D3 /* ImageFilesModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -484,6 +487,7 @@
 				DF95A51D2BD0FA5B00E6FCC4 /* PostingViewController.swift in Sources */,
 				DF690D9D2BCEDFD600F3D1E0 /* NextViewController.swift in Sources */,
 				DF839D582BC93B94001FE924 /* AppDelegate.swift in Sources */,
+				DF5FDA902BD43D6F0013E1D3 /* ImageFilesModel.swift in Sources */,
 				DF839D862BC93D3E001FE924 /* BaseController.swift in Sources */,
 				DF690D992BCED7C200F3D1E0 /* TestViewController.swift in Sources */,
 				DF6367EA2BCBF3030087A075 /* TextViewWithHelperView.swift in Sources */,

@@ -16,6 +16,7 @@ enum Router {
     case signUp(model: UserQuery)
     case tokenRefresh(model: TokenModel)
     case postFetch
+    case imageUpload
 //    case withdraw
 //    case fetchPost
 //    case uploadPost
@@ -42,6 +43,8 @@ extension Router: TargetType {
             return .get
         case .postFetch:
             return .get
+        case .imageUpload:
+            return .post
         }
     }
     
@@ -57,6 +60,8 @@ extension Router: TargetType {
             return "/auth/refresh"
         case .postFetch:
             return "/posts"
+        case .imageUpload:
+            return "/posts/files"
         }
     }
     
@@ -80,6 +85,10 @@ extension Router: TargetType {
                     HTTPHeader.refresh.rawValue: keyChain.get("refreshToken") ?? "Empty"]
         case .postFetch:
             return [HTTPHeader.authorization.rawValue: keyChain.get("accessToken") ?? "empty",
+                    HTTPHeader.sesacKey.rawValue: APIKey.secretKey.rawValue]
+        case .imageUpload:
+            return [HTTPHeader.authorization.rawValue: keyChain.get("accessToken") ?? "empty",
+                    HTTPHeader.contentType.rawValue: HTTPHeader.multipart.rawValue,
                     HTTPHeader.sesacKey.rawValue: APIKey.secretKey.rawValue]
         }
     }
@@ -115,6 +124,8 @@ extension Router: TargetType {
         case .tokenRefresh:
             return .none
         case .postFetch:
+            return .none
+        case .imageUpload:
             return .none
         }
     }

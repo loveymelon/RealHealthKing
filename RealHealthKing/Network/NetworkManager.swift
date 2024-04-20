@@ -8,6 +8,7 @@
 import Foundation
 import Alamofire
 import RxSwift
+import UIKit
 
 struct NetworkManager {
     
@@ -114,6 +115,25 @@ struct NetworkManager {
         } catch {
             print(error)
         }
+    }
+    
+    static func uploadImage(images: [Data]) {
+        
+        AF.upload(multipartFormData: { multipartForm in
+            for image in images {
+                multipartForm.append(image, withName: "files", fileName: "images", mimeType: "image/png")
+            }
+            
+        }, to: Router.imageUpload.baseURL + Router.imageUpload.version + Router.imageUpload.path, headers: HTTPHeaders(Router.imageUpload.header), interceptor: NetworkInterceptor())
+        .responseDecodable(of: ImageFilesModel.self) { response in
+            switch response.result {
+            case .success(let data):
+                print(data)
+            case .failure(let error):
+                print(response.response?.statusCode)
+            }
+        }
+        
     }
 }
 

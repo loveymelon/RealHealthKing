@@ -8,6 +8,7 @@
 import Foundation
 import RxSwift
 import RxCocoa
+import UIKit
 
 class PostingViewModel: ViewModelType {
     
@@ -18,7 +19,7 @@ class PostingViewModel: ViewModelType {
         let textEndEdit: Observable<String>
         let textValues: Observable<String>
         
-        let saveButtonTap: Observable<Void>
+        let saveButtonTap: Observable<[UIImage]>
     }
     
     struct Output {
@@ -29,6 +30,7 @@ class PostingViewModel: ViewModelType {
         let outputTextBeginEdit: Driver<Bool>
         let outputTextEndEdit: Driver<Bool>
         let outputTextValue: Driver<String>
+        
         
         let outputError: Driver<String>
     }
@@ -75,7 +77,22 @@ class PostingViewModel: ViewModelType {
             }
         }.disposed(by: disposeBag)
         
-        input.saveButtonTap.subscribe(with: self) { owner, _ in
+        input.saveButtonTap.subscribe(with: self) { owner, images in
+            
+            var datas: [Data] = []
+            
+            for image in images {
+                if let imageData = image.resizeWithWidth(width: 700)?.jpegData(compressionQuality: 1) {
+                    print(imageData.count)
+                    datas.append(imageData)
+                } else {
+                    print("Failed to get image data.")
+                }
+            }
+            
+            if !datas.isEmpty {
+                NetworkManager.uploadImage(images: datas)
+            }
             
         }.disposed(by: disposeBag)
         

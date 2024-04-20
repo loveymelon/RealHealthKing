@@ -44,7 +44,7 @@ final class PostingViewController: BaseViewController<PostingView> {
         let textEndEdit = textView.rx.didEndEditing.withLatestFrom(textView.rx.text.orEmpty.asObservable())
         let textValues = textView.rx.text.orEmpty.asObservable()
         
-        let saveButtonTap = mainView.saveButton.rx.tap.asObservable()
+        let saveButtonTap = mainView.saveButton.rx.tap.withLatestFrom(userImages.asObservable())
 
         let input = PostingViewModel.Input(imageCount: imageCount, textBeginEdit: textBeginEdit, textEndEdit: textEndEdit, textValues: textValues, saveButtonTap: saveButtonTap)
         
