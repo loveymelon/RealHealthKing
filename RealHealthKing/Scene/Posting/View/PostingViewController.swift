@@ -93,14 +93,7 @@ final class PostingViewController: BaseViewController<PostingView> {
         
         output.currentImageCount.drive(with: self) { owner, imageCount in
             
-            if imageCount == 0 {
-                owner.mainView.imageNumberLabel.isHidden = true
-                owner.mainView.imageInfoLabel.isHidden = false
-                return
-            } else {
-                owner.mainView.imageNumberLabel.isHidden = false
-                owner.mainView.imageInfoLabel.isHidden = true
-            }
+            owner.updateImageLabels(imageCount: imageCount)
             
             owner.updateImageViews(imageCount: imageCount)
             
@@ -165,6 +158,17 @@ extension PostingViewController {
         
         mainView.pageControl.numberOfPages = imageCount
         
+    }
+    
+    func updateImageLabels(imageCount: Int) {
+        if imageCount == 0 {
+            mainView.imageNumberLabel.isHidden = true
+            mainView.imageInfoLabel.isHidden = false
+            return
+        } else {
+            mainView.imageNumberLabel.isHidden = false
+            mainView.imageInfoLabel.isHidden = true
+        }
     }
     
     private func photoAuth() {
