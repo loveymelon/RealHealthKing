@@ -28,32 +28,33 @@ final class PostingViewController: BaseViewController<PostingView> {
     }
     
     override func bind() {
+        
+        let textView = mainView.memoTextView
 
         let imageCount = userImages.map { $0.count }.asObservable()
+        let textBeginEdit = textView.rx.didBeginEditing.withLatestFrom(textView.rx.text.orEmpty.asObservable())
+        
+        let textEndEdit = textView.rx.didEndEditing.withLatestFrom(textView.rx.text.orEmpty.asObservable())
 
-        let input = PostingViewModel.Input(imageCount: imageCount)
+        let input = PostingViewModel.Input(imageCount: imageCount, textBeginEdit: textBeginEdit, textEndEdit: textEndEdit)
         
         let output = viewModel.transform(input: input)
         
         // TextView placeholder 설정
-        let textView = mainView.memoTextView
         
-        textView.rx.didBeginEditing
-            .bind(with: self, onNext: { owner, _ in
-                if textView.text == "본인의 내용을 작성해주세요" {
-                    textView.text = nil
-                    textView.textColor = .systemGray5
-                }
-            }).disposed(by: disposeBag)
+        output.outputTextBeginEdit.drive(with: self) { owenr, isValid in
+            if isValid {
+                textView.text = nil
+                textView.textColor = .systemGray5
+            }
+        }.disposed(by: disposeBag)
         
-        textView.rx.didEndEditing
-            .bind(with: self, onNext: { owner, _ in
-                if(textView.text == nil || textView.text == ""){
-                    textView.text = "본인의 내용을 작성해주세요"
-                    textView.textColor = .systemGray3
-                    
-                }
-            }).disposed(by: disposeBag)
+        output.outputTextEndEdit.drive(with: self) { owner, isValid in
+            if isValid {
+                textView.text = "본인의 내용을 작성해주세요"
+                textView.textColor = .systemGray3
+            }
+        }
         
         // 터치시 갤러리 접근
         mainView.scrollView.rx.tapGesture().when(.recognized).bind(with: self) { owner, _ in
