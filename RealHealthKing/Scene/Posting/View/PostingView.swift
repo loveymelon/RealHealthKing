@@ -70,6 +70,15 @@ final class PostingView: BaseView {
         $0.layer.cornerRadius = 5
         $0.layer.borderColor = UIColor.lightGray.cgColor
     }
+    
+    let memoCountLabel = UILabel().then {
+        $0.textColor = .white
+        $0.text = "0/100"
+    }
+    
+    let saveButton = UIButton().then {
+        $0.setTitle("저장", for: .normal)
+    }
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -91,6 +100,7 @@ final class PostingView: BaseView {
         }
         
         addSubview(stackView)
+        addSubview(memoCountLabel)
         addSubview(memoTextView)
     }
     
@@ -126,9 +136,15 @@ final class PostingView: BaseView {
             make.height.equalTo(safeAreaLayoutGuide.snp.height).multipliedBy(0.15)
         }
         
+        memoCountLabel.snp.makeConstraints { make in
+            make.trailing.equalTo(safeAreaLayoutGuide.snp.trailing).inset(10)
+            make.top.equalTo(stackView.snp.bottom).offset(10)
+            make.height.equalTo(28)
+        }
+        
         memoTextView.snp.makeConstraints { make in
             make.horizontalEdges.equalTo(safeAreaLayoutGuide.snp.horizontalEdges).inset(10)
-            make.top.equalTo(stackView.snp.bottom).offset(20)
+            make.top.equalTo(memoCountLabel.snp.bottom).offset(10)
             make.bottom.equalTo(safeAreaLayoutGuide.snp.bottom).inset(10)
         }
     }

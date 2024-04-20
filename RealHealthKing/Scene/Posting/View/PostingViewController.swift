@@ -28,6 +28,12 @@ final class PostingViewController: BaseViewController<PostingView> {
         mainView.scrollView.delegate = self
     }
     
+    override func configureNav() {
+        let rightBarButton = UIBarButtonItem(customView: mainView.saveButton)
+        
+        navigationItem.rightBarButtonItem = rightBarButton
+    }
+    
     override func bind() {
         
         let textView = mainView.memoTextView
@@ -36,8 +42,10 @@ final class PostingViewController: BaseViewController<PostingView> {
         let textBeginEdit = textView.rx.didBeginEditing.withLatestFrom(textView.rx.text.orEmpty.asObservable())
         
         let textEndEdit = textView.rx.didEndEditing.withLatestFrom(textView.rx.text.orEmpty.asObservable())
+        
+        let saveButtonTap = mainView.saveButton.rx.tap.asObservable()
 
-        let input = PostingViewModel.Input(imageCount: imageCount, textBeginEdit: textBeginEdit, textEndEdit: textEndEdit)
+        let input = PostingViewModel.Input(imageCount: imageCount, textBeginEdit: textBeginEdit, textEndEdit: textEndEdit, saveButtonTap: saveButtonTap)
         
         let output = viewModel.transform(input: input)
         

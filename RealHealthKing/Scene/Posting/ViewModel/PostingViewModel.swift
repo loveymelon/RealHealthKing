@@ -15,6 +15,8 @@ class PostingViewModel: ViewModelType {
         let imageCount: Observable<Int>
         let textBeginEdit: Observable<String>
         let textEndEdit: Observable<String>
+        
+        let saveButtonTap: Observable<Void>
     }
     
     struct Output {
@@ -24,6 +26,7 @@ class PostingViewModel: ViewModelType {
         
         let outputTextBeginEdit: Driver<Bool>
         let outputTextEndEdit: Driver<Bool>
+        let outputError: Driver<String>
     }
     
     var disposeBag = DisposeBag()
@@ -36,6 +39,8 @@ class PostingViewModel: ViewModelType {
         
         let resultTextBegin = BehaviorRelay(value: false)
         let resultTextEndEdit = BehaviorRelay(value: false)
+        
+        let resultError = BehaviorRelay(value: "")
         
         input.imageCount.subscribe { count in
             imageCount.accept(5 - count)
@@ -65,7 +70,11 @@ class PostingViewModel: ViewModelType {
             }
         }.disposed(by: disposeBag)
         
-        return Output(limitedImageCount: imageCount.asDriver(), currentImageCount: currentImageCount.asDriver(), hasImages: hasImages.asDriver(), outputTextBeginEdit: resultTextBegin.asDriver(), outputTextEndEdit: resultTextEndEdit.asDriver())
+        input.saveButtonTap.subscribe(with: self) { owner, _ in
+            
+        }.disposed(by: disposeBag)
+        
+        return Output(limitedImageCount: imageCount.asDriver(), currentImageCount: currentImageCount.asDriver(), hasImages: hasImages.asDriver(), outputTextBeginEdit: resultTextBegin.asDriver(), outputTextEndEdit: resultTextEndEdit.asDriver(), outputError: resultError.asDriver())
     }
     
 }
