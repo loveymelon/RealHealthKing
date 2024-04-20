@@ -39,22 +39,24 @@ final class PostingViewController: BaseViewController<PostingView> {
         let textView = mainView.memoTextView
 
         let imageCount = userImages.map { $0.count }.asObservable()
-        let textBeginEdit = textView.rx.didBeginEditing.withLatestFrom(textView.rx.text.orEmpty.asObservable())
         
+        let textBeginEdit = textView.rx.didBeginEditing.withLatestFrom(textView.rx.text.orEmpty.asObservable())
         let textEndEdit = textView.rx.didEndEditing.withLatestFrom(textView.rx.text.orEmpty.asObservable())
+        let textValues = textView.rx.text.orEmpty.asObservable()
         
         let saveButtonTap = mainView.saveButton.rx.tap.asObservable()
 
-        let input = PostingViewModel.Input(imageCount: imageCount, textBeginEdit: textBeginEdit, textEndEdit: textEndEdit, saveButtonTap: saveButtonTap)
+        let input = PostingViewModel.Input(imageCount: imageCount, textBeginEdit: textBeginEdit, textEndEdit: textEndEdit, textValues: textValues, saveButtonTap: saveButtonTap)
         
         let output = viewModel.transform(input: input)
         
         // TextView placeholder 설정
         
-        output.outputTextBeginEdit.drive(with: self) { owenr, isValid in
+        output.outputTextBeginEdit.drive(with: self) { owner, isValid in
             if isValid {
                 textView.text = nil
                 textView.textColor = .systemGray5
+                owner.mainView.imageNumberLabel.text = "0/100"
             }
         }.disposed(by: disposeBag)
         
@@ -62,7 +64,13 @@ final class PostingViewController: BaseViewController<PostingView> {
             if isValid {
                 textView.text = "본인의 내용을 작성해주세요"
                 textView.textColor = .systemGray3
+                owner.mainView.imageNumberLabel.text = "0/100"
             }
+        }.disposed(by: disposeBag)
+        
+        output.outputTextValue.drive(with: self) { owner, text in
+            textView.text = text
+            owner.mainView.imageNumberLabel.text = "\(text.count)/100"
         }.disposed(by: disposeBag)
         
         mainView.scrollView.rx.tapGesture().when(.recognized).withLatestFrom(userImages).bind(with: self) { owner, images in

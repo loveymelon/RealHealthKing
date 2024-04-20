@@ -13,8 +13,10 @@ class PostingViewModel: ViewModelType {
     
     struct Input {
         let imageCount: Observable<Int>
+        
         let textBeginEdit: Observable<String>
         let textEndEdit: Observable<String>
+        let textValues: Observable<String>
         
         let saveButtonTap: Observable<Void>
     }
@@ -26,6 +28,8 @@ class PostingViewModel: ViewModelType {
         
         let outputTextBeginEdit: Driver<Bool>
         let outputTextEndEdit: Driver<Bool>
+        let outputTextValue: Driver<String>
+        
         let outputError: Driver<String>
     }
     
@@ -39,6 +43,7 @@ class PostingViewModel: ViewModelType {
         
         let resultTextBegin = BehaviorRelay(value: false)
         let resultTextEndEdit = BehaviorRelay(value: false)
+        let resultTextValue = BehaviorRelay(value: "")
         
         let resultError = BehaviorRelay(value: "")
         
@@ -74,7 +79,40 @@ class PostingViewModel: ViewModelType {
             
         }.disposed(by: disposeBag)
         
-        return Output(limitedImageCount: imageCount.asDriver(), currentImageCount: currentImageCount.asDriver(), hasImages: hasImages.asDriver(), outputTextBeginEdit: resultTextBegin.asDriver(), outputTextEndEdit: resultTextEndEdit.asDriver(), outputError: resultError.asDriver())
+        input.textValues.subscribe { text in
+            
+            guard text == "본인의 내용을 작성해주세요" else {
+                resultTextValue.accept("본인의 내용을 작성해주세요")
+                return
+            }
+            
+            // 글자수 제한
+            let maxLength = 100
+            if text.count > maxLength {
+                resultTextValue.accept(String(text.prefix(maxLength)))
+            }
+            
+            // 줄바꿈(들여쓰기) 제한
+            let maxNumberOfLines = 4
+            let lineBreakCharacter = "\n"
+            let lines = text.components(separatedBy: lineBreakCharacter)
+            var consecutiveLineBreakCount = 0 // 연속된 줄 바꿈 횟수
+            
+            for line in lines {
+                if line.isEmpty { // 빈 줄이면 연속된 줄 바꿈으로 간주
+                    consecutiveLineBreakCount += 1
+                } else {
+                    consecutiveLineBreakCount = 0
+                }
+                
+                if consecutiveLineBreakCount > maxNumberOfLines {
+                    resultTextValue.accept(String(text.dropLast())) // 마지막 입력 문자를 제거
+                    break
+                }
+            }
+        }.disposed(by: disposeBag)
+        
+        return Output(limitedImageCount: imageCount.asDriver(), currentImageCount: currentImageCount.asDriver(), hasImages: hasImages.asDriver(), outputTextBeginEdit: resultTextBegin.asDriver(), outputTextEndEdit: resultTextEndEdit.asDriver(), outputTextValue: resultTextValue.asDriver(), outputError: resultError.asDriver())
     }
     
 }
