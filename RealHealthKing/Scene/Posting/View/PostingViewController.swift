@@ -65,14 +65,32 @@ final class PostingViewController: BaseViewController<PostingView> {
         output.outputTextEndEdit.drive(with: self) { owner, isValid in
             if isValid {
                 textView.text = "본인의 내용을 작성해주세요"
-                textView.textColor = .systemGray3
+                textView.textColor = .systemGray5
                 owner.mainView.imageNumberLabel.text = "0/100"
             }
         }.disposed(by: disposeBag)
         
         output.outputTextValue.drive(with: self) { owner, text in
-            textView.text = text
             owner.mainView.imageNumberLabel.text = "\(text.count)/100"
+        }.disposed(by: disposeBag)
+        
+        output.outputError.drive(with: self) { owner, text in
+            if !text.isEmpty {
+                owner.mainView.makeToast(text, duration: 1.0, position: .center)
+                if text == "재로그인 필요" {
+                    let signInVC = SignInViewController()
+                    
+                    self.view.window?.rootViewController = UINavigationController(rootViewController: signInVC)
+                    
+                    self.view.window?.makeKeyAndVisible()
+                    
+                }
+            }
+        }.disposed(by: disposeBag)
+        
+        output.networkSucces.drive(with: self) { owner, isValid in
+            let signInVC = SignInViewController()
+            
         }.disposed(by: disposeBag)
         
         mainView.scrollView.rx.tapGesture().when(.recognized).withLatestFrom(userImages).bind(with: self) { owner, images in

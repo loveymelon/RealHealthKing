@@ -117,7 +117,7 @@ struct NetworkManager {
         }
     }
     
-    static func uploadImage(images: [Data], completionHandler: @escaping ([String]) -> Void) {
+    static func uploadImage(images: [Data], completionHandler: @escaping (Result<[String], AppError>) -> Void) {
         
         AF.upload(multipartFormData: { multipartForm in
             for image in images {
@@ -128,26 +128,37 @@ struct NetworkManager {
         .responseDecodable(of: ImageFilesModel.self) { response in
             switch response.result {
             case .success(let data):
-                completionHandler(data.files)
-            case .failure(let error):
-                print(response.response?.statusCode)
+                completionHandler(.success(data.files))
+            case .failure(_):
+                if let statusCode = response.response?.statusCode, let netError = NetworkError(rawValue: statusCode) {
+                    completionHandler(.failure(AppError.networkError(netError)))
+                } else if let statusCode = response.response?.statusCode, let netError = ImageUploadError(rawValue: statusCode) {
+                    completionHandler(.failure(AppError.imageUploadError(netError)))
+                }
             }
         }
         
     }
     
-    static func uploadPostContents(model: PostTest) {
+    static func uploadPostContents(model: PostTest, completionHandler: @escaping (Result<Posts, AppError>) -> Void) {
         
         do {
             
             let urlRequest = try Router.posting(model: model).postURLRequest()
             
-            AF.request(urlRequest).responseDecodable(of: Posts.self) { response in
+            AF.request(urlRequest, interceptor: NetworkInterceptor()).responseDecodable(of: Posts.self) { response in
                 switch response.result {
                 case .success(let value):
-                    print(value)
-                case .failure(let error):
-                    print(error)
+                    
+                    let data = value
+                    completionHandler(.success(data))
+                    
+                case .failure(_):
+                    if let statusCode = response.response?.statusCode, let netError = NetworkError(rawValue: statusCode) {
+                        completionHandler(.failure(AppError.networkError(netError)))
+                    } else if let statusCode = response.response?.statusCode, let netError = PostingError(rawValue: statusCode) {
+                        completionHandler(.failure(AppError.postingError(netError)))
+                    }
                 }
             }
             

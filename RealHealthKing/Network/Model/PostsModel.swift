@@ -25,6 +25,7 @@ struct Posts: Codable {
         case content
         case files
     }
+ 
 }
 
 struct PostTest: Encodable {

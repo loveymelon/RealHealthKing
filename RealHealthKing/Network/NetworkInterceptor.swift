@@ -24,6 +24,7 @@ class NetworkInterceptor: RequestInterceptor {
     
     func retry(_ request: Request, for session: Session, dueTo error: any Error, completion: @escaping (RetryResult) -> Void) {
         guard let responses = request.task?.response as? HTTPURLResponse, responses.statusCode == 419 else {
+            print("dfdfdf")
             completion(.doNotRetryWithError(error))
             return
         }
@@ -39,6 +40,7 @@ class NetworkInterceptor: RequestInterceptor {
                     
                     switch response.result {
                     case .success(let accessToken):
+                        print("fdss")
                         keyChain.set(accessToken.accessToken, forKey: "accessToken")
                         completion(.retry)
                     case .failure(let error):

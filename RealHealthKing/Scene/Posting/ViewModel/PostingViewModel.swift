@@ -33,7 +33,7 @@ class PostingViewModel: ViewModelType {
         let outputTextEndEdit: Driver<Bool>
         let outputTextValue: Driver<String>
         
-        
+        let networkSucces: Driver<Bool>
         let outputError: Driver<String>
     }
     
@@ -49,6 +49,7 @@ class PostingViewModel: ViewModelType {
         let resultTextEndEdit = BehaviorRelay(value: false)
         let resultTextValue = BehaviorRelay(value: "")
         
+        let networkSuccess = BehaviorRelay(value: false)
         let resultError = BehaviorRelay(value: "")
         
         input.imageCount.subscribe { count in
@@ -82,24 +83,47 @@ class PostingViewModel: ViewModelType {
         input.saveButtonTap.subscribe(with: self) { owner, images in
             
             var datas: [Data] = []
+            var imageUrl: [String] = []
             
             for image in images {
                 if let imageData = image.resizeWithWidth(width: 700)?.jpegData(compressionQuality: 1) {
                     datas.append(imageData)
+                    print("success")
                 } else {
-                    print("Failed to get image data.")
+                    resultError.accept("이미지 압축 실패 다시 시도해주세요")
                 }
             }
             
             if !datas.isEmpty {
                 NetworkManager.uploadImage(images: datas) { result in
+                    
+                    switch result {
+                    case .success(let data):
+                        imageUrl = data
+                        print("success2")
+                    case .failure(let error):
+                        resultError.accept(error.description)
+                    }
+                    
                     Observable.combineLatest(input.titleText, input.textValues).subscribe { text in
-                        print(text.0, text.1)
-                        NetworkManager.uploadPostContents(model: PostTest(productId: "abc123", title: text.0, content: text.1, files: result))
+                        
+                        NetworkManager.uploadPostContents(model: PostTest(productId: "abc123", title: text.0, content: text.1, files: imageUrl)) { result in
+                            switch result {
+                            case .success(let data):
+                                networkSuccess.accept(true)
+                                print("success3")
+                            case .failure(let error):
+                                resultError.accept(error.description)
+                            }
+                        }
+                        
                     }.disposed(by: owner.disposeBag)
+                    
+                    resultError.accept("")
                 }
+            } else {
+                resultError.accept("이미지가 없습니다!")
             }
-            
             
             
         }.disposed(by: disposeBag)
@@ -137,7 +161,7 @@ class PostingViewModel: ViewModelType {
             }
         }.disposed(by: disposeBag)
         
-        return Output(limitedImageCount: imageCount.asDriver(), currentImageCount: currentImageCount.asDriver(), hasImages: hasImages.asDriver(), outputTextBeginEdit: resultTextBegin.asDriver(), outputTextEndEdit: resultTextEndEdit.asDriver(), outputTextValue: resultTextValue.asDriver(), outputError: resultError.asDriver())
+        return Output(limitedImageCount: imageCount.asDriver(), currentImageCount: currentImageCount.asDriver(), hasImages: hasImages.asDriver(), outputTextBeginEdit: resultTextBegin.asDriver(), outputTextEndEdit: resultTextEndEdit.asDriver(), outputTextValue: resultTextValue.asDriver(), networkSucces: networkSuccess.asDriver(), outputError: resultError.asDriver())
     }
     
 }
