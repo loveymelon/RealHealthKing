@@ -18,23 +18,6 @@ class TestViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let button = UIButton().then {
-            $0.setTitle("next", for: .normal)
-            $0.setTitleColor(.red, for: .normal)
-        }
-        
-        self.view.addSubview(button)
-        
-        button.snp.makeConstraints { make in
-            make.centerX.centerY.equalToSuperview()
-            make.size.equalTo(30)
-        }
-        
-        button.rx.tap.bind(with: self) { owner, _ in
-            owner.navigationController?.pushViewController(NextViewController(), animated: true)
-        }.disposed(by: disposeBag)
-        
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {

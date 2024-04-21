@@ -91,7 +91,8 @@ final class PostingViewController: BaseViewController<PostingView> {
         }.disposed(by: disposeBag)
         
         output.networkSucces.drive(with: self) { owner, isValid in
-            let signInVC = SignInViewController()
+            
+            owner.navigationController?.popViewController(animated: true)
             
         }.disposed(by: disposeBag)
         

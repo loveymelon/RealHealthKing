@@ -48,7 +48,7 @@ class SignInViewController: BaseViewController<SignInView> {
         
         output.networkSuccess.drive(with: self) { owner, isValid in
             if isValid {
-                owner.navigationController?.pushViewController(PostingViewController(), animated: true)
+                owner.navigationController?.pushViewController(TestViewController(), animated: true)
                 print(isValid)
             }
         }.disposed(by: disposeBag)

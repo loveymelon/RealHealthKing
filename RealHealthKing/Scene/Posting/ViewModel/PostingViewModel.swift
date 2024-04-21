@@ -90,7 +90,6 @@ class PostingViewModel: ViewModelType {
             for image in images {
                 if let imageData = image.resizeWithWidth(width: 700)?.jpegData(compressionQuality: 1) {
                     datas.append(imageData)
-                    print("success")
                 } else {
                     resultError.accept("이미지 압축 실패 다시 시도해주세요")
                 }
@@ -102,7 +101,6 @@ class PostingViewModel: ViewModelType {
                     switch result {
                     case .success(let data):
                         imageUrl = data
-                        print("success2")
                     case .failure(let error):
                         resultError.accept(error.description)
                     }
@@ -112,7 +110,6 @@ class PostingViewModel: ViewModelType {
                             switch result {
                             case .success(let data):
                                 networkSuccess.accept(true)
-                                print("success3")
                             case .failure(let error):
                                 resultError.accept(error.description)
                             }
@@ -127,11 +124,6 @@ class PostingViewModel: ViewModelType {
         }.disposed(by: disposeBag)
         
         input.textValues.subscribe { text in
-            
-            guard text == "본인의 내용을 작성해주세요" else {
-                resultTextValue.accept("본인의 내용을 작성해주세요")
-                return
-            }
             
             // 글자수 제한
             let maxLength = 100
@@ -154,7 +146,6 @@ class PostingViewModel: ViewModelType {
                 
                 if consecutiveLineBreakCount > maxNumberOfLines {
                     resultTextValue.accept(String(text.dropLast())) // 마지막 입력 문자를 제거
-                    break
                 }
             }
         }.disposed(by: disposeBag)
