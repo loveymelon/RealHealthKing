@@ -142,6 +142,29 @@
 			path = SignUp;
 			sourceTree = "<group>";
 		};
+		DF772DED2BD5057D00DD47B7 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				DF772DEF2BD5059C00DD47B7 /* View */,
+				DF772DEE2BD5059400DD47B7 /* ViewModel */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		DF772DEE2BD5059400DD47B7 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		DF772DEF2BD5059C00DD47B7 /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		DF82CCD42BCA85660089989E /* Protocol */ = {
 			isa = PBXGroup;
 			children = (
@@ -250,6 +273,7 @@
 		DF839D812BC93D05001FE924 /* Scene */ = {
 			isa = PBXGroup;
 			children = (
+				DF772DED2BD5057D00DD47B7 /* Home */,
 				DF95A5172BD0FA2100E6FCC4 /* Posting */,
 				DF6367E22BCBD1930087A075 /* SignUp */,
 				DF839D902BC9A859001FE924 /* Custom */,

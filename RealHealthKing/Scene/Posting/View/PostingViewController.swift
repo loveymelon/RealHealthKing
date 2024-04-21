@@ -42,13 +42,15 @@ final class PostingViewController: BaseViewController<PostingView> {
         
         let titleText = mainView.titleTextFieldView.textField.rx.text.orEmpty.asObservable()
         
+        let hashTags = mainView.tagTextFieldView.textField.rx.text.orEmpty.asObservable()
+        
         let textBeginEdit = textView.rx.didBeginEditing.withLatestFrom(textView.rx.text.orEmpty.asObservable())
         let textEndEdit = textView.rx.didEndEditing.withLatestFrom(textView.rx.text.orEmpty.asObservable())
         let textValues = textView.rx.text.orEmpty.asObservable()
         
         let saveButtonTap = mainView.saveButton.rx.tap.withLatestFrom(userImages.asObservable())
 
-        let input = PostingViewModel.Input(imageCount: imageCount, titleText: titleText, textBeginEdit: textBeginEdit, textEndEdit: textEndEdit, textValues: textValues, saveButtonTap: saveButtonTap)
+        let input = PostingViewModel.Input(imageCount: imageCount, titleText: titleText, hashText: hashTags, textBeginEdit: textBeginEdit, textEndEdit: textEndEdit, textValues: textValues, saveButtonTap: saveButtonTap)
         
         let output = viewModel.transform(input: input)
         

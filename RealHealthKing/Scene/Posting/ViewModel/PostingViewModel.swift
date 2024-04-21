@@ -17,6 +17,8 @@ class PostingViewModel: ViewModelType {
         
         let titleText: Observable<String>
         
+        let hashText: Observable<String>
+        
         let textBeginEdit: Observable<String>
         let textEndEdit: Observable<String>
         let textValues: Observable<String>
@@ -105,9 +107,8 @@ class PostingViewModel: ViewModelType {
                         resultError.accept(error.description)
                     }
                     
-                    Observable.combineLatest(input.titleText, input.textValues).subscribe { text in
-                        
-                        NetworkManager.uploadPostContents(model: PostTest(productId: "abc123", title: text.0, content: text.1, files: imageUrl)) { result in
+                    Observable.combineLatest(input.titleText, input.textValues, input.hashText).subscribe { text in
+                        NetworkManager.uploadPostContents(model: PostTest(productId: "abc123", title: text.0, content: text.1 + text.2, files: imageUrl)) { result in
                             switch result {
                             case .success(let data):
                                 networkSuccess.accept(true)
@@ -116,10 +117,7 @@ class PostingViewModel: ViewModelType {
                                 resultError.accept(error.description)
                             }
                         }
-                        
                     }.disposed(by: owner.disposeBag)
-                    
-                    resultError.accept("")
                 }
             } else {
                 resultError.accept("이미지가 없습니다!")
