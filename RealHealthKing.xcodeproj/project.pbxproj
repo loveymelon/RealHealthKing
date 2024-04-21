@@ -61,6 +61,7 @@
 		DF8E464B2BD56CE900606390 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF8E464A2BD56CE900606390 /* HomeViewController.swift */; };
 		DF8E464D2BD56CF800606390 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF8E464C2BD56CF800606390 /* HomeViewModel.swift */; };
 		DF8E464F2BD56D0700606390 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF8E464E2BD56D0700606390 /* HomeView.swift */; };
+		DF8E46512BD578BC00606390 /* UILabel+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF8E46502BD578BC00606390 /* UILabel+Extension.swift */; };
 		DF95A51B2BD0FA4D00E6FCC4 /* PostingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF95A51A2BD0FA4D00E6FCC4 /* PostingView.swift */; };
 		DF95A51D2BD0FA5B00E6FCC4 /* PostingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF95A51C2BD0FA5B00E6FCC4 /* PostingViewController.swift */; };
 		DF95A51F2BD0FA6700E6FCC4 /* PostingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF95A51E2BD0FA6700E6FCC4 /* PostingViewModel.swift */; };
@@ -113,6 +114,7 @@
 		DF8E464A2BD56CE900606390 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		DF8E464C2BD56CF800606390 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		DF8E464E2BD56D0700606390 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		DF8E46502BD578BC00606390 /* UILabel+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+Extension.swift"; sourceTree = "<group>"; };
 		DF95A51A2BD0FA4D00E6FCC4 /* PostingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostingView.swift; sourceTree = "<group>"; };
 		DF95A51C2BD0FA5B00E6FCC4 /* PostingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostingViewController.swift; sourceTree = "<group>"; };
 		DF95A51E2BD0FA6700E6FCC4 /* PostingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostingViewModel.swift; sourceTree = "<group>"; };
@@ -363,6 +365,7 @@
 				DF892AC22BCC50B7006C69AA /* String+Extension.swift */,
 				DF76D1CC2BD23EED00257C38 /* UIViewController+Extension.swift */,
 				DF5FDA8D2BD418520013E1D3 /* UIImage+Extension.swift */,
+				DF8E46502BD578BC00606390 /* UILabel+Extension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -497,6 +500,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DF8E46512BD578BC00606390 /* UILabel+Extension.swift in Sources */,
 				DF5FDA8E2BD418530013E1D3 /* UIImage+Extension.swift in Sources */,
 				DF82CCF32BCA9F480089989E /* NetworkManager.swift in Sources */,
 				DF82CCDB2BCA87910089989E /* InfoLabel.swift in Sources */,

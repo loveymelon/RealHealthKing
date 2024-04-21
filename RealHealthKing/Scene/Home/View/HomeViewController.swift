@@ -19,6 +19,7 @@ class HomeViewController: BaseViewController<HomeView>{
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         updateImageViews(imageCount: 5)
+        print(mainView.contentLabel.lineCount)
     }
 
 }

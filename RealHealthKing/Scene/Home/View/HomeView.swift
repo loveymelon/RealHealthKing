@@ -59,6 +59,18 @@ class HomeView: BaseView {
         $0.spacing = 10
         $0.alignment = .fill
     }
+    
+    let contentLabel = UILabel().then {
+        $0.numberOfLines = 3
+        $0.text = "dfjkashfjkldshfkldjsgklkladgsnjkladfnklnjkcxznvklberijkuahnibnqriotjeoqjntijadlfndkls;fnm,adsmfkldsnklfmdklsafnkls;flmdsnfkl;sadnfkldknsaklnfdklsnfklasnjkcxzklvmnjklranejkherwijqthiouehwnjknewklrnldsnfalknfkldsamvlnsakldfjkjasdkfjasdfhjkdshdfjkheiouwfnjkndlsncvjknsdjljdfhskajhfjkashfjkashfjkhadjksfhldashfjkhasjkldfhdjksahfjkhasjkfhadjshfjkdsahjkvbajkbvmnbcxzmnvbhjfbah"
+        $0.textColor = .white
+        $0.font = .systemFont(ofSize: 20)
+    }
+    
+    let moreButton = UIButton().then {
+        $0.setTitle("더보기", for: .normal)
+        $0.setTitleColor(.systemBlue, for: .normal)
+    }
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -82,6 +94,7 @@ class HomeView: BaseView {
         
         addSubview(bottomStackView)
         addSubview(pageControl)
+        addSubview(contentLabel)
     }
     
     override func configureLayout() {
@@ -116,6 +129,11 @@ class HomeView: BaseView {
             make.height.equalTo(20)
 //            make.leading.equalTo(bottomStackView.snp.trailing).offset(10)
 //            make.top.equalTo(scrollView.snp.bottom).offset(10)
+        }
+        
+        contentLabel.snp.makeConstraints { make in
+            make.horizontalEdges.equalTo(safeAreaLayoutGuide).inset(10)
+            make.top.equalTo(bottomStackView.snp.bottom).offset(10)
         }
         
     }
