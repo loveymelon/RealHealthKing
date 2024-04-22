@@ -6,7 +6,8 @@
 //
 
 import UIKit
-
+import Kingfisher
+import KeychainSwift
 
 extension UIImage {
     
@@ -22,20 +23,36 @@ extension UIImage {
             return result
         }
     
-    func downsampleImage(at imageURL: URL, to pointSize: CGSize, scale: CGFloat) -> UIImage {
-        let imageSourceOptions = [kCGImageSourceShouldCache: false] as CFDictionary
-        let imageSource = CGImageSourceCreateWithURL(imageURL as CFURL, imageSourceOptions)!
-        
-        let maxDimensionInPixels = max(pointSize.width, pointSize.height) * scale
-        let downsampleOptions = [
-            kCGImageSourceCreateThumbnailFromImageAlways: true,
-            kCGImageSourceShouldCacheImmediately: true,
-            kCGImageSourceCreateThumbnailWithTransform: true,
-            kCGImageSourceThumbnailMaxPixelSize: maxDimensionInPixels
-        ] as CFDictionary
-        
-        let downsampledImage = CGImageSourceCreateThumbnailAtIndex(imageSource, 0, downsampleOptions)!
-        return UIImage(cgImage: downsampledImage)
-    }
+}
+
+extension UIImageView {
     
+    func downloadImage(imageUrl: String, width: CGFloat, height: CGFloat) {
+        
+        guard let url = URL(string: imageUrl), let scale = UIScreen.current?.scale else { return }
+        
+        let processor = DownsamplingImageProcessor(size: CGSize(width: width, height: height))
+        
+        let keyChain = KeychainSwift()
+        
+        let imageDownloadRequest = AnyModifier { request in
+            var requestBody = request
+            requestBody.setValue(keyChain.get("accessToken") ?? "empty", forHTTPHeaderField: HTTPHeader.authorization.rawValue)
+            requestBody.setValue(APIKey.secretKey.rawValue, forHTTPHeaderField: HTTPHeader.sesacKey.rawValue)
+            return requestBody
+        }
+        
+        KingfisherManager.shared.retrieveImage(with: url, options: [
+            .processor(processor),
+            .requestModifier(imageDownloadRequest),
+            .scaleFactor(scale),
+        ]) { imageResult in
+            switch imageResult {
+            case .success(let result):
+                self.image = result.image
+            case .failure(let error):
+                print(error)
+            }
+        }
+    }
 }

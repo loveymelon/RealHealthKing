@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DF43904E2BD63BBB00520CF7 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = DF43904D2BD63BBB00520CF7 /* Kingfisher */; };
+		DF4390502BD6544100520CF7 /* UIScreen+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF43904F2BD6544100520CF7 /* UIScreen+Extension.swift */; };
 		DF5FDA8E2BD418530013E1D3 /* UIImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF5FDA8D2BD418520013E1D3 /* UIImage+Extension.swift */; };
 		DF5FDA902BD43D6F0013E1D3 /* ImageFilesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF5FDA8F2BD43D6F0013E1D3 /* ImageFilesModel.swift */; };
 		DF6367DF2BCB8F480087A075 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF6367DE2BCB8F480087A075 /* NetworkError.swift */; };
@@ -66,6 +68,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		DF43904F2BD6544100520CF7 /* UIScreen+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIScreen+Extension.swift"; sourceTree = "<group>"; };
 		DF5FDA8D2BD418520013E1D3 /* UIImage+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extension.swift"; sourceTree = "<group>"; };
 		DF5FDA8F2BD43D6F0013E1D3 /* ImageFilesModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageFilesModel.swift; sourceTree = "<group>"; };
 		DF6367DE2BCB8F480087A075 /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
@@ -129,6 +132,7 @@
 				DF839D772BC93C93001FE924 /* RxSwift in Frameworks */,
 				DF839D722BC93C72001FE924 /* Then in Frameworks */,
 				DF839D7A2BC93CA4001FE924 /* TextFieldEffects in Frameworks */,
+				DF43904E2BD63BBB00520CF7 /* Kingfisher in Frameworks */,
 				DF690D952BCECA3E00F3D1E0 /* KeychainSwift in Frameworks */,
 				DF839D7D2BC93CB3001FE924 /* IQKeyboardManagerSwift in Frameworks */,
 			);
@@ -360,6 +364,7 @@
 				DF76D1CC2BD23EED00257C38 /* UIViewController+Extension.swift */,
 				DF5FDA8D2BD418520013E1D3 /* UIImage+Extension.swift */,
 				DF8E46502BD578BC00606390 /* UILabel+Extension.swift */,
+				DF43904F2BD6544100520CF7 /* UIScreen+Extension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -426,6 +431,7 @@
 				DF690D942BCECA3E00F3D1E0 /* KeychainSwift */,
 				DF856B432BD18B1200221DFA /* Toast */,
 				DF76D1CF2BD2521A00257C38 /* RxGesture */,
+				DF43904D2BD63BBB00520CF7 /* Kingfisher */,
 			);
 			productName = RealHealthKing;
 			productReference = DF839D542BC93B94001FE924 /* RealHealthKing.app */;
@@ -465,6 +471,7 @@
 				DF690D932BCECA3E00F3D1E0 /* XCRemoteSwiftPackageReference "keychain-swift" */,
 				DF856B422BD18B1200221DFA /* XCRemoteSwiftPackageReference "Toast-Swift" */,
 				DF76D1CE2BD2521A00257C38 /* XCRemoteSwiftPackageReference "RxGesture" */,
+				DF43904C2BD63BBB00520CF7 /* XCRemoteSwiftPackageReference "Kingfisher" */,
 			);
 			productRefGroup = DF839D552BC93B94001FE924 /* Products */;
 			projectDirPath = "";
@@ -503,6 +510,7 @@
 				DF839D8D2BC93DCF001FE924 /* SignInView.swift in Sources */,
 				DF82CCE02BCA8DA70089989E /* TextFieldViewModel.swift in Sources */,
 				DF690D9B2BCEDB7700F3D1E0 /* PostsModel.swift in Sources */,
+				DF4390502BD6544100520CF7 /* UIScreen+Extension.swift in Sources */,
 				DF82CCF02BCA9F190089989E /* LoginQuery.swift in Sources */,
 				DF76D1CD2BD23EED00257C38 /* UIViewController+Extension.swift in Sources */,
 				DF892AC02BCC44B8006C69AA /* SignUpViewModel.swift in Sources */,
@@ -760,6 +768,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		DF43904C2BD63BBB00520CF7 /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onevcat/Kingfisher.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.11.0;
+			};
+		};
 		DF690D932BCECA3E00F3D1E0 /* XCRemoteSwiftPackageReference "keychain-swift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/evgenyneu/keychain-swift.git";
@@ -835,6 +851,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		DF43904D2BD63BBB00520CF7 /* Kingfisher */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DF43904C2BD63BBB00520CF7 /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = Kingfisher;
+		};
 		DF690D942BCECA3E00F3D1E0 /* KeychainSwift */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = DF690D932BCECA3E00F3D1E0 /* XCRemoteSwiftPackageReference "keychain-swift" */;

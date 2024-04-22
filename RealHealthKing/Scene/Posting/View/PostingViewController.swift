@@ -82,9 +82,9 @@ final class PostingViewController: BaseViewController<PostingView> {
                 if text == "재로그인 필요" {
                     let signInVC = SignInViewController()
                     
-                    self.view.window?.rootViewController = UINavigationController(rootViewController: signInVC)
+                    owner.view.window?.rootViewController = UINavigationController(rootViewController: signInVC)
                     
-                    self.view.window?.makeKeyAndVisible()
+                    owner.view.window?.makeKeyAndVisible()
                     
                 }
             }
@@ -92,7 +92,9 @@ final class PostingViewController: BaseViewController<PostingView> {
         
         output.networkSucces.drive(with: self) { owner, isValid in
             
-            owner.navigationController?.popViewController(animated: true)
+            if isValid {
+                owner.navigationController?.popViewController(animated: true)
+            }
             
         }.disposed(by: disposeBag)
         

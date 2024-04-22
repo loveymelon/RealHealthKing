@@ -18,6 +18,7 @@ enum Router {
     case postFetch
     case imageUpload
     case posting(model: PostTest)
+//    case imageFetch
 //    case withdraw
 //    case fetchPost
 //    case uploadPost

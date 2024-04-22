@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import Alamofire
+import KeychainSwift
 
 class HomeViewController: BaseViewController<HomeView>{
     
@@ -19,6 +21,8 @@ class HomeViewController: BaseViewController<HomeView>{
             switch result {
             case .success(let data):
                 self.postData = data
+                print(data)
+                self.updateImageViews(postData: data[0].files)
             case .failure(let failure):
                 print(failure.description)
             }
@@ -27,28 +31,38 @@ class HomeViewController: BaseViewController<HomeView>{
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-//        updateImageViews(imageCount: postData?[0].files.count!)
-        print(mainView.contentLabel.lineCount)
+        
+        
+        // data.files로 파일의 경로를 받으면 다시 그거가지고 파일 수만큼 통신후 그 값을 이미지로 넣는다
+//        print(mainView.contentLabel.lineCount)
     }
 
 }
 
 extension HomeViewController {
-    private func updateImageViews(imageCount: Int) {
+    private func updateImageViews(postData: [String]) {
         
-        for num in 0..<imageCount {
+        for num in 0..<postData.count {
             let imageView = UIImageView()
             let postionX = mainView.frame.width * CGFloat(num)
-            imageView.frame = CGRect(x: postionX, y: 0, width: mainView.frame.width, height: mainView.scrollView.bounds.height)
             
-            imageView.image = UIImage(systemName: "star.fill")
-            imageView.backgroundColor = .red
+            let width = mainView.frame.width
+            let height = mainView.scrollView.bounds.height
+            
+            imageView.frame = CGRect(x: postionX, y: 0, width: width, height: height)
+            
+            let url = APIKey.baseURL.rawValue + NetworkVersion.version.rawValue + "/" + postData[num]
+            
+            imageView.downloadImage(imageUrl: url, width: width, height: height)
+            
+//            imageView.image = UIImage(systemName: "star.fill")
+//            imageView.backgroundColor = .red
             mainView.scrollView.addSubview(imageView)
             
             mainView.scrollView.contentSize.width = mainView.frame.width * CGFloat(1+num) // scrollView의 넓이 설정
         }
         
-        mainView.pageControl.numberOfPages = imageCount
+        mainView.pageControl.numberOfPages = postData.count
         
     }
 }
