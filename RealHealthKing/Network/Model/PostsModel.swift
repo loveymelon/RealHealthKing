@@ -25,6 +25,14 @@ struct Posts: Codable {
         case content
         case files
     }
+    
+    init(postId: String? = "", productId: String? = "", title: String? = "", content: String? = "", files: [String] = []) {
+        self.postId = postId
+        self.productId = productId
+        self.title = title
+        self.content = content
+        self.files = files
+    }
  
 }
 

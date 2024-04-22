@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		DF43904E2BD63BBB00520CF7 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = DF43904D2BD63BBB00520CF7 /* Kingfisher */; };
 		DF4390502BD6544100520CF7 /* UIScreen+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF43904F2BD6544100520CF7 /* UIScreen+Extension.swift */; };
+		DF4390522BD66CD800520CF7 /* HomeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF4390512BD66CD800520CF7 /* HomeTableViewCell.swift */; };
+		DF4390542BD66D2200520CF7 /* ReusableProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF4390532BD66D2200520CF7 /* ReusableProtocol.swift */; };
+		DF4390562BD66D4800520CF7 /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF4390552BD66D4800520CF7 /* UIView+Extension.swift */; };
 		DF5FDA8E2BD418530013E1D3 /* UIImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF5FDA8D2BD418520013E1D3 /* UIImage+Extension.swift */; };
 		DF5FDA902BD43D6F0013E1D3 /* ImageFilesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF5FDA8F2BD43D6F0013E1D3 /* ImageFilesModel.swift */; };
 		DF6367DF2BCB8F480087A075 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF6367DE2BCB8F480087A075 /* NetworkError.swift */; };
@@ -69,6 +72,9 @@
 
 /* Begin PBXFileReference section */
 		DF43904F2BD6544100520CF7 /* UIScreen+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIScreen+Extension.swift"; sourceTree = "<group>"; };
+		DF4390512BD66CD800520CF7 /* HomeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTableViewCell.swift; sourceTree = "<group>"; };
+		DF4390532BD66D2200520CF7 /* ReusableProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReusableProtocol.swift; sourceTree = "<group>"; };
+		DF4390552BD66D4800520CF7 /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
 		DF5FDA8D2BD418520013E1D3 /* UIImage+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extension.swift"; sourceTree = "<group>"; };
 		DF5FDA8F2BD43D6F0013E1D3 /* ImageFilesModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageFilesModel.swift; sourceTree = "<group>"; };
 		DF6367DE2BCB8F480087A075 /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
@@ -172,6 +178,7 @@
 			children = (
 				DF8E464A2BD56CE900606390 /* HomeViewController.swift */,
 				DF8E464E2BD56D0700606390 /* HomeView.swift */,
+				DF4390512BD66CD800520CF7 /* HomeTableViewCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -181,6 +188,7 @@
 			children = (
 				DF82CCD52BCA85800089989E /* ConfigureProtocol.swift */,
 				DF82CCE12BCA8DF80089989E /* ViewModelType.swift */,
+				DF4390532BD66D2200520CF7 /* ReusableProtocol.swift */,
 			);
 			path = Protocol;
 			sourceTree = "<group>";
@@ -365,6 +373,7 @@
 				DF5FDA8D2BD418520013E1D3 /* UIImage+Extension.swift */,
 				DF8E46502BD578BC00606390 /* UILabel+Extension.swift */,
 				DF43904F2BD6544100520CF7 /* UIScreen+Extension.swift */,
+				DF4390552BD66D4800520CF7 /* UIView+Extension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -511,6 +520,7 @@
 				DF82CCE02BCA8DA70089989E /* TextFieldViewModel.swift in Sources */,
 				DF690D9B2BCEDB7700F3D1E0 /* PostsModel.swift in Sources */,
 				DF4390502BD6544100520CF7 /* UIScreen+Extension.swift in Sources */,
+				DF4390562BD66D4800520CF7 /* UIView+Extension.swift in Sources */,
 				DF82CCF02BCA9F190089989E /* LoginQuery.swift in Sources */,
 				DF76D1CD2BD23EED00257C38 /* UIViewController+Extension.swift in Sources */,
 				DF892AC02BCC44B8006C69AA /* SignUpViewModel.swift in Sources */,
@@ -518,6 +528,7 @@
 				DF82CCE92BCA9ECA0089989E /* APIKey.swift in Sources */,
 				DF82CCE42BCA9CAB0089989E /* SignInViewModel.swift in Sources */,
 				DF690D972BCECA7700F3D1E0 /* NetworkInterceptor.swift in Sources */,
+				DF4390542BD66D2200520CF7 /* ReusableProtocol.swift in Sources */,
 				DF6367DF2BCB8F480087A075 /* NetworkError.swift in Sources */,
 				DF8E464F2BD56D0700606390 /* HomeView.swift in Sources */,
 				DF839D842BC93D2C001FE924 /* BaseView.swift in Sources */,
@@ -539,6 +550,7 @@
 				DF82CCD62BCA85800089989E /* ConfigureProtocol.swift in Sources */,
 				DF839D5A2BC93B94001FE924 /* SceneDelegate.swift in Sources */,
 				DF8E464B2BD56CE900606390 /* HomeViewController.swift in Sources */,
+				DF4390522BD66CD800520CF7 /* HomeTableViewCell.swift in Sources */,
 				DF8E464D2BD56CF800606390 /* HomeViewModel.swift in Sources */,
 				DF6367EC2BCBF3540087A075 /* TextWithHelperViewModel.swift in Sources */,
 				DF82CCD92BCA87090089989E /* TextFieldView.swift in Sources */,

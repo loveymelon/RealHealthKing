@@ -106,7 +106,7 @@ class PostingViewModel: ViewModelType {
                     }
                     
                     Observable.combineLatest(input.titleText, input.textValues, input.hashText).subscribe { text in
-                        NetworkManager.uploadPostContents(model: PostTest(productId: "abc123", title: text.0, content: text.1 + text.2, files: imageUrl)) { result in
+                        NetworkManager.uploadPostContents(model: PostTest(productId: "abc333", title: text.0, content: text.1 + text.2, files: imageUrl)) { result in
                             switch result {
                             case .success(let data):
                                 networkSuccess.accept(true)

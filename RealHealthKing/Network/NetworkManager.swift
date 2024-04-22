@@ -155,6 +155,7 @@ struct NetworkManager {
                 case .success(let value):
                     
                     let data = value
+                    print(urlRequest.url)
                     completionHandler(.success(data))
                     
                 case .failure(_):
