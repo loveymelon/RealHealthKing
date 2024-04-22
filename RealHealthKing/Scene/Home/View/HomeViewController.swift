@@ -8,17 +8,26 @@
 import UIKit
 
 class HomeViewController: BaseViewController<HomeView>{
+    
+    var postData: [Posts]?
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         mainView.scrollView.delegate = self
-        
+        NetworkManager.fetchPosts { result in
+            switch result {
+            case .success(let data):
+                self.postData = data
+            case .failure(let failure):
+                print(failure.description)
+            }
+        }
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        updateImageViews(imageCount: 5)
+//        updateImageViews(imageCount: postData?[0].files.count!)
         print(mainView.contentLabel.lineCount)
     }
 

@@ -98,7 +98,7 @@ struct NetworkManager {
         }
     }
     
-    static func fetchPosts() {
+    static func fetchPosts(completionHandler: @escaping (Result<[Posts], AppError>) -> Void) {
         do {
             let urlRequest = try Router.postFetch.postURLRequest()
             
@@ -107,9 +107,13 @@ struct NetworkManager {
                 .responseDecodable(of: PostsModel.self) { response in
                     switch response.result {
                     case .success(let data):
-                        print(data.data)
-                    case .failure(let error):
-                        print(error)
+                        completionHandler(.success(data.data))
+                    case .failure(_):
+                        if let statusCode = response.response?.statusCode, let netError = NetworkError(rawValue: statusCode) {
+                            completionHandler(.failure(AppError.networkError(netError)))
+                        } else if let statusCode = response.response?.statusCode, let netError = FetchPostError(rawValue: statusCode) {
+                            completionHandler(.failure(AppError.fetchPostError(netError)))
+                        }
                     }
                 }
         } catch {

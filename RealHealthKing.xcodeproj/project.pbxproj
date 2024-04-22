@@ -18,9 +18,7 @@
 		DF6367EC2BCBF3540087A075 /* TextWithHelperViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF6367EB2BCBF3540087A075 /* TextWithHelperViewModel.swift */; };
 		DF690D952BCECA3E00F3D1E0 /* KeychainSwift in Frameworks */ = {isa = PBXBuildFile; productRef = DF690D942BCECA3E00F3D1E0 /* KeychainSwift */; };
 		DF690D972BCECA7700F3D1E0 /* NetworkInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF690D962BCECA7700F3D1E0 /* NetworkInterceptor.swift */; };
-		DF690D992BCED7C200F3D1E0 /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF690D982BCED7C200F3D1E0 /* TestViewController.swift */; };
 		DF690D9B2BCEDB7700F3D1E0 /* PostsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF690D9A2BCEDB7700F3D1E0 /* PostsModel.swift */; };
-		DF690D9D2BCEDFD600F3D1E0 /* NextViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF690D9C2BCEDFD600F3D1E0 /* NextViewController.swift */; };
 		DF76D1CD2BD23EED00257C38 /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF76D1CC2BD23EED00257C38 /* UIViewController+Extension.swift */; };
 		DF76D1D02BD2521A00257C38 /* RxGesture in Frameworks */ = {isa = PBXBuildFile; productRef = DF76D1CF2BD2521A00257C38 /* RxGesture */; };
 		DF8135BF2BCD1E9900126B9F /* EmailCheckModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF8135BE2BCD1E9900126B9F /* EmailCheckModel.swift */; };
@@ -78,9 +76,7 @@
 		DF6367E92BCBF3030087A075 /* TextViewWithHelperView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextViewWithHelperView.swift; sourceTree = "<group>"; };
 		DF6367EB2BCBF3540087A075 /* TextWithHelperViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextWithHelperViewModel.swift; sourceTree = "<group>"; };
 		DF690D962BCECA7700F3D1E0 /* NetworkInterceptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkInterceptor.swift; sourceTree = "<group>"; };
-		DF690D982BCED7C200F3D1E0 /* TestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
 		DF690D9A2BCEDB7700F3D1E0 /* PostsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostsModel.swift; sourceTree = "<group>"; };
-		DF690D9C2BCEDFD600F3D1E0 /* NextViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NextViewController.swift; sourceTree = "<group>"; };
 		DF76D1CC2BD23EED00257C38 /* UIViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; };
 		DF8135BE2BCD1E9900126B9F /* EmailCheckModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailCheckModel.swift; sourceTree = "<group>"; };
 		DF82CCD52BCA85800089989E /* ConfigureProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigureProtocol.swift; sourceTree = "<group>"; };
@@ -290,8 +286,6 @@
 				DF839D902BC9A859001FE924 /* Custom */,
 				DF839D872BC93D99001FE924 /* SignIn */,
 				DF839D822BC93D13001FE924 /* Base */,
-				DF690D982BCED7C200F3D1E0 /* TestViewController.swift */,
-				DF690D9C2BCEDFD600F3D1E0 /* NextViewController.swift */,
 			);
 			path = Scene;
 			sourceTree = "<group>";
@@ -523,11 +517,9 @@
 				DF8135BF2BCD1E9900126B9F /* EmailCheckModel.swift in Sources */,
 				DF82CCE72BCA9E9E0089989E /* Headers.swift in Sources */,
 				DF95A51D2BD0FA5B00E6FCC4 /* PostingViewController.swift in Sources */,
-				DF690D9D2BCEDFD600F3D1E0 /* NextViewController.swift in Sources */,
 				DF839D582BC93B94001FE924 /* AppDelegate.swift in Sources */,
 				DF5FDA902BD43D6F0013E1D3 /* ImageFilesModel.swift in Sources */,
 				DF839D862BC93D3E001FE924 /* BaseController.swift in Sources */,
-				DF690D992BCED7C200F3D1E0 /* TestViewController.swift in Sources */,
 				DF6367EA2BCBF3030087A075 /* TextViewWithHelperView.swift in Sources */,
 				DF82CCF52BCA9F670089989E /* Router.swift in Sources */,
 				DF95A51B2BD0FA4D00E6FCC4 /* PostingView.swift in Sources */,

@@ -44,7 +44,7 @@ extension TargetType {
         
         let limit = URLQueryItem(name: "limit", value: "15")
         
-        let productid = URLQueryItem(name: "product_id", value: "abc1234")
+        let productid = URLQueryItem(name: "product_id", value: "abc123")
         
         urlRequest.url?.append(queryItems: [limit, productid])
         
