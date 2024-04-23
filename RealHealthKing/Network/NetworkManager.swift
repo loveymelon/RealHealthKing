@@ -155,7 +155,6 @@ struct NetworkManager {
                 case .success(let value):
                     
                     let data = value
-                    print(urlRequest.url)
                     completionHandler(.success(data))
                     
                 case .failure(_):
@@ -163,6 +162,29 @@ struct NetworkManager {
                         completionHandler(.failure(AppError.networkError(netError)))
                     } else if let statusCode = response.response?.statusCode, let netError = PostingError(rawValue: statusCode) {
                         completionHandler(.failure(AppError.postingError(netError)))
+                    }
+                }
+            }
+            
+        } catch {
+            print(error)
+        }
+    }
+    
+    static func postLike(postId: String, likeQuery:LikeQuery, completionHandler: @escaping (Result<LikeQuery, AppError>) -> Void) {
+        do {
+            
+            let urlRequest = try Router.postLike(postId: postId, query: likeQuery).asURLRequest()
+            
+            AF.request(urlRequest, interceptor: NetworkInterceptor()).responseDecodable(of: LikeQuery.self) { response in
+                switch response.result {
+                case .success(let value):
+                    completionHandler(.success(value))
+                case .failure(_):
+                    if let statusCode = response.response?.statusCode, let netError = NetworkError(rawValue: statusCode) {
+                        completionHandler(.failure(AppError.networkError(netError)))
+                    } else if let statusCode = response.response?.statusCode, let netError = LikePostError(rawValue: statusCode) {
+                        completionHandler(.failure(AppError.likeError(netError)))
                     }
                 }
             }

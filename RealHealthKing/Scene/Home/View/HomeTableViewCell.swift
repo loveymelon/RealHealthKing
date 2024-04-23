@@ -85,15 +85,6 @@ class HomeTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        
-//        DispatchQueue.main.async {
-//            self.profileImageView.layer.cornerRadius = self.profileImageView.bounds.width / 2
-//        }
-        
-    }
-    
 }
 
 extension HomeTableViewCell: UIConfigureProtocol {
@@ -149,8 +140,6 @@ extension HomeTableViewCell: UIConfigureProtocol {
             make.centerX.equalTo(contentView.safeAreaLayoutGuide.snp.centerX)
             make.centerY.equalTo(bottomStackView.snp.centerY)
             make.height.equalTo(20)
-//            make.leading.equalTo(bottomStackView.snp.trailing).offset(10)
-//            make.top.equalTo(scrollView.snp.bottom).offset(10)
         }
         
         contentLabel.snp.makeConstraints { make in
@@ -185,9 +174,6 @@ extension HomeTableViewCell {
             
             imageView.downloadImage(imageUrl: url, width: width, height: height)
             
-//            imageView.image = UIImage(systemName: "star.fill")
-//            imageView.backgroundColor = .red
-            imageView.backgroundColor = .gray
             scrollView.addSubview(imageView)
             
             scrollView.contentSize.width = width * CGFloat(1+num) // scrollView의 넓이 설정

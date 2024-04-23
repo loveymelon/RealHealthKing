@@ -68,6 +68,8 @@
 		DF95A51B2BD0FA4D00E6FCC4 /* PostingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF95A51A2BD0FA4D00E6FCC4 /* PostingView.swift */; };
 		DF95A51D2BD0FA5B00E6FCC4 /* PostingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF95A51C2BD0FA5B00E6FCC4 /* PostingViewController.swift */; };
 		DF95A51F2BD0FA6700E6FCC4 /* PostingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF95A51E2BD0FA6700E6FCC4 /* PostingViewModel.swift */; };
+		DF9CC6D22BD767DE00DF808A /* HomeTableCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF9CC6D12BD767DE00DF808A /* HomeTableCellViewModel.swift */; };
+		DF9CC6D42BD7694A00DF808A /* LikeQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF9CC6D32BD7694A00DF808A /* LikeQuery.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -123,6 +125,8 @@
 		DF95A51A2BD0FA4D00E6FCC4 /* PostingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostingView.swift; sourceTree = "<group>"; };
 		DF95A51C2BD0FA5B00E6FCC4 /* PostingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostingViewController.swift; sourceTree = "<group>"; };
 		DF95A51E2BD0FA6700E6FCC4 /* PostingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostingViewModel.swift; sourceTree = "<group>"; };
+		DF9CC6D12BD767DE00DF808A /* HomeTableCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTableCellViewModel.swift; sourceTree = "<group>"; };
+		DF9CC6D32BD7694A00DF808A /* LikeQuery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeQuery.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -169,6 +173,7 @@
 			isa = PBXGroup;
 			children = (
 				DF8E464C2BD56CF800606390 /* HomeViewModel.swift */,
+				DF9CC6D12BD767DE00DF808A /* HomeTableCellViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -251,6 +256,7 @@
 				DF8135BE2BCD1E9900126B9F /* EmailCheckModel.swift */,
 				DF690D9A2BCEDB7700F3D1E0 /* PostsModel.swift */,
 				DF5FDA8F2BD43D6F0013E1D3 /* ImageFilesModel.swift */,
+				DF9CC6D32BD7694A00DF808A /* LikeQuery.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -526,10 +532,12 @@
 				DF892AC02BCC44B8006C69AA /* SignUpViewModel.swift in Sources */,
 				DF82CCF72BCA9F7E0089989E /* TargetType.swift in Sources */,
 				DF82CCE92BCA9ECA0089989E /* APIKey.swift in Sources */,
+				DF9CC6D22BD767DE00DF808A /* HomeTableCellViewModel.swift in Sources */,
 				DF82CCE42BCA9CAB0089989E /* SignInViewModel.swift in Sources */,
 				DF690D972BCECA7700F3D1E0 /* NetworkInterceptor.swift in Sources */,
 				DF4390542BD66D2200520CF7 /* ReusableProtocol.swift in Sources */,
 				DF6367DF2BCB8F480087A075 /* NetworkError.swift in Sources */,
+				DF9CC6D42BD7694A00DF808A /* LikeQuery.swift in Sources */,
 				DF8E464F2BD56D0700606390 /* HomeView.swift in Sources */,
 				DF839D842BC93D2C001FE924 /* BaseView.swift in Sources */,
 				DF6367E82BCBE28B0087A075 /* HelperView.swift in Sources */,

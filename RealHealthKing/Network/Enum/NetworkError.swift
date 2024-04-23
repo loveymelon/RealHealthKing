@@ -15,6 +15,7 @@ enum AppError: Error {
     case imageUploadError(ImageUploadError)
     case postingError(PostingError)
     case fetchPostError(FetchPostError)
+    case likeError(LikePostError)
     case unowned
     
     var description: String {
@@ -33,6 +34,8 @@ enum AppError: Error {
             return postingError.description
         case .fetchPostError(let fetchPostError):
             return fetchPostError.description
+        case .likeError(let likeError):
+            return likeError.description
         case .unowned:
             return "unowned"
         }
@@ -164,6 +167,32 @@ enum FetchPostError: Int, Error {
             return "인증할 수 없는 토큰입니다."
         case .forbidden:
             return "접근 권한이 없습니다."
+        case .unAccessToken:
+            return "재로그인 필요"
+        }
+    }
+}
+
+enum LikePostError: Int, Error {
+    case success = 200
+    case unAccess = 400
+    case invalidToken = 401
+    case forbidden = 403
+    case noPost = 410
+    case unAccessToken = 419
+    
+    var description: String {
+        switch self {
+        case .success:
+            return "success"
+        case .unAccess:
+            return "잘못된 접근 입니다."
+        case .invalidToken:
+            return "인증할 수 없는 토큰입니다."
+        case .forbidden:
+            return "접근 권한이 없습니다."
+        case .noPost:
+            return "게시글을 찾을 수 없습니다."
         case .unAccessToken:
             return "재로그인 필요"
         }

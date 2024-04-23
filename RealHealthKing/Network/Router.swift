@@ -18,6 +18,7 @@ enum Router {
     case postFetch
     case imageUpload
     case posting(model: PostTest)
+    case postLike(postId: String, query: LikeQuery)
 //    case imageFetch
 //    case withdraw
 //    case fetchPost
@@ -49,6 +50,8 @@ extension Router: TargetType {
             return .post
         case .posting:
             return .post
+        case .postLike:
+            return .post
         }
     }
     
@@ -68,6 +71,8 @@ extension Router: TargetType {
             return "/posts/files"
         case .posting:
             return "/posts"
+        case .postLike(let postId):
+            return "/posts/\(postId)/like"
         }
     }
     
@@ -101,6 +106,12 @@ extension Router: TargetType {
                 HTTPHeader.contentType.rawValue: HTTPHeader.json.rawValue,
                 HTTPHeader.sesacKey.rawValue: APIKey.secretKey.rawValue,
                 HTTPHeader.authorization.rawValue: keyChain.get("accessToken") ?? "empty"
+            ]
+        case .postLike(postId: let postId):
+            return [
+                HTTPHeader.authorization.rawValue: keyChain.get("accessToken") ?? "empty",
+                HTTPHeader.sesacKey.rawValue: APIKey.secretKey.rawValue,
+                HTTPHeader.contentType.rawValue: HTTPHeader.json.rawValue
             ]
         }
     }
@@ -145,6 +156,12 @@ extension Router: TargetType {
                 .convertToSnakeCase
             
             return try? encoder.encode(model)
+        case .postLike(let postId, let query):
+            let encoder = JSONEncoder()
+            encoder.keyEncodingStrategy =
+                .convertToSnakeCase
+            
+            return try? encoder.encode(query)
         }
     }
 }
