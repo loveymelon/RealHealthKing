@@ -13,7 +13,7 @@ class SearchView: BaseView {
     
     let collectionView = UICollectionView(frame: .zero, collectionViewLayout: createThreeColumnSection()).then {
         $0.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "cell")
-        $0.backgroundColor = .white
+        $0.backgroundColor = .red
     }
 
     override init(frame: CGRect) {
@@ -25,15 +25,19 @@ class SearchView: BaseView {
     }
         
     static func createThreeColumnSection() -> UICollectionViewLayout {
-        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(CGFloat.random(in: 0.5...1.0)))
+        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(CGFloat.random(in: 0.2...0.4)))
+        
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
         
-        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1/3), heightDimension: .fractionalHeight(1.0))
+        item.contentInsets = NSDirectionalEdgeInsets(top: 2, leading: 2, bottom: 2, trailing: 2)
         
-        let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, repeatingSubitem: item, count: 3)
+        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1/3), heightDimension: .fractionalHeight(0.9))
         
+        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, repeatingSubitem: item, count: 3)
         
         let section = NSCollectionLayoutSection(group: group)
+        
+        let backgroundItem = UICollectionReusableView()
         
         let layout = UICollectionViewCompositionalLayout(section: section)
                 
