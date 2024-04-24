@@ -36,6 +36,7 @@ final class SignInViewModel: ViewModelType {
                 let keychain = KeychainSwift()
                 keychain.set(data.accessToken, forKey: "accessToken")
                 keychain.set(data.refreshToken ?? "empty", forKey: "refreshToken")
+                keychain.set(data.userId ?? "empty", forKey: "userId")
                 networkSuccess.accept(true)
             case .failure(let error):
                 networkSuccess.accept(false)

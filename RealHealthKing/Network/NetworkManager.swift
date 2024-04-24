@@ -108,7 +108,7 @@ struct NetworkManager {
                     switch response.result {
                     case .success(let data):
                         completionHandler(.success(data.data))
-                    case .failure(_):
+                    case .failure(let error):
                         if let statusCode = response.response?.statusCode, let netError = NetworkError(rawValue: statusCode) {
                             completionHandler(.failure(AppError.networkError(netError)))
                         } else if let statusCode = response.response?.statusCode, let netError = FetchPostError(rawValue: statusCode) {
@@ -177,6 +177,7 @@ struct NetworkManager {
             let urlRequest = try Router.postLike(postId: postId, query: likeQuery).asURLRequest()
             
             AF.request(urlRequest, interceptor: NetworkInterceptor()).responseDecodable(of: LikeQuery.self) { response in
+                
                 switch response.result {
                 case .success(let value):
                     completionHandler(.success(value))
@@ -193,5 +194,6 @@ struct NetworkManager {
             print(error)
         }
     }
+    
 }
 

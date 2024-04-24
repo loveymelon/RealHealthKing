@@ -12,32 +12,36 @@ import KeychainSwift
 import RxSwift
 import RxCocoa
 
-class HomeViewController: BaseViewController<HomeView>{
-    
-    var postData: [Posts]?
-    
-    let viewDidLoadTrigger = BehaviorRelay<Void>(value: ())
+class HomeViewController: BaseViewController<HomeView> {
     
     let viewModel = HomeViewModel()
     
     let disposeBag = DisposeBag()
+    
+    let keyChain = KeychainSwift()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        viewDidLoadTrigger.accept(())
         
     }
     
     override func bind() {
-        let input = HomeViewModel.Input(viewDidLoadTrigger: viewDidLoadTrigger.asObservable())
+        let notificationEvent = Observable.merge([
+            rx.viewWillAppear.take(1).map { _ in },
+            NotificationCenterManager.like.addObserver().map { _ in  }
+        ])
+        
+        let input = HomeViewModel.Input(notificationEvent: notificationEvent)
         
         let output = viewModel.transform(input: input)
         
         output.postsDatas.drive(mainView.tableView.rx.items(cellIdentifier: HomeTableViewCell.identifier, cellType: HomeTableViewCell.self)) { [unowned self]
             index, item, cell in
-            print(mainView.frame.width)
+            
+//            let likeData = viewModel.a[index].likes.contains(keyChain.get("userId") ?? "empty")
+            print("index", index)
             cell.configureCell(data: item, width: mainView.frame.width)
+            
         }.disposed(by: disposeBag)
     }
 

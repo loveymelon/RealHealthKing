@@ -8,6 +8,8 @@
 import UIKit
 import Then
 import SnapKit
+import RxSwift
+import RxCocoa
 
 class HomeTableViewCell: UITableViewCell {
     
@@ -45,8 +47,9 @@ class HomeTableViewCell: UITableViewCell {
 //        $0.backgroundColor = .gray
     }
     
-    let heartButton = UIButton().then {
+    let likeButton = UIButton().then {
         $0.setImage(UIImage(systemName: "heart"), for: .normal)
+        $0.setImage(UIImage(systemName: "heart.fill"), for: .selected)
     }
     
     let commentButton = UIButton().then {
@@ -71,6 +74,13 @@ class HomeTableViewCell: UITableViewCell {
         $0.setTitle("더보기", for: .normal)
         $0.setTitleColor(.systemBlue, for: .normal)
     }
+    
+    let postData = BehaviorRelay<Posts>(value: Posts())
+    let likeData = BehaviorRelay<[String]>(value: [])
+    
+    var disposeBag = DisposeBag()
+    
+    let viewModel = HomeTableCellViewModel()
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -85,12 +95,19 @@ class HomeTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
+        disposeBag = DisposeBag()
+    }
+    
 }
 
 extension HomeTableViewCell: UIConfigureProtocol {
     func configureUI() {
         configureHierarchy()
         configureLayout()
+        bind()
     }
     
     func configureHierarchy() {
@@ -101,7 +118,7 @@ extension HomeTableViewCell: UIConfigureProtocol {
         contentView.addSubview(topStackView)
         contentView.addSubview(scrollView)
         
-        [heartButton, commentButton].forEach { button in
+        [likeButton, commentButton].forEach { button in
             bottomStackView.addArrangedSubview(button)
         }
         
@@ -153,10 +170,39 @@ extension HomeTableViewCell: UIConfigureProtocol {
 }
 
 extension HomeTableViewCell {
+    
+    // 처음 시작 -> 데이터를 뷰컨에서 받아서 셀에 뿌림 -> 셀에서 좋아요가 눌렸을때 -> 통신으로 좋아요 값 변경 -> 어떻게 원본 데이터의 좋아요 값을 바꿀까
+    
+    func bind() {
+//        let likeButtonTap = likeButton.rx.tap.flatMap { [unowned self] in postData }
+                
+        let likeButtonTap = likeButton.rx.tap.withLatestFrom(postData.asObservable())
+        
+        let input = HomeTableCellViewModel.Input(inputLikeButtonTap: likeButtonTap, inputLikeValue: likeData.asObservable())
+        
+        let output = viewModel.transform(input: input)
+        
+        output.outputLikeValue.subscribe(with: self, onNext: { owner, isValid in
+            
+            owner.likeButton.isSelected = isValid
+            print("Button", owner.likeButton.isSelected)
+        }).disposed(by: disposeBag)
+        
+    }
+    // 기존의 데이터가 있다면 다 받아들이고 아니라면 받지않기
     func configureCell(data: Posts, width: CGFloat) {
+        
+        postData.accept(data)
+        print("likeData", data.likes, data.postId)
+        likeData.accept(data.likes)
+        
         DispatchQueue.main.async {
             self.updateImageViews(postData: data.files, width: width)
         }
+        
+        
+        contentLabel.text = data.content
+        
     }
     
     func updateImageViews(postData: [String], width: CGFloat) {

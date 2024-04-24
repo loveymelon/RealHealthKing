@@ -12,7 +12,7 @@ import RxCocoa
 class HomeViewModel: ViewModelType {
     
     struct Input {
-        let viewDidLoadTrigger: Observable<Void>
+        let notificationEvent: Observable<Void>
     }
     
     struct Output {
@@ -20,16 +20,19 @@ class HomeViewModel: ViewModelType {
     }
     
     var disposeBag = DisposeBag()
+    var a: [Posts] = []
     
     func transform(input: Input) -> Output {
         
         let resultPostsDatas = BehaviorRelay<[Posts]>(value: [])
         
-        input.viewDidLoadTrigger.subscribe { _ in
+        input.notificationEvent.subscribe (with: self) { owner, _ in
             NetworkManager.fetchPosts { result in
+                print("networking")
                 switch result {
                 case .success(let data):
                     resultPostsDatas.accept(data)
+                    owner.a = data
                 case .failure(let error):
                     print(error.description)
                 }

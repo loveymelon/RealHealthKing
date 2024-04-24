@@ -17,6 +17,7 @@ struct Posts: Codable {
     let title: String?
     let content: String?
     let files: [String]
+    let likes: [String]
     
     enum CodingKeys: String, CodingKey {
         case postId = "post_id"
@@ -24,14 +25,16 @@ struct Posts: Codable {
         case title
         case content
         case files
+        case likes
     }
     
-    init(postId: String? = "", productId: String? = "", title: String? = "", content: String? = "", files: [String] = []) {
+    init(postId: String? = "", productId: String? = "", title: String? = "", content: String? = "", files: [String] = [], likes: [String] = []) {
         self.postId = postId
         self.productId = productId
         self.title = title
         self.content = content
         self.files = files
+        self.likes = likes
     }
  
 }

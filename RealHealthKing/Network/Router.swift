@@ -71,7 +71,7 @@ extension Router: TargetType {
             return "/posts/files"
         case .posting:
             return "/posts"
-        case .postLike(let postId):
+        case .postLike(let postId, let likeValue):
             return "/posts/\(postId)/like"
         }
     }
