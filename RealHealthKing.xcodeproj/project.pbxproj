@@ -31,6 +31,9 @@
 		DF806FAD2BD8D971006046C8 /* NotificationCenterManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF806FAC2BD8D971006046C8 /* NotificationCenterManager.swift */; };
 		DF806FAF2BD8DCDA006046C8 /* UIVewController+RXSwift.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF806FAE2BD8DCDA006046C8 /* UIVewController+RXSwift.swift */; };
 		DF806FB12BD8FFE3006046C8 /* KeyChainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF806FB02BD8FFE3006046C8 /* KeyChainManager.swift */; };
+		DF806FB62BD92818006046C8 /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF806FB52BD92818006046C8 /* SearchViewModel.swift */; };
+		DF806FB82BD92831006046C8 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF806FB72BD92831006046C8 /* SearchViewController.swift */; };
+		DF806FBA2BD9283E006046C8 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF806FB92BD9283E006046C8 /* SearchView.swift */; };
 		DF8135BF2BCD1E9900126B9F /* EmailCheckModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF8135BE2BCD1E9900126B9F /* EmailCheckModel.swift */; };
 		DF82CCD62BCA85800089989E /* ConfigureProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF82CCD52BCA85800089989E /* ConfigureProtocol.swift */; };
 		DF82CCD92BCA87090089989E /* TextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF82CCD82BCA87090089989E /* TextFieldView.swift */; };
@@ -100,6 +103,9 @@
 		DF806FAC2BD8D971006046C8 /* NotificationCenterManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationCenterManager.swift; sourceTree = "<group>"; };
 		DF806FAE2BD8DCDA006046C8 /* UIVewController+RXSwift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIVewController+RXSwift.swift"; sourceTree = "<group>"; };
 		DF806FB02BD8FFE3006046C8 /* KeyChainManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyChainManager.swift; sourceTree = "<group>"; };
+		DF806FB52BD92818006046C8 /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
+		DF806FB72BD92831006046C8 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
+		DF806FB92BD9283E006046C8 /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
 		DF8135BE2BCD1E9900126B9F /* EmailCheckModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailCheckModel.swift; sourceTree = "<group>"; };
 		DF82CCD52BCA85800089989E /* ConfigureProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigureProtocol.swift; sourceTree = "<group>"; };
 		DF82CCD82BCA87090089989E /* TextFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldView.swift; sourceTree = "<group>"; };
@@ -207,6 +213,32 @@
 				DF806FB02BD8FFE3006046C8 /* KeyChainManager.swift */,
 			);
 			path = Enum;
+			sourceTree = "<group>";
+		};
+		DF806FB22BD927E1006046C8 /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				DF806FB42BD927FB006046C8 /* ViewModel */,
+				DF806FB32BD927F5006046C8 /* View */,
+			);
+			path = Search;
+			sourceTree = "<group>";
+		};
+		DF806FB32BD927F5006046C8 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				DF806FB72BD92831006046C8 /* SearchViewController.swift */,
+				DF806FB92BD9283E006046C8 /* SearchView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		DF806FB42BD927FB006046C8 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				DF806FB52BD92818006046C8 /* SearchViewModel.swift */,
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		DF82CCD42BCA85660089989E /* Protocol */ = {
@@ -322,6 +354,7 @@
 		DF839D812BC93D05001FE924 /* Scene */ = {
 			isa = PBXGroup;
 			children = (
+				DF806FB22BD927E1006046C8 /* Search */,
 				DF772DED2BD5057D00DD47B7 /* Home */,
 				DF95A5172BD0FA2100E6FCC4 /* Posting */,
 				DF6367E22BCBD1930087A075 /* SignUp */,
@@ -543,6 +576,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DF8E46512BD578BC00606390 /* UILabel+Extension.swift in Sources */,
+				DF806FBA2BD9283E006046C8 /* SearchView.swift in Sources */,
 				DF5FDA8E2BD418530013E1D3 /* UIImage+Extension.swift in Sources */,
 				DF82CCF32BCA9F480089989E /* NetworkManager.swift in Sources */,
 				DF82CCDB2BCA87910089989E /* InfoLabel.swift in Sources */,
@@ -553,6 +587,7 @@
 				DF690D9B2BCEDB7700F3D1E0 /* PostsModel.swift in Sources */,
 				DF4390502BD6544100520CF7 /* UIScreen+Extension.swift in Sources */,
 				DF4390562BD66D4800520CF7 /* UIView+Extension.swift in Sources */,
+				DF806FB62BD92818006046C8 /* SearchViewModel.swift in Sources */,
 				DF82CCF02BCA9F190089989E /* LoginQuery.swift in Sources */,
 				DF76D1CD2BD23EED00257C38 /* UIViewController+Extension.swift in Sources */,
 				DF892AC02BCC44B8006C69AA /* SignUpViewModel.swift in Sources */,
@@ -591,6 +626,7 @@
 				DF806FAD2BD8D971006046C8 /* NotificationCenterManager.swift in Sources */,
 				DF4390522BD66CD800520CF7 /* HomeTableViewCell.swift in Sources */,
 				DF8E464D2BD56CF800606390 /* HomeViewModel.swift in Sources */,
+				DF806FB82BD92831006046C8 /* SearchViewController.swift in Sources */,
 				DF6367EC2BCBF3540087A075 /* TextWithHelperViewModel.swift in Sources */,
 				DF82CCD92BCA87090089989E /* TextFieldView.swift in Sources */,
 				DF806FAF2BD8DCDA006046C8 /* UIVewController+RXSwift.swift in Sources */,
