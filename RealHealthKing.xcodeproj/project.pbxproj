@@ -27,6 +27,11 @@
 		DF76D1CD2BD23EED00257C38 /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF76D1CC2BD23EED00257C38 /* UIViewController+Extension.swift */; };
 		DF76D1D02BD2521A00257C38 /* RxGesture in Frameworks */ = {isa = PBXBuildFile; productRef = DF76D1CF2BD2521A00257C38 /* RxGesture */; };
 		DF80205D2BDA5DD100473028 /* SearchCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF80205C2BDA5DD100473028 /* SearchCollectionViewCell.swift */; };
+		DF8020602BDA626300473028 /* Tabman in Frameworks */ = {isa = PBXBuildFile; productRef = DF80205F2BDA626300473028 /* Tabman */; };
+		DF8020652BDA629500473028 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF8020642BDA629500473028 /* ProfileViewController.swift */; };
+		DF8020672BDA62A100473028 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF8020662BDA62A100473028 /* ProfileView.swift */; };
+		DF8020692BDA62AD00473028 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF8020682BDA62AD00473028 /* ProfileViewModel.swift */; };
+		DF80206B2BDA6DD800473028 /* CountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF80206A2BDA6DD800473028 /* CountView.swift */; };
 		DF806FA82BD8D8C9006046C8 /* NotificationCenterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF806FA72BD8D8C9006046C8 /* NotificationCenterProtocol.swift */; };
 		DF806FAA2BD8D8F0006046C8 /* NotificationCenter+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF806FA92BD8D8F0006046C8 /* NotificationCenter+Extension.swift */; };
 		DF806FAD2BD8D971006046C8 /* NotificationCenterManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF806FAC2BD8D971006046C8 /* NotificationCenterManager.swift */; };
@@ -100,6 +105,10 @@
 		DF690D9A2BCEDB7700F3D1E0 /* PostsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostsModel.swift; sourceTree = "<group>"; };
 		DF76D1CC2BD23EED00257C38 /* UIViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; };
 		DF80205C2BDA5DD100473028 /* SearchCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCollectionViewCell.swift; sourceTree = "<group>"; };
+		DF8020642BDA629500473028 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		DF8020662BDA62A100473028 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
+		DF8020682BDA62AD00473028 /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
+		DF80206A2BDA6DD800473028 /* CountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountView.swift; sourceTree = "<group>"; };
 		DF806FA72BD8D8C9006046C8 /* NotificationCenterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationCenterProtocol.swift; sourceTree = "<group>"; };
 		DF806FA92BD8D8F0006046C8 /* NotificationCenter+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotificationCenter+Extension.swift"; sourceTree = "<group>"; };
 		DF806FAC2BD8D971006046C8 /* NotificationCenterManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationCenterManager.swift; sourceTree = "<group>"; };
@@ -159,6 +168,7 @@
 				DF76D1D02BD2521A00257C38 /* RxGesture in Frameworks */,
 				DF839D6F2BC93C67001FE924 /* SnapKit in Frameworks */,
 				DF856B442BD18B1200221DFA /* Toast in Frameworks */,
+				DF8020602BDA626300473028 /* Tabman in Frameworks */,
 				DF839D772BC93C93001FE924 /* RxSwift in Frameworks */,
 				DF839D722BC93C72001FE924 /* Then in Frameworks */,
 				DF839D7A2BC93CA4001FE924 /* TextFieldEffects in Frameworks */,
@@ -206,6 +216,32 @@
 				DF4390512BD66CD800520CF7 /* HomeTableViewCell.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		DF8020612BDA626A00473028 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				DF8020632BDA627D00473028 /* ProfileViewModel */,
+				DF8020622BDA627700473028 /* ProfileView */,
+			);
+			path = Profile;
+			sourceTree = "<group>";
+		};
+		DF8020622BDA627700473028 /* ProfileView */ = {
+			isa = PBXGroup;
+			children = (
+				DF8020642BDA629500473028 /* ProfileViewController.swift */,
+				DF8020662BDA62A100473028 /* ProfileView.swift */,
+			);
+			path = ProfileView;
+			sourceTree = "<group>";
+		};
+		DF8020632BDA627D00473028 /* ProfileViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				DF8020682BDA62AD00473028 /* ProfileViewModel.swift */,
+			);
+			path = ProfileViewModel;
 			sourceTree = "<group>";
 		};
 		DF806FAB2BD8D95D006046C8 /* Enum */ = {
@@ -357,6 +393,7 @@
 		DF839D812BC93D05001FE924 /* Scene */ = {
 			isa = PBXGroup;
 			children = (
+				DF8020612BDA626A00473028 /* Profile */,
 				DF806FB22BD927E1006046C8 /* Search */,
 				DF772DED2BD5057D00DD47B7 /* Home */,
 				DF95A5172BD0FA2100E6FCC4 /* Posting */,
@@ -410,6 +447,7 @@
 				DF82CCDC2BCA8D860089989E /* TextFieldView */,
 				DF82CCDA2BCA87910089989E /* InfoLabel.swift */,
 				DF6367E72BCBE28B0087A075 /* HelperView.swift */,
+				DF80206A2BDA6DD800473028 /* CountView.swift */,
 			);
 			path = Custom;
 			sourceTree = "<group>";
@@ -509,6 +547,7 @@
 				DF856B432BD18B1200221DFA /* Toast */,
 				DF76D1CF2BD2521A00257C38 /* RxGesture */,
 				DF43904D2BD63BBB00520CF7 /* Kingfisher */,
+				DF80205F2BDA626300473028 /* Tabman */,
 			);
 			productName = RealHealthKing;
 			productReference = DF839D542BC93B94001FE924 /* RealHealthKing.app */;
@@ -549,6 +588,7 @@
 				DF856B422BD18B1200221DFA /* XCRemoteSwiftPackageReference "Toast-Swift" */,
 				DF76D1CE2BD2521A00257C38 /* XCRemoteSwiftPackageReference "RxGesture" */,
 				DF43904C2BD63BBB00520CF7 /* XCRemoteSwiftPackageReference "Kingfisher" */,
+				DF80205E2BDA626300473028 /* XCRemoteSwiftPackageReference "Tabman" */,
 			);
 			productRefGroup = DF839D552BC93B94001FE924 /* Products */;
 			projectDirPath = "";
@@ -591,13 +631,16 @@
 				DF4390502BD6544100520CF7 /* UIScreen+Extension.swift in Sources */,
 				DF4390562BD66D4800520CF7 /* UIView+Extension.swift in Sources */,
 				DF806FB62BD92818006046C8 /* SearchViewModel.swift in Sources */,
+				DF8020652BDA629500473028 /* ProfileViewController.swift in Sources */,
 				DF82CCF02BCA9F190089989E /* LoginQuery.swift in Sources */,
 				DF76D1CD2BD23EED00257C38 /* UIViewController+Extension.swift in Sources */,
 				DF892AC02BCC44B8006C69AA /* SignUpViewModel.swift in Sources */,
 				DF82CCF72BCA9F7E0089989E /* TargetType.swift in Sources */,
+				DF8020692BDA62AD00473028 /* ProfileViewModel.swift in Sources */,
 				DF82CCE92BCA9ECA0089989E /* APIKey.swift in Sources */,
 				DF9CC6D22BD767DE00DF808A /* HomeTableCellViewModel.swift in Sources */,
 				DF82CCE42BCA9CAB0089989E /* SignInViewModel.swift in Sources */,
+				DF80206B2BDA6DD800473028 /* CountView.swift in Sources */,
 				DF690D972BCECA7700F3D1E0 /* NetworkInterceptor.swift in Sources */,
 				DF4390542BD66D2200520CF7 /* ReusableProtocol.swift in Sources */,
 				DF806FAA2BD8D8F0006046C8 /* NotificationCenter+Extension.swift in Sources */,
@@ -629,6 +672,7 @@
 				DF8E464B2BD56CE900606390 /* HomeViewController.swift in Sources */,
 				DF806FAD2BD8D971006046C8 /* NotificationCenterManager.swift in Sources */,
 				DF4390522BD66CD800520CF7 /* HomeTableViewCell.swift in Sources */,
+				DF8020672BDA62A100473028 /* ProfileView.swift in Sources */,
 				DF8E464D2BD56CF800606390 /* HomeViewModel.swift in Sources */,
 				DF806FB82BD92831006046C8 /* SearchViewController.swift in Sources */,
 				DF6367EC2BCBF3540087A075 /* TextWithHelperViewModel.swift in Sources */,
@@ -884,6 +928,14 @@
 				minimumVersion = 4.0.4;
 			};
 		};
+		DF80205E2BDA626300473028 /* XCRemoteSwiftPackageReference "Tabman" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/uias/Tabman.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.2.0;
+			};
+		};
 		DF839D6D2BC93C67001FE924 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SnapKit/SnapKit";
@@ -957,6 +1009,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = DF76D1CE2BD2521A00257C38 /* XCRemoteSwiftPackageReference "RxGesture" */;
 			productName = RxGesture;
+		};
+		DF80205F2BDA626300473028 /* Tabman */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DF80205E2BDA626300473028 /* XCRemoteSwiftPackageReference "Tabman" */;
+			productName = Tabman;
 		};
 		DF839D6E2BC93C67001FE924 /* SnapKit */ = {
 			isa = XCSwiftPackageProductDependency;

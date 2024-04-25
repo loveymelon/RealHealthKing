@@ -1,5 +1,5 @@
 {
-  "originHash" : "c377913b6dd16f237b1233af1fa811ad3b7e0756be9997e10cbd4233584ae168",
+  "originHash" : "d06748b1c7a8d39e78bd46996d84c177e4d5f35fcf848fc8cc454e5c9cc99f04",
   "pins" : [
     {
       "identity" : "alamofire",
@@ -38,6 +38,15 @@
       }
     },
     {
+      "identity" : "pageboy",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/uias/Pageboy",
+      "state" : {
+        "revision" : "be0c1f6f1964cfb07f9d819b0863f2c3f255f612",
+        "version" : "4.2.0"
+      }
+    },
+    {
       "identity" : "rxgesture",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/RxSwiftCommunity/RxGesture.git",
@@ -62,6 +71,15 @@
       "state" : {
         "revision" : "2842e6e84e82eb9a8dac0100ca90d9444b0307f4",
         "version" : "5.7.1"
+      }
+    },
+    {
+      "identity" : "tabman",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/uias/Tabman.git",
+      "state" : {
+        "revision" : "3b2213290eb93e55bb50b49d1a179033005c11ab",
+        "version" : "3.2.0"
       }
     },
     {
