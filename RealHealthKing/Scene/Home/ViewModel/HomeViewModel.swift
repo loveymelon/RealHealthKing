@@ -30,7 +30,7 @@ class HomeViewModel: ViewModelType {
             NetworkManager.fetchPosts { result in
                 print("networking")
                 switch result {
-                case .success(let data):
+                case .success(var data):
                     resultPostsDatas.accept(data)
                     owner.a = data
                 case .failure(let error):

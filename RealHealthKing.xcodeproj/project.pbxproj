@@ -26,6 +26,7 @@
 		DF690D9B2BCEDB7700F3D1E0 /* PostsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF690D9A2BCEDB7700F3D1E0 /* PostsModel.swift */; };
 		DF76D1CD2BD23EED00257C38 /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF76D1CC2BD23EED00257C38 /* UIViewController+Extension.swift */; };
 		DF76D1D02BD2521A00257C38 /* RxGesture in Frameworks */ = {isa = PBXBuildFile; productRef = DF76D1CF2BD2521A00257C38 /* RxGesture */; };
+		DF80205D2BDA5DD100473028 /* SearchCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF80205C2BDA5DD100473028 /* SearchCollectionViewCell.swift */; };
 		DF806FA82BD8D8C9006046C8 /* NotificationCenterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF806FA72BD8D8C9006046C8 /* NotificationCenterProtocol.swift */; };
 		DF806FAA2BD8D8F0006046C8 /* NotificationCenter+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF806FA92BD8D8F0006046C8 /* NotificationCenter+Extension.swift */; };
 		DF806FAD2BD8D971006046C8 /* NotificationCenterManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF806FAC2BD8D971006046C8 /* NotificationCenterManager.swift */; };
@@ -98,6 +99,7 @@
 		DF690D962BCECA7700F3D1E0 /* NetworkInterceptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkInterceptor.swift; sourceTree = "<group>"; };
 		DF690D9A2BCEDB7700F3D1E0 /* PostsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostsModel.swift; sourceTree = "<group>"; };
 		DF76D1CC2BD23EED00257C38 /* UIViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; };
+		DF80205C2BDA5DD100473028 /* SearchCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCollectionViewCell.swift; sourceTree = "<group>"; };
 		DF806FA72BD8D8C9006046C8 /* NotificationCenterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationCenterProtocol.swift; sourceTree = "<group>"; };
 		DF806FA92BD8D8F0006046C8 /* NotificationCenter+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotificationCenter+Extension.swift"; sourceTree = "<group>"; };
 		DF806FAC2BD8D971006046C8 /* NotificationCenterManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationCenterManager.swift; sourceTree = "<group>"; };
@@ -229,6 +231,7 @@
 			children = (
 				DF806FB72BD92831006046C8 /* SearchViewController.swift */,
 				DF806FB92BD9283E006046C8 /* SearchView.swift */,
+				DF80205C2BDA5DD100473028 /* SearchCollectionViewCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -603,6 +606,7 @@
 				DF9CC6DE2BD7CA5C00DF808A /* LikeDatas.swift in Sources */,
 				DF8E464F2BD56D0700606390 /* HomeView.swift in Sources */,
 				DF839D842BC93D2C001FE924 /* BaseView.swift in Sources */,
+				DF80205D2BDA5DD100473028 /* SearchCollectionViewCell.swift in Sources */,
 				DF6367E82BCBE28B0087A075 /* HelperView.swift in Sources */,
 				DF8135BF2BCD1E9900126B9F /* EmailCheckModel.swift in Sources */,
 				DF82CCE72BCA9E9E0089989E /* Headers.swift in Sources */,

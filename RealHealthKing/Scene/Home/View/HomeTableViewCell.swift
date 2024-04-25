@@ -89,6 +89,8 @@ class HomeTableViewCell: UITableViewCell {
         
         configureUI()
         self.backgroundColor = .black
+        
+        print(#function)
     }
     
     required init?(coder: NSCoder) {
@@ -98,7 +100,8 @@ class HomeTableViewCell: UITableViewCell {
     override func prepareForReuse() {
         super.prepareForReuse()
         
-        disposeBag = DisposeBag()
+        disposeBag = .init()
+       
     }
     
 }
@@ -107,7 +110,6 @@ extension HomeTableViewCell: UIConfigureProtocol {
     func configureUI() {
         configureHierarchy()
         configureLayout()
-        bind()
     }
     
     func configureHierarchy() {
@@ -192,10 +194,11 @@ extension HomeTableViewCell {
     // 기존의 데이터가 있다면 다 받아들이고 아니라면 받지않기
     func configureCell(data: Posts, width: CGFloat) {
         
+        bind()
         postData.accept(data)
         print("likeData", data.likes, data.postId)
         likeData.accept(data.likes)
-        
+
         DispatchQueue.main.async {
             self.updateImageViews(postData: data.files, width: width)
         }

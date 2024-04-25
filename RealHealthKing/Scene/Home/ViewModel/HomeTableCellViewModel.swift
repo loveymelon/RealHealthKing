@@ -36,14 +36,15 @@ class HomeTableCellViewModel: ViewModelType {
         
         input.inputLikeButtonTap.subscribe { value in
             
-            guard let postData = value.element else { return }
+            guard var postData = value.element else { return }
 
             let likeState = postData.likes.contains(KeyChainManager.shared.userId)
             
             NetworkManager.postLike(postId: postData.postId ?? "empty", likeQuery: LikeQuery(likeStatus: !likeState)) { result in
                 switch result {
                 case .success(let data):
-                    NotificationCenterManager.like.post()
+                    
+                    NotificationCenterManager.like.post(object: data.likeStatus)
                     print("tap", data.likeStatus)
                 case .failure(let error):
                     print(error)

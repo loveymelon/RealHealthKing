@@ -8,16 +8,16 @@
 import Foundation
 
 struct PostsModel: Codable {
-    let data: [Posts]
+    var data: [Posts]
 }
 
-struct Posts: Codable {
+struct Posts: Codable , Equatable{
     let postId: String?
     let productId: String?
     let title: String?
     let content: String?
     let files: [String]
-    let likes: [String]
+    var likes: [String]
     
     enum CodingKeys: String, CodingKey {
         case postId = "post_id"
@@ -36,7 +36,11 @@ struct Posts: Codable {
         self.files = files
         self.likes = likes
     }
- 
+    
+    mutating func changeLikeValue(likeValue: [String]) {
+        likes = likeValue
+    }
+    
 }
 
 struct PostTest: Encodable {

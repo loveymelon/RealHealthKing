@@ -11,7 +11,7 @@ import RxCocoa
 
 class SearchViewController: BaseViewController<SearchView> {
     
-    let a = BehaviorRelay(value: Array(0...30))
+    let viewModel = SearchViewModel()
     
     let disposeBag = DisposeBag()
     
@@ -21,9 +21,19 @@ class SearchViewController: BaseViewController<SearchView> {
     }
     
     override func bind() {
-        a.bind(to: mainView.collectionView.rx.items(cellIdentifier: "cell")) { index, item, cell in
-            print(item)
-            cell.backgroundColor = .blue
+        
+        let willAppear = rx.viewWillAppear.map { _ in}
+        
+        let input = SearchViewModel.Input(viewWillAppearTrigger: willAppear)
+        
+        let output = viewModel.transform(input: input)
+        
+        output.postDatas.drive(mainView.collectionView.rx.items(cellIdentifier: SearchCollectionViewCell.identifier, cellType: SearchCollectionViewCell.self)) { index, item, cell in
+            
+            let url = APIKey.baseURL.rawValue + NetworkVersion.version.rawValue + "/" + item.files.first!
+            
+            cell.postImageView.downloadImage(imageUrl: url, width: cell.bounds.width, height: cell.bounds.height)
+            
         }.disposed(by: disposeBag)
     }
 
