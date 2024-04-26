@@ -19,6 +19,7 @@ enum Router {
     case imageUpload
     case posting(model: PostTest)
     case postLike(postId: String, query: LikeQuery)
+    case profileFetch
 //    case imageFetch
 //    case withdraw
 //    case fetchPost
@@ -52,6 +53,8 @@ extension Router: TargetType {
             return .post
         case .postLike:
             return .post
+        case .profileFetch:
+            return .get
         }
     }
     
@@ -73,6 +76,8 @@ extension Router: TargetType {
             return "/posts"
         case .postLike(let postId, let likeValue):
             return "/posts/\(postId)/like"
+        case .profileFetch:
+            return "/users/me/profile"
         }
     }
     
@@ -91,27 +96,33 @@ extension Router: TargetType {
             return [HTTPHeader.contentType.rawValue: HTTPHeader.json.rawValue,
                     HTTPHeader.sesacKey.rawValue: APIKey.secretKey.rawValue]
         case .tokenRefresh:
-            return [HTTPHeader.authorization.rawValue: keyChain.get("accessToken") ?? "empty",
+            return [HTTPHeader.authorization.rawValue: KeyChainManager.shared.accessToken,
                     HTTPHeader.sesacKey.rawValue: APIKey.secretKey.rawValue,
-                    HTTPHeader.refresh.rawValue: keyChain.get("refreshToken") ?? "Empty"]
+                    HTTPHeader.refresh.rawValue: KeyChainManager.shared.refreshToken]
         case .postFetch:
-            return [HTTPHeader.authorization.rawValue: keyChain.get("accessToken") ?? "empty",
+            return [HTTPHeader.authorization.rawValue: KeyChainManager.shared.accessToken,
                     HTTPHeader.sesacKey.rawValue: APIKey.secretKey.rawValue]
         case .imageUpload:
-            return [HTTPHeader.authorization.rawValue: keyChain.get("accessToken") ?? "empty",
+            return [HTTPHeader.authorization.rawValue: KeyChainManager.shared.accessToken,
                     HTTPHeader.contentType.rawValue: HTTPHeader.multipart.rawValue,
                     HTTPHeader.sesacKey.rawValue: APIKey.secretKey.rawValue]
         case .posting:
             return [
                 HTTPHeader.contentType.rawValue: HTTPHeader.json.rawValue,
                 HTTPHeader.sesacKey.rawValue: APIKey.secretKey.rawValue,
-                HTTPHeader.authorization.rawValue: keyChain.get("accessToken") ?? "empty"
+                HTTPHeader.authorization.rawValue: KeyChainManager.shared.accessToken
             ]
         case .postLike(postId: let postId):
             return [
-                HTTPHeader.authorization.rawValue: keyChain.get("accessToken") ?? "empty",
+                HTTPHeader.authorization.rawValue: KeyChainManager.shared.accessToken,
                 HTTPHeader.sesacKey.rawValue: APIKey.secretKey.rawValue,
                 HTTPHeader.contentType.rawValue: HTTPHeader.json.rawValue
+            ]
+        case .profileFetch:
+            return [
+                HTTPHeader.contentType.rawValue: HTTPHeader.json.rawValue,
+                HTTPHeader.authorization.rawValue: KeyChainManager.shared.accessToken,
+                HTTPHeader.sesacKey.rawValue: APIKey.secretKey.rawValue
             ]
         }
     }
@@ -162,6 +173,8 @@ extension Router: TargetType {
                 .convertToSnakeCase
             
             return try? encoder.encode(query)
+        case .profileFetch:
+            return .none
         }
     }
 }

@@ -19,6 +19,8 @@ class ProfileViewController: BaseViewController<ProfileView> {
         super.viewDidLoad()
         
         mainView.scrollView.contentSize.height = UIScreen.main.bounds.height + 20
+        
+        NetworkManager.fetchProfile()
     }
     
     override func bind() {

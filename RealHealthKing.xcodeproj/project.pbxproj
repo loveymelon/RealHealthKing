@@ -73,6 +73,7 @@
 		DF839D8B2BC93DC1001FE924 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF839D8A2BC93DC1001FE924 /* SignInViewController.swift */; };
 		DF839D8D2BC93DCF001FE924 /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF839D8C2BC93DCF001FE924 /* SignInView.swift */; };
 		DF856B442BD18B1200221DFA /* Toast in Frameworks */ = {isa = PBXBuildFile; productRef = DF856B432BD18B1200221DFA /* Toast */; };
+		DF88FEA32BDB811400FB9C24 /* ProfileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF88FEA22BDB811400FB9C24 /* ProfileModel.swift */; };
 		DF892AC02BCC44B8006C69AA /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF892ABF2BCC44B8006C69AA /* SignUpViewModel.swift */; };
 		DF892AC32BCC50B7006C69AA /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF892AC22BCC50B7006C69AA /* String+Extension.swift */; };
 		DF8E464B2BD56CE900606390 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF8E464A2BD56CE900606390 /* HomeViewController.swift */; };
@@ -144,6 +145,7 @@
 		DF839D852BC93D3E001FE924 /* BaseController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseController.swift; sourceTree = "<group>"; };
 		DF839D8A2BC93DC1001FE924 /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
 		DF839D8C2BC93DCF001FE924 /* SignInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
+		DF88FEA22BDB811400FB9C24 /* ProfileModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileModel.swift; sourceTree = "<group>"; };
 		DF892ABF2BCC44B8006C69AA /* SignUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
 		DF892AC22BCC50B7006C69AA /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
 		DF8E464A2BD56CE900606390 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
@@ -351,6 +353,7 @@
 				DF5FDA8F2BD43D6F0013E1D3 /* ImageFilesModel.swift */,
 				DF9CC6D32BD7694A00DF808A /* LikeQuery.swift */,
 				DF9CC6DD2BD7CA5C00DF808A /* LikeDatas.swift */,
+				DF88FEA22BDB811400FB9C24 /* ProfileModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -654,6 +657,7 @@
 				DF8135BF2BCD1E9900126B9F /* EmailCheckModel.swift in Sources */,
 				DF82CCE72BCA9E9E0089989E /* Headers.swift in Sources */,
 				DF95A51D2BD0FA5B00E6FCC4 /* PostingViewController.swift in Sources */,
+				DF88FEA32BDB811400FB9C24 /* ProfileModel.swift in Sources */,
 				DF839D582BC93B94001FE924 /* AppDelegate.swift in Sources */,
 				DF806FB12BD8FFE3006046C8 /* KeyChainManager.swift in Sources */,
 				DF5FDA902BD43D6F0013E1D3 /* ImageFilesModel.swift in Sources */,

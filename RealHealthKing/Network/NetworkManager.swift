@@ -195,5 +195,23 @@ struct NetworkManager {
         }
     }
     
+    static func fetchProfile() {
+        do {
+            let urlRequest = try Router.profileFetch.asURLRequest()
+            
+            AF.request(urlRequest).responseDecodable(of: ProfileModel.self) { response in
+                switch response.result {
+                case .success(let data):
+                    print(data)
+                case .failure(let error):
+                    print(error)
+                }
+            }
+        }
+        catch {
+            
+        }
+    }
+    
 }
 
