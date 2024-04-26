@@ -195,22 +195,50 @@ struct NetworkManager {
         }
     }
     
-    static func fetchProfile() {
+    static func fetchProfile(completionHandler: @escaping ((Result<ProfileModel, AppError>) -> Void)) {
         do {
             let urlRequest = try Router.profileFetch.asURLRequest()
             
             AF.request(urlRequest).responseDecodable(of: ProfileModel.self) { response in
                 switch response.result {
                 case .success(let data):
-                    print(data)
+                    completionHandler(.success(data))
                 case .failure(let error):
-                    print(error)
+                    if let statusCode = error.responseCode, let netError = NetworkError(rawValue: statusCode) {
+                        completionHandler(.failure(.networkError(netError)))
+                    } else if let statusCode = error.responseCode, let netError = ProfileFetchError(rawValue: statusCode) {
+                        completionHandler(.failure(AppError.profileFetchError(netError)))
+                    }
                 }
             }
         }
         catch {
-            
+            print(error)
         }
+    }
+    
+    static func fetchAccessPostDetails(postId: String, completionHandler: @escaping ((Result<Posts, AppError>) -> Void)) {
+        
+        do {
+            let urlRequest = try Router.accessPostDetails(postID: postId).asURLRequest()
+            
+            AF.request(urlRequest).responseDecodable(of: Posts.self) { response in
+                switch response.result {
+                case .success(let data):
+                    completionHandler(.success(data))
+                case .failure(let error):
+                    if let statusCode = error.responseCode, let netError = NetworkError(rawValue: statusCode) {
+                        completionHandler(.failure(.networkError(netError)))
+                    } else if let statusCode = error.responseCode, let netError = PostDetailError(rawValue: statusCode) {
+                        completionHandler(.failure(AppError.postDetails(netError)))
+                    }
+                }
+            }
+        }
+        catch {
+            print(error)
+        }
+        
     }
     
 }

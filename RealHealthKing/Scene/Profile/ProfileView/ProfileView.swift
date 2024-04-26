@@ -32,8 +32,14 @@ class ProfileView: BaseView {
         $0.countLabel.text = "1"
     }
     
+    let nicknameLabel = UILabel().then {
+        $0.textColor = .white
+        $0.font = .boldSystemFont(ofSize: 16)
+        $0.text = "fdfd"
+    }
+    
     let collectionView = UICollectionView(frame: .zero, collectionViewLayout: createThreeColumnSection()).then {
-        $0.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "cell")
+        $0.register(SearchCollectionViewCell.self, forCellWithReuseIdentifier: SearchCollectionViewCell.identifier)
         $0.backgroundColor = .black
     }
     
@@ -67,6 +73,7 @@ class ProfileView: BaseView {
         scrollView.addSubview(postView)
         scrollView.addSubview(followingView)
         scrollView.addSubview(follwerView)
+        scrollView.addSubview(nicknameLabel)
         scrollView.addSubview(lineView)
         scrollView.addSubview(collectionView)
     }
@@ -101,8 +108,13 @@ class ProfileView: BaseView {
             make.size.equalTo(postView)
         }
         
-        lineView.snp.makeConstraints { make in
+        nicknameLabel.snp.makeConstraints { make in
             make.top.equalTo(profileImageView.snp.bottom).offset(10)
+            make.leading.equalTo(profileImageView.snp.leading)
+        }
+        
+        lineView.snp.makeConstraints { make in
+            make.top.equalTo(nicknameLabel.snp.bottom).offset(10)
             make.width.equalTo(scrollView.snp.width)
             make.height.equalTo(1)
         }

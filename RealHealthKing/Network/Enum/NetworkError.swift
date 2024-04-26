@@ -16,6 +16,8 @@ enum AppError: Error {
     case postingError(PostingError)
     case fetchPostError(FetchPostError)
     case likeError(LikePostError)
+    case profileFetchError(ProfileFetchError)
+    case postDetails(PostDetailError)
     case unowned
     
     var description: String {
@@ -36,6 +38,10 @@ enum AppError: Error {
             return fetchPostError.description
         case .likeError(let likeError):
             return likeError.description
+        case .profileFetchError(let profileError):
+            return profileError.description
+        case .postDetails(let postDetailError):
+            return postDetailError.description
         case .unowned:
             return "unowned"
         }
@@ -198,3 +204,47 @@ enum LikePostError: Int, Error {
         }
     }
 }
+
+enum ProfileFetchError: Int, Error {
+    case success = 200
+    case unAccess = 401
+    case forbidden = 403
+    case unAccessToken = 419
+    
+    var description: String {
+        switch self {
+        case .success:
+            return "success"
+        case .unAccess:
+            return "잘못된 접근 입니다."
+        case .forbidden:
+            return "접근 권한이 없습니다."
+        case .unAccessToken:
+            return "재로그인 필요"
+        }
+    }
+}
+
+enum PostDetailError: Int, Error {
+    case success = 200
+    case unRequest = 400
+    case unAccess = 401
+    case forbidden = 403
+    case unAccessToken = 419
+    
+    var description: String {
+        switch self {
+        case .success:
+            return "success"
+        case .unRequest:
+            return "잘못된 요청입니다."
+        case .unAccess:
+            return "잚소된 접근입니다."
+        case .forbidden:
+            return "접근 권한이 없습니다."
+        case .unAccessToken:
+            return "재로그인 필요"
+        }
+    }
+}
+

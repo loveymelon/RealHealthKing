@@ -20,6 +20,7 @@ enum Router {
     case posting(model: PostTest)
     case postLike(postId: String, query: LikeQuery)
     case profileFetch
+    case accessPostDetails(postID: String)
 //    case imageFetch
 //    case withdraw
 //    case fetchPost
@@ -55,6 +56,8 @@ extension Router: TargetType {
             return .post
         case .profileFetch:
             return .get
+        case .accessPostDetails:
+            return .get
         }
     }
     
@@ -78,6 +81,8 @@ extension Router: TargetType {
             return "/posts/\(postId)/like"
         case .profileFetch:
             return "/users/me/profile"
+        case .accessPostDetails(postID: let postID):
+            return "/posts/\(postID)"
         }
     }
     
@@ -122,6 +127,13 @@ extension Router: TargetType {
             return [
                 HTTPHeader.contentType.rawValue: HTTPHeader.json.rawValue,
                 HTTPHeader.authorization.rawValue: KeyChainManager.shared.accessToken,
+                HTTPHeader.sesacKey.rawValue: APIKey.secretKey.rawValue
+            ]
+        case .accessPostDetails:
+            return [
+                HTTPHeader.contentType.rawValue: HTTPHeader.json.rawValue,
+                HTTPHeader.authorization.rawValue:
+                    KeyChainManager.shared.accessToken,
                 HTTPHeader.sesacKey.rawValue: APIKey.secretKey.rawValue
             ]
         }
@@ -174,6 +186,8 @@ extension Router: TargetType {
             
             return try? encoder.encode(query)
         case .profileFetch:
+            return .none
+        case .accessPostDetails:
             return .none
         }
     }

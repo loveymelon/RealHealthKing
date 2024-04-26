@@ -11,7 +11,7 @@ import RxCocoa
 
 class ProfileViewController: BaseViewController<ProfileView> {
     
-    let a = BehaviorRelay(value: Array(0...30))
+    let viewModel = ProfileViewModel()
     
     let disposeBag = DisposeBag()
 
@@ -20,13 +20,47 @@ class ProfileViewController: BaseViewController<ProfileView> {
         
         mainView.scrollView.contentSize.height = UIScreen.main.bounds.height + 20
         
-        NetworkManager.fetchProfile()
     }
     
     override func bind() {
-        a.bind(to: mainView.collectionView.rx.items(cellIdentifier: "cell")) { index, item, cell in
-            cell.backgroundColor = UIColor(red: CGFloat.random(in: 0...1), green: CGFloat.random(in: 0...1), blue: CGFloat.random(in: 0...1), alpha: 1)
+        let viewWillTrigger = rx.viewWillAppear.map { _ in }
+        
+        let input = ProfileViewModel.Input(inputViewWillTrigger: viewWillTrigger)
+        
+        let output = viewModel.transform(input: input)
+        
+        output.profileNick.drive(with: self) { owner, nick in
+            owner.mainView.nicknameLabel.text = nick
         }.disposed(by: disposeBag)
+        
+        output.profileImage.drive(with: self) { owner, image in
+            let size = owner.mainView.profileImageView.bounds
+            
+            if image.isEmpty {
+                owner.mainView.profileImageView.image = UIImage(systemName: "person")
+            } else {
+                owner.mainView.profileImageView.downloadImage(imageUrl: image, width: size.width, height: size.height)
+            }
+        }.disposed(by: disposeBag)
+        
+        output.follwingCount.drive(with: self) { owner, count in
+            owner.mainView.followingView.countLabel.text = "\(count)"
+        }.disposed(by: disposeBag)
+        
+        output.follwerCount.drive(with: self) { owner, count in
+            owner.mainView.follwerView.countLabel.text = "\(count)"
+        }.disposed(by: disposeBag)
+        
+        output.postImages.drive(mainView.collectionView.rx.items(cellIdentifier: SearchCollectionViewCell.identifier, cellType: SearchCollectionViewCell.self)) { index, item, cell in
+            
+            let size = cell.bounds.size
+            
+            let url = APIKey.baseURL.rawValue + NetworkVersion.version.rawValue + "/" + item.files.first ?? "empty"
+            
+            cell.postImageView.downloadImage(imageUrl: url, width: size.width, height: size.height)
+            
+        }.disposed(by: disposeBag)
+        
     }
 
 }

@@ -25,6 +25,16 @@ struct ProfileModel: Decodable {
         case following
         case posts
     }
+    
+    init(userId: String = "", email: String = "", nick: String = "", profileImage: String? = nil, follwers: [Follwers]? = nil, following: [Fllowing]? = nil, posts: [String] = []) {
+        self.userId = userId
+        self.email = email
+        self.nick = nick
+        self.profileImage = profileImage
+        self.follwers = follwers
+        self.following = following
+        self.posts = posts
+    }
 }
 
 struct Follwers: Decodable {
