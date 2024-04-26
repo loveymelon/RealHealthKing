@@ -241,5 +241,28 @@ struct NetworkManager {
         
     }
     
+    static func fetchUserPosts(completionHandler: @escaping ((Result<[Posts], AppError>) -> Void )) {
+        
+        do {
+            let urlRequest = try Router.userPosts.asURLRequest()
+            
+            AF.request(urlRequest, interceptor: NetworkInterceptor()).responseDecodable(of: PostsModel.self) { response in
+                switch response.result {
+                case .success(let data):
+                    completionHandler(.success(data.data))
+                case .failure(let error):
+                    if let statusCode = error.responseCode, let netError = NetworkError(rawValue: statusCode) {
+                        completionHandler(.failure(.networkError(netError)))
+                    } else if let statusCode = error.responseCode, let netError = FetchPostError(rawValue: statusCode) {
+                        completionHandler(.failure(.fetchPostError(netError)))
+                    }
+                }
+            }
+        }
+        catch {
+            print(error)
+        }
+    }
+    
 }
 

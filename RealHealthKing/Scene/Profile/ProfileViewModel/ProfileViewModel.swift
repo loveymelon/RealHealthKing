@@ -20,7 +20,7 @@ class ProfileViewModel: ViewModelType {
         let profileImage: Driver<String>
         let follwerCount: Driver<Int>
         let follwingCount: Driver<Int>
-        let postImages: Driver<[Posts]>
+        let postDatas: Driver<[Posts]>
     }
     
     var disposeBag = DisposeBag()
@@ -33,8 +33,7 @@ class ProfileViewModel: ViewModelType {
         let follwerCount = BehaviorRelay(value: 0)
         let follwingCount = BehaviorRelay(value: 0)
         
-        let tempPostsId = BehaviorRelay<[String]>(value: [])
-        let postsImage = BehaviorRelay<[Posts]>(value: [])
+        let postDatasResult = BehaviorRelay<[Posts]>(value: [])
         
         input.inputViewWillTrigger.subscribe { _ in
             
@@ -48,25 +47,16 @@ class ProfileViewModel: ViewModelType {
                     follwerCount.accept(data.follwers?.count ?? 0)
                     follwingCount.accept(data.following?.count ?? 0)
                     
-                    if !data.posts.isEmpty {
-                        tempPostsId.accept(data.posts)
-//                        var tempPosts: [Posts] = []
-//                        
-//                        for id in data.posts {
-//                            NetworkManager.fetchAccessPostDetails(postId: id) { result in
-//                                switch result {
-//                                case .success(let data):
-//                                    // post들을 받아서 이걸 넣고 싶다.
-//                                    print(data)
-//                                    tempPosts.append(data)
-//                                    postsImage.accept(tempPosts)
-//                                case .failure(let error):
-//                                    print(error)
-//                                }
-//                            }
-//                        }
-                        
-                    }
+                    
+                case .failure(let error):
+                    print(error)
+                }
+            }
+            
+            NetworkManager.fetchUserPosts { result in
+                switch result {
+                case .success(let data):
+                    postDatasResult.accept(data)
                 case .failure(let error):
                     print(error)
                 }
@@ -74,27 +64,6 @@ class ProfileViewModel: ViewModelType {
             
         }.disposed(by: disposeBag)
         
-        tempPostsId.map { id in
-            var postResult: [Posts] = []
-            
-            for postId in id {
-                NetworkManager.fetchAccessPostDetails(postId: postId) { result in
-                    switch result {
-                    case .success(let data):
-                        postResult.append(data)
-                        
-                    case .failure(let error):
-                        print(error)
-                    }
-                }
-            }
-            
-            return postResult
-            
-        }.subscribe { <#[Posts]#> in
-            <#code#>
-        }
-        
-        return Output(profileEmail: emailResult.asDriver(), profileNick: nickResult.asDriver(), profileImage: profileImage.asDriver(), follwerCount: follwerCount.asDriver(), follwingCount: follwingCount.asDriver(), postImages: postsImage.asDriver())
+        return Output(profileEmail: emailResult.asDriver(), profileNick: nickResult.asDriver(), profileImage: profileImage.asDriver(), follwerCount: follwerCount.asDriver(), follwingCount: follwingCount.asDriver(), postDatas: postDatasResult.asDriver())
     }
 }

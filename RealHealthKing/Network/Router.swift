@@ -21,6 +21,7 @@ enum Router {
     case postLike(postId: String, query: LikeQuery)
     case profileFetch
     case accessPostDetails(postID: String)
+    case userPosts
 //    case imageFetch
 //    case withdraw
 //    case fetchPost
@@ -58,6 +59,8 @@ extension Router: TargetType {
             return .get
         case .accessPostDetails:
             return .get
+        case .userPosts:
+            return .get
         }
     }
     
@@ -77,18 +80,18 @@ extension Router: TargetType {
             return "/posts/files"
         case .posting:
             return "/posts"
-        case .postLike(let postId, let likeValue):
+        case .postLike(let postId, _):
             return "/posts/\(postId)/like"
         case .profileFetch:
             return "/users/me/profile"
         case .accessPostDetails(postID: let postID):
             return "/posts/\(postID)"
+        case .userPosts:
+            return "/posts/users/\(KeyChainManager.shared.userId)"
         }
     }
     
     var header: [String : String] {
-        
-        let keyChain = KeychainSwift()
         
         switch self {
         case .login:
@@ -117,7 +120,7 @@ extension Router: TargetType {
                 HTTPHeader.sesacKey.rawValue: APIKey.secretKey.rawValue,
                 HTTPHeader.authorization.rawValue: KeyChainManager.shared.accessToken
             ]
-        case .postLike(postId: let postId):
+        case .postLike:
             return [
                 HTTPHeader.authorization.rawValue: KeyChainManager.shared.accessToken,
                 HTTPHeader.sesacKey.rawValue: APIKey.secretKey.rawValue,
@@ -134,6 +137,12 @@ extension Router: TargetType {
                 HTTPHeader.contentType.rawValue: HTTPHeader.json.rawValue,
                 HTTPHeader.authorization.rawValue:
                     KeyChainManager.shared.accessToken,
+                HTTPHeader.sesacKey.rawValue: APIKey.secretKey.rawValue
+            ]
+        case .userPosts:
+            return [
+                HTTPHeader.contentType.rawValue: HTTPHeader.json.rawValue,
+                HTTPHeader.authorization.rawValue: KeyChainManager.shared.accessToken,
                 HTTPHeader.sesacKey.rawValue: APIKey.secretKey.rawValue
             ]
         }
@@ -179,7 +188,7 @@ extension Router: TargetType {
                 .convertToSnakeCase
             
             return try? encoder.encode(model)
-        case .postLike(let postId, let query):
+        case .postLike(_, let query):
             let encoder = JSONEncoder()
             encoder.keyEncodingStrategy =
                 .convertToSnakeCase
@@ -188,6 +197,8 @@ extension Router: TargetType {
         case .profileFetch:
             return .none
         case .accessPostDetails:
+            return .none
+        case .userPosts:
             return .none
         }
     }
