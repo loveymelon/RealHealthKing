@@ -22,6 +22,7 @@ enum Router {
     case profileFetch
     case accessPostDetails(postID: String)
     case userPosts
+    case modifyProfile(model: ModifyProfileModel)
 //    case imageFetch
 //    case withdraw
 //    case fetchPost
@@ -61,6 +62,8 @@ extension Router: TargetType {
             return .get
         case .userPosts:
             return .get
+        case .modifyProfile:
+            return .put
         }
     }
     
@@ -88,6 +91,8 @@ extension Router: TargetType {
             return "/posts/\(postID)"
         case .userPosts:
             return "/posts/users/\(KeyChainManager.shared.userId)"
+        case .modifyProfile:
+            return "/users/me/profile"
         }
     }
     
@@ -145,6 +150,13 @@ extension Router: TargetType {
                 HTTPHeader.authorization.rawValue: KeyChainManager.shared.accessToken,
                 HTTPHeader.sesacKey.rawValue: APIKey.secretKey.rawValue
             ]
+        case .modifyProfile:
+            return [
+                HTTPHeader.contentType.rawValue: HTTPHeader.multipart.rawValue,
+                HTTPHeader.authorization.rawValue: KeyChainManager.shared.accessToken,
+                HTTPHeader.sesacKey.rawValue: APIKey.secretKey.rawValue,
+                
+            ]
         }
     }
     
@@ -200,6 +212,12 @@ extension Router: TargetType {
             return .none
         case .userPosts:
             return .none
+        case .modifyProfile(let model):
+            let encoder = JSONEncoder()
+            encoder.keyEncodingStrategy =
+                .convertToSnakeCase
+            
+            return try? encoder.encode(model)
         }
     }
 }

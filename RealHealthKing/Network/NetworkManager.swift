@@ -264,5 +264,29 @@ struct NetworkManager {
         }
     }
     
+    static func modifyProfileUpdate(modifyModel: ModifyProfileModel, completionHandler: @escaping((Result<ProfileModel, AppError>) -> Void)) {
+        
+        let modifyRouter = Router.modifyProfile(model: modifyModel)
+        
+        AF.upload(multipartFormData: { multipartForm in
+            
+            multipartForm.append(modifyModel.profile, withName: "profile", fileName: "images", mimeType: "image/png")
+            
+        }, to: modifyRouter.baseURL + Router.imageUpload.version + modifyRouter.path, headers: HTTPHeaders(modifyRouter.header), interceptor: NetworkInterceptor())
+        .responseDecodable(of: ProfileModel.self) { response in
+            switch response.result {
+            case .success(let data):
+                completionHandler(.success(data))
+            case .failure(_):
+                if let statusCode = response.response?.statusCode, let netError = NetworkError(rawValue: statusCode) {
+                    completionHandler(.failure(AppError.networkError(netError)))
+                } else if let statusCode = response.response?.statusCode, let netError = ModifyProfileError(rawValue: statusCode) {
+                    completionHandler(.failure(AppError.modifyProfileError(netError)))
+                }
+            }
+        }
+        
+    }
+    
 }
 

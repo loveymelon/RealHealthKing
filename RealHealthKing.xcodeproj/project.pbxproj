@@ -76,6 +76,7 @@
 		DF87DD5A2BDCE0E3006C53DC /* ModifyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF87DD592BDCE0E3006C53DC /* ModifyViewController.swift */; };
 		DF87DD5C2BDCE0EC006C53DC /* ModifyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF87DD5B2BDCE0EC006C53DC /* ModifyView.swift */; };
 		DF87DD5E2BDCE11C006C53DC /* ModifyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF87DD5D2BDCE11C006C53DC /* ModifyViewModel.swift */; };
+		DF87DD602BDD78F2006C53DC /* ModifyProfileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF87DD5F2BDD78F2006C53DC /* ModifyProfileModel.swift */; };
 		DF88FEA32BDB811400FB9C24 /* ProfileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF88FEA22BDB811400FB9C24 /* ProfileModel.swift */; };
 		DF892AC02BCC44B8006C69AA /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF892ABF2BCC44B8006C69AA /* SignUpViewModel.swift */; };
 		DF892AC32BCC50B7006C69AA /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF892AC22BCC50B7006C69AA /* String+Extension.swift */; };
@@ -151,6 +152,7 @@
 		DF87DD592BDCE0E3006C53DC /* ModifyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModifyViewController.swift; sourceTree = "<group>"; };
 		DF87DD5B2BDCE0EC006C53DC /* ModifyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModifyView.swift; sourceTree = "<group>"; };
 		DF87DD5D2BDCE11C006C53DC /* ModifyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModifyViewModel.swift; sourceTree = "<group>"; };
+		DF87DD5F2BDD78F2006C53DC /* ModifyProfileModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModifyProfileModel.swift; sourceTree = "<group>"; };
 		DF88FEA22BDB811400FB9C24 /* ProfileModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileModel.swift; sourceTree = "<group>"; };
 		DF892ABF2BCC44B8006C69AA /* SignUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
 		DF892AC22BCC50B7006C69AA /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
@@ -360,6 +362,7 @@
 				DF9CC6D32BD7694A00DF808A /* LikeQuery.swift */,
 				DF9CC6DD2BD7CA5C00DF808A /* LikeDatas.swift */,
 				DF88FEA22BDB811400FB9C24 /* ProfileModel.swift */,
+				DF87DD5F2BDD78F2006C53DC /* ModifyProfileModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -662,6 +665,7 @@
 				DF95A51F2BD0FA6700E6FCC4 /* PostingViewModel.swift in Sources */,
 				DF87DD5E2BDCE11C006C53DC /* ModifyViewModel.swift in Sources */,
 				DF6367E12BCBD0CA0087A075 /* SignUpModel.swift in Sources */,
+				DF87DD602BDD78F2006C53DC /* ModifyProfileModel.swift in Sources */,
 				DF839D8D2BC93DCF001FE924 /* SignInView.swift in Sources */,
 				DF82CCE02BCA8DA70089989E /* TextFieldViewModel.swift in Sources */,
 				DF690D9B2BCEDB7700F3D1E0 /* PostsModel.swift in Sources */,
