@@ -29,6 +29,10 @@ class ProfileViewController: BaseViewController<ProfileView> {
         
         let output = viewModel.transform(input: input)
         
+        mainView.leftButton.rx.tap.bind(with: self, onNext: { owner, _ in
+            owner.navigationController?.pushViewController(ModifyViewController(), animated: true)
+        }).disposed(by: disposeBag)
+        
         output.profileNick.drive(with: self) { owner, nick in
             owner.mainView.nicknameLabel.text = nick
         }.disposed(by: disposeBag)

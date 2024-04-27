@@ -35,7 +35,26 @@ class ProfileView: BaseView {
     let nicknameLabel = UILabel().then {
         $0.textColor = .white
         $0.font = .boldSystemFont(ofSize: 16)
-        $0.text = "fdfd"
+    }
+    
+    let leftButton = UIButton().then {
+        $0.setTitle("프로필 수정", for: .normal)
+        $0.setTitleColor(.white, for: .normal)
+        $0.backgroundColor = .darkGray
+        $0.layer.cornerRadius = 10
+    }
+    
+    let rightButton = UIButton().then {
+        $0.setTitle("프로필 수정", for: .normal)
+        $0.setTitleColor(.white, for: .normal)
+        $0.backgroundColor = .darkGray
+    }
+    
+    let buttonStackView = UIStackView().then {
+        $0.axis = .horizontal
+        $0.distribution = .fillEqually
+        $0.spacing = 4
+        $0.alignment = .fill
     }
     
     let collectionView = UICollectionView(frame: .zero, collectionViewLayout: createThreeColumnSection()).then {
@@ -68,12 +87,17 @@ class ProfileView: BaseView {
     }
     
     override func configureHierarchy() {
+        [leftButton, rightButton].forEach { button in
+            buttonStackView.addArrangedSubview(button)
+        }
+        
         addSubview(scrollView)
         scrollView.addSubview(profileImageView)
         scrollView.addSubview(postView)
         scrollView.addSubview(followingView)
         scrollView.addSubview(follwerView)
         scrollView.addSubview(nicknameLabel)
+        scrollView.addSubview(buttonStackView)
         scrollView.addSubview(lineView)
         scrollView.addSubview(collectionView)
     }
@@ -113,8 +137,15 @@ class ProfileView: BaseView {
             make.leading.equalTo(profileImageView.snp.leading)
         }
         
-        lineView.snp.makeConstraints { make in
+        buttonStackView.snp.makeConstraints { make in
+            make.leading.equalTo(profileImageView.snp.leading)
+            make.height.equalTo(26)
+            make.trailing.equalTo(follwerView.snp.trailing)
             make.top.equalTo(nicknameLabel.snp.bottom).offset(10)
+        }
+        
+        lineView.snp.makeConstraints { make in
+            make.top.equalTo(buttonStackView.snp.bottom).offset(10)
             make.width.equalTo(scrollView.snp.width)
             make.height.equalTo(1)
         }
@@ -122,7 +153,7 @@ class ProfileView: BaseView {
         collectionView.snp.makeConstraints { make in
             make.top.equalTo(lineView.snp.bottom).offset(10)
             make.width.equalTo(scrollView.snp.width)
-            make.bottom.equalTo(500)
+            make.height.equalTo(500)
         }
     }
     
