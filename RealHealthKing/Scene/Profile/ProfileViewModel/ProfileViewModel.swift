@@ -35,33 +35,36 @@ class ProfileViewModel: ViewModelType {
         
         let postDatasResult = BehaviorRelay<[Posts]>(value: [])
         
-        input.inputViewWillTrigger.subscribe { _ in
-            
+        let postsObservable = input.inputViewWillTrigger.flatMapLatest { _ -> Observable<[Posts]> in
+            return Observable.create { observer in
+                NetworkManager.fetchUserPosts { result in
+                    switch result {
+                    case .success(let data):
+                        observer.onNext(data)
+                        observer.onCompleted()
+                    case .failure(let error):
+                        observer.onError(error)
+                    }
+                }
+                return Disposables.create()
+            }
+        }
+
+        postsObservable.subscribe { posts in
             NetworkManager.fetchProfile { result in
                 switch result {
                 case .success(let data):
-                    
                     emailResult.accept(data.email)
                     nickResult.accept(data.nick)
                     profileImage.accept(data.profileImage ?? "")
                     follwerCount.accept(data.follwers?.count ?? 0)
                     follwingCount.accept(data.following?.count ?? 0)
-                    
+                    postDatasResult.accept(posts)
                     
                 case .failure(let error):
                     print(error)
                 }
             }
-            
-            NetworkManager.fetchUserPosts { result in
-                switch result {
-                case .success(let data):
-                    postDatasResult.accept(data)
-                case .failure(let error):
-                    print(error)
-                }
-            }
-            
         }.disposed(by: disposeBag)
         
         return Output(profileEmail: emailResult.asDriver(), profileNick: nickResult.asDriver(), profileImage: profileImage.asDriver(), follwerCount: follwerCount.asDriver(), follwingCount: follwingCount.asDriver(), postDatas: postDatasResult.asDriver())

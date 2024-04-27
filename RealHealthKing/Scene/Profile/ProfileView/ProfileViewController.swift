@@ -55,8 +55,9 @@ class ProfileViewController: BaseViewController<ProfileView> {
             
             let size = cell.bounds.size
             
-            let url = APIKey.baseURL.rawValue + NetworkVersion.version.rawValue + "/" + item.files.first ?? "empty"
+            let url = APIKey.baseURL.rawValue + NetworkVersion.version.rawValue + "/" + (item.files.first ?? "empty")
             
+             print(url)
             cell.postImageView.downloadImage(imageUrl: url, width: size.width, height: size.height)
             
         }.disposed(by: disposeBag)
