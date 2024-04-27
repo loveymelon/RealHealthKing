@@ -12,11 +12,16 @@ import SnapKit
 final class ModifyView: BaseView {
     
     let profileImageView = UIImageView().then {
-        $0.backgroundColor = .red
         $0.layer.cornerRadius = 100
+        $0.tintColor = .white
+        $0.clipsToBounds = true
+        $0.layer.borderColor = UIColor.white.cgColor
+        $0.layer.borderWidth = 1
     }
     let nickTextField = TextFieldView().then {
         $0.infoLabel.text = "닉네임"
+        $0.infoLabel.font = UIFont.systemFont(ofSize: 11)
+        $0.infoLabelConstraint?.update(offset: -13)
     }
 
     override init(frame: CGRect) {

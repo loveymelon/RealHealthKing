@@ -14,6 +14,8 @@ class ProfileViewController: BaseViewController<ProfileView> {
     let viewModel = ProfileViewModel()
     
     let disposeBag = DisposeBag()
+    
+    var imageURL: String?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,7 +32,12 @@ class ProfileViewController: BaseViewController<ProfileView> {
         let output = viewModel.transform(input: input)
         
         mainView.leftButton.rx.tap.bind(with: self, onNext: { owner, _ in
-            owner.navigationController?.pushViewController(ModifyViewController(), animated: true)
+            let vc = ModifyViewController()
+            
+            vc.inputNickName.accept(owner.mainView.nicknameLabel.text ?? "empty")
+            vc.profileImage.accept(owner.imageURL ?? "")
+            
+            owner.navigationController?.pushViewController(vc, animated: true)
         }).disposed(by: disposeBag)
         
         output.profileNick.drive(with: self) { owner, nick in
@@ -40,10 +47,14 @@ class ProfileViewController: BaseViewController<ProfileView> {
         output.profileImage.drive(with: self) { owner, image in
             let size = owner.mainView.profileImageView.bounds
             
+            owner.imageURL = image
+            
             if image.isEmpty {
                 owner.mainView.profileImageView.image = UIImage(systemName: "person")
             } else {
-                owner.mainView.profileImageView.downloadImage(imageUrl: image, width: size.width, height: size.height)
+                let url = APIKey.baseURL.rawValue + NetworkVersion.version.rawValue + "/" + image
+                
+                owner.mainView.profileImageView.downloadImage(imageUrl: url, width: size.width, height: size.height)
             }
         }.disposed(by: disposeBag)
         
@@ -61,7 +72,6 @@ class ProfileViewController: BaseViewController<ProfileView> {
             
             let url = APIKey.baseURL.rawValue + NetworkVersion.version.rawValue + "/" + (item.files.first ?? "empty")
             
-             print(url)
             cell.postImageView.downloadImage(imageUrl: url, width: size.width, height: size.height)
             
         }.disposed(by: disposeBag)
