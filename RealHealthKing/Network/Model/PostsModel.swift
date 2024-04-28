@@ -11,13 +11,15 @@ struct PostsModel: Codable {
     var data: [Posts]
 }
 
-struct Posts: Codable , Equatable{
+struct Posts: Codable {
+    
     let postId: String?
     let productId: String?
     let title: String?
     let content: String?
     let files: [String]
     var likes: [String]
+    let creator: Creator
     
     enum CodingKeys: String, CodingKey {
         case postId = "post_id"
@@ -26,21 +28,35 @@ struct Posts: Codable , Equatable{
         case content
         case files
         case likes
+        case creator
     }
     
-    init(postId: String? = "", productId: String? = "", title: String? = "", content: String? = "", files: [String] = [], likes: [String] = []) {
+    init(postId: String? = "", productId: String? = "", title: String? = "", content: String? = "", files: [String] = [], likes: [String] = [], creator: [Creator] = []) {
         self.postId = postId
         self.productId = productId
         self.title = title
         self.content = content
         self.files = files
         self.likes = likes
+        self.creator = creator
     }
     
     mutating func changeLikeValue(likeValue: [String]) {
         likes = likeValue
     }
     
+}
+
+struct Creator: Codable {
+    let userId: String
+    let nick: String
+    let profileImage: String
+    
+    enum CodingKeys: String, CodingKey {
+        case userId = "user_id"
+        case nick
+        case profileImage
+    }
 }
 
 struct PostTest: Encodable {

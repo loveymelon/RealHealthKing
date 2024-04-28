@@ -20,7 +20,6 @@ class HomeViewModel: ViewModelType {
     }
     
     var disposeBag = DisposeBag()
-    var a: [Posts] = []
     
     func transform(input: Input) -> Output {
         
@@ -30,9 +29,8 @@ class HomeViewModel: ViewModelType {
             NetworkManager.fetchPosts { result in
                 print("networking")
                 switch result {
-                case .success(var data):
+                case .success(let data):
                     resultPostsDatas.accept(data)
-                    owner.a = data
                 case .failure(let error):
                     print(error.description)
                 }

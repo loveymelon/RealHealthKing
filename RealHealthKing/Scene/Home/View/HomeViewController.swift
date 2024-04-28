@@ -11,6 +11,7 @@ import KeychainSwift
 
 import RxSwift
 import RxCocoa
+import RxGesture
 
 class HomeViewController: BaseViewController<HomeView> {
     
@@ -19,6 +20,8 @@ class HomeViewController: BaseViewController<HomeView> {
     let disposeBag = DisposeBag()
     
     let keyChain = KeychainSwift()
+    
+    let postData = BehaviorRelay(value: Posts())
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,13 +42,24 @@ class HomeViewController: BaseViewController<HomeView> {
             index, item, cell in
             
 //            let likeData = viewModel.a[index].likes.contains(keyChain.get("userId") ?? "empty")
-            print("index", index)
+            cell.selectionStyle = UITableViewCell.SelectionStyle.none
             cell.configureCell(data: item, width: mainView.frame.width)
+            postData.accept(item)
+            
+            cell.profileImageView.rx.tapGesture().when(.recognized).withLatestFrom(postData.asObservable()).subscribe(with: self) { owner, item in
+                let vc = ProfileViewController()
+                
+                
+            }.disposed(by: disposeBag)
             
         }.disposed(by: disposeBag)
         
         mainView.tableView.rx.modelSelected(Posts.self).bind(with: self) { owner, item in
-            owner
+            let vc = DetailViewController()
+            guard let postId = item.postId else { return }
+            
+            vc.postId.accept(postId)
+            owner.navigationController?.pushViewController(vc, animated: true)
         }.disposed(by: disposeBag)
     }
 
