@@ -326,8 +326,6 @@ struct NetworkManager {
         do {
             let urlRequest = try Router.otherProfile(userId: userId).asURLRequest()
             
-            print(urlRequest.url)
-            
             AF.request(urlRequest).responseDecodable(of: ProfileModel.self) { response in
                 switch response.result {
                 case .success(let data):
@@ -347,6 +345,28 @@ struct NetworkManager {
             print(error)
         }
         
+    }
+    
+    static func createComments(commentModel: CommentModel, completionHandler: @escaping ((Result<CommentModel,AppError>) -> Void)) {
+        do {
+            let urlRequest = try Router.comment(model: commentModel).asURLRequest()
+            
+            AF.request(urlRequest).responseDecodable(of: CommentModel.self) { response in
+                switch response.result {
+                case .success(let data):
+                    completionHandler(.success(data))
+                case .failure(let error):
+                    if let statusCode = error.responseCode, let netError = NetworkError(rawValue: statusCode) {
+                        completionHandler(.failure(AppError.networkError(netError)))
+                    } else if let statusCode = error.responseCode, let netError = CommentError(rawValue: statusCode) {
+                        completionHandler(.failure(AppError.commentError(netError)))
+                    }
+                }
+            }
+        }
+        catch {
+            
+        }
     }
     
 }

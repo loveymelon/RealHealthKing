@@ -31,6 +31,7 @@
 		DF73FE5A2BDEB58300328279 /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF73FE592BDEB58300328279 /* DetailView.swift */; };
 		DF73FE5C2BDEB58E00328279 /* DetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF73FE5B2BDEB58E00328279 /* DetailViewModel.swift */; };
 		DF73FE602BDEC7EB00328279 /* ScreenState.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF73FE5F2BDEC7EB00328279 /* ScreenState.swift */; };
+		DF73FE622BDEE07700328279 /* CommentModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF73FE612BDEE07700328279 /* CommentModel.swift */; };
 		DF76D1CD2BD23EED00257C38 /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF76D1CC2BD23EED00257C38 /* UIViewController+Extension.swift */; };
 		DF76D1D02BD2521A00257C38 /* RxGesture in Frameworks */ = {isa = PBXBuildFile; productRef = DF76D1CF2BD2521A00257C38 /* RxGesture */; };
 		DF80205D2BDA5DD100473028 /* SearchCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF80205C2BDA5DD100473028 /* SearchCollectionViewCell.swift */; };
@@ -122,6 +123,7 @@
 		DF73FE592BDEB58300328279 /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
 		DF73FE5B2BDEB58E00328279 /* DetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewModel.swift; sourceTree = "<group>"; };
 		DF73FE5F2BDEC7EB00328279 /* ScreenState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenState.swift; sourceTree = "<group>"; };
+		DF73FE612BDEE07700328279 /* CommentModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentModel.swift; sourceTree = "<group>"; };
 		DF76D1CC2BD23EED00257C38 /* UIViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; };
 		DF80205C2BDA5DD100473028 /* SearchCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCollectionViewCell.swift; sourceTree = "<group>"; };
 		DF8020642BDA629500473028 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
@@ -430,6 +432,7 @@
 				DF9CC6DD2BD7CA5C00DF808A /* LikeDatas.swift */,
 				DF88FEA22BDB811400FB9C24 /* ProfileModel.swift */,
 				DF87DD5F2BDD78F2006C53DC /* ModifyProfileModel.swift */,
+				DF73FE612BDEE07700328279 /* CommentModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -748,6 +751,7 @@
 				DF82CCF02BCA9F190089989E /* LoginQuery.swift in Sources */,
 				DF87DD5C2BDCE0EC006C53DC /* ModifyView.swift in Sources */,
 				DF76D1CD2BD23EED00257C38 /* UIViewController+Extension.swift in Sources */,
+				DF73FE622BDEE07700328279 /* CommentModel.swift in Sources */,
 				DF892AC02BCC44B8006C69AA /* SignUpViewModel.swift in Sources */,
 				DF82CCF72BCA9F7E0089989E /* TargetType.swift in Sources */,
 				DF8020692BDA62AD00473028 /* ProfileViewModel.swift in Sources */,
