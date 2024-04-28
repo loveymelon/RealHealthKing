@@ -14,6 +14,7 @@ class HomeView: BaseView {
     let tableView = UITableView().then {
         $0.register(HomeTableViewCell.self, forCellReuseIdentifier: HomeTableViewCell.identifier)
         $0.rowHeight = UITableView.automaticDimension
+        $0.backgroundColor = .black
     }
     
     override init(frame: CGRect) {

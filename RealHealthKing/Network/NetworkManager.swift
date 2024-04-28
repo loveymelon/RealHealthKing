@@ -347,11 +347,11 @@ struct NetworkManager {
         
     }
     
-    static func createComments(commentModel: CommentModel, completionHandler: @escaping ((Result<CommentModel,AppError>) -> Void)) {
+    static func createComments(commentModel: CommentModel, postId: String, completionHandler: @escaping ((Result<CommentsModel,AppError>) -> Void)) {
         do {
-            let urlRequest = try Router.comment(model: commentModel).asURLRequest()
+            let urlRequest = try Router.comment(model: commentModel, postId: postId).asURLRequest()
             
-            AF.request(urlRequest).responseDecodable(of: CommentModel.self) { response in
+            AF.request(urlRequest).responseDecodable(of: CommentsModel.self) { response in
                 switch response.result {
                 case .success(let data):
                     completionHandler(.success(data))

@@ -20,6 +20,7 @@ struct Posts: Codable {
     let files: [String]
     var likes: [String]
     let creator: Creator
+//    let comments: [CommentsModel]?
     
     enum CodingKeys: String, CodingKey {
         case postId = "post_id"
@@ -29,9 +30,10 @@ struct Posts: Codable {
         case files
         case likes
         case creator
+//        case comments
     }
     
-    init(postId: String? = "", productId: String? = "", title: String? = "", content: String? = "", files: [String] = [], likes: [String] = [], creator: Creator = Creator()) {
+    init(postId: String? = "", productId: String? = "", title: String? = "", content: String? = "", files: [String] = [], likes: [String] = [], creator: Creator = Creator()/*, comments: [CommentsModel] = []*/) {
         self.postId = postId
         self.productId = productId
         self.title = title
@@ -39,6 +41,7 @@ struct Posts: Codable {
         self.files = files
         self.likes = likes
         self.creator = creator
+//        self.comments = comments
     }
     
     mutating func changeLikeValue(likeValue: [String]) {

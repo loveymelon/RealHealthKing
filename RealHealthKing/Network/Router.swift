@@ -25,7 +25,7 @@ enum Router {
     case modifyProfile(model: ModifyProfileModel)
     case otherProfile(userId: String)
     case otherPosts(userId: String)
-    case comment(model: CommentModel)
+    case comment(model: CommentModel, postId: String)
 //    case imageFetch
 //    case withdraw
 //    case fetchPost
@@ -106,8 +106,8 @@ extension Router: TargetType {
             return "/users/\(id)/profile"
         case .otherPosts(let id):
             return "/posts/users/\(id)"
-        case .comment:
-            return "/posts/\(KeyChainManager.shared.userId)/comments"
+        case .comment(_, let postId):
+            return "/posts/\(postId)/comments"
         }
     }
     
@@ -251,7 +251,7 @@ extension Router: TargetType {
             return .none
         case .otherPosts:
             return .none
-        case .comment(let model):
+        case .comment(let model, _):
             let encoder = JSONEncoder()
             encoder.keyEncodingStrategy =
                 .convertToSnakeCase

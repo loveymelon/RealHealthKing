@@ -32,6 +32,10 @@
 		DF73FE5C2BDEB58E00328279 /* DetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF73FE5B2BDEB58E00328279 /* DetailViewModel.swift */; };
 		DF73FE602BDEC7EB00328279 /* ScreenState.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF73FE5F2BDEC7EB00328279 /* ScreenState.swift */; };
 		DF73FE622BDEE07700328279 /* CommentModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF73FE612BDEE07700328279 /* CommentModel.swift */; };
+		DF73FE672BDEE32F00328279 /* CommentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF73FE662BDEE32F00328279 /* CommentView.swift */; };
+		DF73FE692BDEE33A00328279 /* CommentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF73FE682BDEE33A00328279 /* CommentViewController.swift */; };
+		DF73FE6B2BDEE34400328279 /* CommentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF73FE6A2BDEE34400328279 /* CommentViewModel.swift */; };
+		DF73FE6D2BDEEAFF00328279 /* CommentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF73FE6C2BDEEAFF00328279 /* CommentTableViewCell.swift */; };
 		DF76D1CD2BD23EED00257C38 /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF76D1CC2BD23EED00257C38 /* UIViewController+Extension.swift */; };
 		DF76D1D02BD2521A00257C38 /* RxGesture in Frameworks */ = {isa = PBXBuildFile; productRef = DF76D1CF2BD2521A00257C38 /* RxGesture */; };
 		DF80205D2BDA5DD100473028 /* SearchCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF80205C2BDA5DD100473028 /* SearchCollectionViewCell.swift */; };
@@ -124,6 +128,10 @@
 		DF73FE5B2BDEB58E00328279 /* DetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewModel.swift; sourceTree = "<group>"; };
 		DF73FE5F2BDEC7EB00328279 /* ScreenState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenState.swift; sourceTree = "<group>"; };
 		DF73FE612BDEE07700328279 /* CommentModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentModel.swift; sourceTree = "<group>"; };
+		DF73FE662BDEE32F00328279 /* CommentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentView.swift; sourceTree = "<group>"; };
+		DF73FE682BDEE33A00328279 /* CommentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentViewController.swift; sourceTree = "<group>"; };
+		DF73FE6A2BDEE34400328279 /* CommentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentViewModel.swift; sourceTree = "<group>"; };
+		DF73FE6C2BDEEAFF00328279 /* CommentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentTableViewCell.swift; sourceTree = "<group>"; };
 		DF76D1CC2BD23EED00257C38 /* UIViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; };
 		DF80205C2BDA5DD100473028 /* SearchCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCollectionViewCell.swift; sourceTree = "<group>"; };
 		DF8020642BDA629500473028 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
@@ -264,6 +272,33 @@
 			isa = PBXGroup;
 			children = (
 				DF73FE5B2BDEB58E00328279 /* DetailViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		DF73FE632BDEE31300328279 /* Comment */ = {
+			isa = PBXGroup;
+			children = (
+				DF73FE652BDEE32200328279 /* ViewModel */,
+				DF73FE642BDEE31E00328279 /* View */,
+			);
+			path = Comment;
+			sourceTree = "<group>";
+		};
+		DF73FE642BDEE31E00328279 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				DF73FE662BDEE32F00328279 /* CommentView.swift */,
+				DF73FE682BDEE33A00328279 /* CommentViewController.swift */,
+				DF73FE6C2BDEEAFF00328279 /* CommentTableViewCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		DF73FE652BDEE32200328279 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				DF73FE6A2BDEE34400328279 /* CommentViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -475,6 +510,7 @@
 		DF839D812BC93D05001FE924 /* Scene */ = {
 			isa = PBXGroup;
 			children = (
+				DF73FE632BDEE31300328279 /* Comment */,
 				DF73FE542BDEB53400328279 /* Detail */,
 				DF73FE4B2BDE8ECA00328279 /* Launch */,
 				DF87DD552BDCE0AF006C53DC /* ModifyProfile */,
@@ -737,6 +773,7 @@
 				DF82CCDB2BCA87910089989E /* InfoLabel.swift in Sources */,
 				DF95A51F2BD0FA6700E6FCC4 /* PostingViewModel.swift in Sources */,
 				DF73FE4F2BDE8EFA00328279 /* LauchScreenViewController.swift in Sources */,
+				DF73FE6D2BDEEAFF00328279 /* CommentTableViewCell.swift in Sources */,
 				DF87DD5E2BDCE11C006C53DC /* ModifyViewModel.swift in Sources */,
 				DF6367E12BCBD0CA0087A075 /* SignUpModel.swift in Sources */,
 				DF87DD602BDD78F2006C53DC /* ModifyProfileModel.swift in Sources */,
@@ -750,6 +787,7 @@
 				DF8020652BDA629500473028 /* ProfileViewController.swift in Sources */,
 				DF82CCF02BCA9F190089989E /* LoginQuery.swift in Sources */,
 				DF87DD5C2BDCE0EC006C53DC /* ModifyView.swift in Sources */,
+				DF73FE692BDEE33A00328279 /* CommentViewController.swift in Sources */,
 				DF76D1CD2BD23EED00257C38 /* UIViewController+Extension.swift in Sources */,
 				DF73FE622BDEE07700328279 /* CommentModel.swift in Sources */,
 				DF892AC02BCC44B8006C69AA /* SignUpViewModel.swift in Sources */,
@@ -770,6 +808,7 @@
 				DF8E464F2BD56D0700606390 /* HomeView.swift in Sources */,
 				DF839D842BC93D2C001FE924 /* BaseView.swift in Sources */,
 				DF80205D2BDA5DD100473028 /* SearchCollectionViewCell.swift in Sources */,
+				DF73FE6B2BDEE34400328279 /* CommentViewModel.swift in Sources */,
 				DF6367E82BCBE28B0087A075 /* HelperView.swift in Sources */,
 				DF73FE582BDEB57600328279 /* DetailViewController.swift in Sources */,
 				DF8135BF2BCD1E9900126B9F /* EmailCheckModel.swift in Sources */,
@@ -787,6 +826,7 @@
 				DF6367E62BCBD1B90087A075 /* SignUpView.swift in Sources */,
 				DF839D8B2BC93DC1001FE924 /* SignInViewController.swift in Sources */,
 				DF82CCEE2BCA9F0B0089989E /* TokenModel.swift in Sources */,
+				DF73FE672BDEE32F00328279 /* CommentView.swift in Sources */,
 				DF806FA82BD8D8C9006046C8 /* NotificationCenterProtocol.swift in Sources */,
 				DF6367E42BCBD1A90087A075 /* SignUpViewController.swift in Sources */,
 				DF82CCE22BCA8DF80089989E /* ViewModelType.swift in Sources */,
