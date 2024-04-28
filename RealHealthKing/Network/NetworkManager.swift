@@ -298,5 +298,56 @@ struct NetworkManager {
         
     }
     
+    static func otherUserPosts(userId: String, completionHandler: @escaping ((Result<[Posts], AppError>) -> Void)) {
+        
+        do {
+            let urlRequest = try Router.otherPosts(userId: userId).asURLRequest()
+            
+            AF.request(urlRequest).responseDecodable(of: PostsModel.self) { response in
+                switch response.result {
+                case .success(let data):
+                    completionHandler(.success(data.data))
+                case .failure(let error):
+                    if let statusCode = error.responseCode, let netError = NetworkError(rawValue: statusCode) {
+                        completionHandler(.failure(AppError.networkError(netError)))
+                    } else if let statusCode = error.responseCode, let netError = FetchPostError(rawValue: statusCode) {
+                        completionHandler(.failure(AppError.fetchPostError(netError)))
+                    }
+                }
+            }
+        }
+        catch {
+            print(error)
+        }
+    }
+    
+    static func otherUserProfile(userId: String, completionHandler: @escaping ((Result<ProfileModel, AppError>) -> Void)) {
+        
+        do {
+            let urlRequest = try Router.otherProfile(userId: userId).asURLRequest()
+            
+            print(urlRequest.url)
+            
+            AF.request(urlRequest).responseDecodable(of: ProfileModel.self) { response in
+                switch response.result {
+                case .success(let data):
+                    completionHandler(.success(data))
+                case .failure(let error):
+                    print(error)
+                    if let statusCode = error.responseCode, let netError = NetworkError(rawValue: statusCode) {
+                        completionHandler(.failure(AppError.networkError(netError)))
+                    } else if let statusCode = error.responseCode, let netError = ProfileFetchError(rawValue: statusCode) {
+                        completionHandler(.failure(AppError.profileFetchError(netError)))
+                    }
+
+                }
+            }
+        }
+        catch {
+            print(error)
+        }
+        
+    }
+    
 }
 

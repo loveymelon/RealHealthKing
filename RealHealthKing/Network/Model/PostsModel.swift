@@ -31,7 +31,7 @@ struct Posts: Codable {
         case creator
     }
     
-    init(postId: String? = "", productId: String? = "", title: String? = "", content: String? = "", files: [String] = [], likes: [String] = [], creator: [Creator] = []) {
+    init(postId: String? = "", productId: String? = "", title: String? = "", content: String? = "", files: [String] = [], likes: [String] = [], creator: Creator = Creator()) {
         self.postId = postId
         self.productId = productId
         self.title = title
@@ -56,6 +56,12 @@ struct Creator: Codable {
         case userId = "user_id"
         case nick
         case profileImage
+    }
+    
+    init(userId: String = "", nick: String = "", profileImage: String = "") {
+        self.userId = userId
+        self.nick = nick
+        self.profileImage = profileImage
     }
 }
 

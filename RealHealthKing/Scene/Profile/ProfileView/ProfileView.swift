@@ -19,17 +19,14 @@ class ProfileView: BaseView {
     
     let postView = CountView().then {
         $0.titleLabel.text = "게시물"
-        $0.countLabel.text = "1"
     }
     
     let follwerView = CountView().then {
         $0.titleLabel.text = "팔로워"
-        $0.countLabel.text = "1"
     }
     
     let followingView = CountView().then {
         $0.titleLabel.text = "팔로잉"
-        $0.countLabel.text = "1"
     }
     
     let nicknameLabel = UILabel().then {

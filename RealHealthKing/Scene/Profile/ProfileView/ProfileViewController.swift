@@ -67,6 +67,8 @@ class ProfileViewController: BaseViewController<ProfileView> {
             owner.mainView.follwerView.countLabel.text = "\(count)"
         }.disposed(by: disposeBag)
         
+        output.postCount.map { String($0) }.drive(mainView.postView.countLabel.rx.text).disposed(by: disposeBag)
+        
         output.postDatas.drive(mainView.collectionView.rx.items(cellIdentifier: SearchCollectionViewCell.identifier, cellType: SearchCollectionViewCell.self)) { index, item, cell in
             
             let size = cell.bounds.size

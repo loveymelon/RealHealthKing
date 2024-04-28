@@ -20,8 +20,6 @@ class HomeViewController: BaseViewController<HomeView> {
     let disposeBag = DisposeBag()
     
     let keyChain = KeychainSwift()
-    
-    let postData = BehaviorRelay(value: Posts())
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,12 +42,18 @@ class HomeViewController: BaseViewController<HomeView> {
 //            let likeData = viewModel.a[index].likes.contains(keyChain.get("userId") ?? "empty")
             cell.selectionStyle = UITableViewCell.SelectionStyle.none
             cell.configureCell(data: item, width: mainView.frame.width)
-            postData.accept(item)
             
-            cell.profileImageView.rx.tapGesture().when(.recognized).withLatestFrom(postData.asObservable()).subscribe(with: self) { owner, item in
+            cell.profileImageView.rx.tapGesture().when(.recognized).map { _ in item.creator.userId }.subscribe(with: self) { owner, id in
                 let vc = ProfileViewController()
                 
+                if KeyChainManager.shared.userId == id {
+                    vc.viewModel.viewState = .me
+                } else {
+                    vc.viewModel.otherUserId = id
+                    vc.viewModel.viewState = .other
+                }
                 
+                owner.navigationController?.pushViewController(vc, animated: true)
             }.disposed(by: disposeBag)
             
         }.disposed(by: disposeBag)

@@ -21,6 +21,7 @@ class HomeViewModel: ViewModelType {
     
     var disposeBag = DisposeBag()
     
+    
     func transform(input: Input) -> Output {
         
         let resultPostsDatas = BehaviorRelay<[Posts]>(value: [])

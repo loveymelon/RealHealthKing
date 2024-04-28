@@ -9,7 +9,7 @@ import Foundation
 
 struct ProfileModel: Decodable {
     let userId: String
-    let email: String
+    let email: String?
     let nick: String
     let profileImage: String?
     let follwers: [Follwers]?
@@ -25,8 +25,7 @@ struct ProfileModel: Decodable {
         case following
         case posts
     }
-    
-    init(userId: String = "", email: String = "", nick: String = "", profileImage: String? = nil, follwers: [Follwers]? = nil, following: [Fllowing]? = nil, posts: [String] = []) {
+    init(userId: String = "", email: String? = "", nick: String = "", profileImage: String? = nil, follwers: [Follwers]? = nil, following: [Fllowing]? = nil, posts: [String] = []) {
         self.userId = userId
         self.email = email
         self.nick = nick
@@ -34,6 +33,17 @@ struct ProfileModel: Decodable {
         self.follwers = follwers
         self.following = following
         self.posts = posts
+    }
+    
+    init(from decoder: any Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.userId = try container.decode(String.self, forKey: .userId)
+        self.email = try container.decodeIfPresent(String.self, forKey: .email)
+        self.nick = try container.decode(String.self, forKey: .nick)
+        self.profileImage = try container.decodeIfPresent(String.self, forKey: .profileImage)
+        self.follwers = try container.decodeIfPresent([Follwers].self, forKey: .follwers)
+        self.following = try container.decodeIfPresent([Fllowing].self, forKey: .following)
+        self.posts = try container.decode([String].self, forKey: .posts)
     }
 }
 
