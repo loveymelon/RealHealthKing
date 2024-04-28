@@ -212,12 +212,8 @@ extension Router: TargetType {
             return .none
         case .userPosts:
             return .none
-        case .modifyProfile(let model):
-            let encoder = JSONEncoder()
-            encoder.keyEncodingStrategy =
-                .convertToSnakeCase
-            
-            return try? encoder.encode(model)
+        case .modifyProfile:
+            return .none
         }
     }
 }

@@ -42,6 +42,12 @@ extension UIImageView {
             return requestBody
         }
         
+//        let options: KingfisherOptionsInfo = [
+//            .processor(processor),
+//            .scaleFactor(UIScreen.main.scale),
+//            .requestModifier(imageDownloadRequest)
+//        ]
+        
         KingfisherManager.shared.retrieveImage(with: url, options: [
             .processor(processor),
             .requestModifier(imageDownloadRequest),
@@ -53,6 +59,18 @@ extension UIImageView {
             case .failure(let error):
                 print(error)
             }
-        }
+                }
+//        self.kf.setImage(
+//            with: url,
+//            options: options,
+//            completionHandler: { [weak self] result in
+//                switch result {
+//                case .success(let value):
+//                    self?.image = value.image
+//                case .failure(let error):
+//                    print("Error loading image: \(error)")
+//                }
+//            }
+//        )
     }
 }

@@ -8,6 +8,7 @@
 import Foundation
 import RxCocoa
 import RxSwift
+import UIKit
 
 final class ModifyViewModel: ViewModelType {
     
@@ -15,6 +16,7 @@ final class ModifyViewModel: ViewModelType {
         let inputNickName: Observable<String>
         let inputProfileImage: Observable<String>
         let inputNick: Observable<String>
+        let inputSaveButtonTap: Observable<Data>
     }
     
     struct Output {
@@ -32,6 +34,7 @@ final class ModifyViewModel: ViewModelType {
         let nickValidResult = BehaviorRelay(value: false)
         
         input.inputNickName.subscribe { text in
+            
             nickResult.accept(text)
         }.disposed(by: disposeBag)
         
@@ -44,7 +47,30 @@ final class ModifyViewModel: ViewModelType {
             }
         }.disposed(by: disposeBag)
      
-        input.inputNick.map { $0.count >= 2 && $0.count <= 8 }.bind(to: nickValidResult).disposed(by: disposeBag)
+        input.inputNick.bind(onNext: { text in
+            
+            if !text.isEmpty {
+                nickResult.accept(text)
+            }
+            
+            if text.count >= 2 && text.count <= 8 {
+                nickValidResult.accept(true)
+            } else {
+                nickValidResult.accept(false)
+            }
+        }).disposed(by: disposeBag)
+        
+        input.inputSaveButtonTap.subscribe(with: self) { owner, imageData in
+            print("nick", nickResult.value)
+            NetworkManager.modifyProfileUpdate(modifyModel: ModifyProfileModel(nick: nickResult.value, profile: imageData)) { result in
+                switch result {
+                case .success(let data):
+                    print(data)
+                case .failure(let error):
+                    print(error)
+                }
+            }
+        }.disposed(by: disposeBag)
         
         return Output(outputNick: nickResult.asDriver(), outputProfileImage: profileImageResult.asDriver(), outputNickValid: nickValidResult.asDriver())
     }

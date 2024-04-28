@@ -19,8 +19,7 @@ class ModifyViewController: BaseViewController<ModifyView> {
     
     let inputNickName = BehaviorRelay<String>(value: "")
     let profileImage = BehaviorRelay<String>(value: "")
-    
-    
+    let userImagePick = BehaviorRelay<Data>(value: Data())
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,12 +32,18 @@ class ModifyViewController: BaseViewController<ModifyView> {
         navigationController?.navigationBar.largeTitleTextAttributes = [.foregroundColor: UIColor.white]
         
         navigationItem.title = "프로필 수정"
+        
+        let rightBarButton = UIBarButtonItem(customView: mainView.saveButton)
+        
+        navigationItem.rightBarButtonItem = rightBarButton
     }
     
     override func bind() {
         let nickResult = mainView.nickTextField.textField.rx.text.orEmpty.asObservable()
         
-        let input = ModifyViewModel.Input(inputNickName: inputNickName.asObservable(), inputProfileImage: profileImage.asObservable(), inputNick: nickResult)
+        let saveButtonTap = mainView.saveButton.rx.tap.withLatestFrom(userImagePick.asObservable())
+        
+        let input = ModifyViewModel.Input(inputNickName: inputNickName.asObservable(), inputProfileImage: profileImage.asObservable(), inputNick: nickResult, inputSaveButtonTap: saveButtonTap)
         
         let output = viewModel.transform(input: input)
         
@@ -52,8 +57,12 @@ class ModifyViewController: BaseViewController<ModifyView> {
         
         output.outputProfileImage.drive(with: self) { owner, imageData in
             
+            print(imageData)
+            
             if !imageData.isEmpty {
                 let url = APIKey.baseURL.rawValue + NetworkVersion.version.rawValue + "/" + imageData
+                
+                print(url)
                 
                 let size = owner.mainView.profileImageView.bounds.size
                 
@@ -110,6 +119,12 @@ extension ModifyViewController: PHPickerViewControllerDelegate, UINavigationCont
                     guard let self = self else { return }
                     
                     mainView.profileImageView.image = selectedImages.first
+                    
+                    if let imageData = selectedImages[0].resizeWithWidth(width: 700)?.jpegData(compressionQuality: 1) {
+                        userImagePick.accept(imageData)
+                    } else {
+                        print("이미지 압축 실패")
+                    }
                     
                     picker.dismiss(animated: true, completion: nil)
                 }

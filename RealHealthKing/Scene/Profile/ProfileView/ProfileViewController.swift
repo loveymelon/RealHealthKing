@@ -48,6 +48,7 @@ class ProfileViewController: BaseViewController<ProfileView> {
             let size = owner.mainView.profileImageView.bounds
             
             owner.imageURL = image
+
             
             if image.isEmpty {
                 owner.mainView.profileImageView.image = UIImage(systemName: "person")

@@ -267,17 +267,27 @@ struct NetworkManager {
     static func modifyProfileUpdate(modifyModel: ModifyProfileModel, completionHandler: @escaping((Result<ProfileModel, AppError>) -> Void)) {
         
         let modifyRouter = Router.modifyProfile(model: modifyModel)
-        
+        print(modifyRouter.baseURL + modifyRouter.version + modifyRouter.path)
+
         AF.upload(multipartFormData: { multipartForm in
+            print(modifyModel.nick)
+            if let nickData = modifyModel.nick.data(using: .utf8) {
+                
+                multipartForm.append(nickData, withName: "nick")
+            } else {
+                print("fdsafas")
+            }
             
-            multipartForm.append(modifyModel.profile, withName: "profile", fileName: "images", mimeType: "image/png")
+            multipartForm.append(modifyModel.profile, withName: "profile", fileName: "profile.jpg", mimeType: "image/jpeg")
+//            print(multipartForm.contentType)
             
-        }, to: modifyRouter.baseURL + Router.imageUpload.version + modifyRouter.path, headers: HTTPHeaders(modifyRouter.header), interceptor: NetworkInterceptor())
+        }, to: modifyRouter.baseURL + modifyRouter.version + modifyRouter.path, method: modifyRouter.method, headers: HTTPHeaders(modifyRouter.header), interceptor: NetworkInterceptor())
         .responseDecodable(of: ProfileModel.self) { response in
             switch response.result {
             case .success(let data):
                 completionHandler(.success(data))
-            case .failure(_):
+            case .failure(let error):
+                print(error)
                 if let statusCode = response.response?.statusCode, let netError = NetworkError(rawValue: statusCode) {
                     completionHandler(.failure(AppError.networkError(netError)))
                 } else if let statusCode = response.response?.statusCode, let netError = ModifyProfileError(rawValue: statusCode) {

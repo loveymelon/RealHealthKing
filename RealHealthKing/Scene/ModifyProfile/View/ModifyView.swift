@@ -23,6 +23,10 @@ final class ModifyView: BaseView {
         $0.infoLabel.font = UIFont.systemFont(ofSize: 11)
         $0.infoLabelConstraint?.update(offset: -13)
     }
+    
+    let saveButton = UIButton().then {
+        $0.setTitle("저장", for: .normal)
+    }
 
     override init(frame: CGRect) {
         super.init(frame: frame)

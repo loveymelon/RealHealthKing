@@ -10,4 +10,9 @@ import Foundation
 struct ModifyProfileModel: Encodable {
     let nick: String
     let profile: Data
+    
+    enum CodingKeys: String, CodingKey {
+        case nick
+        case profile
+    }
 }
