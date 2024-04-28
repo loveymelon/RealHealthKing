@@ -43,6 +43,10 @@ class HomeViewController: BaseViewController<HomeView> {
             cell.configureCell(data: item, width: mainView.frame.width)
             
         }.disposed(by: disposeBag)
+        
+        mainView.tableView.rx.modelSelected(Posts.self).bind(with: self) { owner, item in
+            owner
+        }.disposed(by: disposeBag)
     }
 
 }

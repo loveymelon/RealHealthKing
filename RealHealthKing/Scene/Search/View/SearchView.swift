@@ -11,8 +11,13 @@ import SnapKit
 
 class SearchView: BaseView {
     
+    let searchController = UISearchController(searchResultsController: nil)
+    
+    var searchBar: UISearchBar { return searchController.searchBar }
+    
     let collectionView = UICollectionView(frame: .zero, collectionViewLayout: createThreeColumnSection()).then {
         $0.register(SearchCollectionViewCell.self, forCellWithReuseIdentifier: SearchCollectionViewCell.identifier)
+        $0.backgroundColor = .black
     }
 
     override init(frame: CGRect) {
@@ -81,7 +86,7 @@ class SearchView: BaseView {
     
     override func configureLayout() {
         collectionView.snp.makeConstraints { make in
-            make.edges.equalTo(safeAreaLayoutGuide.snp.edges)
+            make.edges.equalTo(safeAreaLayoutGuide)
         }
     }
 }

@@ -12,6 +12,9 @@ import RxCocoa
 class SearchViewModel: ViewModelType {
     struct Input {
         let viewWillAppearTrigger: Observable<Void>
+        let searchButtonTap: ControlEvent<Void>
+        let searchCancelTap: ControlEvent<Void>
+        let searchText: ControlProperty<String>
     }
     
     struct Output {
