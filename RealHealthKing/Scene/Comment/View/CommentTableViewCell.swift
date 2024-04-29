@@ -19,21 +19,21 @@ class CommentTableViewCell: UITableViewCell {
     }
     let nickLabel = UILabel().then {
         $0.textColor = .white
+        $0.text = "fdfdfd"
+        $0.font = .boldSystemFont(ofSize: 16)
+        
     }
     let commentLabel = UILabel().then {
         $0.textColor = .white
-    }
-    let stackView = UIStackView().then {
-        $0.axis = .vertical
-        $0.alignment = .fill
-        $0.spacing = 0
-        $0.distribution = .fillProportionally
+        $0.text = "fdfdfdfdfdfdsafd"
+        $0.font = .systemFont(ofSize: 12)
+        $0.numberOfLines = 0
     }
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        backgroundColor = .black
         
-        backgroundColor = .red
         configureUI()
     }
     
@@ -51,10 +51,8 @@ extension CommentTableViewCell: UIConfigureProtocol {
     
     func configureHierarchy() {
         contentView.addSubview(profileImageView)
-        [nickLabel, commentLabel].forEach { label in
-            stackView.addArrangedSubview(label)
-        }
-        contentView.addSubview(stackView)
+        contentView.addSubview(nickLabel)
+        contentView.addSubview(commentLabel)
     }
     
     func configureLayout() {
@@ -64,10 +62,17 @@ extension CommentTableViewCell: UIConfigureProtocol {
             make.leading.equalTo(contentView.snp.leading).inset(10)
         }
         
-        stackView.snp.makeConstraints { make in
-            make.centerY.equalTo(contentView.snp.centerY)
-            make.leading.equalTo(profileImageView.snp.trailing).offset(30)
-            make.height.equalTo(contentView.snp.height)
+        nickLabel.snp.makeConstraints { make in
+            make.top.equalTo(profileImageView.snp.top)
+            make.height.equalToSuperview().multipliedBy(0.2)
+            make.leading.equalTo(profileImageView.snp.trailing).offset(10)
+        }
+        
+        commentLabel.snp.makeConstraints { make in
+            make.top.equalTo(nickLabel.snp.bottom)
+            make.leading.equalTo(nickLabel.snp.leading)
+            make.trailing.equalTo(contentView.snp.trailing).inset(10)
+            make.bottom.equalTo(contentView.snp.bottom)
         }
     }
     

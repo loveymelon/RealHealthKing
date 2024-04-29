@@ -16,11 +16,30 @@ class CommentView: BaseView {
         $0.backgroundColor = .black
         $0.rowHeight = 70
     }
+    
     let commentTextView = UITextView().then {
         $0.clipsToBounds = true
-        $0.layer.cornerRadius = 10
+        $0.layer.cornerRadius = 20
         $0.layer.borderWidth = 1
         $0.layer.borderColor = UIColor.lightGray.cgColor
+        $0.backgroundColor = .clear
+        $0.textContainerInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 50)
+        $0.isScrollEnabled = false
+        $0.textColor = .white
+    }
+    
+    let userImageView = UIImageView().then {
+        $0.clipsToBounds = true
+        $0.layer.cornerRadius = 35 / 2
+        $0.layer.borderColor = UIColor.white.cgColor
+        $0.layer.borderWidth = 1
+    }
+    
+    let doneButton = UIButton().then {
+        $0.setImage(UIImage(systemName: "arrow.up"), for: .normal)
+        $0.backgroundColor = .blue
+        $0.layer.cornerRadius = 13
+        $0.tintColor = .white
     }
     
     override init(frame: CGRect) {
@@ -32,20 +51,43 @@ class CommentView: BaseView {
     }
     
     override func configureHierarchy() {
-        addSubview(tableView)
+        addSubview(userImageView)
         addSubview(commentTextView)
+        addSubview(doneButton)
+        addSubview(tableView)
     }
     
     override func configureLayout() {
-        tableView.snp.makeConstraints { make in
-            make.horizontalEdges.top.equalTo(safeAreaLayoutGuide)
-            make.height.equalTo(safeAreaLayoutGuide.snp.height).multipliedBy(0.9)
+        
+        userImageView.snp.makeConstraints { make in
+            make.leading.equalToSuperview().inset(10)
+            make.size.equalTo(35)
+            make.bottom.equalTo(safeAreaLayoutGuide.snp.bottom).inset(10)
         }
         
         commentTextView.snp.makeConstraints { make in
-            make.top.equalTo(tableView.snp.bottom)
-            make.horizontalEdges.bottom.equalTo(safeAreaLayoutGuide)
+//            make.height.equalTo(40).priority(.high)
+            make.height.lessThanOrEqualTo(103.0)
+            make.bottom.equalTo(userImageView.snp.bottom)
+            make.leading.equalTo(userImageView.snp.trailing).offset(5)
+            make.trailing.equalTo(safeAreaLayoutGuide.snp.trailing).inset(10)
         }
+        
+        doneButton.snp.makeConstraints { make in
+            make.trailing.equalTo(commentTextView.snp.trailing).inset(5)
+            make.bottom.equalTo(commentTextView.snp.bottom).inset(6)
+            make.width.equalTo(40)
+            make.height.equalTo(23)
+        }
+        
+        tableView.snp.makeConstraints { make in
+            make.top.horizontalEdges.equalTo(safeAreaLayoutGuide)
+            make.bottom.equalTo(commentTextView.snp.top)
+        }
+        
+
+        
+        
     }
     
 }

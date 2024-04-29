@@ -21,13 +21,6 @@ class SearchViewController: BaseViewController<SearchView> {
     }
     
     override func configureNav() {
-//        navigationItem.largeTitleDisplayMode = .always
-//        navigationController?.navigationBar.prefersLargeTitles = true
-//        navigationController?.navigationBar.largeTitleTextAttributes = [.foregroundColor: UIColor.white]
-//        navigationItem.title = "검색"
-//        
-//        
-//        navigationController?.navigationBar.barPosition = .
         mainView.searchController.searchBar.placeholder = "Search"
         mainView.searchController.hidesNavigationBarDuringPresentation = false
         navigationController?.navigationBar.isTranslucent = false

@@ -21,19 +21,62 @@ class CommentViewController: BaseViewController<CommentView> {
         super.viewDidLoad()
 
         setupSheet()
+        
     }
     
     override func bind() {
         let viewWill = rx.viewWillAppear.withLatestFrom(postId.asObservable())
         
-        let input = CommentViewModel.Input(inputViewWillAppear: viewWill)
+        let inputButtonTap = mainView.doneButton.rx.tap.withLatestFrom(mainView.commentTextView.rx.text.orEmpty.asObservable())
+        
+        let input = CommentViewModel.Input(inputViewWillAppear: viewWill, inputButtonTap: inputButtonTap)
         
         let output = viewModel.transform(input: input)
         
+        mainView.commentTextView.rx
+            .didChange
+            .bind(with: self) { owner, _ in
+                let size = CGSize(width: owner.mainView.commentTextView.bounds.width, height: .infinity)
+                let estimatedSize = owner.mainView.commentTextView.sizeThatFits(size)
+                
+                let isMaxHeight = estimatedSize.height >= 103.0
+                
+                guard isMaxHeight != owner.mainView.commentTextView.isScrollEnabled else { return }
+                owner.mainView.commentTextView.isScrollEnabled = isMaxHeight
+                owner.mainView.commentTextView.reloadInputViews()
+                owner.mainView.commentTextView.setNeedsUpdateConstraints()
+            }.disposed(by: disposeBag)
+        
         output.outputCommentData.drive(mainView.tableView.rx.items(cellIdentifier: CommentTableViewCell.identifier, cellType: CommentTableViewCell.self)) { index, item, cell in
             
-            print(item)
+            cell.nickLabel.text = item.creator.nick
+            cell.commentLabel.text = item.content
             
+            if let imageData = item.creator.profileImage {
+                
+                let url = APIKey.baseURL.rawValue + NetworkVersion.version.rawValue + "/" + imageData
+                let size = cell.bounds.size
+                
+                cell.profileImageView.downloadImage(imageUrl: url, width: size.width, height: size.height)
+                
+            } else {
+                cell.profileImageView.image = UIImage(systemName: "person")
+            }
+            
+        }.disposed(by: disposeBag)
+        
+        output.outputProfile.drive(with: self) { owner, image in
+            if image == "person" {
+                owner.mainView.userImageView.image = UIImage(systemName: image)
+            } else {
+                let url = APIKey.baseURL.rawValue + NetworkVersion.version.rawValue + "/" + image
+                
+                print(url, "urlrlrlrlrl")
+                
+                let size = owner.mainView.userImageView.bounds.size
+                
+                owner.mainView.userImageView.downloadImage(imageUrl: url, width: size.width, height: size.height)
+            }
         }.disposed(by: disposeBag)
     }
     
@@ -53,6 +96,10 @@ extension CommentViewController {
             sheet.prefersGrabberVisible = true
             sheet.delegate = self
         }
+    }
+    
+    func configureUI() {
+        
     }
 }
 
