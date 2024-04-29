@@ -20,6 +20,7 @@ enum AppError: Error {
     case postDetails(PostDetailError)
     case modifyProfileError(ModifyProfileError)
     case commentError(CommentError)
+    case followingError(FollowingError)
     case unowned
     
     var description: String {
@@ -48,6 +49,8 @@ enum AppError: Error {
             return modifyProfileError.description
         case .commentError(let commentError):
             return commentError.description
+        case .followingError(let followingError):
+            return followingError.description
         case .unowned:
             return "unowned"
         }
@@ -297,6 +300,35 @@ enum CommentError: Int, Error {
             return "접근 권한이 없습니다."
         case .noPosts:
             return "없습니다."
+        case .unAccessToken:
+            return "재로그인 필요"
+        }
+    }
+}
+
+enum FollowingError: Int, Error {
+    case success = 200
+    case unRequest = 400
+    case unAccess = 401
+    case forbidden = 403
+    case already = 409
+    case unKnow = 410
+    case unAccessToken = 419
+    
+    var description: String {
+        switch self {
+        case .success:
+            return "success"
+        case .unRequest:
+            return "잘못된 요청입니다."
+        case .unAccess:
+            return "잚소된 접근입니다."
+        case .forbidden:
+            return "접근 권한이 없습니다."
+        case .already:
+            return "이미 팔로잉중입니다."
+        case .unKnow:
+            return "알 수 없는 계정입니다."
         case .unAccessToken:
             return "재로그인 필요"
         }

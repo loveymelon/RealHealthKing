@@ -369,5 +369,26 @@ struct NetworkManager {
         }
     }
     
+    static func createFollow(userId: String, completionHandler: @escaping ((Result<FollowingModel, AppError>) -> Void)) {
+        do {
+            let urlRequest = try Router.following(userId: userId).asURLRequest()
+            
+            AF.request(urlRequest).responseDecodable(of: FollowingModel.self) { response in
+                switch response.result {
+                case .success(let data):
+                    completionHandler(.success(data))
+                case .failure(let error):
+                    if let statusCode = error.responseCode, let netError = NetworkError(rawValue: statusCode) {
+                        completionHandler(.failure(AppError.networkError(netError)))
+                    } else if let statusCode = error.responseCode, let netError = FollowingError(rawValue: statusCode) {
+                        completionHandler(.failure(AppError.followingError(netError)))
+                    }
+                }
+            }
+        } catch {
+            print(error)
+        }
+    }
+    
 }
 
