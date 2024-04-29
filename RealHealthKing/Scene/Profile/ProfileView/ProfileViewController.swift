@@ -29,18 +29,20 @@ class ProfileViewController: BaseViewController<ProfileView> {
         
         let inputLeftButtonTap = mainView.leftButton.rx.tap.asObservable()
         
-        let input = ProfileViewModel.Input(inputViewWillTrigger: viewWillTrigger)
+        let input = ProfileViewModel.Input(inputViewWillTrigger: viewWillTrigger, inputLeftButtonTap: inputLeftButtonTap)
         
         let output = viewModel.transform(input: input)
         
-//        mainView.leftButton.rx.tap.bind(with: self, onNext: { owner, _ in
-//            let vc = ModifyViewController()
-//            
-//            vc.inputNickName.accept(owner.mainView.nicknameLabel.text ?? "empty")
-//            vc.profileImage.accept(owner.imageURL ?? "")
-//            
-//            owner.navigationController?.pushViewController(vc, animated: true)
-//        }).disposed(by: disposeBag)
+        output.outputLeftButtonTap.drive(with: self) { owner, isValid in
+            if isValid {
+                let vc = ModifyViewController()
+                
+                vc.inputNickName.accept(owner.mainView.nicknameLabel.text ?? "empty")
+                vc.profileImage.accept(owner.imageURL ?? "")
+                
+                owner.navigationController?.pushViewController(vc, animated: true)
+            }
+        }.disposed(by: disposeBag)
         
         output.profileNick.drive(with: self) { owner, nick in
             owner.mainView.nicknameLabel.text = nick

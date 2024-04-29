@@ -122,7 +122,7 @@ class ProfileViewModel: ViewModelType {
                         if let following = data.following {
                             
                             if following.isEmpty {
-                                leftButtonResult.accept("팔로잉")
+                                leftButtonResult.accept("팔로우")
                             }
                             
                             for follow in following {
@@ -130,7 +130,7 @@ class ProfileViewModel: ViewModelType {
                                     leftButtonResult.accept("맞팔로잉")
                                     break
                                 } else {
-                                    leftButtonResult.accept("팔로잉")
+                                    leftButtonResult.accept("팔로우")
                                 }
                             }
                         }
@@ -143,8 +143,18 @@ class ProfileViewModel: ViewModelType {
                 print(error)
             }.disposed(by: disposeBag)
 
-            input.inputLeftButtonTap.subscribe { _ in
-                leftButtonTapResult.accept(true)
+            input.inputLeftButtonTap.subscribe(with: self) { owner, _ in
+                print("들어오냐?")
+                NetworkManager.createFollow(userId: owner.otherUserId) { result in
+                    switch result {
+                    case .success(let data):
+                        print(data)
+                        leftButtonTapResult.accept(false)
+                        leftButtonResult.accept("팔로잉")
+                    case .failure(let error):
+                        print(error)
+                    }
+                }
             }.disposed(by: disposeBag)
             
         }

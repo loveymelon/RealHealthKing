@@ -376,8 +376,10 @@ struct NetworkManager {
             AF.request(urlRequest).responseDecodable(of: FollowingModel.self) { response in
                 switch response.result {
                 case .success(let data):
+                    print(data)
                     completionHandler(.success(data))
                 case .failure(let error):
+                    print(error)
                     if let statusCode = error.responseCode, let netError = NetworkError(rawValue: statusCode) {
                         completionHandler(.failure(AppError.networkError(netError)))
                     } else if let statusCode = error.responseCode, let netError = FollowingError(rawValue: statusCode) {

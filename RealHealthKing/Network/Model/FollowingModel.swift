@@ -9,12 +9,12 @@ import Foundation
 
 struct FollowingModel: Decodable {
     let nick: String
-    let opponentNick: String
-    let followingState: Bool
+//    let opponentNick: String
+//    let followingState: Bool
     
     enum CodingKeys: String, CodingKey {
         case nick
-        case opponentNick = "opponent_nick"
-        case followingState = "following_state"
+//        case opponentNick = "opponent_nick"
+//        case followingState = "following_state"
     }
 }
