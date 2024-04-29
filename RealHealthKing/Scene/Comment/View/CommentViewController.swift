@@ -20,6 +20,7 @@ class CommentViewController: BaseViewController<CommentView> {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        setupSheet()
     }
     
     override func bind() {
@@ -35,5 +36,31 @@ class CommentViewController: BaseViewController<CommentView> {
             
         }.disposed(by: disposeBag)
     }
+    
+    override func configureNav() {
+        navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: UIColor.white]
+        navigationItem.title = "댓글"
+    }
 
+}
+
+extension CommentViewController {
+    func setupSheet() {
+        if let sheet = sheetPresentationController {
+            sheet.detents = [.medium(), .large(), .medium()]
+            sheet.selectedDetentIdentifier = .medium
+            sheet.preferredCornerRadius = 20
+            sheet.prefersGrabberVisible = true
+            sheet.delegate = self
+        }
+    }
+}
+
+extension CommentViewController: UISheetPresentationControllerDelegate {
+    func sheetPresentationControllerDidChangeSelectedDetentIdentifier(_ sheetPresentationController: UISheetPresentationController) {
+        sheetPresentationController.animateChanges {
+            sheetPresentationController.selectedDetentIdentifier = .medium
+            sheetPresentationController.selectedDetentIdentifier = .large
+        }
+    }
 }
