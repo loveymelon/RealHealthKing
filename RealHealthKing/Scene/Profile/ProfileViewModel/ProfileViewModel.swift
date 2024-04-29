@@ -12,6 +12,7 @@ import RxCocoa
 class ProfileViewModel: ViewModelType {
     struct Input {
         let inputViewWillTrigger: Observable<Void>
+        let inputLeftButtonTap: Observable<Void>
     }
     
     struct Output {
@@ -24,6 +25,7 @@ class ProfileViewModel: ViewModelType {
         let postCount: Driver<Int>
         
         let leftButton: Driver<String>
+        let outputLeftButtonTap: Driver<Bool>
     }
     
     var viewState: ScreenState = .me
@@ -43,6 +45,7 @@ class ProfileViewModel: ViewModelType {
         let postDatasResult = BehaviorRelay<[Posts]>(value: [])
         
         let leftButtonResult = BehaviorRelay(value: "")
+        let leftButtonTapResult = BehaviorRelay(value: false)
         
         switch viewState {
         case .me:
@@ -82,6 +85,10 @@ class ProfileViewModel: ViewModelType {
             }, onError: { error in
                 print(error)
             }).disposed(by: disposeBag)
+            
+            input.inputLeftButtonTap.subscribe { _ in
+                leftButtonTapResult.accept(true)
+            }.disposed(by: disposeBag)
             
         case .other:
             let postsObservable = input.inputViewWillTrigger.flatMapLatest { _ -> Observable<[Posts]> in
@@ -136,8 +143,12 @@ class ProfileViewModel: ViewModelType {
                 print(error)
             }.disposed(by: disposeBag)
 
+            input.inputLeftButtonTap.subscribe { _ in
+                leftButtonTapResult.accept(true)
+            }.disposed(by: disposeBag)
+            
         }
         
-        return Output(profileEmail: emailResult.asDriver(), profileNick: nickResult.asDriver(), profileImage: profileImage.asDriver(), follwerCount: follwerCount.asDriver(), follwingCount: follwingCount.asDriver(), postDatas: postDatasResult.asDriver(), postCount: postCount.asDriver(), leftButton: leftButtonResult.asDriver())
+        return Output(profileEmail: emailResult.asDriver(), profileNick: nickResult.asDriver(), profileImage: profileImage.asDriver(), follwerCount: follwerCount.asDriver(), follwingCount: follwingCount.asDriver(), postDatas: postDatasResult.asDriver(), postCount: postCount.asDriver(), leftButton: leftButtonResult.asDriver(), outputLeftButtonTap: leftButtonTapResult.asDriver())
     }
 }
