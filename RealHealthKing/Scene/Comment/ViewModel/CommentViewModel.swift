@@ -27,7 +27,8 @@ class CommentViewModel: ViewModelType {
             NetworkManager.fetchAccessPostDetails(postId: postId) { result in
                 switch result {
                 case .success(let data):
-//                    commentsResult.accept(data.comments ?? [])
+                    print(data)
+                    commentsResult.accept(data.comments ?? [])
                     print(data)
                 case .failure(let error):
                     print(error)

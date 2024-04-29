@@ -43,12 +43,17 @@ class HomeViewController: BaseViewController<HomeView> {
             cell.selectionStyle = UITableViewCell.SelectionStyle.none
             cell.configureCell(data: item, width: mainView.frame.width)
             
-//            cell.commentButton.rx.tap.map { _ in item.postId ?? "empty" }.bind(with: self) { owner, id in
-//                let vc = CommentViewController()
-//                vc.postId.accept(id)
-//                
-//                owner.navigationController?.pushViewController(vc, animated: true)
-//            }.disposed(by: disposeBag)
+            cell.commentButton.rx.tap.map { _ in item.postId ?? "empty" }.bind(with: self) { owner, id in
+                let vc = CommentViewController()
+                vc.postId.accept(id)
+                if let sheet = vc.sheetPresentationController {
+                    sheet.detents = [.medium(), .large()]
+                    sheet.preferredCornerRadius = 20
+                    sheet.prefersGrabberVisible = true
+                    sheet.delegate = self
+                }
+                owner.present(vc, animated: true)
+            }.disposed(by: disposeBag)
             
             cell.profileImageView.rx.tapGesture().when(.recognized).map { _ in item.creator.userId }.subscribe(with: self) { owner, id in
                 let vc = ProfileViewController()
@@ -74,4 +79,13 @@ class HomeViewController: BaseViewController<HomeView> {
         }.disposed(by: disposeBag)
     }
 
+}
+
+extension HomeViewController: UISheetPresentationControllerDelegate {
+    func sheetPresentationControllerDidChangeSelectedDetentIdentifier(_ sheetPresentationController: UISheetPresentationController) {
+        sheetPresentationController.animateChanges {
+            sheetPresentationController.selectedDetentIdentifier = .medium
+            sheetPresentationController.selectedDetentIdentifier = .large
+        }
+    }
 }

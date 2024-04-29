@@ -14,6 +14,7 @@ class CommentView: BaseView {
     let tableView = UITableView().then {
         $0.register(CommentTableViewCell.self, forCellReuseIdentifier: CommentTableViewCell.identifier)
         $0.backgroundColor = .black
+        $0.rowHeight = 70
     }
     let commentTextView = UITextView().then {
         $0.clipsToBounds = true
@@ -38,7 +39,7 @@ class CommentView: BaseView {
     override func configureLayout() {
         tableView.snp.makeConstraints { make in
             make.horizontalEdges.top.equalTo(safeAreaLayoutGuide)
-            make.horizontalEdges.height.equalTo(safeAreaLayoutGuide.snp.height).multipliedBy(0.9)
+            make.height.equalTo(safeAreaLayoutGuide.snp.height).multipliedBy(0.9)
         }
         
         commentTextView.snp.makeConstraints { make in
