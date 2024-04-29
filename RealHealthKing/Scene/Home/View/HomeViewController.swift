@@ -56,6 +56,8 @@ class HomeViewController: BaseViewController<HomeView> {
             cell.profileImageView.rx.tapGesture().when(.recognized).map { _ in item.creator.userId }.subscribe(with: self) { owner, id in
                 let vc = ProfileViewController()
                 
+                print("tap")
+                
                 if KeyChainManager.shared.userId == id {
                     vc.viewModel.viewState = .me
                 } else {
@@ -64,6 +66,7 @@ class HomeViewController: BaseViewController<HomeView> {
                 }
                 
                 owner.navigationController?.pushViewController(vc, animated: true)
+                
             }.disposed(by: disposeBag)
             
         }.disposed(by: disposeBag)

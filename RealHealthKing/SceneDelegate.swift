@@ -15,10 +15,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let scene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: scene)
-         
-        let rootViewController = UINavigationController(rootViewController: LauchScreenViewController())
 
-        window?.rootViewController = rootViewController
+        window?.rootViewController = LauchScreenViewController()
         window?.makeKeyAndVisible()
     }
 

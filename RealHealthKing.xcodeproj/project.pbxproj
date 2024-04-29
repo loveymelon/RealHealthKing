@@ -92,6 +92,7 @@
 		DF88FEA32BDB811400FB9C24 /* ProfileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF88FEA22BDB811400FB9C24 /* ProfileModel.swift */; };
 		DF892AC02BCC44B8006C69AA /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF892ABF2BCC44B8006C69AA /* SignUpViewModel.swift */; };
 		DF892AC32BCC50B7006C69AA /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF892AC22BCC50B7006C69AA /* String+Extension.swift */; };
+		DF8DFF202BDFE054009BC7C4 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF8DFF1F2BDFE054009BC7C4 /* TabBarViewController.swift */; };
 		DF8E464B2BD56CE900606390 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF8E464A2BD56CE900606390 /* HomeViewController.swift */; };
 		DF8E464D2BD56CF800606390 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF8E464C2BD56CF800606390 /* HomeViewModel.swift */; };
 		DF8E464F2BD56D0700606390 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF8E464E2BD56D0700606390 /* HomeView.swift */; };
@@ -180,6 +181,7 @@
 		DF88FEA22BDB811400FB9C24 /* ProfileModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileModel.swift; sourceTree = "<group>"; };
 		DF892ABF2BCC44B8006C69AA /* SignUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
 		DF892AC22BCC50B7006C69AA /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
+		DF8DFF1F2BDFE054009BC7C4 /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
 		DF8E464A2BD56CE900606390 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		DF8E464C2BD56CF800606390 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		DF8E464E2BD56D0700606390 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
@@ -522,6 +524,7 @@
 				DF839D902BC9A859001FE924 /* Custom */,
 				DF839D872BC93D99001FE924 /* SignIn */,
 				DF839D822BC93D13001FE924 /* Base */,
+				DF8DFF1F2BDFE054009BC7C4 /* TabBarViewController.swift */,
 			);
 			path = Scene;
 			sourceTree = "<group>";
@@ -813,6 +816,7 @@
 				DF73FE582BDEB57600328279 /* DetailViewController.swift in Sources */,
 				DF8135BF2BCD1E9900126B9F /* EmailCheckModel.swift in Sources */,
 				DF82CCE72BCA9E9E0089989E /* Headers.swift in Sources */,
+				DF8DFF202BDFE054009BC7C4 /* TabBarViewController.swift in Sources */,
 				DF95A51D2BD0FA5B00E6FCC4 /* PostingViewController.swift in Sources */,
 				DF88FEA32BDB811400FB9C24 /* ProfileModel.swift in Sources */,
 				DF839D582BC93B94001FE924 /* AppDelegate.swift in Sources */,

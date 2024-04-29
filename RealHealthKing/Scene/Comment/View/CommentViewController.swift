@@ -83,6 +83,7 @@ class CommentViewController: BaseViewController<CommentView> {
     override func configureNav() {
         navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: UIColor.white]
         navigationItem.title = "댓글"
+        navigationController?.navigationBar.isTranslucent = true
     }
 
 }

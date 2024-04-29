@@ -48,7 +48,8 @@ class SignInViewController: BaseViewController<SignInView> {
         
         output.networkSuccess.drive(with: self) { owner, isValid in
             if isValid {
-                owner.navigationController?.pushViewController(HomeViewController(), animated: true)
+                owner.view.window?.rootViewController = TabBarViewController()
+                owner.view.window?.makeKeyAndVisible()
             }
         }.disposed(by: disposeBag)
     }

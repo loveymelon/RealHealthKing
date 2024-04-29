@@ -22,6 +22,8 @@ class ProfileViewModel: ViewModelType {
         let follwingCount: Driver<Int>
         let postDatas: Driver<[Posts]>
         let postCount: Driver<Int>
+        
+        let leftButton: Driver<String>
     }
     
     var viewState: ScreenState = .me
@@ -40,6 +42,8 @@ class ProfileViewModel: ViewModelType {
         
         let postDatasResult = BehaviorRelay<[Posts]>(value: [])
         
+        let leftButtonResult = BehaviorRelay(value: "")
+        
         switch viewState {
         case .me:
             let postsObservable = input.inputViewWillTrigger.flatMapLatest { _ -> Observable<[Posts]> in
@@ -56,7 +60,8 @@ class ProfileViewModel: ViewModelType {
                     return Disposables.create()
                 }
             }
-            postsObservable.subscribe { posts in
+            
+            postsObservable.subscribe (onNext: { posts in
                 NetworkManager.fetchProfile { result in
                     switch result {
                     case .success(let data):
@@ -68,11 +73,16 @@ class ProfileViewModel: ViewModelType {
                         postDatasResult.accept(posts)
                         postCount.accept(posts.count)
                         
+                        leftButtonResult.accept("프로필 편집")
+                        
                     case .failure(let error):
                         print(error)
                     }
                 }
-            }.disposed(by: disposeBag)
+            }, onError: { error in
+                print(error)
+            }).disposed(by: disposeBag)
+            
         case .other:
             let postsObservable = input.inputViewWillTrigger.flatMapLatest { _ -> Observable<[Posts]> in
                 return Observable.create { [weak self] observer in
@@ -89,10 +99,12 @@ class ProfileViewModel: ViewModelType {
                     return Disposables.create()
                 }
             }
+            
             postsObservable.subscribe(with: self) { owner, posts in
                 NetworkManager.otherUserProfile(userId: owner.otherUserId) { result in
                     switch result {
                     case .success(let data):
+                        
                         nickResult.accept(data.nick)
                         profileImage.accept(data.profileImage ?? "")
                         follwerCount.accept(data.follwers?.count ?? 0)
@@ -100,13 +112,32 @@ class ProfileViewModel: ViewModelType {
                         postDatasResult.accept(posts)
                         postCount.accept(posts.count)
                         
+                        if let following = data.following {
+                            
+                            if following.isEmpty {
+                                leftButtonResult.accept("팔로잉")
+                            }
+                            
+                            for follow in following {
+                                if follow.userId == KeyChainManager.shared.userId {
+                                    leftButtonResult.accept("맞팔로잉")
+                                    break
+                                } else {
+                                    leftButtonResult.accept("팔로잉")
+                                }
+                            }
+                        }
+                        
                     case .failure(let error):
                         print(error)
                     }
                 }
+            } onError: { owner, error in
+                print(error)
             }.disposed(by: disposeBag)
+
         }
         
-        return Output(profileEmail: emailResult.asDriver(), profileNick: nickResult.asDriver(), profileImage: profileImage.asDriver(), follwerCount: follwerCount.asDriver(), follwingCount: follwingCount.asDriver(), postDatas: postDatasResult.asDriver(), postCount: postCount.asDriver())
+        return Output(profileEmail: emailResult.asDriver(), profileNick: nickResult.asDriver(), profileImage: profileImage.asDriver(), follwerCount: follwerCount.asDriver(), follwingCount: follwingCount.asDriver(), postDatas: postDatasResult.asDriver(), postCount: postCount.asDriver(), leftButton: leftButtonResult.asDriver())
     }
 }

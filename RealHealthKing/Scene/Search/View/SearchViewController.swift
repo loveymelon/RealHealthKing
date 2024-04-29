@@ -23,7 +23,6 @@ class SearchViewController: BaseViewController<SearchView> {
     override func configureNav() {
         mainView.searchController.searchBar.placeholder = "Search"
         mainView.searchController.hidesNavigationBarDuringPresentation = false
-        navigationController?.navigationBar.isTranslucent = false
         mainView.searchBar.tintColor = .red
 
         navigationItem.searchController = mainView.searchController
