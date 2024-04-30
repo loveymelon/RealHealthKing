@@ -109,6 +109,7 @@ struct NetworkManager {
                     case .success(let data):
                         completionHandler(.success(data.data))
                     case .failure(let error):
+                        print(error)
                         if let statusCode = response.response?.statusCode, let netError = NetworkError(rawValue: statusCode) {
                             completionHandler(.failure(AppError.networkError(netError)))
                         } else if let statusCode = response.response?.statusCode, let netError = FetchPostError(rawValue: statusCode) {
@@ -204,6 +205,7 @@ struct NetworkManager {
                 case .success(let data):
                     completionHandler(.success(data))
                 case .failure(let error):
+                    print(error)
                     if let statusCode = error.responseCode, let netError = NetworkError(rawValue: statusCode) {
                         completionHandler(.failure(.networkError(netError)))
                     } else if let statusCode = error.responseCode, let netError = ProfileFetchError(rawValue: statusCode) {
@@ -369,21 +371,42 @@ struct NetworkManager {
         }
     }
     
-    static func createFollow(userId: String, completionHandler: @escaping ((Result<FollowingModel, AppError>) -> Void)) {
+    static func createFollow(userId: String, completionHandler: @escaping ((Result<Follow, AppError>) -> Void)) {
         do {
             let urlRequest = try Router.following(userId: userId).asURLRequest()
             
-            AF.request(urlRequest).responseDecodable(of: FollowingModel.self) { response in
+            AF.request(urlRequest).responseDecodable(of: Follow.self) { response in
                 switch response.result {
                 case .success(let data):
-                    print(data)
                     completionHandler(.success(data))
                 case .failure(let error):
-                    print(error)
+                    print("follow", error)
                     if let statusCode = error.responseCode, let netError = NetworkError(rawValue: statusCode) {
                         completionHandler(.failure(AppError.networkError(netError)))
                     } else if let statusCode = error.responseCode, let netError = FollowingError(rawValue: statusCode) {
                         completionHandler(.failure(AppError.followingError(netError)))
+                    }
+                }
+            }
+        } catch {
+            print(error)
+        }
+    }
+    
+    static func unFollow(userId: String, completionHandler: @escaping ((Result<Follow, AppError>) -> Void)) {
+        do {
+            let urlRequest = try Router.unfollow(userId: userId).asURLRequest()
+            
+            AF.request(urlRequest).responseDecodable(of: Follow.self) { response in
+                switch response.result {
+                case .success(let data):
+                    completionHandler(.success(data))
+                case .failure(let error):
+                    print("unFollow", error)
+                    if let statusCode = error.responseCode, let netError = NetworkError(rawValue: statusCode) {
+                        completionHandler(.failure(AppError.networkError(netError)))
+                    } else if let statusCode = error.responseCode, let netError = UnFollowError(rawValue: statusCode) {
+                        completionHandler(.failure(AppError.unfollowError(netError)))
                     }
                 }
             }

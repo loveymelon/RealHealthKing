@@ -7,14 +7,14 @@
 
 import Foundation
 
-struct FollowingModel: Decodable {
+struct Follow: Decodable {
     let nick: String
-//    let opponentNick: String
-//    let followingState: Bool
+    let opponentNick: String
+    let followingStatus: Bool
     
     enum CodingKeys: String, CodingKey {
         case nick
-//        case opponentNick = "opponent_nick"
-//        case followingState = "following_state"
+        case opponentNick = "opponent_nick"
+        case followingStatus = "following_status"
     }
 }

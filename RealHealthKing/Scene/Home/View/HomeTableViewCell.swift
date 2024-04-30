@@ -100,7 +100,7 @@ class HomeTableViewCell: UITableViewCell {
     override func prepareForReuse() {
         super.prepareForReuse()
         
-        disposeBag = .init()
+        disposeBag = DisposeBag()
        
     }
     

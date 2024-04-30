@@ -49,7 +49,7 @@ extension UIImageView {
 //        ]
         
         KingfisherManager.shared.retrieveImage(with: url, options: [
-            .processor(processor),
+//            .processor(processor),
             .requestModifier(imageDownloadRequest),
             .scaleFactor(scale),
         ]) { imageResult in

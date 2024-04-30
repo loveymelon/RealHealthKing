@@ -33,13 +33,14 @@ class ProfileViewModel: ViewModelType {
     var disposeBag = DisposeBag()
     
     var otherUserId = ""
+    var isValid = false
     
     func transform(input: Input) -> Output {
         let emailResult = BehaviorRelay(value: "")
         let nickResult = BehaviorRelay(value: "")
         let profileImage = BehaviorRelay(value: "")
-        let follwerCount = BehaviorRelay(value: 0)
-        let follwingCount = BehaviorRelay(value: 0)
+        let followerCount = BehaviorRelay(value: 0)
+        let followingCount = BehaviorRelay(value: 0)
         let postCount = BehaviorRelay(value: 0)
         
         let postDatasResult = BehaviorRelay<[Posts]>(value: [])
@@ -71,8 +72,8 @@ class ProfileViewModel: ViewModelType {
                         emailResult.accept(data.email!)
                         nickResult.accept(data.nick)
                         profileImage.accept(data.profileImage ?? "")
-                        follwerCount.accept(data.follwers?.count ?? 0)
-                        follwingCount.accept(data.following?.count ?? 0)
+                        followerCount.accept(data.followers.count)
+                        followingCount.accept(data.following.count)
                         postDatasResult.accept(posts)
                         postCount.accept(posts.count)
                         
@@ -114,25 +115,28 @@ class ProfileViewModel: ViewModelType {
                         
                         nickResult.accept(data.nick)
                         profileImage.accept(data.profileImage ?? "")
-                        follwerCount.accept(data.follwers?.count ?? 0)
-                        follwingCount.accept(data.following?.count ?? 0)
+                        followerCount.accept(data.followers.count)
+                        followingCount.accept(data.following.count)
                         postDatasResult.accept(posts)
                         postCount.accept(posts.count)
                         
-                        if let following = data.following {
+                        if data.followers.isEmpty {
                             
-                            if following.isEmpty {
-                                leftButtonResult.accept("팔로우")
-                            }
+                            leftButtonResult.accept("팔로우")
+                            owner.isValid = false
+                        } else {
                             
-                            for follow in following {
+                            for follow in data.followers {
                                 if follow.userId == KeyChainManager.shared.userId {
-                                    leftButtonResult.accept("맞팔로잉")
+                                    leftButtonResult.accept("팔로잉")
+                                    owner.isValid = true
                                     break
                                 } else {
                                     leftButtonResult.accept("팔로우")
+                                    owner.isValid = false
                                 }
                             }
+                            
                         }
                         
                     case .failure(let error):
@@ -144,21 +148,35 @@ class ProfileViewModel: ViewModelType {
             }.disposed(by: disposeBag)
 
             input.inputLeftButtonTap.subscribe(with: self) { owner, _ in
-                print("들어오냐?")
-                NetworkManager.createFollow(userId: owner.otherUserId) { result in
-                    switch result {
-                    case .success(let data):
-                        print(data)
-                        leftButtonTapResult.accept(false)
-                        leftButtonResult.accept("팔로잉")
-                    case .failure(let error):
-                        print(error)
+                if owner.isValid {
+                    NetworkManager.unFollow(userId: owner.otherUserId) { result in
+                        switch result {
+                        case .success(_):
+                            leftButtonTapResult.accept(false)
+                            leftButtonResult.accept("팔로우")
+                            followerCount.accept(followerCount.value - 1)
+                            owner.isValid.toggle()
+                        case .failure(let error):
+                            print(error)
+                        }
+                    }
+                } else {
+                    NetworkManager.createFollow(userId: owner.otherUserId) { result in
+                        switch result {
+                        case .success(_):
+                            leftButtonTapResult.accept(false)
+                            leftButtonResult.accept("팔로잉")
+                            followerCount.accept(followerCount.value + 1)
+                            owner.isValid.toggle()
+                        case .failure(let error):
+                            print(error)
+                        }
                     }
                 }
             }.disposed(by: disposeBag)
             
         }
         
-        return Output(profileEmail: emailResult.asDriver(), profileNick: nickResult.asDriver(), profileImage: profileImage.asDriver(), follwerCount: follwerCount.asDriver(), follwingCount: follwingCount.asDriver(), postDatas: postDatasResult.asDriver(), postCount: postCount.asDriver(), leftButton: leftButtonResult.asDriver(), outputLeftButtonTap: leftButtonTapResult.asDriver())
+        return Output(profileEmail: emailResult.asDriver(), profileNick: nickResult.asDriver(), profileImage: profileImage.asDriver(), follwerCount: followerCount.asDriver(), follwingCount: followingCount.asDriver(), postDatas: postDatasResult.asDriver(), postCount: postCount.asDriver(), leftButton: leftButtonResult.asDriver(), outputLeftButtonTap: leftButtonTapResult.asDriver())
     }
 }

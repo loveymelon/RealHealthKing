@@ -17,6 +17,7 @@ class LauchViewModel: ViewModelType {
     
     struct Output {
         let outputViewResult: Driver<Bool>
+        let outputError: Driver<AppError>
     }
     
     var disposeBag = DisposeBag()
@@ -24,12 +25,13 @@ class LauchViewModel: ViewModelType {
     func transform(input: Input) -> Output {
         
         let viewWillResult = BehaviorRelay(value: false)
+        let errorResult = BehaviorRelay<AppError>(value: .unowned)
         
         input.inputViewWillAppear
-            .flatMapLatest { _ -> Observable<Result<Bool, Error>> in
+            .flatMapLatest { _ -> Observable<Result<Bool, AppError>> in
                 return Observable.create { observer in
                     let dispatchGroup = DispatchGroup()
-                    var error: Error?
+                    var error: AppError?
                     
                     dispatchGroup.enter()
                     NetworkManager.fetchPosts { result in
@@ -60,11 +62,11 @@ class LauchViewModel: ViewModelType {
                     viewWillResult.accept(true)
                 case .failure(let error):
                     print(error)
-                    viewWillResult.accept(false)
+                    errorResult.accept(error)
                 }
             })
             .disposed(by: disposeBag)
         
-        return Output(outputViewResult: viewWillResult.asDriver())
+        return Output(outputViewResult: viewWillResult.asDriver(), outputError: errorResult.asDriver())
     }
 }

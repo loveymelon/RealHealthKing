@@ -22,15 +22,15 @@ final class TabBarViewController: UITabBarController {
 
 extension TabBarViewController {
     private func addVC() {
-        let homeVC = UINavigationController(rootViewController: HomeViewController())
+        let homeVC = HomeViewController()
         
         homeVC.tabBarItem = UITabBarItem(title: "", image: UIImage(systemName: "house"), selectedImage: UIImage(systemName: "house.fill"))
         
-        let searchVC = UINavigationController(rootViewController: SearchViewController())
+        let searchVC = SearchViewController()
         
         searchVC.tabBarItem = UITabBarItem(title: "", image: UIImage(systemName: "magnifyingglass"), selectedImage: UIImage(systemName: "magnifyingglass"))
         
-        let profileVC = UINavigationController(rootViewController: ProfileViewController())
+        let profileVC = ProfileViewController()
         
         profileVC.tabBarItem = UITabBarItem(title: "", image: UIImage(systemName: "person"), selectedImage: UIImage(systemName: "person"))
         

@@ -62,13 +62,12 @@ class CommentView: BaseView {
         userImageView.snp.makeConstraints { make in
             make.leading.equalToSuperview().inset(10)
             make.size.equalTo(35)
-            make.bottom.equalTo(safeAreaLayoutGuide.snp.bottom).inset(10)
+            make.centerY.equalTo(commentTextView.snp.centerY)
         }
         
         commentTextView.snp.makeConstraints { make in
-//            make.height.equalTo(40).priority(.high)
             make.height.lessThanOrEqualTo(103.0)
-            make.bottom.equalTo(userImageView.snp.bottom)
+            make.bottom.equalTo(keyboardLayoutGuide.snp.top)
             make.leading.equalTo(userImageView.snp.trailing).offset(5)
             make.trailing.equalTo(safeAreaLayoutGuide.snp.trailing).inset(10)
         }

@@ -25,6 +25,12 @@ class CommentViewController: BaseViewController<CommentView> {
     }
     
     override func bind() {
+        mainView.tableView.keyboardDismissMode = .onDrag
+        
+        rx.viewWillDisappear.take(1).bind(with: self) { owner, _ in
+            owner.view.endEditing(true)
+        }.disposed(by: disposeBag)
+        
         let viewWill = rx.viewWillAppear.withLatestFrom(postId.asObservable())
         
         let inputButtonTap = mainView.doneButton.rx.tap.withLatestFrom(mainView.commentTextView.rx.text.orEmpty.asObservable())

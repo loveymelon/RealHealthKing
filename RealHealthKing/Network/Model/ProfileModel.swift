@@ -12,8 +12,8 @@ struct ProfileModel: Decodable {
     let email: String?
     let nick: String
     let profileImage: String?
-    let follwers: [Follwers]?
-    let following: [Fllowing]?
+    let followers: [Followers]
+    let following: [Following]
     let posts: [String]
     
     enum CodingKeys: String, CodingKey {
@@ -21,16 +21,16 @@ struct ProfileModel: Decodable {
         case email
         case nick
         case profileImage
-        case follwers
+        case followers
         case following
         case posts
     }
-    init(userId: String = "", email: String? = "", nick: String = "", profileImage: String? = nil, follwers: [Follwers]? = nil, following: [Fllowing]? = nil, posts: [String] = []) {
+    init(userId: String = "", email: String? = "", nick: String = "", profileImage: String? = nil, followers: [Followers] = [], following: [Following] = [], posts: [String] = []) {
         self.userId = userId
         self.email = email
         self.nick = nick
         self.profileImage = profileImage
-        self.follwers = follwers
+        self.followers = followers
         self.following = following
         self.posts = posts
     }
@@ -41,32 +41,32 @@ struct ProfileModel: Decodable {
         self.email = try container.decodeIfPresent(String.self, forKey: .email)
         self.nick = try container.decode(String.self, forKey: .nick)
         self.profileImage = try container.decodeIfPresent(String.self, forKey: .profileImage)
-        self.follwers = try container.decodeIfPresent([Follwers].self, forKey: .follwers)
-        self.following = try container.decodeIfPresent([Fllowing].self, forKey: .following)
+        self.followers = try container.decode([Followers].self, forKey: .followers)
+        self.following = try container.decode([Following].self, forKey: .following)
         self.posts = try container.decode([String].self, forKey: .posts)
     }
 }
 
-struct Follwers: Decodable {
-    let userId: String?
-    let nick: String?
-    let profileImage: String?
+struct Followers: Decodable {
+    let userId: String
+    let nick: String
+//    let profileImage: String?
     
     enum CodingKeys: String, CodingKey {
         case userId = "user_id"
         case nick
-        case profileImage
+//        case profileImage
     }
 }
 
-struct Fllowing: Decodable {
-    let userId: String?
-    let nick: String?
-    let profileImage: String?
+struct Following: Decodable {
+    let userId: String
+    let nick: String
+//    let profileImage: String?
     
     enum CodingKeys: String, CodingKey {
         case userId = "user_id"
         case nick
-        case profileImage
+//        case profileImage
     }
 }

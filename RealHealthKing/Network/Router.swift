@@ -27,6 +27,7 @@ enum Router {
     case otherPosts(userId: String)
     case comment(model: CommentModel, postId: String)
     case following(userId: String)
+    case unfollow(userId: String)
 }
 
 extension Router: TargetType {
@@ -72,6 +73,8 @@ extension Router: TargetType {
             return .post
         case .following:
             return .post
+        case .unfollow:
+            return .delete
         }
     }
     
@@ -108,6 +111,8 @@ extension Router: TargetType {
         case .comment(_, let postId):
             return "/posts/\(postId)/comments"
         case .following(userId: let userId):
+            return "/follow/\(userId)"
+        case .unfollow(userId: let userId):
             return "/follow/\(userId)"
         }
     }
@@ -197,6 +202,12 @@ extension Router: TargetType {
                 HTTPHeader.authorization.rawValue: KeyChainManager.shared.accessToken,
                 HTTPHeader.sesacKey.rawValue: APIKey.secretKey.rawValue
             ]
+        case .unfollow(userId: let userId):
+            return [
+                HTTPHeader.contentType.rawValue: HTTPHeader.json.rawValue,
+                HTTPHeader.authorization.rawValue: KeyChainManager.shared.accessToken,
+                HTTPHeader.sesacKey.rawValue: APIKey.secretKey.rawValue
+            ]
         }
     }
     
@@ -265,6 +276,8 @@ extension Router: TargetType {
             
             return try? encoder.encode(model)
         case .following:
+            return .none
+        case .unfollow(userId: let userId):
             return .none
         }
     }

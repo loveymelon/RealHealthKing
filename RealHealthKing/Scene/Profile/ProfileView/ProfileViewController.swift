@@ -34,6 +34,8 @@ class ProfileViewController: BaseViewController<ProfileView> {
         let output = viewModel.transform(input: input)
         
         output.outputLeftButtonTap.drive(with: self) { owner, isValid in
+            
+            print(owner.mainView.leftButton.titleLabel?.text)
             if isValid {
                 let vc = ModifyViewController()
                 
@@ -87,4 +89,8 @@ class ProfileViewController: BaseViewController<ProfileView> {
         
     }
 
+    override func configureNav() {
+        navigationItem.largeTitleDisplayMode = .never
+//        navigationController?.navigationBar.isHidden = true
+    }
 }

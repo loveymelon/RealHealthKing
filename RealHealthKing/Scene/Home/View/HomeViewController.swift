@@ -36,6 +36,10 @@ class HomeViewController: BaseViewController<HomeView> {
         
         let output = viewModel.transform(input: input)
         
+        mainView.tableView.rx.willDisplayCell.bind { index in
+            print(index.indexPath)
+        }.disposed(by: disposeBag)
+        
         output.postsDatas.drive(mainView.tableView.rx.items(cellIdentifier: HomeTableViewCell.identifier, cellType: HomeTableViewCell.self)) { [unowned self]
             index, item, cell in
             
@@ -53,10 +57,9 @@ class HomeViewController: BaseViewController<HomeView> {
                 owner.present(nav, animated: true)
             }.disposed(by: disposeBag)
             
+            // 여기서 재사용 이슈가 발생된다.
             cell.profileImageView.rx.tapGesture().when(.recognized).map { _ in item.creator.userId }.subscribe(with: self) { owner, id in
                 let vc = ProfileViewController()
-                
-                print("tap")
                 
                 if KeyChainManager.shared.userId == id {
                     vc.viewModel.viewState = .me
@@ -80,4 +83,7 @@ class HomeViewController: BaseViewController<HomeView> {
         }.disposed(by: disposeBag)
     }
 
+    override func configureNav() {
+        navigationItem.largeTitleDisplayMode = .never
+    }
 }

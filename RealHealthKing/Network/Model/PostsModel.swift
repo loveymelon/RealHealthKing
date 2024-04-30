@@ -9,6 +9,12 @@ import Foundation
 
 struct PostsModel: Codable {
     var data: [Posts]
+    let nextCursor: String
+    
+    enum CodingKeys: String, CodingKey {
+        case data
+        case nextCursor = "next_cursor"
+    }
 }
 
 struct Posts: Codable {
@@ -21,6 +27,7 @@ struct Posts: Codable {
     var likes: [String]
     let creator: Creator
     let comments: [CommentsModel]?
+    
     
     enum CodingKeys: String, CodingKey {
         case postId = "post_id"
