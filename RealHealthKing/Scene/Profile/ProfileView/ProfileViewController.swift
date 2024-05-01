@@ -33,10 +33,18 @@ class ProfileViewController: BaseViewController<ProfileView> {
         
         let output = viewModel.transform(input: input)
         
+        mainView.collectionView.rx.modelSelected(Posts.self).bind(with: self) { owner, item in
+            let vc = DetailViewController()
+            guard let postId = item.postId else { return }
+            
+            vc.postId.accept(postId)
+            owner.navigationController?.pushViewController(vc, animated: true)
+        }.disposed(by: disposeBag)
+        
         output.outputLeftButtonTap.drive(with: self) { owner, isValid in
             
-            print(owner.mainView.leftButton.titleLabel?.text)
             if isValid {
+                
                 let vc = ModifyViewController()
                 
                 vc.inputNickName.accept(owner.mainView.nicknameLabel.text ?? "empty")
@@ -44,6 +52,7 @@ class ProfileViewController: BaseViewController<ProfileView> {
                 
                 owner.navigationController?.pushViewController(vc, animated: true)
             }
+            
         }.disposed(by: disposeBag)
         
         output.profileNick.drive(with: self) { owner, nick in
