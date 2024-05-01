@@ -31,8 +31,8 @@ class ProfileViewModel: ViewModelType {
     var viewState: ScreenState = .me
     
     var disposeBag = DisposeBag()
-    
     var otherUserId = ""
+    
     var isValid = false
     
     func transform(input: Input) -> Output {
@@ -50,18 +50,45 @@ class ProfileViewModel: ViewModelType {
         
         switch viewState {
         case .me:
+            
             let postsObservable = input.inputViewWillTrigger.flatMapLatest { _ -> Observable<[Posts]> in
+                var cursor = ""
+                
                 return Observable.create { observer in
                     NetworkManager.fetchUserPosts { result in
                         switch result {
                         case .success(let data):
-                            observer.onNext(data)
-                            observer.onCompleted()
+                            cursor = data.nextCursor
+                            // 다음 페이지의 데이터를 가져오는 요청을 발행
+                            observer.onNext(data.data)
+                            if cursor == "0" {
+                                observer.onCompleted()
+                            }
                         case .failure(let error):
                             observer.onError(error)
                         }
                     }
                     return Disposables.create()
+                }
+                .flatMap { _ -> Observable<[Posts]> in
+                    return Observable.create { observer in
+                        NetworkManager.nextFetchUserPosts(cursor: cursor) { result in
+                            switch result {
+                            case .success(let data):
+                                observer.onNext(data.data)
+                                cursor = data.nextCursor
+                                if cursor == "0" {
+                                    observer.onCompleted()
+                                }
+                            case .failure(let error):
+                                observer.onError(error)
+                            }
+                        }
+                        return Disposables.create()
+                    }
+                }
+                .scan([]) { accumulator, element in
+                    return accumulator + element
                 }
             }
             
@@ -92,19 +119,54 @@ class ProfileViewModel: ViewModelType {
             }.disposed(by: disposeBag)
             
         case .other:
+            
             let postsObservable = input.inputViewWillTrigger.flatMapLatest { _ -> Observable<[Posts]> in
+                
+                var cursor = ""
+                
                 return Observable.create { [weak self] observer in
+                    
                     guard let self else { return Disposables.create() }
+                    
                     NetworkManager.otherUserPosts(userId: otherUserId) { result in
                         switch result {
                         case .success(let data):
-                            observer.onNext(data)
-                            observer.onCompleted()
+                            
+                            cursor = data.nextCursor
+                            observer.onNext(data.data)
+                            
+                            if cursor == "0" {
+                                observer.onCompleted()
+                            }
                         case .failure(let error):
                             observer.onError(error)
                         }
                     }
                     return Disposables.create()
+                }
+                .flatMap { _ -> Observable<[Posts]> in
+                    
+                    return Observable.create { [weak self] observer in
+                        
+                        guard let self else { return Disposables.create() }
+                        
+                        NetworkManager.nextOtherPosts(userId: otherUserId, cursor: cursor) { result in
+                            switch result {
+                            case .success(let data):
+                                observer.onNext(data.data)
+                                cursor = data.nextCursor
+                                if cursor == "0" {
+                                    observer.onCompleted()
+                                }
+                            case .failure(let error):
+                                observer.onError(error)
+                            }
+                        }
+                        return Disposables.create()
+                    }
+                }
+                .scan([]) { accumulator, element in
+                    return accumulator + element
                 }
             }
             

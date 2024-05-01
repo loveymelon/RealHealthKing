@@ -202,12 +202,10 @@ extension HomeTableViewCell {
         
         let output = viewModel.transform(input: input)
         
-        
-        
         output.outputLikeValue.subscribe(with: self, onNext: { owner, isValid in
             
             owner.likeButton.isSelected = isValid
-            print("Button", owner.likeButton.isSelected)
+            
         }).disposed(by: disposeBag)
         
     }

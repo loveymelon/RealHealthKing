@@ -42,7 +42,6 @@ class HomeViewController: BaseViewController<HomeView> {
         output.postsDatas.drive(mainView.tableView.rx.items(cellIdentifier: HomeTableViewCell.identifier, cellType: HomeTableViewCell.self)) { [unowned self]
             index, item, cell in
             
-//            let likeData = viewModel.a[index].likes.contains(keyChain.get("userId") ?? "empty")
             cell.selectionStyle = UITableViewCell.SelectionStyle.none
             cell.configureCell(data: item, width: mainView.frame.width)
             cell.delegate = self

@@ -90,7 +90,9 @@ class ProfileViewController: BaseViewController<ProfileView> {
     }
 
     override func configureNav() {
+//        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: mainView.rightBarButton)
+//        navigationItem.rightBarButtonItem?.tintColor = .white
+        
         navigationItem.largeTitleDisplayMode = .never
-//        navigationController?.navigationBar.isHidden = true
     }
 }

@@ -34,6 +34,10 @@ class ProfileView: BaseView {
         $0.font = .boldSystemFont(ofSize: 16)
     }
     
+    let rightBarButton = UIButton().then {
+        $0.setImage(UIImage(systemName: "ellipsis"), for: .normal)
+    }
+    
     let leftButton = UIButton().then {
         $0.setTitle("프로필 수정", for: .normal)
         $0.setTitleColor(.white, for: .normal)

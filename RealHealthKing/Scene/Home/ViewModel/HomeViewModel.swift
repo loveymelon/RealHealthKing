@@ -34,6 +34,7 @@ class HomeViewModel: ViewModelType {
                 switch result {
                 case .success(let data):
                     cursor = data.nextCursor
+                    print(data.data, "\n")
                     resultPostsDatas.accept(data.data)
                 case .failure(let error):
                     print(error.description)
