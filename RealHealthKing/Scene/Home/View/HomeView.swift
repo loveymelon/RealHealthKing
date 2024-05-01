@@ -17,6 +17,8 @@ class HomeView: BaseView {
         $0.backgroundColor = .black
     }
     
+    let refreshControl = UIRefreshControl()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
     }

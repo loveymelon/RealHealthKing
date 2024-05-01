@@ -31,7 +31,7 @@ class SearchViewModel: ViewModelType {
             NetworkManager.fetchPosts { result in
                 switch result {
                 case .success(let data):
-                    postsDatas.accept(data)
+                    postsDatas.accept(data.data)
                 case .failure(let failure):
                     print(failure)
                 }

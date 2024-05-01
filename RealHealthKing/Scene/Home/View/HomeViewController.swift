@@ -32,13 +32,12 @@ class HomeViewController: BaseViewController<HomeView> {
             NotificationCenterManager.like.addObserver().map { _ in  }
         ])
         
-        let input = HomeViewModel.Input(notificationEvent: notificationEvent)
+        let tableViewIndex = mainView.tableView.rx.willDisplayCell.asObservable()
+        
+        let input = HomeViewModel.Input(notificationEvent: notificationEvent, inputTableViewIndex: tableViewIndex)
+        
         
         let output = viewModel.transform(input: input)
-        
-        mainView.tableView.rx.willDisplayCell.bind { index in
-            print(index.indexPath)
-        }.disposed(by: disposeBag)
         
         output.postsDatas.drive(mainView.tableView.rx.items(cellIdentifier: HomeTableViewCell.identifier, cellType: HomeTableViewCell.self)) { [unowned self]
             index, item, cell in

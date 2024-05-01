@@ -109,6 +109,7 @@ class PostingViewModel: ViewModelType {
                         NetworkManager.uploadPostContents(model: PostTest(productId: "abc333", title: text.0, content: text.1 + text.2, files: imageUrl)) { result in
                             switch result {
                             case .success(let data):
+                                print("success")
                                 networkSuccess.accept(true)
                             case .failure(let error):
                                 resultError.accept(error.description)

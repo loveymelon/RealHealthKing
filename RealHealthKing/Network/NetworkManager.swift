@@ -98,7 +98,7 @@ struct NetworkManager {
         }
     }
     
-    static func fetchPosts(completionHandler: @escaping (Result<[Posts], AppError>) -> Void) {
+    static func fetchPosts(completionHandler: @escaping (Result<PostsModel, AppError>) -> Void) {
         do {
             let urlRequest = try Router.postFetch.postURLRequest()
             
@@ -107,7 +107,7 @@ struct NetworkManager {
                 .responseDecodable(of: PostsModel.self) { response in
                     switch response.result {
                     case .success(let data):
-                        completionHandler(.success(data.data))
+                        completionHandler(.success(data))
                     case .failure(let error):
                         print(error)
                         if let statusCode = response.response?.statusCode, let netError = NetworkError(rawValue: statusCode) {
@@ -407,6 +407,28 @@ struct NetworkManager {
                         completionHandler(.failure(AppError.networkError(netError)))
                     } else if let statusCode = error.responseCode, let netError = UnFollowError(rawValue: statusCode) {
                         completionHandler(.failure(AppError.unfollowError(netError)))
+                    }
+                }
+            }
+        } catch {
+            print(error)
+        }
+    }
+    
+    static func pagePosts(cursor: String, completionHandler: @escaping ((Result<PostsModel, AppError>) -> Void)) {
+        do {
+            let urlRequest = try Router.postFetch.pageURLRequest(cursorValue: cursor)
+            
+            AF.request(urlRequest).responseDecodable(of: PostsModel.self) { response in
+                switch response.result {
+                case .success(let data):
+                    completionHandler(.success(data))
+                case .failure(let error):
+                    print(error)
+                    if let statusCode = response.response?.statusCode, let netError = NetworkError(rawValue: statusCode) {
+                        completionHandler(.failure(AppError.networkError(netError)))
+                    } else if let statusCode = response.response?.statusCode, let netError = FetchPostError(rawValue: statusCode) {
+                        completionHandler(.failure(AppError.fetchPostError(netError)))
                     }
                 }
             }
