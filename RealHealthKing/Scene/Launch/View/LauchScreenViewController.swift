@@ -30,7 +30,7 @@ class LauchScreenViewController: BaseViewController<LauchScreenView> {
         output.outputViewResult.drive(with: self) { owner, isValid in
             
             if isValid {
-                owner.view.window?.rootViewController = UINavigationController(rootViewController: TabBarViewController())
+                owner.view.window?.rootViewController = TabBarViewController()
                 owner.view.window?.makeKeyAndVisible()
             }
             

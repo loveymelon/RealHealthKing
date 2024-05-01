@@ -104,6 +104,7 @@
 		DF9CC6D22BD767DE00DF808A /* HomeTableCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF9CC6D12BD767DE00DF808A /* HomeTableCellViewModel.swift */; };
 		DF9CC6D42BD7694A00DF808A /* LikeQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF9CC6D32BD7694A00DF808A /* LikeQuery.swift */; };
 		DF9CC6DE2BD7CA5C00DF808A /* LikeDatas.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF9CC6DD2BD7CA5C00DF808A /* LikeDatas.swift */; };
+		DFC680B52BE29D5C000CC3AD /* UISearchBar+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC680B42BE29D5C000CC3AD /* UISearchBar+Extension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -194,6 +195,7 @@
 		DF9CC6D12BD767DE00DF808A /* HomeTableCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTableCellViewModel.swift; sourceTree = "<group>"; };
 		DF9CC6D32BD7694A00DF808A /* LikeQuery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeQuery.swift; sourceTree = "<group>"; };
 		DF9CC6DD2BD7CA5C00DF808A /* LikeDatas.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeDatas.swift; sourceTree = "<group>"; };
+		DFC680B42BE29D5C000CC3AD /* UISearchBar+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UISearchBar+Extension.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -633,6 +635,7 @@
 				DF4390552BD66D4800520CF7 /* UIView+Extension.swift */,
 				DF806FA92BD8D8F0006046C8 /* NotificationCenter+Extension.swift */,
 				DF806FAE2BD8DCDA006046C8 /* UIVewController+RXSwift.swift */,
+				DFC680B42BE29D5C000CC3AD /* UISearchBar+Extension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -774,6 +777,7 @@
 				DF8E46512BD578BC00606390 /* UILabel+Extension.swift in Sources */,
 				DF73FE5A2BDEB58300328279 /* DetailView.swift in Sources */,
 				DF806FBA2BD9283E006046C8 /* SearchView.swift in Sources */,
+				DFC680B52BE29D5C000CC3AD /* UISearchBar+Extension.swift in Sources */,
 				DF5FDA8E2BD418530013E1D3 /* UIImage+Extension.swift in Sources */,
 				DF82CCF32BCA9F480089989E /* NetworkManager.swift in Sources */,
 				DF82CCDB2BCA87910089989E /* InfoLabel.swift in Sources */,

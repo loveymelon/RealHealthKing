@@ -60,6 +60,7 @@ class ProfileView: BaseView {
     
     let collectionView = UICollectionView(frame: .zero, collectionViewLayout: createThreeColumnSection()).then {
         $0.register(SearchCollectionViewCell.self, forCellWithReuseIdentifier: SearchCollectionViewCell.identifier)
+        $0.isScrollEnabled = false
         $0.backgroundColor = .black
     }
     
