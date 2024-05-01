@@ -10,6 +10,12 @@ import Then
 import SnapKit
 import RxSwift
 import RxCocoa
+import RxGesture
+
+protocol CellDelegate: AnyObject {
+    func profileViewTap(vc: UIViewController)
+    func commentButtonTap(vc: UIViewController)
+}
 
 class HomeTableViewCell: UITableViewCell {
     
@@ -22,6 +28,16 @@ class HomeTableViewCell: UITableViewCell {
         $0.layer.borderWidth = 1
         $0.layer.borderColor = UIColor.white.cgColor
     }
+    
+//    let profileImageButton = UIButton().then {
+//        $0.clipsToBounds = true
+//        $0.contentMode = .scaleAspectFit
+//        $0.setImage(UIImage(systemName: "person"), for: .normal)
+//        $0.tintColor = .blue
+//        $0.layer.cornerRadius = 20
+//        $0.layer.borderWidth = 1
+//        $0.layer.borderColor = UIColor.white.cgColor
+//    }
     
     let nickNameLabel = InfoLabel().then {
         $0.text = "fdsafdasfasf"
@@ -77,6 +93,8 @@ class HomeTableViewCell: UITableViewCell {
     
     let postData = BehaviorRelay<Posts>(value: Posts())
     let likeData = BehaviorRelay<[String]>(value: [])
+    
+    weak var delegate: CellDelegate?
     
     var disposeBag = DisposeBag()
     
@@ -184,6 +202,8 @@ extension HomeTableViewCell {
         
         let output = viewModel.transform(input: input)
         
+        
+        
         output.outputLikeValue.subscribe(with: self, onNext: { owner, isValid in
             
             owner.likeButton.isSelected = isValid
@@ -196,15 +216,39 @@ extension HomeTableViewCell {
         
         bind()
         postData.accept(data)
-        print("likeData", data.likes, data.postId)
         likeData.accept(data.likes)
 
-        DispatchQueue.main.async {
-            self.updateImageViews(postData: data.files, width: width)
+        DispatchQueue.main.async { [weak self] in
+            guard let self else { return }
+            updateImageViews(postData: data.files, width: width)
         }
         
-        
         contentLabel.text = data.content
+        
+        profileImageView.rx.tapGesture().when(.recognized).flatMap { _ in
+            Observable.just(data.creator.userId)
+        }.subscribe(with: self) { owner, id in
+            let vc = ProfileViewController()
+            
+            if KeyChainManager.shared.userId == id {
+                vc.viewModel.viewState = .me
+            } else {
+                vc.viewModel.otherUserId = id
+                vc.viewModel.viewState = .other
+            }
+            
+            owner.delegate?.profileViewTap(vc: vc)
+            
+        }.disposed(by: disposeBag)
+        
+        commentButton.rx.tap.map { data.postId ?? "empty" }.subscribe(with: self) { owner, id in
+            let vc = CommentViewController()
+            
+            vc.postId.accept(id)
+            
+            owner.delegate?.commentButtonTap(vc: vc)
+            
+        }.disposed(by: disposeBag)
         
     }
     

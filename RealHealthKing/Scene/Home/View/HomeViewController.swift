@@ -45,31 +45,7 @@ class HomeViewController: BaseViewController<HomeView> {
 //            let likeData = viewModel.a[index].likes.contains(keyChain.get("userId") ?? "empty")
             cell.selectionStyle = UITableViewCell.SelectionStyle.none
             cell.configureCell(data: item, width: mainView.frame.width)
-            
-            cell.commentButton.rx.tap.map { _ in item.postId ?? "empty" }.bind(with: self) { owner, id in
-                let vc = CommentViewController()
-                
-                vc.postId.accept(id)
-                
-                let nav = UINavigationController(rootViewController: vc)
-
-                owner.present(nav, animated: true)
-            }.disposed(by: disposeBag)
-            
-            // 여기서 재사용 이슈가 발생된다.
-            cell.profileImageView.rx.tapGesture().when(.recognized).map { _ in item.creator.userId }.subscribe(with: self) { owner, id in
-                let vc = ProfileViewController()
-                
-                if KeyChainManager.shared.userId == id {
-                    vc.viewModel.viewState = .me
-                } else {
-                    vc.viewModel.otherUserId = id
-                    vc.viewModel.viewState = .other
-                }
-                
-                owner.navigationController?.pushViewController(vc, animated: true)
-                
-            }.disposed(by: disposeBag)
+            cell.delegate = self
             
         }.disposed(by: disposeBag)
         
@@ -84,5 +60,17 @@ class HomeViewController: BaseViewController<HomeView> {
 
     override func configureNav() {
         navigationItem.largeTitleDisplayMode = .never
+    }
+}
+
+extension HomeViewController: CellDelegate {
+    func commentButtonTap(vc: UIViewController) {
+        let nav = UINavigationController(rootViewController: vc)
+
+        navigationController?.present(nav, animated: true)
+    }
+    
+    func profileViewTap(vc: UIViewController) {
+        navigationController?.pushViewController(vc, animated: true)
     }
 }
