@@ -102,7 +102,6 @@ class ProfileViewController: BaseViewController<ProfileView> {
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: mainView.rightBarButton)
         navigationItem.rightBarButtonItem?.tintColor = .white
         navigationItem.largeTitleDisplayMode = .never
-        navigationController?.navigationBar.scrollEdgeAppearance?.backgroundColor = .blue
         
     }
 }

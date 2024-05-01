@@ -482,5 +482,26 @@ struct NetworkManager {
         }
     }
     
+    static func searchHashTag(hashTag: String, cursor: String = "", completionHandler: @escaping ((Result<PostsModel, AppError>) -> Void)) {
+        do {
+            let urlRequest = try Router.hashTagSearch.hashPageURLRequest(hashTag: hashTag, cursor: cursor)
+            
+            AF.request(urlRequest).responseDecodable(of: PostsModel.self) { response in
+                switch response.result {
+                case .success(let data):
+                    completionHandler(.success(data))
+                case .failure(let error):
+                    if let statusCode = error.responseCode, let netError = NetworkError(rawValue: statusCode) {
+                        completionHandler(.failure(AppError.networkError(netError)))
+                    } else if let statusCode = error.responseCode, let netError = FetchPostError(rawValue: statusCode) {
+                        completionHandler(.failure(AppError.fetchPostError(netError)))
+                    }
+                }
+            }
+        } catch {
+            print(error)
+        }
+    }
+    
 }
 

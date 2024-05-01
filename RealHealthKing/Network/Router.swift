@@ -28,6 +28,7 @@ enum Router {
     case comment(model: CommentModel, postId: String)
     case following(userId: String)
     case unfollow(userId: String)
+    case hashTagSearch
 }
 
 extension Router: TargetType {
@@ -75,6 +76,8 @@ extension Router: TargetType {
             return .post
         case .unfollow:
             return .delete
+        case .hashTagSearch:
+            return .get
         }
     }
     
@@ -114,6 +117,8 @@ extension Router: TargetType {
             return "/follow/\(userId)"
         case .unfollow(userId: let userId):
             return "/follow/\(userId)"
+        case .hashTagSearch:
+            return "/posts/hashtags"
         }
     }
     
@@ -208,6 +213,12 @@ extension Router: TargetType {
                 HTTPHeader.authorization.rawValue: KeyChainManager.shared.accessToken,
                 HTTPHeader.sesacKey.rawValue: APIKey.secretKey.rawValue
             ]
+        case .hashTagSearch:
+            return [
+                HTTPHeader.contentType.rawValue: HTTPHeader.json.rawValue,
+                HTTPHeader.authorization.rawValue: KeyChainManager.shared.accessToken,
+                HTTPHeader.sesacKey.rawValue: APIKey.secretKey.rawValue
+            ]
         }
     }
     
@@ -278,6 +289,8 @@ extension Router: TargetType {
         case .following:
             return .none
         case .unfollow(userId: let userId):
+            return .none
+        case .hashTagSearch:
             return .none
         }
     }

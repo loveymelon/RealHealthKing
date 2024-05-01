@@ -36,6 +36,7 @@ class ProfileView: BaseView {
     
     let rightBarButton = UIButton().then {
         $0.setImage(UIImage(systemName: "ellipsis"), for: .normal)
+        $0.tintColor = .white
     }
     
     let leftButton = UIButton().then {

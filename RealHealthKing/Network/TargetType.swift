@@ -64,4 +64,19 @@ extension TargetType {
         
         return urlRequest
     }
+    
+    func hashPageURLRequest(hashTag: String, cursor: String) throws -> URLRequest {
+        let url = try baseURL.asURL()
+        
+        var urlRequest = try URLRequest(url: url.appendingPathComponent(version + path), method: method, headers: HTTPHeaders(header))
+        
+        let hashTag = URLQueryItem(name: "hashTag", value: hashTag)
+        let cursor = URLQueryItem(name: "next", value: cursor)
+        let limit = URLQueryItem(name: "limit", value: "15")
+        let productid = URLQueryItem(name: "product_id", value: "abc333")
+        
+        urlRequest.url?.append(queryItems: [hashTag, cursor, limit, productid])
+        
+        return urlRequest
+    }
 }

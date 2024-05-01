@@ -19,6 +19,11 @@ class SearchView: BaseView {
         $0.register(SearchCollectionViewCell.self, forCellWithReuseIdentifier: SearchCollectionViewCell.identifier)
         $0.backgroundColor = .black
     }
+    
+    let noDataView = UIView().then {
+        $0.backgroundColor = .red
+        $0.isHidden = true
+    }
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -82,10 +87,15 @@ class SearchView: BaseView {
     
     override func configureHierarchy() {
         addSubview(collectionView)
+        addSubview(noDataView)
     }
     
     override func configureLayout() {
         collectionView.snp.makeConstraints { make in
+            make.edges.equalTo(safeAreaLayoutGuide)
+        }
+        
+        noDataView.snp.makeConstraints { make in
             make.edges.equalTo(safeAreaLayoutGuide)
         }
     }

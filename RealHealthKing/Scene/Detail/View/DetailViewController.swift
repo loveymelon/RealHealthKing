@@ -38,6 +38,10 @@ class DetailViewController: BaseViewController<DetailView> {
         
     }
     
+    override func configureNav() {
+        navigationItem.largeTitleDisplayMode = .never
+    }
+    
 }
 
 extension DetailViewController: UIScrollViewDelegate {

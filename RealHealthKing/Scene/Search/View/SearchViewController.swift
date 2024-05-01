@@ -24,7 +24,7 @@ class SearchViewController: BaseViewController<SearchView> {
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.largeTitleDisplayMode = .always
         
-        mainView.searchController.searchBar.placeholder = "Search"
+        mainView.searchController.searchBar.placeholder = "전체라는 단어를 넣으면 전체보기입니다."
         mainView.searchController.hidesNavigationBarDuringPresentation = false
         mainView.searchBar.tintColor = .red
         mainView.searchBar.setTextFieldBackground(color: .white)
@@ -39,13 +39,23 @@ class SearchViewController: BaseViewController<SearchView> {
         
         let search = mainView.searchBar.rx
         
-        let willAppear = rx.viewWillAppear.map { _ in}
+        let willAppear = rx.viewWillAppear.map { _ in }
         
-        let input = SearchViewModel.Input(viewWillAppearTrigger: willAppear, searchButtonTap: search.searchButtonClicked, searchCancelTap: search.cancelButtonClicked, searchText: search.text.orEmpty)
+        let searchButtonTrigger = search.searchButtonClicked.withLatestFrom(search.text.orEmpty.asObservable())
+        
+        let collectionIndex = mainView.collectionView.rx.willDisplayCell.asObservable()
+        
+        let input = SearchViewModel.Input(viewWillAppearTrigger: willAppear, searchButtonTap: searchButtonTrigger, searchCancelTap: search.cancelButtonClicked, collectionCellIndex: collectionIndex)
         
         let output = viewModel.transform(input: input)
         
-        
+        output.noData.drive(with: self) { owner, isValid in
+            if isValid {
+                owner.mainView.noDataView.isHidden = !isValid
+            } else {
+                owner.mainView.noDataView.isHidden = !isValid
+            }
+        }.disposed(by: disposeBag)
         
         output.postDatas.drive(mainView.collectionView.rx.items(cellIdentifier: SearchCollectionViewCell.identifier, cellType: SearchCollectionViewCell.self)) { index, item, cell in
             
