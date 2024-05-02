@@ -36,8 +36,10 @@ class HomeViewController: BaseViewController<HomeView> {
         
         let output = viewModel.transform(input: input)
         
-        output.postsDatas.drive(mainView.tableView.rx.items(cellIdentifier: HomeTableViewCell.identifier, cellType: HomeTableViewCell.self)) { [unowned self]
+        output.postsDatas.drive(mainView.tableView.rx.items(cellIdentifier: HomeTableViewCell.identifier, cellType: HomeTableViewCell.self)) { [weak self]
             index, item, cell in
+            
+            guard let self else { return }
             
             cell.selectionStyle = UITableViewCell.SelectionStyle.none
             cell.configureCell(data: item, width: mainView.frame.width, homeModel: homeModel, index: index)

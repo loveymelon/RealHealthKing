@@ -45,14 +45,14 @@ class HomeTableCellViewModel: ViewModelType {
             
         }.disposed(by: disposeBag)
         
-        input.inputLikeButtonTap.subscribe { value in
+        input.inputLikeButtonTap.throttle(.seconds(1), scheduler: ConcurrentDispatchQueueScheduler(qos: .background)).subscribe { value in
 
             // 기존 데이터를 계속 보고 있어서 한 번만 반영이 되는 것이다.
             NetworkManager.postLike(postId: value.1.postId ?? "empty", likeQuery: LikeQuery(likeStatus: value.0)) { result in
                 switch result {
                 case .success(let data):
                     
-                    print("tap", data.likeStatus)
+                    print("tap", data.likeStatus, value.1.postId)
                     resultTapLikeValue.onNext(data.likeStatus)
                     
                 case .failure(let error):

@@ -29,9 +29,7 @@ class HomeTableViewCell: UITableViewCell {
         $0.layer.borderColor = UIColor.white.cgColor
     }
     
-    let nickNameLabel = InfoLabel().then {
-        $0.text = "fdsafdasfasf"
-    }
+    let nickNameLabel = InfoLabel()
     
     let topStackView = UIStackView().then {
         $0.axis = .horizontal
@@ -70,7 +68,6 @@ class HomeTableViewCell: UITableViewCell {
     
     let contentLabel = UILabel().then {
         $0.numberOfLines = 3
-        $0.text = "dfjkashfjkldshfkldjsgklkladgsnjkladfnklnjkcxznvklberijkuahnibnqriotjeoqjntijadlfndkls;fnm,adsmfkldsnklfmdklsafnkls;flmdsnfkl;sadnfkldknsaklnfdklsnfklasnjkcxzklvmnjklranejkherwijqthiouehwnjknewklrnldsnfalknfkldsamvlnsakldfjkjasdkfjasdfhjkdshdfjkheiouwfnjkndlsncvjknsdjljdfhskajhfjkashfjkashfjkhadjksfhldashfjkhasjkldfhdjksahfjkhasjkfhadjshfjkdsahjkvbajkbvmnbcxzmnvbhjfbah"
         $0.textColor = .white
         $0.font = .systemFont(ofSize: 20)
     }
@@ -97,8 +94,7 @@ class HomeTableViewCell: UITableViewCell {
         scrollView.delegate = self
         
         configureUI()
-        self.backgroundColor = .black
-        
+        backgroundColor = .black
     }
     
     required init?(coder: NSCoder) {
@@ -109,7 +105,8 @@ class HomeTableViewCell: UITableViewCell {
         super.prepareForReuse()
         
         disposeBag = DisposeBag()
-        viewModel.disposeBag = DisposeBag()
+        viewModel.disposeBag = DisposeBag() // 셀이 deinit이 안되니 DisposeBag인스턴스를 생성해서 정리해줘야된다 생각하면 이렇게 접근하였습니다.
+        bind()
     }
     
 }
@@ -144,11 +141,12 @@ extension HomeTableViewCell: UIConfigureProtocol {
         }
         
         profileImageView.snp.makeConstraints { make in
-            make.size.equalTo(topStackView.snp.height)
+            make.size.equalTo(40)
         }
 
         nickNameLabel.snp.makeConstraints { make in
             make.height.equalTo(profileImageView)
+            make.trailing.equalToSuperview()
         }
         
         scrollView.snp.makeConstraints { make in
@@ -175,7 +173,6 @@ extension HomeTableViewCell: UIConfigureProtocol {
             make.bottom.equalTo(contentView.safeAreaLayoutGuide)
         }
     }
-    
 
 }
 
@@ -195,7 +192,6 @@ extension HomeTableViewCell {
         output.outputFirstLikeValue.drive(with: self, onNext: { owner, isValid in
             
             owner.likeButton.isSelected = isValid
-            
              // 여기서 좋아요에 대한 포스트 아이디를 키, 좋아요 상태를 value
             
         }).disposed(by: disposeBag)
@@ -212,37 +208,49 @@ extension HomeTableViewCell {
     // 만약 dic에 값이 있다면 아예 검사를 못하게 못하나
     func configureCell(data: Posts, width: CGFloat, homeModel: HomeModel, index: Int) {
         
-        bind()
         postData.accept(data)
         
+        nickNameLabel.text = data.creator.nick
         contentLabel.text = data.content
         self.homeModel = homeModel
         cellIndex = index
         
-        if let iamgeUrl = data.creator.profileImage {
-            let url = APIKey.baseURL.rawValue + NetworkVersion.version.rawValue + "/" + iamgeUrl
+        if let imageUrl = data.creator.profileImage {
+            
+            let url = APIKey.baseURL.rawValue + NetworkVersion.version.rawValue + "/" + imageUrl
             profileImageView.downloadImage(imageUrl: url)
+            
         }
         
         // 만약 딕셔너리 안에 좋아요 버튼의 포스트 아이디가 있다면 해당 값으로 버튼의 isSelected설정
         DispatchQueue.main.async { [weak self] in
             guard let self else { return }
-            updateImageViews(postData: data.files, width: width)
+            
+            updateImageViews(scrollView: scrollView, pageControl: pageControl, postData: data.files, width: width)
         }
         
-        if let like = homeModel.likeDic[cellIndex] {
+        saveAndCheckModel(data: data, cellIndex: cellIndex)
+        
+        cellBindDelegate(data: data)
+        
+    }
+    
+    func saveAndCheckModel(data: Posts, cellIndex: Int) {
+        if let like = homeModel?.likeDic[cellIndex] {
             likeButton.isSelected = like
             like ? likeData.accept(["true"]) : likeData.accept(["false"])
         } else {
             likeData.accept(data.likes)
         }
         
-        if let page = homeModel.pageValue[cellIndex] {
+        if let page = homeModel?.pageValue[cellIndex] {
             pageControl.currentPage = page
         }
-        
-        profileImageView.rx.tapGesture().when(.recognized).flatMap { _ in
-            Observable.just(data.creator.userId)
+    }
+    
+    func cellBindDelegate(data: Posts) {
+        profileImageView.rx.tapGesture().when(.recognized).withUnretained(self).map { _ in
+            return data.creator.userId
         }.subscribe(with: self) { owner, id in
             let vc = ProfileViewController()
             
@@ -254,7 +262,6 @@ extension HomeTableViewCell {
             }
             
             owner.delegate?.profileViewTap(vc: vc)
-            
         }.disposed(by: disposeBag)
         
         commentButton.rx.tap.map { data.postId ?? "empty" }.subscribe(with: self) { owner, id in
@@ -265,31 +272,6 @@ extension HomeTableViewCell {
             owner.delegate?.commentButtonTap(vc: vc)
             
         }.disposed(by: disposeBag)
-        
-    }
-    
-    func updateImageViews(postData: [String], width: CGFloat) {
-        
-        for num in 0..<postData.count {
-            let imageView = UIImageView()
-            let postionX = width * CGFloat(num)
-            
-            let width = width
-            let height = scrollView.bounds.height
- 
-            imageView.frame = CGRect(x: postionX, y: 0, width: width, height: height)
-            
-            let url = APIKey.baseURL.rawValue + NetworkVersion.version.rawValue + "/" + postData[num]
-            
-            imageView.downloadImage(imageUrl: url)
-            
-            scrollView.addSubview(imageView)
-            
-            scrollView.contentSize.width = width * CGFloat(1+num) // scrollView의 넓이 설정
-        }
-        
-        pageControl.numberOfPages = postData.count
-        
     }
     
 }

@@ -31,7 +31,7 @@ extension UIImageView {
         
         guard let url = URL(string: imageUrl), let scale = UIScreen.current?.scale else { return }
         
-//        let processor = DownsamplingImageProcessor(size: CGSize(width: width, height: height))
+        //        let processor = DownsamplingImageProcessor(size: CGSize(width: width, height: height))
         
         let keyChain = KeychainSwift()
         
@@ -42,14 +42,8 @@ extension UIImageView {
             return requestBody
         }
         
-//        let options: KingfisherOptionsInfo = [
-//            .processor(processor),
-//            .scaleFactor(UIScreen.main.scale),
-//            .requestModifier(imageDownloadRequest)
-//        ]
-        
         KingfisherManager.shared.retrieveImage(with: url, options: [
-//            .processor(processor),
+            //            .processor(processor),
             .requestModifier(imageDownloadRequest),
             .scaleFactor(scale),
         ]) { imageResult in
@@ -59,18 +53,6 @@ extension UIImageView {
             case .failure(let error):
                 print(error)
             }
-                }
-//        self.kf.setImage(
-//            with: url,
-//            options: options,
-//            completionHandler: { [weak self] result in
-//                switch result {
-//                case .success(let value):
-//                    self?.image = value.image
-//                case .failure(let error):
-//                    print("Error loading image: \(error)")
-//                }
-//            }
-//        )
+        }
     }
 }

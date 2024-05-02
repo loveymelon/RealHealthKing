@@ -22,6 +22,7 @@ class DetailViewController: BaseViewController<DetailView> {
         super.viewDidLoad()
         
         mainView.scrollView.delegate = self
+        
     }
     
     override func bind() {
@@ -32,7 +33,7 @@ class DetailViewController: BaseViewController<DetailView> {
         output.outputPostData.drive(with: self) { owner, data in
             owner.mainView.contentLabel.text = data.content
             
-            owner.updateImageViews(postData: data.files, width: owner.mainView.bounds.width)
+            owner.mainView.updateImageViews(scrollView: owner.mainView.scrollView, pageControl: owner.mainView.pageControl, postData: data.files, width: owner.mainView.bounds.width)
             
             if let imageUrl = data.creator.profileImage {
                 let url = APIKey.baseURL.rawValue + NetworkVersion.version.rawValue + "/" + imageUrl
@@ -54,31 +55,5 @@ class DetailViewController: BaseViewController<DetailView> {
 extension DetailViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         mainView.pageControl.currentPage = Int(round(scrollView.contentOffset.x / UIScreen.main.bounds.width))
-    }
-}
-
-extension DetailViewController {
-    func updateImageViews(postData: [String], width: CGFloat) {
-        
-        for num in 0..<postData.count {
-            let imageView = UIImageView()
-            let postionX = width * CGFloat(num)
-            
-            let width = width
-            let height = mainView.scrollView.bounds.height
- 
-            imageView.frame = CGRect(x: postionX, y: 0, width: width, height: height)
-            
-            let url = APIKey.baseURL.rawValue + NetworkVersion.version.rawValue + "/" + postData[num]
-            
-            imageView.downloadImage(imageUrl: url)
-            
-            mainView.scrollView.addSubview(imageView)
-            
-            mainView.scrollView.contentSize.width = width * CGFloat(1+num)
-        }
-        
-        mainView.pageControl.numberOfPages = postData.count
-        
     }
 }

@@ -16,6 +16,7 @@ class SearchCollectionViewCell: UICollectionViewCell {
         super.init(frame: frame)
         
         configureUI()
+        print(#function)
     }
     
     required init?(coder: NSCoder) {
