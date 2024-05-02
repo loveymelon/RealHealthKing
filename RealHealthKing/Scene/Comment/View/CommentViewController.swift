@@ -71,13 +71,17 @@ class CommentViewController: BaseViewController<CommentView> {
             
         }.disposed(by: disposeBag)
         
+        output.outputNoData.drive(with: self) { owner, isValid in
+            <#code#>
+        }.disposed(by: disposeBag)
+        
         output.outputProfile.drive(with: self) { owner, image in
             if image == "person" {
                 owner.mainView.userImageView.image = UIImage(systemName: image)
             } else {
                 let url = APIKey.baseURL.rawValue + NetworkVersion.version.rawValue + "/" + image
                 
-                print(url, "urlrlrlrlrl")
+//                print(url, "urlrlrlrlrl")
                 
                 let size = owner.mainView.userImageView.bounds.size
                 

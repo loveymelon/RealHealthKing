@@ -26,7 +26,7 @@ struct Posts: Codable {
     let files: [String]
     var likes: [String]
     let creator: Creator
-    let comments: [CommentsModel]?
+    let comments: [CommentsModel]
     
     
     enum CodingKeys: String, CodingKey {
@@ -40,7 +40,7 @@ struct Posts: Codable {
         case comments
     }
     
-    init(postId: String? = "", productId: String? = "", title: String? = "", content: String? = "", files: [String] = [], likes: [String] = [], creator: Creator = Creator(), comments: [CommentsModel]? = nil) {
+    init(postId: String? = "", productId: String? = "", title: String? = "", content: String? = "", files: [String] = [], likes: [String] = [], creator: Creator = Creator(), comments: [CommentsModel] = []) {
         self.postId = postId
         self.productId = productId
         self.title = title

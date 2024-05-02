@@ -59,6 +59,8 @@ class SearchViewController: BaseViewController<SearchView> {
         
         output.postDatas.drive(mainView.collectionView.rx.items(cellIdentifier: SearchCollectionViewCell.identifier, cellType: SearchCollectionViewCell.self)) { index, item, cell in
             
+            
+            
             let url = APIKey.baseURL.rawValue + NetworkVersion.version.rawValue + "/" + item.files.first!
             
             cell.postImageView.downloadImage(imageUrl: url, width: cell.bounds.width, height: cell.bounds.height)

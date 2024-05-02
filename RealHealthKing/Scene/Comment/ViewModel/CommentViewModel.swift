@@ -18,6 +18,7 @@ class CommentViewModel: ViewModelType {
     struct Output {
         let outputCommentData: Driver<[CommentsModel]>
         let outputProfile: Driver<String>
+        let outputNoData: Driver<Bool>
     }
     
     var disposeBag = DisposeBag()
@@ -25,6 +26,7 @@ class CommentViewModel: ViewModelType {
     func transform(input: Input) -> Output {
         var tempPostId = ""
         var tempCommentsData:[CommentsModel] = []
+        var noDataResult = BehaviorRelay(value: false)
         
         let commentsResult = BehaviorRelay<[CommentsModel]>(value: [])
         let profileImageResult = BehaviorRelay(value: "")
@@ -34,8 +36,8 @@ class CommentViewModel: ViewModelType {
                 NetworkManager.fetchAccessPostDetails(postId: postId) { result in
                     switch result {
                     case .success(let data):
-                        guard let datas = data.comments else { return observer.onNext([]) }
-                        observer.onNext(datas)
+                        noDataResult.accept(data.comments.isEmpty)
+                        observer.onNext(data.comments)
                     case .failure(let error):
                         observer.onError(error)
                     }
@@ -54,6 +56,7 @@ class CommentViewModel: ViewModelType {
                     if let imageData = data.profileImage {
                         profileImageResult.accept(imageData)
                         commentsResult.accept(tempCommentsData)
+                        
                     } else {
                         profileImageResult.accept("person")
                     }
@@ -75,6 +78,6 @@ class CommentViewModel: ViewModelType {
             }
         }.disposed(by: disposeBag)
         
-        return Output(outputCommentData: commentsResult.asDriver(), outputProfile: profileImageResult.asDriver())
+        return Output(outputCommentData: commentsResult.asDriver(), outputProfile: profileImageResult.asDriver(), outputNoData: noDataResult.asDriver())
     }
 }
