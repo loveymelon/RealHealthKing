@@ -19,9 +19,7 @@ class DetailView: BaseView {
         $0.layer.borderColor = UIColor.white.cgColor
     }
     
-    let nickNameLabel = InfoLabel().then {
-        $0.text = "fdsafdasfasf"
-    }
+    let nickNameLabel = InfoLabel()
     
     let topStackView = UIStackView().then {
         $0.axis = .horizontal
@@ -96,7 +94,7 @@ class DetailView: BaseView {
     
     override func configureLayout() {
         topStackView.snp.makeConstraints { make in
-            make.top.leading.equalTo(safeAreaLayoutGuide).inset(10)
+            make.top.horizontalEdges.equalTo(safeAreaLayoutGuide).inset(10)
             make.height.equalTo(40)
         }
         

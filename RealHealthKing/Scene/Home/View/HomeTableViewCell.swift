@@ -136,7 +136,7 @@ extension HomeTableViewCell: UIConfigureProtocol {
     
     func configureLayout() {
         topStackView.snp.makeConstraints { make in
-            make.top.leading.equalTo(contentView.safeAreaLayoutGuide).inset(10)
+            make.top.horizontalEdges.equalTo(contentView.safeAreaLayoutGuide).inset(10)
             make.height.equalTo(40)
         }
         
@@ -220,9 +220,10 @@ extension HomeTableViewCell {
             let url = APIKey.baseURL.rawValue + NetworkVersion.version.rawValue + "/" + imageUrl
             profileImageView.downloadImage(imageUrl: url)
             
+        } else {
+            profileImageView.image = UIImage(systemName: "person")
         }
         
-        // 만약 딕셔너리 안에 좋아요 버튼의 포스트 아이디가 있다면 해당 값으로 버튼의 isSelected설정
         DispatchQueue.main.async { [weak self] in
             guard let self else { return }
             

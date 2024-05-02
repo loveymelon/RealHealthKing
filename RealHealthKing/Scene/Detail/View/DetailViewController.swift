@@ -31,6 +31,7 @@ class DetailViewController: BaseViewController<DetailView> {
         let output = viewModel.transform(input: input)
         
         output.outputPostData.drive(with: self) { owner, data in
+            owner.mainView.nickNameLabel.text = data.creator.nick
             owner.mainView.contentLabel.text = data.content
             
             owner.mainView.updateImageViews(scrollView: owner.mainView.scrollView, pageControl: owner.mainView.pageControl, postData: data.files, width: owner.mainView.bounds.width)
