@@ -17,7 +17,9 @@ class HomeView: BaseView {
         $0.backgroundColor = .black
     }
     
-    let refreshControl = UIRefreshControl()
+    let noDataView = NoDataView().then {
+        $0.setText("게시물이 없습니다.")
+    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -29,10 +31,15 @@ class HomeView: BaseView {
     
     override func configureHierarchy() {
         addSubview(tableView)
+        addSubview(noDataView)
     }
     
     override func configureLayout() {
         tableView.snp.makeConstraints { make in
+            make.edges.equalTo(safeAreaLayoutGuide)
+        }
+        
+        noDataView.snp.makeConstraints { make in
             make.edges.equalTo(safeAreaLayoutGuide)
         }
         

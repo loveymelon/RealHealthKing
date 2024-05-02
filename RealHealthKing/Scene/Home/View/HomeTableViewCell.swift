@@ -29,16 +29,6 @@ class HomeTableViewCell: UITableViewCell {
         $0.layer.borderColor = UIColor.white.cgColor
     }
     
-//    let profileImageButton = UIButton().then {
-//        $0.clipsToBounds = true
-//        $0.contentMode = .scaleAspectFit
-//        $0.setImage(UIImage(systemName: "person"), for: .normal)
-//        $0.tintColor = .blue
-//        $0.layer.cornerRadius = 20
-//        $0.layer.borderWidth = 1
-//        $0.layer.borderColor = UIColor.white.cgColor
-//    }
-    
     let nickNameLabel = InfoLabel().then {
         $0.text = "fdsafdasfasf"
     }
@@ -60,7 +50,6 @@ class HomeTableViewCell: UITableViewCell {
         $0.currentPageIndicatorTintColor = .white
         $0.hidesForSinglePage = true
         $0.currentPage = 0
-//        $0.backgroundColor = .gray
     }
     
     let likeButton = UIButton().then {
@@ -99,6 +88,8 @@ class HomeTableViewCell: UITableViewCell {
     var disposeBag = DisposeBag()
     
     let viewModel = HomeTableCellViewModel()
+    var homeModel: HomeModel?
+    var cellIndex: Int = 0
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -108,7 +99,6 @@ class HomeTableViewCell: UITableViewCell {
         configureUI()
         self.backgroundColor = .black
         
-        print(#function)
     }
     
     required init?(coder: NSCoder) {
@@ -119,7 +109,7 @@ class HomeTableViewCell: UITableViewCell {
         super.prepareForReuse()
         
         disposeBag = DisposeBag()
-       
+        viewModel.disposeBag = DisposeBag()
     }
     
 }
@@ -186,42 +176,64 @@ extension HomeTableViewCell: UIConfigureProtocol {
         }
     }
     
-    
+
 }
 
 extension HomeTableViewCell {
     
-    // 처음 시작 -> 데이터를 뷰컨에서 받아서 셀에 뿌림 -> 셀에서 좋아요가 눌렸을때 -> 통신으로 좋아요 값 변경 -> 어떻게 원본 데이터의 좋아요 값을 바꿀까
-    
     func bind() {
-//        let likeButtonTap = likeButton.rx.tap.flatMap { [unowned self] in postData }
-                
-        let likeButtonTap = likeButton.rx.tap.withLatestFrom(postData.asObservable())
+        
+        // 현재 버튼 상태의 반대값을 보내면 되지않을까?
+        let likeButtonTap = likeButton.rx.tap.withUnretained(self).map { owner, _ in
+            return (!owner.likeButton.isSelected, owner.postData.value)
+        }
         
         let input = HomeTableCellViewModel.Input(inputLikeButtonTap: likeButtonTap, inputLikeValue: likeData.asObservable())
         
         let output = viewModel.transform(input: input)
         
-        output.outputLikeValue.subscribe(with: self, onNext: { owner, isValid in
+        output.outputFirstLikeValue.drive(with: self, onNext: { owner, isValid in
             
             owner.likeButton.isSelected = isValid
             
+             // 여기서 좋아요에 대한 포스트 아이디를 키, 좋아요 상태를 value
+            
         }).disposed(by: disposeBag)
         
+        output.outputTapLikeValue.drive(with: self) { owner, isValid in
+            owner.homeModel?.likeDic[owner.cellIndex] = isValid
+            owner.likeButton.isSelected = isValid
+        }.disposed(by: disposeBag)
+        
     }
-    // 기존의 데이터가 있다면 다 받아들이고 아니라면 받지않기
-    func configureCell(data: Posts, width: CGFloat) {
+    
+    // 좋아요 버튼을 눌렀을때 통신을 하여서 좋아요의 값을 바꿔주고 거기에 대한 bool값을 즉각적으로 바꿔줬는데
+    // 셀이 시작할때마다 likeData라는 옵저버에 값을 보낸뒤 viewModel에서 원본 데이터에서 contain인지 검사후 버튼의 상태를 바꿔준다.
+    // 만약 dic에 값이 있다면 아예 검사를 못하게 못하나
+    func configureCell(data: Posts, width: CGFloat, homeModel: HomeModel, index: Int) {
         
         bind()
         postData.accept(data)
-        likeData.accept(data.likes)
-
+        
+        contentLabel.text = data.content
+        self.homeModel = homeModel
+        cellIndex = index
+        // 만약 딕셔너리 안에 좋아요 버튼의 포스트 아이디가 있다면 해당 값으로 버튼의 isSelected설정
         DispatchQueue.main.async { [weak self] in
             guard let self else { return }
             updateImageViews(postData: data.files, width: width)
         }
         
-        contentLabel.text = data.content
+        if let like = homeModel.likeDic[cellIndex] {
+            likeButton.isSelected = like
+            like ? likeData.accept(["true"]) : likeData.accept(["false"])
+        } else {
+            likeData.accept(data.likes)
+        }
+        
+        if let page = homeModel.pageValue[cellIndex] {
+            pageControl.currentPage = page
+        }
         
         profileImageView.rx.tapGesture().when(.recognized).flatMap { _ in
             Observable.just(data.creator.userId)
@@ -279,5 +291,6 @@ extension HomeTableViewCell {
 extension HomeTableViewCell: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         pageControl.currentPage = Int(round(scrollView.contentOffset.x / UIScreen.main.bounds.width))
+        homeModel?.pageValue[cellIndex] = pageControl.currentPage
     }
 }

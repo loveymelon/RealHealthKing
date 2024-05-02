@@ -72,7 +72,8 @@ class CommentViewController: BaseViewController<CommentView> {
         }.disposed(by: disposeBag)
         
         output.outputNoData.drive(with: self) { owner, isValid in
-            <#code#>
+            owner.mainView.noDataView.isHidden = !isValid
+            owner.mainView.tableView.isHidden = isValid
         }.disposed(by: disposeBag)
         
         output.outputProfile.drive(with: self) { owner, image in
@@ -107,10 +108,6 @@ extension CommentViewController {
             sheet.prefersGrabberVisible = true
             sheet.delegate = self
         }
-    }
-    
-    func configureUI() {
-        
     }
 }
 

@@ -12,12 +12,13 @@ import RxCocoa
 class HomeViewModel: ViewModelType {
     
     struct Input {
-        let notificationEvent: Observable<Void>
+        let inputViewWillTirgger: Observable<Void>
         let inputTableViewIndex: Observable<WillDisplayCellEvent>
     }
     
     struct Output {
         let postsDatas: Driver<[Posts]>
+        let outputNoData: Driver<Bool>
     }
     
     var disposeBag = DisposeBag()
@@ -26,15 +27,16 @@ class HomeViewModel: ViewModelType {
     func transform(input: Input) -> Output {
         
         let resultPostsDatas = BehaviorRelay<[Posts]>(value: [])
+        let noDataResult = BehaviorRelay(value: false)
         var cursor = ""
         
-        input.notificationEvent.subscribe (with: self) { owner, _ in
+        input.inputViewWillTirgger.subscribe (with: self) { owner, _ in
             NetworkManager.fetchPosts { result in
                 print("networking")
                 switch result {
                 case .success(let data):
+                    noDataResult.accept(data.data.isEmpty)
                     cursor = data.nextCursor
-                    print(data.data, "\n")
                     resultPostsDatas.accept(data.data)
                 case .failure(let error):
                     print(error.description)
@@ -63,6 +65,6 @@ class HomeViewModel: ViewModelType {
             }
         }.disposed(by: disposeBag)
         
-        return Output(postsDatas: resultPostsDatas.asDriver())
+        return Output(postsDatas: resultPostsDatas.asDriver(), outputNoData: noDataResult.asDriver())
     }
 }

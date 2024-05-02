@@ -11,12 +11,13 @@ import RxCocoa
 
 class HomeTableCellViewModel: ViewModelType {
     struct Input {
-        let inputLikeButtonTap: Observable<Posts>
+        let inputLikeButtonTap: Observable<(Bool, Posts)>
         let inputLikeValue: Observable<[String]>
     }
     
     struct Output {
-        let outputLikeValue: Observable<Bool>
+        let outputFirstLikeValue: Driver<Bool>
+        let outputTapLikeValue: Driver<Bool>
     }
     
     var disposeBag = DisposeBag()
@@ -27,25 +28,37 @@ class HomeTableCellViewModel: ViewModelType {
     
     func transform(input: Input) -> Output {
         
-        let resultLikeValue = BehaviorRelay(value: false)
+        let resultFirstLikeValue = BehaviorRelay(value: false)
+        let resultTapLikeValue = PublishSubject<Bool>()
         
         input.inputLikeValue.subscribe { likes in
-            print("start", likes.contains(KeyChainManager.shared.userId))
-            resultLikeValue.accept(likes.contains(KeyChainManager.shared.userId))
+            
+            if !likes.isEmpty {
+                
+                if likes[0] == "true" {
+                    resultFirstLikeValue.accept(true)
+                } else if likes[0] == "false" {
+                    resultFirstLikeValue.accept(false)
+                } else {
+                    resultFirstLikeValue.accept(likes.contains(KeyChainManager.shared.userId))
+                }
+                
+            } else {
+                resultFirstLikeValue.accept(likes.contains(KeyChainManager.shared.userId))
+            }
+            
         }.disposed(by: disposeBag)
         
         input.inputLikeButtonTap.subscribe { value in
-            
-            guard let postData = value.element else { return }
 
-            let likeState = postData.likes.contains(KeyChainManager.shared.userId)
-            print(likeState)
-            NetworkManager.postLike(postId: postData.postId ?? "empty", likeQuery: LikeQuery(likeStatus: !likeState)) { result in
+            // 기존 데이터를 계속 보고 있어서 한 번만 반영이 되는 것이다.
+            NetworkManager.postLike(postId: value.1.postId ?? "empty", likeQuery: LikeQuery(likeStatus: value.0)) { result in
                 switch result {
                 case .success(let data):
                     
-                    NotificationCenterManager.like.post(object: data.likeStatus)
                     print("tap", data.likeStatus)
+                    resultTapLikeValue.onNext(data.likeStatus)
+                    
                 case .failure(let error):
                     print(error)
                 }
@@ -53,6 +66,6 @@ class HomeTableCellViewModel: ViewModelType {
             
         }.disposed(by: disposeBag)
         
-        return Output(outputLikeValue: resultLikeValue.asObservable())
+        return Output(outputFirstLikeValue: resultFirstLikeValue.asDriver(), outputTapLikeValue: resultTapLikeValue.asDriver(onErrorJustReturn: false))
     }
 }

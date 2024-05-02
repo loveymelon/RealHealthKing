@@ -96,6 +96,12 @@ class ProfileViewController: BaseViewController<ProfileView> {
             
         }.disposed(by: disposeBag)
         
+        output.outputNodata.drive(with: self) { owner, isValid in
+            owner.mainView.collectionView.isHidden = isValid
+            owner.mainView.noDataView.isHidden = !isValid
+//            owner.mainView.scrollView.isScrollEnabled = isValid
+        }.disposed(by: disposeBag)
+        
     }
 
     override func configureNav() {

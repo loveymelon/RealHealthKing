@@ -32,7 +32,7 @@ class SearchViewModel: ViewModelType {
         var postsTitle: [String] = []
         let postsDatas = BehaviorRelay<[Posts]>(value: [])
         var cursor = ""
-        var noDataResult = PublishSubject<Bool>()
+        let noDataResult = PublishSubject<Bool>()
         
         input.viewWillAppearTrigger.subscribe { _ in
             NetworkManager.fetchPosts { result in
@@ -42,9 +42,7 @@ class SearchViewModel: ViewModelType {
                     postsDatas.accept(data.data)
                     cursor = data.nextCursor
                     
-                    if data.data.isEmpty {
-                        noDataResult.onNext(true)
-                    }
+                    noDataResult.onNext(data.data.isEmpty)
                     
                     for item in data.data {
                         guard let title = item.title else { return }
@@ -59,14 +57,20 @@ class SearchViewModel: ViewModelType {
         
         input.searchButtonTap.subscribe { searchText in
             
+            print("taptaptap", searchText)
+            
             if searchText == "전체" {
                 postsDatas.accept(originPosts)
+                noDataResult.onNext(false)
+                print(originPosts)
             } else {
                 
                 NetworkManager.searchHashTag(hashTag: searchText) { result in
                     switch result {
                     case .success(let data):
                         postsDatas.accept(data.data)
+                        noDataResult.onNext(data.data.isEmpty)
+                        
                         cursor = data.nextCursor
                     case .failure(let error):
                         print(error)
@@ -74,7 +78,6 @@ class SearchViewModel: ViewModelType {
                 }
                 
             }
-            
             
         }.disposed(by: disposeBag)
         

@@ -20,6 +20,7 @@ class HomeViewController: BaseViewController<HomeView> {
     let disposeBag = DisposeBag()
     
     let keyChain = KeychainSwift()
+    let homeModel = HomeModel()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,15 +28,12 @@ class HomeViewController: BaseViewController<HomeView> {
     }
     
     override func bind() {
-        let notificationEvent = Observable.merge([
-            rx.viewWillAppear.take(1).map { _ in },
-            NotificationCenterManager.like.addObserver().map { _ in  }
-        ])
+        
+        let viewWillAppearTrigger = rx.viewWillAppear.map { _ in }
         
         let tableViewIndex = mainView.tableView.rx.willDisplayCell.asObservable()
         
-        let input = HomeViewModel.Input(notificationEvent: notificationEvent, inputTableViewIndex: tableViewIndex)
-        
+        let input = HomeViewModel.Input(inputViewWillTirgger: viewWillAppearTrigger, inputTableViewIndex: tableViewIndex)
         
         let output = viewModel.transform(input: input)
         
@@ -43,9 +41,15 @@ class HomeViewController: BaseViewController<HomeView> {
             index, item, cell in
             
             cell.selectionStyle = UITableViewCell.SelectionStyle.none
-            cell.configureCell(data: item, width: mainView.frame.width)
+            cell.configureCell(data: item, width: mainView.frame.width, homeModel: homeModel, index: index)
             cell.delegate = self
             
+            
+        }.disposed(by: disposeBag)
+        
+        output.outputNoData.drive(with: self) { owner, isValid in
+            owner.mainView.noDataView.isHidden = !isValid
+            owner.mainView.tableView.isHidden = isValid
         }.disposed(by: disposeBag)
         
         mainView.tableView.rx.modelSelected(Posts.self).bind(with: self) { owner, item in

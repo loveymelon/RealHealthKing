@@ -42,6 +42,10 @@ class CommentView: BaseView {
         $0.tintColor = .white
     }
     
+    let noDataView = NoDataView().then {
+        $0.setText("댓글이 없습니다.")
+    }
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
     }
@@ -55,6 +59,7 @@ class CommentView: BaseView {
         addSubview(commentTextView)
         addSubview(doneButton)
         addSubview(tableView)
+        addSubview(noDataView)
     }
     
     override func configureLayout() {
@@ -84,7 +89,10 @@ class CommentView: BaseView {
             make.bottom.equalTo(commentTextView.snp.top)
         }
         
-
+        noDataView.snp.makeConstraints { make in
+            make.center.equalTo(safeAreaLayoutGuide)
+            make.size.equalTo(100)
+        }
         
         
     }

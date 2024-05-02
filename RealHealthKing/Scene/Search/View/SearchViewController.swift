@@ -50,16 +50,11 @@ class SearchViewController: BaseViewController<SearchView> {
         let output = viewModel.transform(input: input)
         
         output.noData.drive(with: self) { owner, isValid in
-            if isValid {
-                owner.mainView.noDataView.isHidden = !isValid
-            } else {
-                owner.mainView.noDataView.isHidden = !isValid
-            }
+            owner.mainView.noDataView.isHidden = !isValid
+            owner.mainView.collectionView.isHidden = isValid
         }.disposed(by: disposeBag)
         
         output.postDatas.drive(mainView.collectionView.rx.items(cellIdentifier: SearchCollectionViewCell.identifier, cellType: SearchCollectionViewCell.self)) { index, item, cell in
-            
-            
             
             let url = APIKey.baseURL.rawValue + NetworkVersion.version.rawValue + "/" + item.files.first!
             

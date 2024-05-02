@@ -20,9 +20,8 @@ class SearchView: BaseView {
         $0.backgroundColor = .black
     }
     
-    let noDataView = UIView().then {
-        $0.backgroundColor = .red
-        $0.isHidden = true
+    let noDataView = NoDataView().then {
+        $0.setText("검색결과 혹은 데이터가 없습니다!")
     }
 
     override init(frame: CGRect) {

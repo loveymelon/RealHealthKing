@@ -26,6 +26,7 @@ class ProfileViewModel: ViewModelType {
         
         let leftButton: Driver<String>
         let outputLeftButtonTap: Driver<Bool>
+        let outputNodata: Driver<Bool>
     }
     
     var viewState: ScreenState = .me
@@ -42,6 +43,7 @@ class ProfileViewModel: ViewModelType {
         let followerCount = BehaviorRelay(value: 0)
         let followingCount = BehaviorRelay(value: 0)
         let postCount = BehaviorRelay(value: 0)
+        let noDataResult = BehaviorRelay(value: false)
         
         let postDatasResult = BehaviorRelay<[Posts]>(value: [])
         
@@ -61,6 +63,7 @@ class ProfileViewModel: ViewModelType {
                             cursor = data.nextCursor
                             // 다음 페이지의 데이터를 가져오는 요청을 발행
                             observer.onNext(data.data)
+                            noDataResult.accept(data.data.isEmpty)
                             if cursor == "0" {
                                 observer.onCompleted()
                             }
@@ -134,7 +137,7 @@ class ProfileViewModel: ViewModelType {
                             
                             cursor = data.nextCursor
                             observer.onNext(data.data)
-                            
+                            noDataResult.accept(data.data.isEmpty)
                             if cursor == "0" {
                                 observer.onCompleted()
                             }
@@ -239,6 +242,6 @@ class ProfileViewModel: ViewModelType {
             
         }
         
-        return Output(profileEmail: emailResult.asDriver(), profileNick: nickResult.asDriver(), profileImage: profileImage.asDriver(), follwerCount: followerCount.asDriver(), follwingCount: followingCount.asDriver(), postDatas: postDatasResult.asDriver(), postCount: postCount.asDriver(), leftButton: leftButtonResult.asDriver(), outputLeftButtonTap: leftButtonTapResult.asDriver())
+        return Output(profileEmail: emailResult.asDriver(), profileNick: nickResult.asDriver(), profileImage: profileImage.asDriver(), follwerCount: followerCount.asDriver(), follwingCount: followingCount.asDriver(), postDatas: postDatasResult.asDriver(), postCount: postCount.asDriver(), leftButton: leftButtonResult.asDriver(), outputLeftButtonTap: leftButtonTapResult.asDriver(), outputNodata: noDataResult.asDriver())
     }
 }

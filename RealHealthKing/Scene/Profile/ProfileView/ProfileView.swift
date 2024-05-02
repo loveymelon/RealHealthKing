@@ -61,8 +61,11 @@ class ProfileView: BaseView {
     
     let collectionView = UICollectionView(frame: .zero, collectionViewLayout: createThreeColumnSection()).then {
         $0.register(SearchCollectionViewCell.self, forCellWithReuseIdentifier: SearchCollectionViewCell.identifier)
-        $0.isScrollEnabled = false
         $0.backgroundColor = .black
+    }
+    
+    let noDataView = NoDataView().then {
+        $0.setText("게시글 없음")
     }
     
     let lineView = UIView().then {
@@ -103,6 +106,7 @@ class ProfileView: BaseView {
         scrollView.addSubview(buttonStackView)
         scrollView.addSubview(lineView)
         scrollView.addSubview(collectionView)
+        scrollView.addSubview(noDataView)
     }
     
     override func configureLayout() {
@@ -157,6 +161,12 @@ class ProfileView: BaseView {
             make.top.equalTo(lineView.snp.bottom).offset(10)
             make.width.equalTo(scrollView.snp.width)
             make.height.equalTo(500)
+        }
+        
+        noDataView.snp.makeConstraints { make in
+            make.top.equalTo(lineView.snp.bottom)
+            make.width.equalTo(scrollView.snp.width)
+            make.bottom.equalTo(scrollView.snp.bottom)
         }
     }
     

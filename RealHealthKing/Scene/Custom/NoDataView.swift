@@ -11,10 +11,16 @@ import SnapKit
 
 final class NoDataView: UIView {
     
-    private let noDataLabel = UILabel()
+    private let noDataLabel = UILabel().then {
+        $0.textColor = .white
+        $0.textAlignment = .center
+        $0.font = .boldSystemFont(ofSize: 20)
+    }
 
     override init(frame: CGRect) {
         super.init(frame: frame)
+        
+        configureUI()
     }
     
     required init?(coder: NSCoder) {
@@ -31,6 +37,9 @@ extension NoDataView: UIConfigureProtocol {
     func configureUI() {
         configureHierarchy()
         configureLayout()
+        
+        backgroundColor = .clear
+        isHidden = true
     }
     
     func configureHierarchy() {
