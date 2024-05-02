@@ -27,11 +27,11 @@ extension UIImage {
 
 extension UIImageView {
     
-    func downloadImage(imageUrl: String, width: CGFloat, height: CGFloat) {
+    func downloadImage(imageUrl: String) {
         
         guard let url = URL(string: imageUrl), let scale = UIScreen.current?.scale else { return }
         
-        let processor = DownsamplingImageProcessor(size: CGSize(width: width, height: height))
+//        let processor = DownsamplingImageProcessor(size: CGSize(width: width, height: height))
         
         let keyChain = KeychainSwift()
         

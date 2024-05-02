@@ -41,6 +41,10 @@ class ProfileViewController: BaseViewController<ProfileView> {
             owner.navigationController?.pushViewController(vc, animated: true)
         }.disposed(by: disposeBag)
         
+//        mainView.rightBarButton.rx.tap.subscribe { _ in
+//            <#code#>
+//        }.disposed(by: disposeBag)
+        
         output.outputLeftButtonTap.drive(with: self) { owner, isValid in
             
             if isValid {
@@ -63,14 +67,13 @@ class ProfileViewController: BaseViewController<ProfileView> {
             let size = owner.mainView.profileImageView.bounds
             
             owner.imageURL = image
-
             
             if image.isEmpty {
                 owner.mainView.profileImageView.image = UIImage(systemName: "person")
             } else {
                 let url = APIKey.baseURL.rawValue + NetworkVersion.version.rawValue + "/" + image
                 
-                owner.mainView.profileImageView.downloadImage(imageUrl: url, width: size.width, height: size.height)
+                owner.mainView.profileImageView.downloadImage(imageUrl: url)
             }
         }.disposed(by: disposeBag)
         
@@ -92,14 +95,13 @@ class ProfileViewController: BaseViewController<ProfileView> {
             
             let url = APIKey.baseURL.rawValue + NetworkVersion.version.rawValue + "/" + (item.files.first ?? "empty")
             
-            cell.postImageView.downloadImage(imageUrl: url, width: size.width, height: size.height)
+            cell.postImageView.downloadImage(imageUrl: url)
             
         }.disposed(by: disposeBag)
         
         output.outputNodata.drive(with: self) { owner, isValid in
             owner.mainView.collectionView.isHidden = isValid
             owner.mainView.noDataView.isHidden = !isValid
-//            owner.mainView.scrollView.isScrollEnabled = isValid
         }.disposed(by: disposeBag)
         
     }

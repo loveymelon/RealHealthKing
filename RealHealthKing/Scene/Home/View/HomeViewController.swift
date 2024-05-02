@@ -19,7 +19,6 @@ class HomeViewController: BaseViewController<HomeView> {
     
     let disposeBag = DisposeBag()
     
-    let keyChain = KeychainSwift()
     let homeModel = HomeModel()
 
     override func viewDidLoad() {
@@ -43,7 +42,6 @@ class HomeViewController: BaseViewController<HomeView> {
             cell.selectionStyle = UITableViewCell.SelectionStyle.none
             cell.configureCell(data: item, width: mainView.frame.width, homeModel: homeModel, index: index)
             cell.delegate = self
-            
             
         }.disposed(by: disposeBag)
         

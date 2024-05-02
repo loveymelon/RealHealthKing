@@ -61,9 +61,8 @@ class CommentViewController: BaseViewController<CommentView> {
             if let imageData = item.creator.profileImage {
                 
                 let url = APIKey.baseURL.rawValue + NetworkVersion.version.rawValue + "/" + imageData
-                let size = cell.bounds.size
                 
-                cell.profileImageView.downloadImage(imageUrl: url, width: size.width, height: size.height)
+                cell.profileImageView.downloadImage(imageUrl: url)
                 
             } else {
                 cell.profileImageView.image = UIImage(systemName: "person")
@@ -84,9 +83,7 @@ class CommentViewController: BaseViewController<CommentView> {
                 
 //                print(url, "urlrlrlrlrl")
                 
-                let size = owner.mainView.userImageView.bounds.size
-                
-                owner.mainView.userImageView.downloadImage(imageUrl: url, width: size.width, height: size.height)
+                owner.mainView.userImageView.downloadImage(imageUrl: url)
             }
         }.disposed(by: disposeBag)
     }

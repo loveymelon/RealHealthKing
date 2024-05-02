@@ -58,7 +58,7 @@ class SearchViewController: BaseViewController<SearchView> {
             
             let url = APIKey.baseURL.rawValue + NetworkVersion.version.rawValue + "/" + item.files.first!
             
-            cell.postImageView.downloadImage(imageUrl: url, width: cell.bounds.width, height: cell.bounds.height)
+            cell.postImageView.downloadImage(imageUrl: url)
             
         }.disposed(by: disposeBag)
         

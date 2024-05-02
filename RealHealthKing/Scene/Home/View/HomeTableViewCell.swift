@@ -218,6 +218,12 @@ extension HomeTableViewCell {
         contentLabel.text = data.content
         self.homeModel = homeModel
         cellIndex = index
+        
+        if let iamgeUrl = data.creator.profileImage {
+            let url = APIKey.baseURL.rawValue + NetworkVersion.version.rawValue + "/" + iamgeUrl
+            profileImageView.downloadImage(imageUrl: url)
+        }
+        
         // 만약 딕셔너리 안에 좋아요 버튼의 포스트 아이디가 있다면 해당 값으로 버튼의 isSelected설정
         DispatchQueue.main.async { [weak self] in
             guard let self else { return }
@@ -275,7 +281,7 @@ extension HomeTableViewCell {
             
             let url = APIKey.baseURL.rawValue + NetworkVersion.version.rawValue + "/" + postData[num]
             
-            imageView.downloadImage(imageUrl: url, width: width, height: height)
+            imageView.downloadImage(imageUrl: url)
             
             scrollView.addSubview(imageView)
             

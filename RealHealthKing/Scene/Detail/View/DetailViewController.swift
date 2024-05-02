@@ -31,7 +31,14 @@ class DetailViewController: BaseViewController<DetailView> {
         
         output.outputPostData.drive(with: self) { owner, data in
             owner.mainView.contentLabel.text = data.content
+            
             owner.updateImageViews(postData: data.files, width: owner.mainView.bounds.width)
+            
+            if let imageUrl = data.creator.profileImage {
+                let url = APIKey.baseURL.rawValue + NetworkVersion.version.rawValue + "/" + imageUrl
+                
+                owner.mainView.profileImageView.downloadImage(imageUrl: url)
+            }
         }.disposed(by: disposeBag)
         
         output.outputLikeValue.drive(mainView.likeButton.rx.isSelected).disposed(by: disposeBag)
@@ -64,7 +71,7 @@ extension DetailViewController {
             
             let url = APIKey.baseURL.rawValue + NetworkVersion.version.rawValue + "/" + postData[num]
             
-            imageView.downloadImage(imageUrl: url, width: width, height: height)
+            imageView.downloadImage(imageUrl: url)
             
             mainView.scrollView.addSubview(imageView)
             

@@ -64,9 +64,7 @@ class ModifyViewController: BaseViewController<ModifyView> {
                 
                 print(url)
                 
-                let size = owner.mainView.profileImageView.bounds.size
-                
-                owner.mainView.profileImageView.downloadImage(imageUrl: url, width: size.width, height: size.height)
+                owner.mainView.profileImageView.downloadImage(imageUrl: url)
             } else {
                 owner.mainView.profileImageView.image = UIImage(systemName: "person")
             }

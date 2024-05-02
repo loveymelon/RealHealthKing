@@ -22,10 +22,6 @@ class HomeTableCellViewModel: ViewModelType {
     
     var disposeBag = DisposeBag()
     
-    deinit {
-        print(#function)
-    }
-    
     func transform(input: Input) -> Output {
         
         let resultFirstLikeValue = BehaviorRelay(value: false)
