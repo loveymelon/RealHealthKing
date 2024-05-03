@@ -21,6 +21,11 @@ class HomeView: BaseView {
         $0.setText("게시물이 없습니다.")
     }
     
+    let plusButton = UIButton().then {
+        $0.setImage(UIImage(systemName: "plus"), for: .normal)
+        $0.tintColor = .white
+    }
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
     }
