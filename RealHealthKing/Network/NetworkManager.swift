@@ -145,31 +145,33 @@ struct NetworkManager {
         
     }
     
-    static func uploadPostContents(model: Posts, completionHandler: @escaping (Result<Posts, AppError>) -> Void) {
+    static func uploadPostContents(model: Posts) -> Single<Result<Posts, AppError>> {
         
-        do {
+        return Single.create { single in
             
-            let urlRequest = try Router.posting(model: model).postURLRequest()
-            
-            AF.request(urlRequest, interceptor: NetworkInterceptor()).responseDecodable(of: Posts.self) { response in
-                switch response.result {
-                case .success(let value):
-                    
-                    let data = value
-                    completionHandler(.success(data))
-                    
-                case .failure(_):
-                    if let statusCode = response.response?.statusCode, let netError = NetworkError(rawValue: statusCode) {
-                        completionHandler(.failure(AppError.networkError(netError)))
-                    } else if let statusCode = response.response?.statusCode, let netError = PostingError(rawValue: statusCode) {
-                        completionHandler(.failure(AppError.postingError(netError)))
+            do {
+                let urlRequest = try Router.posting(model: model).postURLRequest()
+                
+                AF.request(urlRequest, interceptor: NetworkInterceptor()).responseDecodable(of: Posts.self) { response in
+                    switch response.result {
+                    case .success(let value):
+                        single(.success(.success(value)))
+                    case .failure(let error):
+                        if let statusCode = error.responseCode, let netError = NetworkError(rawValue: statusCode) {
+                            single(.success(.failure(AppError.networkError(netError))))
+                        } else if let statusCode = error.responseCode, let netError = PostingError(rawValue: statusCode) {
+                            single(.success(.failure(.postingError(netError))))
+                        }
                     }
                 }
+            } catch {
+                print(error)
             }
             
-        } catch {
-            print(error)
+            return Disposables.create()
+            
         }
+        
     }
     
     static func postLike(postId: String, likeQuery:LikeQuery, completionHandler: @escaping (Result<LikeQuery, AppError>) -> Void) {

@@ -14,16 +14,10 @@ class PostingViewModel: ViewModelType {
     
     struct Input {
         let imageCount: Observable<Int>
-        
         let titleText: Observable<String>
-        
         let hashText: Observable<String>
-        
-        let textBeginEdit: Observable<String>
-        let textEndEdit: Observable<String>
         let textValues: Observable<String>
-        
-        let saveButtonTap: Observable<[UIImage]>
+        let saveButtonTap: Observable<(image: [UIImage], postModel: PostingModel)>
     }
     
     struct Output {
@@ -31,8 +25,6 @@ class PostingViewModel: ViewModelType {
         let currentImageCount: Driver<Int>
         let hasImages: Driver<Bool>
         
-        let outputTextBeginEdit: Driver<Bool>
-        let outputTextEndEdit: Driver<Bool>
         let outputTextValue: Driver<String>
         
         let networkSucces: Driver<Bool>
@@ -47,8 +39,6 @@ class PostingViewModel: ViewModelType {
         let currentImageCount = BehaviorRelay(value: 1)
         let hasImages = BehaviorRelay(value: false)
         
-        let resultTextBegin = BehaviorRelay(value: false)
-        let resultTextEndEdit = BehaviorRelay(value: false)
         let resultTextValue = BehaviorRelay(value: "")
         
         let networkSuccess = BehaviorRelay(value: false)
@@ -66,28 +56,14 @@ class PostingViewModel: ViewModelType {
             }
         }.disposed(by: disposeBag)
         
-        input.textBeginEdit.subscribe(with: self) { owner, text in
-            if text == "본인의 내용을 작성해주세요" {
-                resultTextBegin.accept(true)
-            } else {
-                resultTextBegin.accept(false)
-            }
-        }.disposed(by: disposeBag)
-        
-        input.textEndEdit.subscribe(with: self) { owner, text in
-            if text.isEmpty {
-                resultTextEndEdit.accept(true)
-            } else {
-                resultTextEndEdit.accept(false)
-            }
-        }.disposed(by: disposeBag)
-        
-        input.saveButtonTap.subscribe(with: self) { owner, images in
+        input.saveButtonTap.subscribe(with: self) { owner, value in
+            
+            print("tap")
             
             var datas: [Data] = []
-            var imageUrl: [String] = []
+
             
-            for image in images {
+            for image in value.image {
                 if let imageData = image.resizeWithWidth(width: 700)?.jpegData(compressionQuality: 1) {
                     datas.append(imageData)
                 } else {
@@ -100,23 +76,18 @@ class PostingViewModel: ViewModelType {
                     
                     switch result {
                     case .success(let data):
-                        imageUrl = data
+                        
+                        NetworkManager.uploadPostContents(model: Posts(productId: "abc333", title: value.postModel.title, content: value.postModel.hashTag, content1: value.postModel.content, files: data)).subscribe { result in
+                            networkSuccess.accept(true)
+                        } onFailure: { error in
+                            print(error)
+                        }.disposed(by: owner.disposeBag)
+                        
                     case .failure(let error):
                         resultError.accept(error.description)
                     }
-                    
-                    Observable.combineLatest(input.titleText, input.textValues, input.hashText).subscribe { text in
-                        NetworkManager.uploadPostContents(model: Posts(productId: "abc333", title: text.0, content: text.2, content1: text.1, files: imageUrl)) { result in
-                            switch result {
-                            case .success(let data):
-                                print("success")
-                                networkSuccess.accept(true)
-                            case .failure(let error):
-                                resultError.accept(error.description)
-                            }
-                        }
-                    }.disposed(by: owner.disposeBag)
                 }
+                    
             } else {
                 resultError.accept("이미지가 없습니다!")
             }
@@ -124,34 +95,7 @@ class PostingViewModel: ViewModelType {
             
         }.disposed(by: disposeBag)
         
-        input.textValues.subscribe { text in
-            
-            // 글자수 제한
-            let maxLength = 100
-            if text.count > maxLength {
-                resultTextValue.accept(String(text.prefix(maxLength)))
-            }
-            
-            // 줄바꿈(들여쓰기) 제한
-            let maxNumberOfLines = 4
-            let lineBreakCharacter = "\n"
-            let lines = text.components(separatedBy: lineBreakCharacter)
-            var consecutiveLineBreakCount = 0 // 연속된 줄 바꿈 횟수
-            
-            for line in lines {
-                if line.isEmpty { // 빈 줄이면 연속된 줄 바꿈으로 간주
-                    consecutiveLineBreakCount += 1
-                } else {
-                    consecutiveLineBreakCount = 0
-                }
-                
-                if consecutiveLineBreakCount > maxNumberOfLines {
-                    resultTextValue.accept(String(text.dropLast())) // 마지막 입력 문자를 제거
-                }
-            }
-        }.disposed(by: disposeBag)
-        
-        return Output(limitedImageCount: imageCount.asDriver(), currentImageCount: currentImageCount.asDriver(), hasImages: hasImages.asDriver(), outputTextBeginEdit: resultTextBegin.asDriver(), outputTextEndEdit: resultTextEndEdit.asDriver(), outputTextValue: resultTextValue.asDriver(), networkSucces: networkSuccess.asDriver(), outputError: resultError.asDriver())
+        return Output(limitedImageCount: imageCount.asDriver(), currentImageCount: currentImageCount.asDriver(), hasImages: hasImages.asDriver(), outputTextValue: resultTextValue.asDriver(), networkSucces: networkSuccess.asDriver(), outputError: resultError.asDriver())
     }
     
 }

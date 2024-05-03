@@ -44,37 +44,17 @@ final class PostingViewController: BaseViewController<PostingView> {
         
         let hashTags = mainView.tagTextFieldView.textField.rx.text.orEmpty.asObservable()
         
-        let textBeginEdit = textView.rx.didBeginEditing.withLatestFrom(textView.rx.text.orEmpty.asObservable())
-        let textEndEdit = textView.rx.didEndEditing.withLatestFrom(textView.rx.text.orEmpty.asObservable())
         let textValues = textView.rx.text.orEmpty.asObservable()
         
-        let saveButtonTap = mainView.saveButton.rx.tap.withLatestFrom(userImages.asObservable())
+        let saveButtonTap = mainView.saveButton.rx.tap.withUnretained(self).map { owner, _ in
+            return (image: owner.userImageArray, postModel: PostingModel(title: owner.mainView.titleTextFieldView.textField.text ?? "empty", content: owner.mainView.memoTextView.text, hashTag: owner.mainView.tagTextFieldView.textField.text ?? "empty"))
+        }
 
-        let input = PostingViewModel.Input(imageCount: imageCount, titleText: titleText, hashText: hashTags, textBeginEdit: textBeginEdit, textEndEdit: textEndEdit, textValues: textValues, saveButtonTap: saveButtonTap)
+        let input = PostingViewModel.Input(imageCount: imageCount, titleText: titleText, hashText: hashTags, textValues: textValues, saveButtonTap: saveButtonTap)
         
         let output = viewModel.transform(input: input)
         
         // TextView placeholder 설정
-        
-        output.outputTextBeginEdit.drive(with: self) { owner, isValid in
-            if isValid {
-                textView.text = nil
-                textView.textColor = .systemGray5
-                owner.mainView.imageNumberLabel.text = "0/100"
-            }
-        }.disposed(by: disposeBag)
-        
-        output.outputTextEndEdit.drive(with: self) { owner, isValid in
-            if isValid {
-                textView.text = "본인의 내용을 작성해주세요"
-                textView.textColor = .systemGray5
-                owner.mainView.imageNumberLabel.text = "0/100"
-            }
-        }.disposed(by: disposeBag)
-        
-        output.outputTextValue.drive(with: self) { owner, text in
-            owner.mainView.imageNumberLabel.text = "\(text.count)/100"
-        }.disposed(by: disposeBag)
         
         output.outputError.drive(with: self) { owner, text in
             if !text.isEmpty {

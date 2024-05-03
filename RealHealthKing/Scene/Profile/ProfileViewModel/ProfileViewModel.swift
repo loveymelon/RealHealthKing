@@ -113,8 +113,8 @@ class ProfileViewModel: ViewModelType {
             
         case .other:
             
-            input.inputViewWillTrigger.flatMap { [weak self] _ in
-                return NetworkManager.otherUserPosts(userId: self?.otherUserId ?? "empty")
+            input.inputViewWillTrigger.withUnretained(self).flatMap { owner, _ in
+                return NetworkManager.otherUserPosts(userId: owner.otherUserId)
             }.subscribe(with: self) { owner, result in
                 
                 NetworkManager.otherUserProfile(userId: owner.otherUserId).subscribe { profileResult in
