@@ -145,7 +145,7 @@ struct NetworkManager {
         
     }
     
-    static func uploadPostContents(model: PostTest, completionHandler: @escaping (Result<Posts, AppError>) -> Void) {
+    static func uploadPostContents(model: Posts, completionHandler: @escaping (Result<Posts, AppError>) -> Void) {
         
         do {
             
@@ -243,28 +243,34 @@ struct NetworkManager {
         
     }
     
-    static func fetchUserPosts(completionHandler: @escaping ((Result<PostsModel, AppError>) -> Void )) {
+    static func fetchUserPosts(cursor: String = "") -> Single<Result<PostsModel, AppError>>  {
         
-        do {
-            let urlRequest = try Router.userPosts.asURLRequest()
-            
-            AF.request(urlRequest, interceptor: NetworkInterceptor()).responseDecodable(of: PostsModel.self) { response in
-                switch response.result {
-                case .success(let data):
-                    completionHandler(.success(data))
-                case .failure(let error):
-                    if let statusCode = error.responseCode, let netError = NetworkError(rawValue: statusCode) {
-                        completionHandler(.failure(.networkError(netError)))
-                    } else if let statusCode = error.responseCode, let netError = FetchPostError(rawValue: statusCode) {
-                        completionHandler(.failure(.fetchPostError(netError)))
+        return Single.create { single in
+            do {
+                let urlRequest = try Router.userPosts.pageURLRequest(cursorValue: cursor)
+                
+                AF.request(urlRequest, interceptor: NetworkInterceptor()).responseDecodable(of: PostsModel.self) { response in
+                    switch response.result {
+                    case .success(let data):
+                        return single(.success(.success(data)))
+                    case .failure(let error):
+                        if let statusCode = error.responseCode, let netError = NetworkError(rawValue: statusCode) {
+                            return single(.success(.failure(.networkError(netError))))
+                        } else if let statusCode = error.responseCode, let netError = FetchPostError(rawValue: statusCode) {
+                            return single(.success(.failure(.fetchPostError(netError))))
+                        }
                     }
                 }
+            } catch {
+                print(error)
             }
-        }
-        catch {
-            print(error)
+            
+            return Disposables.create()
+            
         }
     }
+        
+       
     
     static func modifyProfileUpdate(modifyModel: ModifyProfileModel, completionHandler: @escaping((Result<ProfileModel, AppError>) -> Void)) {
         
@@ -300,51 +306,56 @@ struct NetworkManager {
         
     }
     
-    static func otherUserPosts(userId: String, completionHandler: @escaping ((Result<PostsModel, AppError>) -> Void)) {
+    static func otherUserPosts(userId: String, cursor: String = "") -> Single<Result<PostsModel, AppError>>  {
         
-        do {
-            let urlRequest = try Router.otherPosts(userId: userId).asURLRequest()
-            
-            AF.request(urlRequest).responseDecodable(of: PostsModel.self) { response in
-                switch response.result {
-                case .success(let data):
-                    completionHandler(.success(data))
-                case .failure(let error):
-                    if let statusCode = error.responseCode, let netError = NetworkError(rawValue: statusCode) {
-                        completionHandler(.failure(AppError.networkError(netError)))
-                    } else if let statusCode = error.responseCode, let netError = FetchPostError(rawValue: statusCode) {
-                        completionHandler(.failure(AppError.fetchPostError(netError)))
+        return Single.create { single in
+            do {
+                let urlRequest = try Router.otherPosts(userId: userId).pageURLRequest(cursorValue: cursor)
+                
+                AF.request(urlRequest).responseDecodable(of: PostsModel.self) { response in
+                    switch response.result {
+                        
+                    case .success(let data):
+                        return single(.success(.success(data)))
+                    case .failure(let error):
+                        if let statusCode = error.responseCode, let netError = NetworkError(rawValue: statusCode) {
+                            return single(.success(.failure(.networkError(netError))))
+                        } else if let statusCode = error.responseCode, let netError = FetchPostError(rawValue: statusCode) {
+                            return single(.success(.failure(.fetchPostError(netError))))
+                        }
                     }
                 }
+            } catch {
+                print(error)
             }
-        }
-        catch {
-            print(error)
+            return Disposables.create()
         }
     }
     
-    static func otherUserProfile(userId: String, completionHandler: @escaping ((Result<ProfileModel, AppError>) -> Void)) {
+    static func otherUserProfile(userId: String) -> Single<Result<ProfileModel, AppError>> {
         
-        do {
-            let urlRequest = try Router.otherProfile(userId: userId).asURLRequest()
-            
-            AF.request(urlRequest).responseDecodable(of: ProfileModel.self) { response in
-                switch response.result {
-                case .success(let data):
-                    completionHandler(.success(data))
-                case .failure(let error):
-                    print(error)
-                    if let statusCode = error.responseCode, let netError = NetworkError(rawValue: statusCode) {
-                        completionHandler(.failure(AppError.networkError(netError)))
-                    } else if let statusCode = error.responseCode, let netError = ProfileFetchError(rawValue: statusCode) {
-                        completionHandler(.failure(AppError.profileFetchError(netError)))
+        return Single.create { single in
+            do {
+                let urlRequest = try Router.otherProfile(userId: userId).asURLRequest()
+                
+                AF.request(urlRequest).responseDecodable(of: ProfileModel.self) { response in
+                    switch response.result {
+                    case .success(let data):
+                        single(.success(.success(data)))
+                    case .failure(let error):
+                        print(error)
+                        if let statusCode = error.responseCode, let netError = NetworkError(rawValue: statusCode) {
+                            
+                        } else if let statusCode = error.responseCode, let netError = ProfileFetchError(rawValue: statusCode) {
+                            single(.success(.failure(.profileFetchError(netError))))
+                        }
                     }
-
                 }
             }
-        }
-        catch {
-            print(error)
+            catch {
+                print(error)
+            }
+            return Disposables.create()
         }
         
     }
@@ -437,50 +448,7 @@ struct NetworkManager {
         }
     }
     
-    static func nextFetchUserPosts(cursor: String, completionHandler: @escaping ((Result<PostsModel, AppError>) -> Void)) {
-        do {
-            let urlRequest = try Router.userPosts.pageURLRequest(cursorValue: cursor)
-            
-            AF.request(urlRequest).responseDecodable(of: PostsModel.self) { response in
-                switch response.result {
-                case .success(let data):
-                    completionHandler(.success(data))
-                case .failure(let error):
-                    print(error)
-                    if let statusCode = response.response?.statusCode, let netError = NetworkError(rawValue: statusCode) {
-                        completionHandler(.failure(AppError.networkError(netError)))
-                    } else if let statusCode = response.response?.statusCode, let netError = FetchPostError(rawValue: statusCode) {
-                        completionHandler(.failure(AppError.fetchPostError(netError)))
-                    }
-                }
-            }
-            
-        } catch {
-            print(error)
-        }
-    }
     
-    static func nextOtherPosts(userId: String, cursor: String, completionHandler: @escaping ((Result<PostsModel, AppError>) -> Void)) {
-        do {
-            let urlRequest = try Router.otherPosts(userId: userId).pageURLRequest(cursorValue: cursor)
-            
-            AF.request(urlRequest).responseDecodable(of: PostsModel.self) { response in
-                switch response.result {
-                    
-                case .success(let data):
-                    completionHandler(.success(data))
-                case .failure(let error):
-                    if let statusCode = error.responseCode, let netError = NetworkError(rawValue: statusCode) {
-                        completionHandler(.failure(AppError.networkError(netError)))
-                    } else if let statusCode = error.responseCode, let netError = FetchPostError(rawValue: statusCode) {
-                        completionHandler(.failure(AppError.fetchPostError(netError)))
-                    }
-                }
-            }
-        } catch {
-            print(error)
-        }
-    }
     
     static func searchHashTag(hashTag: String, cursor: String = "", completionHandler: @escaping ((Result<PostsModel, AppError>) -> Void)) {
         do {

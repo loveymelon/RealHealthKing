@@ -72,6 +72,11 @@ class HomeTableViewCell: UITableViewCell {
         $0.font = .systemFont(ofSize: 20)
     }
     
+    let hashLabel = UILabel().then {
+        $0.textColor = .systemBlue
+        $0.font = .systemFont(ofSize: 14)
+    }
+    
     let moreButton = UIButton().then {
         $0.setTitle("더보기", for: .normal)
         $0.setTitleColor(.systemBlue, for: .normal)
@@ -132,6 +137,7 @@ extension HomeTableViewCell: UIConfigureProtocol {
         contentView.addSubview(bottomStackView)
         contentView.addSubview(pageControl)
         contentView.addSubview(contentLabel)
+        contentView.addSubview(hashLabel)
     }
     
     func configureLayout() {
@@ -170,7 +176,12 @@ extension HomeTableViewCell: UIConfigureProtocol {
         contentLabel.snp.makeConstraints { make in
             make.horizontalEdges.equalTo(contentView.safeAreaLayoutGuide).inset(10)
             make.top.equalTo(bottomStackView.snp.bottom).offset(10)
-            make.bottom.equalTo(contentView.safeAreaLayoutGuide)
+        }
+        
+        hashLabel.snp.makeConstraints { make in
+            make.horizontalEdges.equalTo(contentView.safeAreaLayoutGuide)
+            make.top.equalTo(contentLabel.snp.bottom).offset(10)
+            make.bottom.equalTo(contentView.safeAreaLayoutGuide.snp.bottom)
         }
     }
 
@@ -211,7 +222,8 @@ extension HomeTableViewCell {
         postData.accept(data)
         
         nickNameLabel.text = data.creator.nick
-        contentLabel.text = data.content
+        contentLabel.text = data.content1
+        hashLabel.text = data.content
         self.homeModel = homeModel
         cellIndex = index
         

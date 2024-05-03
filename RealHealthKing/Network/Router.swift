@@ -17,7 +17,7 @@ enum Router {
     case tokenRefresh(model: TokenModel)
     case postFetch
     case imageUpload
-    case posting(model: PostTest)
+    case posting(model: Posts)
     case postLike(postId: String, query: LikeQuery)
     case profileFetch
     case accessPostDetails(postID: String)

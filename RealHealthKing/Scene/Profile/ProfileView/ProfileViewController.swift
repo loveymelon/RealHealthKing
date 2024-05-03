@@ -29,7 +29,9 @@ class ProfileViewController: BaseViewController<ProfileView> {
         
         let inputLeftButtonTap = mainView.leftButton.rx.tap.asObservable()
         
-        let input = ProfileViewModel.Input(inputViewWillTrigger: viewWillTrigger, inputLeftButtonTap: inputLeftButtonTap)
+        let collectionIndex = mainView.collectionView.rx.willDisplayCell.asObservable()
+        
+        let input = ProfileViewModel.Input(inputViewWillTrigger: viewWillTrigger, inputLeftButtonTap: inputLeftButtonTap, inputCollectionViewIndex: collectionIndex)
         
         let output = viewModel.transform(input: input)
         

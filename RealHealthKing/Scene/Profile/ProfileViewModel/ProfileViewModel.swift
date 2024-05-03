@@ -8,11 +8,13 @@
 import Foundation
 import RxSwift
 import RxCocoa
+import UIKit
 
 class ProfileViewModel: ViewModelType {
     struct Input {
         let inputViewWillTrigger: Observable<Void>
         let inputLeftButtonTap: Observable<Void>
+        let inputCollectionViewIndex: Observable<(cell: UICollectionViewCell, at: IndexPath)>
     }
     
     struct Output {
@@ -37,6 +39,8 @@ class ProfileViewModel: ViewModelType {
     var isValid = false
     
     func transform(input: Input) -> Output {
+        var cursor = ""
+        
         let emailResult = BehaviorRelay(value: "")
         let nickResult = BehaviorRelay(value: "")
         let profileImage = BehaviorRelay(value: "")
@@ -52,146 +56,85 @@ class ProfileViewModel: ViewModelType {
         
         switch viewState {
         case .me:
-            
-            let postsObservable = input.inputViewWillTrigger.flatMapLatest { _ -> Observable<[Posts]> in
-                var cursor = ""
-                
-                return Observable.create { observer in
-                    NetworkManager.fetchUserPosts { result in
+            input.inputViewWillTrigger.flatMap {
+                NetworkManager.fetchUserPosts()
+            }.subscribe { result in
+                NetworkManager.fetchProfile { profileResult in
+                    switch profileResult {
+                    case .success(let proFileData):
+                        emailResult.accept(proFileData.email!)
+                        nickResult.accept(proFileData.nick)
+                        profileImage.accept(proFileData.profileImage ?? "")
+                        followerCount.accept(proFileData.followers.count)
+                        followingCount.accept(proFileData.following.count)
+                        postCount.accept(proFileData.posts.count)
+                        leftButtonResult.accept("프로필 편집")
+                        
+                        
+                       
                         switch result {
                         case .success(let data):
                             cursor = data.nextCursor
-                            // 다음 페이지의 데이터를 가져오는 요청을 발행
-                            observer.onNext(data.data)
-                            noDataResult.accept(data.data.isEmpty)
-                            if cursor == "0" {
-                                observer.onCompleted()
-                            }
-                        case .failure(let error):
-                            observer.onError(error)
+                            postDatasResult.accept(data.data)
+                        case .failure(let failure):
+                            print(failure)
                         }
-                    }
-                    return Disposables.create()
-                }
-                .flatMap { _ -> Observable<[Posts]> in
-                    return Observable.create { observer in
-                        NetworkManager.nextFetchUserPosts(cursor: cursor) { result in
-                            switch result {
-                            case .success(let data):
-                                observer.onNext(data.data)
-                                cursor = data.nextCursor
-                                if cursor == "0" {
-                                    observer.onCompleted()
-                                }
-                            case .failure(let error):
-                                observer.onError(error)
-                            }
-                        }
-                        return Disposables.create()
-                    }
-                }
-                .scan([]) { accumulator, element in
-                    return accumulator + element
-                }
-            }
-            
-            postsObservable.subscribe (onNext: { posts in
-                NetworkManager.fetchProfile { result in
-                    switch result {
-                    case .success(let data):
-                        emailResult.accept(data.email!)
-                        nickResult.accept(data.nick)
-                        profileImage.accept(data.profileImage ?? "")
-                        followerCount.accept(data.followers.count)
-                        followingCount.accept(data.following.count)
-                        postDatasResult.accept(posts)
-                        postCount.accept(posts.count)
-                        
-                        leftButtonResult.accept("프로필 편집")
                         
                     case .failure(let error):
                         print(error)
                     }
                 }
-            }, onError: { error in
+            } onError: { error in
                 print(error)
-            }).disposed(by: disposeBag)
+            }.disposed(by: disposeBag)
             
-            input.inputLeftButtonTap.subscribe { _ in
-                leftButtonTapResult.accept(true)
+            input.inputCollectionViewIndex.subscribe(with: self) { owner, item in
+                
+                if item.1.row == postDatasResult.value.count - 1 && cursor != "0" {
+                    NetworkManager.fetchUserPosts(cursor: cursor)
+                        .subscribe(onSuccess: { result in
+                            switch result {
+                            case .success(let data):
+                                let temp = postDatasResult.value + data.data
+                                
+                                cursor = data.nextCursor
+                                postDatasResult.accept(temp)
+                            case .failure(let error):
+                                // 에러가 발생했을 때 처리
+                                print("fdsafdasfsafdasfdsa",error)
+                            }
+                        }, onFailure: { error in
+                            // 에러가 발생했을 때 처리
+                            print("!!!!!!!!!!!!",error)
+                        })
+                        .disposed(by: owner.disposeBag)
+                }
             }.disposed(by: disposeBag)
             
         case .other:
             
-            let postsObservable = input.inputViewWillTrigger.flatMapLatest { _ -> Observable<[Posts]> in
+            input.inputViewWillTrigger.flatMap { [weak self] _ in
+                return NetworkManager.otherUserPosts(userId: self?.otherUserId ?? "empty")
+            }.subscribe(with: self) { owner, result in
                 
-                var cursor = ""
-                
-                return Observable.create { [weak self] observer in
-                    
-                    guard let self else { return Disposables.create() }
-                    
-                    NetworkManager.otherUserPosts(userId: otherUserId) { result in
-                        switch result {
-                        case .success(let data):
-                            
-                            cursor = data.nextCursor
-                            observer.onNext(data.data)
-                            noDataResult.accept(data.data.isEmpty)
-                            if cursor == "0" {
-                                observer.onCompleted()
-                            }
-                        case .failure(let error):
-                            observer.onError(error)
-                        }
-                    }
-                    return Disposables.create()
-                }
-                .flatMap { _ -> Observable<[Posts]> in
-                    
-                    return Observable.create { [weak self] observer in
+                NetworkManager.otherUserProfile(userId: owner.otherUserId).subscribe { profileResult in
+                    switch profileResult {
                         
-                        guard let self else { return Disposables.create() }
+                    case .success(let profileData):
                         
-                        NetworkManager.nextOtherPosts(userId: otherUserId, cursor: cursor) { result in
-                            switch result {
-                            case .success(let data):
-                                observer.onNext(data.data)
-                                cursor = data.nextCursor
-                                if cursor == "0" {
-                                    observer.onCompleted()
-                                }
-                            case .failure(let error):
-                                observer.onError(error)
-                            }
-                        }
-                        return Disposables.create()
-                    }
-                }
-                .scan([]) { accumulator, element in
-                    return accumulator + element
-                }
-            }
-            
-            postsObservable.subscribe(with: self) { owner, posts in
-                NetworkManager.otherUserProfile(userId: owner.otherUserId) { result in
-                    switch result {
-                    case .success(let data):
+                        nickResult.accept(profileData.nick)
+                        profileImage.accept(profileData.profileImage ?? "")
+                        followerCount.accept(profileData.followers.count)
+                        followingCount.accept(profileData.following.count)
+                        postCount.accept(profileData.posts.count)
                         
-                        nickResult.accept(data.nick)
-                        profileImage.accept(data.profileImage ?? "")
-                        followerCount.accept(data.followers.count)
-                        followingCount.accept(data.following.count)
-                        postDatasResult.accept(posts)
-                        postCount.accept(posts.count)
-                        
-                        if data.followers.isEmpty {
+                        if profileData.followers.isEmpty {
                             
                             leftButtonResult.accept("팔로우")
                             owner.isValid = false
                         } else {
                             
-                            for follow in data.followers {
+                            for follow in profileData.followers {
                                 if follow.userId == KeyChainManager.shared.userId {
                                     leftButtonResult.accept("팔로잉")
                                     owner.isValid = true
@@ -204,12 +147,45 @@ class ProfileViewModel: ViewModelType {
                             
                         }
                         
+                        switch result {
+                        case .success(let data):
+                            cursor = data.nextCursor
+                            postDatasResult.accept(data.data)
+                        case .failure(let error):
+                            print(error)
+                        }
+                        
                     case .failure(let error):
                         print(error)
                     }
-                }
-            } onError: { owner, error in
+                } onFailure: { error in
+                    print(error)
+                }.disposed(by: owner.disposeBag)
+
+            } onError: { error,_  in
                 print(error)
+            }.disposed(by: disposeBag)
+            
+            input.inputCollectionViewIndex.subscribe(with: self) { owner, item in
+                
+                if item.1.row == postDatasResult.value.count - 1 && cursor != "0" {
+                    NetworkManager.otherUserPosts(userId: owner.otherUserId, cursor: cursor)
+                        .subscribe(onSuccess: { result in
+                            switch result {
+                            case .success(let data):
+                                let temp = postDatasResult.value + data.data
+                                
+                                cursor = data.nextCursor
+                                postDatasResult.accept(temp)
+                            case .failure(let error):
+                                print(error)
+                            }
+                        }, onFailure: { error in
+
+                            print(error)
+                        })
+                        .disposed(by: owner.disposeBag)
+                }
             }.disposed(by: disposeBag)
 
             input.inputLeftButtonTap.subscribe(with: self) { owner, _ in
