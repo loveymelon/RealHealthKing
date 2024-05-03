@@ -26,7 +26,9 @@ class DetailViewController: BaseViewController<DetailView> {
     }
     
     override func bind() {
-        let input = DetailViewModel.Input(inputPostId: postId.asObservable())
+        let profileImageViewTap = mainView.profileImageView.rx.tapGesture().when(.recognized).asObservable()
+        
+        let input = DetailViewModel.Input(inputPostId: postId.asObservable(), inputProfileImageTap: profileImageViewTap)
         
         let output = viewModel.transform(input: input)
         
@@ -44,6 +46,10 @@ class DetailViewController: BaseViewController<DetailView> {
         }.disposed(by: disposeBag)
         
         output.outputLikeValue.drive(mainView.likeButton.rx.isSelected).disposed(by: disposeBag)
+        
+        output.outputVC.drive(with: self) { owner, vc in
+            owner.navigationController?.pushViewController(vc, animated: true)
+        }.disposed(by: disposeBag)
         
     }
     
