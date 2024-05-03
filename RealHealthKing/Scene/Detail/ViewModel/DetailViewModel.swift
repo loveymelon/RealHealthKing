@@ -19,7 +19,7 @@ final class DetailViewModel: ViewModelType {
     struct Output {
         let outputPostData: Driver<Posts>
         let outputLikeValue: Driver<Bool>
-        let outputVC: Driver<UIViewController>
+        let outputVC: Driver<(enumValue: ScreenState, userId: String)>
     }
     
     
@@ -33,7 +33,7 @@ final class DetailViewModel: ViewModelType {
         let postDataResult = BehaviorRelay(value: Posts())
         let resultLikeValue = BehaviorRelay(value: false)
         
-        let resultVC = PublishRelay<UIViewController>()
+        let resultVC = PublishRelay<(enumValue:ScreenState, userId:String)>()
         
         input.inputPostId.withUnretained(self).subscribe { owner, id in
             
@@ -54,19 +54,16 @@ final class DetailViewModel: ViewModelType {
         }.disposed(by: disposeBag)
         
         input.inputProfileImageTap.subscribe { _ in
-            let vc = ProfileViewController()
+            let screenState = ScreenState.other
             
             if KeyChainManager.shared.userId == userId {
-                vc.viewModel.viewState = .me
+                resultVC.accept((enumValue: .me, userId: KeyChainManager.shared.userId))
             } else {
-                vc.viewModel.otherUserId = userId
-                vc.viewModel.viewState = .other
+                resultVC.accept((enumValue: .other, userId: userId))
             }
-            
-            resultVC.accept(vc)
             
         }.disposed(by: disposeBag)
         
-        return Output(outputPostData: postDataResult.asDriver(), outputLikeValue: resultLikeValue.asDriver(), outputVC: resultVC.asDriver(onErrorJustReturn: UIViewController()))
+        return Output(outputPostData: postDataResult.asDriver(), outputLikeValue: resultLikeValue.asDriver(), outputVC: resultVC.asDriver(onErrorJustReturn: (enumValue: .other, userId: "empty")))
     }
 }

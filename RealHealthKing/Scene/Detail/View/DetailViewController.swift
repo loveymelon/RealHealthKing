@@ -47,7 +47,12 @@ class DetailViewController: BaseViewController<DetailView> {
         
         output.outputLikeValue.drive(mainView.likeButton.rx.isSelected).disposed(by: disposeBag)
         
-        output.outputVC.drive(with: self) { owner, vc in
+        output.outputVC.drive(with: self) { owner, value in
+            let vc = ProfileViewController()
+            
+            vc.viewModel.viewState = value.enumValue
+            vc.viewModel.otherUserId = value.userId
+            
             owner.navigationController?.pushViewController(vc, animated: true)
         }.disposed(by: disposeBag)
         
