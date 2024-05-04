@@ -42,8 +42,3 @@ class ShopViewController: BaseViewController<ShopView> {
 
 }
 
-extension ShopViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
-        return UITableView.automaticDimension
-    }
-}

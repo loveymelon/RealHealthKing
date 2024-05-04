@@ -41,6 +41,9 @@
 		DF7459FB2BE5FE38002ACB70 /* ShopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF7459FA2BE5FE38002ACB70 /* ShopView.swift */; };
 		DF7459FD2BE5FE46002ACB70 /* ShopViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF7459FC2BE5FE46002ACB70 /* ShopViewController.swift */; };
 		DF7459FF2BE5FF36002ACB70 /* ShopTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF7459FE2BE5FF36002ACB70 /* ShopTableViewCell.swift */; };
+		DF745A062BE6268D002ACB70 /* ShopPostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF745A052BE6268D002ACB70 /* ShopPostView.swift */; };
+		DF745A082BE6269A002ACB70 /* ShopPostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF745A072BE6269A002ACB70 /* ShopPostViewController.swift */; };
+		DF745A0A2BE626A9002ACB70 /* ShopPostViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF745A092BE626A9002ACB70 /* ShopPostViewModel.swift */; };
 		DF76D1CD2BD23EED00257C38 /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF76D1CC2BD23EED00257C38 /* UIViewController+Extension.swift */; };
 		DF76D1D02BD2521A00257C38 /* RxGesture in Frameworks */ = {isa = PBXBuildFile; productRef = DF76D1CF2BD2521A00257C38 /* RxGesture */; };
 		DF80205D2BDA5DD100473028 /* SearchCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF80205C2BDA5DD100473028 /* SearchCollectionViewCell.swift */; };
@@ -147,6 +150,9 @@
 		DF7459FA2BE5FE38002ACB70 /* ShopView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopView.swift; sourceTree = "<group>"; };
 		DF7459FC2BE5FE46002ACB70 /* ShopViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopViewController.swift; sourceTree = "<group>"; };
 		DF7459FE2BE5FF36002ACB70 /* ShopTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopTableViewCell.swift; sourceTree = "<group>"; };
+		DF745A052BE6268D002ACB70 /* ShopPostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopPostView.swift; sourceTree = "<group>"; };
+		DF745A072BE6269A002ACB70 /* ShopPostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopPostViewController.swift; sourceTree = "<group>"; };
+		DF745A092BE626A9002ACB70 /* ShopPostViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopPostViewModel.swift; sourceTree = "<group>"; };
 		DF76D1CC2BD23EED00257C38 /* UIViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; };
 		DF80205C2BDA5DD100473028 /* SearchCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCollectionViewCell.swift; sourceTree = "<group>"; };
 		DF8020642BDA629500473028 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
@@ -354,6 +360,32 @@
 			isa = PBXGroup;
 			children = (
 				DF7459F82BE5FDDD002ACB70 /* ShopViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		DF745A002BE62655002ACB70 /* ShopPost */ = {
+			isa = PBXGroup;
+			children = (
+				DF745A022BE6266A002ACB70 /* ViewModel */,
+				DF745A012BE62666002ACB70 /* View */,
+			);
+			path = ShopPost;
+			sourceTree = "<group>";
+		};
+		DF745A012BE62666002ACB70 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				DF745A052BE6268D002ACB70 /* ShopPostView.swift */,
+				DF745A072BE6269A002ACB70 /* ShopPostViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		DF745A022BE6266A002ACB70 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				DF745A092BE626A9002ACB70 /* ShopPostViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -567,6 +599,7 @@
 		DF839D812BC93D05001FE924 /* Scene */ = {
 			isa = PBXGroup;
 			children = (
+				DF745A002BE62655002ACB70 /* ShopPost */,
 				DF7459F52BE5FDC2002ACB70 /* Shop */,
 				DF73FE632BDEE31300328279 /* Comment */,
 				DF73FE542BDEB53400328279 /* Detail */,
@@ -837,6 +870,7 @@
 			files = (
 				DF8E46512BD578BC00606390 /* UILabel+Extension.swift in Sources */,
 				DF73FE5A2BDEB58300328279 /* DetailView.swift in Sources */,
+				DF745A082BE6269A002ACB70 /* ShopPostViewController.swift in Sources */,
 				DF806FBA2BD9283E006046C8 /* SearchView.swift in Sources */,
 				DFC680B52BE29D5C000CC3AD /* UISearchBar+Extension.swift in Sources */,
 				DF5FDA8E2BD418530013E1D3 /* UIImage+Extension.swift in Sources */,
@@ -856,6 +890,7 @@
 				DF806FB62BD92818006046C8 /* SearchViewModel.swift in Sources */,
 				DF73FE602BDEC7EB00328279 /* ScreenState.swift in Sources */,
 				DF8020652BDA629500473028 /* ProfileViewController.swift in Sources */,
+				DF745A0A2BE626A9002ACB70 /* ShopPostViewModel.swift in Sources */,
 				DF82CCF02BCA9F190089989E /* LoginQuery.swift in Sources */,
 				DF87DD5C2BDCE0EC006C53DC /* ModifyView.swift in Sources */,
 				DF73FE692BDEE33A00328279 /* CommentViewController.swift in Sources */,
@@ -880,6 +915,7 @@
 				DF9CC6DE2BD7CA5C00DF808A /* LikeDatas.swift in Sources */,
 				DF8E464F2BD56D0700606390 /* HomeView.swift in Sources */,
 				DF839D842BC93D2C001FE924 /* BaseView.swift in Sources */,
+				DF745A062BE6268D002ACB70 /* ShopPostView.swift in Sources */,
 				DF80205D2BDA5DD100473028 /* SearchCollectionViewCell.swift in Sources */,
 				DF73FE6B2BDEE34400328279 /* CommentViewModel.swift in Sources */,
 				DF6367E82BCBE28B0087A075 /* HelperView.swift in Sources */,
