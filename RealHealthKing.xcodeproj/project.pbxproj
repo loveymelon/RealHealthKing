@@ -37,6 +37,9 @@
 		DF73FE692BDEE33A00328279 /* CommentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF73FE682BDEE33A00328279 /* CommentViewController.swift */; };
 		DF73FE6B2BDEE34400328279 /* CommentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF73FE6A2BDEE34400328279 /* CommentViewModel.swift */; };
 		DF73FE6D2BDEEAFF00328279 /* CommentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF73FE6C2BDEEAFF00328279 /* CommentTableViewCell.swift */; };
+		DF7459F92BE5FDDD002ACB70 /* ShopViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF7459F82BE5FDDD002ACB70 /* ShopViewModel.swift */; };
+		DF7459FB2BE5FE38002ACB70 /* ShopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF7459FA2BE5FE38002ACB70 /* ShopView.swift */; };
+		DF7459FD2BE5FE46002ACB70 /* ShopViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF7459FC2BE5FE46002ACB70 /* ShopViewController.swift */; };
 		DF76D1CD2BD23EED00257C38 /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF76D1CC2BD23EED00257C38 /* UIViewController+Extension.swift */; };
 		DF76D1D02BD2521A00257C38 /* RxGesture in Frameworks */ = {isa = PBXBuildFile; productRef = DF76D1CF2BD2521A00257C38 /* RxGesture */; };
 		DF80205D2BDA5DD100473028 /* SearchCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF80205C2BDA5DD100473028 /* SearchCollectionViewCell.swift */; };
@@ -139,6 +142,9 @@
 		DF73FE682BDEE33A00328279 /* CommentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentViewController.swift; sourceTree = "<group>"; };
 		DF73FE6A2BDEE34400328279 /* CommentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentViewModel.swift; sourceTree = "<group>"; };
 		DF73FE6C2BDEEAFF00328279 /* CommentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentTableViewCell.swift; sourceTree = "<group>"; };
+		DF7459F82BE5FDDD002ACB70 /* ShopViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopViewModel.swift; sourceTree = "<group>"; };
+		DF7459FA2BE5FE38002ACB70 /* ShopView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopView.swift; sourceTree = "<group>"; };
+		DF7459FC2BE5FE46002ACB70 /* ShopViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopViewController.swift; sourceTree = "<group>"; };
 		DF76D1CC2BD23EED00257C38 /* UIViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; };
 		DF80205C2BDA5DD100473028 /* SearchCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCollectionViewCell.swift; sourceTree = "<group>"; };
 		DF8020642BDA629500473028 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
@@ -319,6 +325,32 @@
 			isa = PBXGroup;
 			children = (
 				DF73FE6A2BDEE34400328279 /* CommentViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		DF7459F52BE5FDC2002ACB70 /* Shop */ = {
+			isa = PBXGroup;
+			children = (
+				DF7459F72BE5FDCE002ACB70 /* ViewModel */,
+				DF7459F62BE5FDCA002ACB70 /* View */,
+			);
+			path = Shop;
+			sourceTree = "<group>";
+		};
+		DF7459F62BE5FDCA002ACB70 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				DF7459FA2BE5FE38002ACB70 /* ShopView.swift */,
+				DF7459FC2BE5FE46002ACB70 /* ShopViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		DF7459F72BE5FDCE002ACB70 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				DF7459F82BE5FDDD002ACB70 /* ShopViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -532,6 +564,7 @@
 		DF839D812BC93D05001FE924 /* Scene */ = {
 			isa = PBXGroup;
 			children = (
+				DF7459F52BE5FDC2002ACB70 /* Shop */,
 				DF73FE632BDEE31300328279 /* Comment */,
 				DF73FE542BDEB53400328279 /* Detail */,
 				DF73FE4B2BDE8ECA00328279 /* Launch */,
@@ -835,6 +868,7 @@
 				DF73FE532BDE8F9B00328279 /* LauchViewModel.swift in Sources */,
 				DF80206B2BDA6DD800473028 /* CountView.swift in Sources */,
 				DF690D972BCECA7700F3D1E0 /* NetworkInterceptor.swift in Sources */,
+				DF7459FB2BE5FE38002ACB70 /* ShopView.swift in Sources */,
 				DF4390542BD66D2200520CF7 /* ReusableProtocol.swift in Sources */,
 				DF806FAA2BD8D8F0006046C8 /* NotificationCenter+Extension.swift in Sources */,
 				DF6367DF2BCB8F480087A075 /* NetworkError.swift in Sources */,
@@ -866,6 +900,7 @@
 				DF73FE672BDEE32F00328279 /* CommentView.swift in Sources */,
 				DF806FA82BD8D8C9006046C8 /* NotificationCenterProtocol.swift in Sources */,
 				DF6367E42BCBD1A90087A075 /* SignUpViewController.swift in Sources */,
+				DF7459FD2BE5FE46002ACB70 /* ShopViewController.swift in Sources */,
 				DF82CCE22BCA8DF80089989E /* ViewModelType.swift in Sources */,
 				DF82CCD62BCA85800089989E /* ConfigureProtocol.swift in Sources */,
 				DF839D5A2BC93B94001FE924 /* SceneDelegate.swift in Sources */,
@@ -873,6 +908,7 @@
 				DF806FAD2BD8D971006046C8 /* NotificationCenterManager.swift in Sources */,
 				DF4390522BD66CD800520CF7 /* HomeTableViewCell.swift in Sources */,
 				DF8DFF222BDFFE46009BC7C4 /* FollowingModel.swift in Sources */,
+				DF7459F92BE5FDDD002ACB70 /* ShopViewModel.swift in Sources */,
 				DF8020672BDA62A100473028 /* ProfileView.swift in Sources */,
 				DFADFCBF2BE36B29006367FE /* NoDataView.swift in Sources */,
 				DF8E464D2BD56CF800606390 /* HomeViewModel.swift in Sources */,
