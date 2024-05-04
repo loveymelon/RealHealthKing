@@ -24,12 +24,14 @@ class HomeTableCellViewModel: ViewModelType {
     
     func transform(input: Input) -> Output {
         
-        let resultFirstLikeValue = BehaviorRelay(value: false)
+        let resultFirstLikeValue = PublishRelay<Bool>()
         let resultTapLikeValue = PublishSubject<Bool>()
         
         input.inputLikeValue.subscribe { likes in
             
             if !likes.isEmpty {
+                
+                print("herehrerhre")
                 
                 if likes[0] == "true" {
                     resultFirstLikeValue.accept(true)
@@ -62,6 +64,6 @@ class HomeTableCellViewModel: ViewModelType {
             
         }.disposed(by: disposeBag)
         
-        return Output(outputFirstLikeValue: resultFirstLikeValue.asDriver(), outputTapLikeValue: resultTapLikeValue.asDriver(onErrorJustReturn: false))
+        return Output(outputFirstLikeValue: resultFirstLikeValue.asDriver(onErrorJustReturn: false), outputTapLikeValue: resultTapLikeValue.asDriver(onErrorJustReturn: false))
     }
 }

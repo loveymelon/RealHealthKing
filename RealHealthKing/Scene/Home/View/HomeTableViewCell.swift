@@ -111,7 +111,6 @@ class HomeTableViewCell: UITableViewCell {
         
         disposeBag = DisposeBag()
         viewModel.disposeBag = DisposeBag() // 셀이 deinit이 안되니 DisposeBag인스턴스를 생성해서 정리해줘야된다 생각하면 이렇게 접근하였습니다.
-        bind()
     }
     
 }
@@ -202,6 +201,7 @@ extension HomeTableViewCell {
         
         output.outputFirstLikeValue.drive(with: self, onNext: { owner, isValid in
             
+            print(isValid)
             owner.likeButton.isSelected = isValid
              // 여기서 좋아요에 대한 포스트 아이디를 키, 좋아요 상태를 value
             
@@ -218,7 +218,7 @@ extension HomeTableViewCell {
     // 셀이 시작할때마다 likeData라는 옵저버에 값을 보낸뒤 viewModel에서 원본 데이터에서 contain인지 검사후 버튼의 상태를 바꿔준다.
     // 만약 dic에 값이 있다면 아예 검사를 못하게 못하나
     func configureCell(data: Posts, width: CGFloat, homeModel: HomeModel, index: Int) {
-        
+        bind()
         postData.accept(data)
         
         nickNameLabel.text = data.creator.nick

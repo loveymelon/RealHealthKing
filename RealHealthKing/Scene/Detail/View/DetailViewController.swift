@@ -10,7 +10,7 @@ import RxSwift
 import RxCocoa
 import RxGesture
 
-class DetailViewController: BaseViewController<DetailView> {
+final class DetailViewController: BaseViewController<DetailView> {
     
     let postId = BehaviorRelay(value: "")
     
@@ -27,8 +27,10 @@ class DetailViewController: BaseViewController<DetailView> {
     
     override func bind() {
         let profileImageViewTap = mainView.profileImageView.rx.tapGesture().when(.recognized).asObservable()
-        
-        let input = DetailViewModel.Input(inputPostId: postId.asObservable(), inputProfileImageTap: profileImageViewTap)
+        let likeButtonTap = mainView.likeButton.rx.tap.withUnretained(self).map { owner, _ in
+            return (buttonState: !owner.mainView.likeButton.isSelected, postId: owner.postId.value)
+        }
+        let input = DetailViewModel.Input(inputPostId: postId.asObservable(), inputProfileImageTap: profileImageViewTap, likeButtonTap: likeButtonTap)
         
         let output = viewModel.transform(input: input)
         
@@ -54,6 +56,18 @@ class DetailViewController: BaseViewController<DetailView> {
             vc.viewModel.otherUserId = value.userId
             
             owner.navigationController?.pushViewController(vc, animated: true)
+        }.disposed(by: disposeBag)
+        
+        output.outputLikeValue.drive(mainView.likeButton.rx.isSelected).disposed(by: disposeBag)
+        
+        mainView.commentButton.rx.tap.subscribe(with: self) { owner, _ in
+            let vc = CommentViewController()
+                
+            vc.postId.accept(owner.postId.value)
+            
+            let nav = UINavigationController(rootViewController: vc)
+            
+            owner.present(nav, animated: true)
         }.disposed(by: disposeBag)
         
     }

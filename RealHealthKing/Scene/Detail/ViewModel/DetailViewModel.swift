@@ -14,6 +14,7 @@ final class DetailViewModel: ViewModelType {
     struct Input {
         let inputPostId: Observable<String>
         let inputProfileImageTap: Observable<ControlEvent<UITapGestureRecognizer>.Element>
+        let likeButtonTap: Observable<(buttonState: Bool, postId: String)>
     }
     
     struct Output {
@@ -62,6 +63,17 @@ final class DetailViewModel: ViewModelType {
                 resultVC.accept((enumValue: .other, userId: userId))
             }
             
+        }.disposed(by: disposeBag)
+        
+        input.likeButtonTap.subscribe { value in
+            NetworkManager.postLike(postId: value.postId, likeQuery: LikeQuery(likeStatus: value.buttonState)) { result in
+                switch result {
+                case .success(let data):
+                    resultLikeValue.accept(data.likeStatus)
+                case .failure(let error):
+                    print(error)
+                }
+            }
         }.disposed(by: disposeBag)
         
         return Output(outputPostData: postDataResult.asDriver(), outputLikeValue: resultLikeValue.asDriver(), outputVC: resultVC.asDriver(onErrorJustReturn: (enumValue: .other, userId: "empty")))
