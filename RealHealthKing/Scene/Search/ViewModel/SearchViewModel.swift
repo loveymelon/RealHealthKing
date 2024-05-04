@@ -34,25 +34,27 @@ class SearchViewModel: ViewModelType {
         var cursor = ""
         let noDataResult = PublishSubject<Bool>()
         
-        input.viewWillAppearTrigger.subscribe { _ in
-            NetworkManager.fetchPosts { result in
-                switch result {
-                case .success(let data):
-                    originPosts = data.data
-                    postsDatas.accept(data.data)
-                    cursor = data.nextCursor
-                    
-                    noDataResult.onNext(data.data.isEmpty)
-                    
-                    for item in data.data {
-                        guard let title = item.title else { return }
-                        postsTitle.append(title)
-                    }
-                    
-                case .failure(let failure):
-                    print(failure)
+        input.viewWillAppearTrigger.flatMap { NetworkManager.fetchPosts() }.subscribe { result in
+            switch result {
+                
+            case .success(let data):
+                originPosts = data.data
+                postsDatas.accept(data.data)
+                cursor = data.nextCursor
+                
+                noDataResult.onNext(data.data.isEmpty)
+                
+                for item in data.data {
+                    guard let title = item.title else { return }
+                    postsTitle.append(title)
                 }
+                
+            case .failure(let error):
+                print(error)
             }
+            
+        } onError: { error in
+            print(error)
         }.disposed(by: disposeBag)
         
         input.searchButtonTap.subscribe { searchText in

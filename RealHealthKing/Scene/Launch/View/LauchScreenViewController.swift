@@ -28,20 +28,15 @@ class LauchScreenViewController: BaseViewController<LauchScreenView> {
         let output = viewModel.transform(input: input)
         
         output.outputViewResult.drive(with: self) { owner, isValid in
-            
             if isValid {
                 owner.view.window?.rootViewController = TabBarViewController()
-                owner.view.window?.makeKeyAndVisible()
+            } else {
+                owner.view.window?.rootViewController = UINavigationController(rootViewController: SignInViewController())
             }
             
+            owner.view.window?.makeKeyAndVisible()
         }.disposed(by: disposeBag)
-        
-        output.outputError.drive(with: self) { owner, error in
-            if error.description == "재로그인 필요" {
-                owner.view.window?.rootViewController = UINavigationController(rootViewController: SignInViewController())
-                owner.view.window?.makeKeyAndVisible()
-            }
-        }.disposed(by: disposeBag)
+
     }
     
 }

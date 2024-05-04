@@ -30,18 +30,19 @@ class HomeViewModel: ViewModelType {
         let noDataResult = BehaviorRelay(value: false)
         var cursor = ""
         
-        input.inputViewWillTirgger.subscribe (with: self) { owner, _ in
-            NetworkManager.fetchPosts { result in
-                print("networking")
-                switch result {
-                case .success(let data):
-                    noDataResult.accept(data.data.isEmpty)
-                    cursor = data.nextCursor
-                    resultPostsDatas.accept(data.data)
-                case .failure(let error):
-                    print(error.description)
-                }
+        input.inputViewWillTirgger.flatMap { NetworkManager.fetchPosts() }.subscribe { result in
+            switch result {
+                
+            case .success(let data):
+                noDataResult.accept(data.data.isEmpty)
+                cursor = data.nextCursor
+                resultPostsDatas.accept(data.data)
+            case .failure(let error):
+                print(error)
             }
+            
+        } onError: { error in
+            print(error)
         }.disposed(by: disposeBag)
         
         input.inputTableViewIndex.subscribe(with: self) { owner, index in

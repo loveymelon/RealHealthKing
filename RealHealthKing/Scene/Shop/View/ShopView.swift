@@ -15,6 +15,12 @@ class ShopView: BaseView {
         $0.register(ShopTableViewCell.self, forCellReuseIdentifier: ShopTableViewCell.identifier)
         $0.estimatedRowHeight = 100
         $0.rowHeight = UITableView.automaticDimension
+        $0.backgroundColor = .black
+    }
+    
+    let noDataView = NoDataView().then {
+        $0.setText("등록된 상품들이 없습니다")
+        
     }
 
     override init(frame: CGRect) {
@@ -27,11 +33,16 @@ class ShopView: BaseView {
     
     override func configureHierarchy() {
         addSubview(tableView)
+        addSubview(noDataView)
     }
     
     override func configureLayout() {
         tableView.snp.makeConstraints { make in
-            make.edges.equalTo(safeAreaLayoutGuide.snp.edges)
+            make.edges.equalTo(safeAreaLayoutGuide)
+        }
+        
+        noDataView.snp.makeConstraints { make in
+            make.edges.equalTo(safeAreaLayoutGuide)
         }
     }
 }

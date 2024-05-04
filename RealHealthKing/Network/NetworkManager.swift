@@ -98,27 +98,31 @@ struct NetworkManager {
         }
     }
     
-    static func fetchPosts(completionHandler: @escaping (Result<PostsModel, AppError>) -> Void) {
-        do {
-            let urlRequest = try Router.postFetch.postURLRequest()
-            
-            AF.request(urlRequest, interceptor: NetworkInterceptor())
-                .validate(statusCode: 200..<300)
-                .responseDecodable(of: PostsModel.self) { response in
-                    switch response.result {
-                    case .success(let data):
-                        completionHandler(.success(data))
-                    case .failure(let error):
-                        print(error)
-                        if let statusCode = response.response?.statusCode, let netError = NetworkError(rawValue: statusCode) {
-                            completionHandler(.failure(AppError.networkError(netError)))
-                        } else if let statusCode = response.response?.statusCode, let netError = FetchPostError(rawValue: statusCode) {
-                            completionHandler(.failure(AppError.fetchPostError(netError)))
+    static func fetchPosts(productId: String = "abc123") -> Single<Result<PostsModel, AppError>> {
+        
+        return Single.create { single in
+            do {
+                let urlRequest = try Router.postFetch.postURLRequest(productId: productId)
+                
+                AF.request(urlRequest, interceptor: NetworkInterceptor())
+                    .validate(statusCode: 200..<300)
+                    .responseDecodable(of: PostsModel.self) { response in
+                        switch response.result {
+                        case .success(let data):
+                            single(.success(.success(data)))
+                        case .failure(let error):
+                            print(error)
+                            if let statusCode = response.response?.statusCode, let netError = NetworkError(rawValue: statusCode) {
+                                single(.success(.failure(AppError.networkError(netError))))
+                            } else if let statusCode = response.response?.statusCode, let netError = FetchPostError(rawValue: statusCode) {
+                                single(.success(.failure(.fetchPostError(netError))))
+                            }
                         }
                     }
-                }
-        } catch {
-            print(error)
+            } catch {
+                print(error)
+            }
+            return Disposables.create()
         }
     }
     
@@ -150,7 +154,7 @@ struct NetworkManager {
         return Single.create { single in
             
             do {
-                let urlRequest = try Router.posting(model: model).postURLRequest()
+                let urlRequest = try Router.posting(model: model).postURLRequest(productId: "abc333")
                 
                 AF.request(urlRequest, interceptor: NetworkInterceptor()).responseDecodable(of: Posts.self) { response in
                     switch response.result {

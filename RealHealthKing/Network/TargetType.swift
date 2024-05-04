@@ -34,7 +34,7 @@ extension TargetType {
         return urlRequest
     }
     
-    func postURLRequest() throws -> URLRequest {
+    func postURLRequest(productId: String) throws -> URLRequest {
         let url = try baseURL.asURL() // url로 변환
         
         var urlRequest = try URLRequest(url: url.appendingPathComponent(version + path), method: method, headers: HTTPHeaders(header))
@@ -44,7 +44,7 @@ extension TargetType {
         
         let limit = URLQueryItem(name: "limit", value: "15")
         
-        let productid = URLQueryItem(name: "product_id", value: "abc333")
+        let productid = URLQueryItem(name: "product_id", value: productId)
         
         urlRequest.url?.append(queryItems: [limit, productid])
         

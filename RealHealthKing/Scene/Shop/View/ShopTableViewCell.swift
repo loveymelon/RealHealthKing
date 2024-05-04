@@ -29,7 +29,7 @@ final class ShopTableViewCell: UITableViewCell {
         $0.textColor = .black
         $0.font = .boldSystemFont(ofSize: 14)
     }
-    let buyButton = UIButton().then {
+    private let buyButton = UIButton().then {
         $0.backgroundColor = .orange
         $0.setTitle("구매하기", for: .normal)
     }
@@ -82,5 +82,12 @@ extension ShopTableViewCell: UIConfigureProtocol {
             make.bottom.equalTo(productImageView.snp.bottom)
         }
         
+    }
+}
+
+extension ShopTableViewCell {
+    func configureCell(data: Posts) {
+        productLabel.text = data.content
+        productPriceLabel.text = data.content1
     }
 }

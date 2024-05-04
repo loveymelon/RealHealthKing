@@ -30,10 +30,14 @@ extension TabBarViewController {
         
         searchVC.tabBarItem = UITabBarItem(title: "", image: UIImage(systemName: "magnifyingglass"), selectedImage: UIImage(systemName: "magnifyingglass"))
         
+        let shopVC = UINavigationController(rootViewController: ShopViewController())
+        
+        shopVC.tabBarItem = UITabBarItem(title: "", image: UIImage(systemName: "cart"), selectedImage: UIImage(systemName: "cart.fill"))
+        
         let profileVC = UINavigationController(rootViewController: ProfileViewController())
         
         profileVC.tabBarItem = UITabBarItem(title: "", image: UIImage(systemName: "person"), selectedImage: UIImage(systemName: "person"))
         
-        viewControllers = [homeVC, searchVC, profileVC]
+        viewControllers = [homeVC, shopVC, searchVC, profileVC]
     }
 }

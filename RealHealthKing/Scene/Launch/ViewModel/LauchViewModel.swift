@@ -17,56 +17,26 @@ class LauchViewModel: ViewModelType {
     
     struct Output {
         let outputViewResult: Driver<Bool>
-        let outputError: Driver<AppError>
+        
     }
     
     var disposeBag = DisposeBag()
     
     func transform(input: Input) -> Output {
         
-        let viewWillResult = BehaviorRelay(value: false)
-        let errorResult = BehaviorRelay<AppError>(value: .unowned)
+        let viewWillResult = PublishRelay<Bool>()
         
-        input.inputViewWillAppear
-            .flatMapLatest { _ -> Observable<Result<Bool, AppError>> in
-                return Observable.create { observer in
-                    let dispatchGroup = DispatchGroup()
-                    var error: AppError?
-                    
-                    dispatchGroup.enter()
-                    NetworkManager.fetchPosts { result in
-                        defer { dispatchGroup.leave() }
-                        switch result {
-                        case .success:
-                            break
-                        case .failure(let err):
-                            error = err
-                        }
-                    }
-                    
-                    dispatchGroup.notify(queue: .main) {
-                        if let error = error {
-                            observer.onNext(.failure(error))
-                        } else {
-                            observer.onNext(.success(true))
-                        }
-                        observer.onCompleted()
-                    }
-                    
-                    return Disposables.create()
-                }
+        input.inputViewWillAppear.flatMap { NetworkManager.fetchPosts() }.subscribe { result in
+            switch result {
+            case .success(let data):
+                viewWillResult.accept(!data.data.isEmpty)
+            case .failure(let error):
+                print(error)
             }
-            .subscribe(onNext: { result in
-                switch result {
-                case .success:
-                    viewWillResult.accept(true)
-                case .failure(let error):
-                    print(error)
-                    errorResult.accept(error)
-                }
-            })
-            .disposed(by: disposeBag)
+        } onError: { error in
+            print(error)
+        }.disposed(by: disposeBag)
         
-        return Output(outputViewResult: viewWillResult.asDriver(), outputError: errorResult.asDriver())
+        return Output(outputViewResult: viewWillResult.asDriver(onErrorJustReturn: false))
     }
 }
