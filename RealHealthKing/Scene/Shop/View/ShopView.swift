@@ -10,6 +10,8 @@ import Then
 import SnapKit
 
 class ShopView: BaseView {
+    
+    let tableView = UITableView()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
