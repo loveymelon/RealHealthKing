@@ -7,6 +7,7 @@
 
 import UIKit
 
+
 extension UIViewController {
     func showSettingAlert(title: String, message: String) {
         
@@ -48,5 +49,9 @@ extension UIViewController {
         // 4. 띄우기
         present(alert, animated: true)
     }
+    
+    
+    
+  
     
 }

@@ -44,17 +44,34 @@ final class PostingViewController: BaseViewController<PostingView> {
         
         let hashTags = mainView.tagTextFieldView.textField.rx.text.orEmpty.asObservable()
         
+        let textBeginEdit = textView.rx.didBeginEditing.withLatestFrom(textView.rx.text.orEmpty.asObservable())
+        
+        let textEndEdit = textView.rx.didEndEditing.withLatestFrom(textView.rx.text.orEmpty.asObservable())
+        
         let textValues = textView.rx.text.orEmpty.asObservable()
         
         let saveButtonTap = mainView.saveButton.rx.tap.withUnretained(self).map { owner, _ in
             return (image: owner.userImageArray, postModel: PostingModel(title: owner.mainView.titleTextFieldView.textField.text ?? "empty", content: owner.mainView.memoTextView.text, hashTag: owner.mainView.tagTextFieldView.textField.text ?? "empty"))
         }
 
-        let input = PostingViewModel.Input(imageCount: imageCount, titleText: titleText, hashText: hashTags, textValues: textValues, saveButtonTap: saveButtonTap)
+        let input = PostingViewModel.Input(imageCount: imageCount, titleText: titleText, hashText: hashTags, textValues: textValues, saveButtonTap: saveButtonTap, textBeginEdit: textBeginEdit, textEndEdit: textEndEdit)
         
         let output = viewModel.transform(input: input)
         
         // TextView placeholder 설정
+        output.outputTextBeginEdit.drive(with: self) { owner, isValid in
+            if isValid {
+                textView.text = nil
+                textView.textColor = .systemGray5
+            }
+        }.disposed(by: disposeBag)
+        
+        output.outputTextEndEdit.drive(with: self) { owner, isValid in
+            if isValid {
+                textView.text = "본인의 내용을 작성해주세요"
+                textView.textColor = .systemGray3
+            }
+        }.disposed(by: disposeBag)
         
         output.outputError.drive(with: self) { owner, text in
             if !text.isEmpty {
@@ -143,27 +160,6 @@ extension PostingViewController: UIScrollViewDelegate {
 
 extension PostingViewController {
     
-    private func handleImage(images: [UIImage]) {
-        photoAuth()
-        showImageAlert(bool: true) { [unowned self] in
-            
-            if images.count != 0 {
-                userImageArray.remove(at: mainView.pageControl.currentPage)
-                userImages.accept(userImageArray)
-            } else {
-                mainView.makeToast("사진이 5개 일때는 삭제가 불가능합니다.", duration: 1.0, position: .center)
-            }
-            
-        } completionHandler: { [unowned self] in
-            
-            if images.count != 5 {
-                openPhotoLibrary()
-            } else {
-                mainView.makeToast("사진은 최대 5개까지 등록가능합니다.", duration: 1.0, position: .center)
-            }
-        }
-    }
-    
     private func updateImageViews(imageCount: Int) {
         
         for num in 0..<imageCount {
@@ -192,7 +188,28 @@ extension PostingViewController {
         }
     }
     
-    private func photoAuth() {
+    func handleImage(images: [UIImage]) {
+        photoAuth()
+        showImageAlert(bool: true) { [unowned self] in
+            
+            if images.count != 0 {
+                userImageArray.remove(at: mainView.pageControl.currentPage)
+                userImages.accept(userImageArray)
+            } else {
+                mainView.makeToast("사진이 5개 일때는 삭제가 불가능합니다.", duration: 1.0, position: .center)
+            }
+            
+        } completionHandler: { [unowned self] in
+            
+            if images.count != 5 {
+                openPhotoLibrary()
+            } else {
+                mainView.makeToast("사진은 최대 5개까지 등록가능합니다.", duration: 1.0, position: .center)
+            }
+        }
+    }
+    
+    func photoAuth() {
         let requiredAccessLevel: PHAccessLevel = .readWrite
         PHPhotoLibrary.requestAuthorization(for: requiredAccessLevel) { [weak self] authorizationStatus in
             
@@ -211,7 +228,7 @@ extension PostingViewController {
         }
     }
     
-    private func openPhotoLibrary() {
+    func openPhotoLibrary() {
         
         if PHPhotoLibrary.authorizationStatus() == .authorized || PHPhotoLibrary.authorizationStatus() == .restricted {
             

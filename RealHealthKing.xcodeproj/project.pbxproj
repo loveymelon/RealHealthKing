@@ -44,6 +44,10 @@
 		DF745A062BE6268D002ACB70 /* ShopPostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF745A052BE6268D002ACB70 /* ShopPostView.swift */; };
 		DF745A082BE6269A002ACB70 /* ShopPostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF745A072BE6269A002ACB70 /* ShopPostViewController.swift */; };
 		DF745A0A2BE626A9002ACB70 /* ShopPostViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF745A092BE626A9002ACB70 /* ShopPostViewModel.swift */; };
+		DF745A0C2BE62C19002ACB70 /* PhotoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF745A0B2BE62C19002ACB70 /* PhotoView.swift */; };
+		DF745A0E2BE6A45C002ACB70 /* ShopPostPhotoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF745A0D2BE6A45C002ACB70 /* ShopPostPhotoView.swift */; };
+		DF745A132BE6A4C0002ACB70 /* ShopPostPhotoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF745A122BE6A4C0002ACB70 /* ShopPostPhotoViewModel.swift */; };
+		DF745A152BE6AEF1002ACB70 /* UITextField+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF745A142BE6AEF1002ACB70 /* UITextField+Extension.swift */; };
 		DF76D1CD2BD23EED00257C38 /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF76D1CC2BD23EED00257C38 /* UIViewController+Extension.swift */; };
 		DF76D1D02BD2521A00257C38 /* RxGesture in Frameworks */ = {isa = PBXBuildFile; productRef = DF76D1CF2BD2521A00257C38 /* RxGesture */; };
 		DF80205D2BDA5DD100473028 /* SearchCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF80205C2BDA5DD100473028 /* SearchCollectionViewCell.swift */; };
@@ -153,6 +157,10 @@
 		DF745A052BE6268D002ACB70 /* ShopPostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopPostView.swift; sourceTree = "<group>"; };
 		DF745A072BE6269A002ACB70 /* ShopPostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopPostViewController.swift; sourceTree = "<group>"; };
 		DF745A092BE626A9002ACB70 /* ShopPostViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopPostViewModel.swift; sourceTree = "<group>"; };
+		DF745A0B2BE62C19002ACB70 /* PhotoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoView.swift; sourceTree = "<group>"; };
+		DF745A0D2BE6A45C002ACB70 /* ShopPostPhotoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopPostPhotoView.swift; sourceTree = "<group>"; };
+		DF745A122BE6A4C0002ACB70 /* ShopPostPhotoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopPostPhotoViewModel.swift; sourceTree = "<group>"; };
+		DF745A142BE6AEF1002ACB70 /* UITextField+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Extension.swift"; sourceTree = "<group>"; };
 		DF76D1CC2BD23EED00257C38 /* UIViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; };
 		DF80205C2BDA5DD100473028 /* SearchCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCollectionViewCell.swift; sourceTree = "<group>"; };
 		DF8020642BDA629500473028 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
@@ -386,6 +394,31 @@
 			isa = PBXGroup;
 			children = (
 				DF745A092BE626A9002ACB70 /* ShopPostViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		DF745A0F2BE6A497002ACB70 /* ShopPostPhotoView */ = {
+			isa = PBXGroup;
+			children = (
+				DF745A112BE6A4A9002ACB70 /* ViewModel */,
+				DF745A102BE6A4A2002ACB70 /* View */,
+			);
+			path = ShopPostPhotoView;
+			sourceTree = "<group>";
+		};
+		DF745A102BE6A4A2002ACB70 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				DF745A0D2BE6A45C002ACB70 /* ShopPostPhotoView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		DF745A112BE6A4A9002ACB70 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				DF745A122BE6A4C0002ACB70 /* ShopPostPhotoViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -656,12 +689,14 @@
 		DF839D902BC9A859001FE924 /* Custom */ = {
 			isa = PBXGroup;
 			children = (
+				DF745A0F2BE6A497002ACB70 /* ShopPostPhotoView */,
 				DF8A7F322BCE159000DA9C33 /* TextWithHelper */,
 				DF82CCDC2BCA8D860089989E /* TextFieldView */,
 				DF82CCDA2BCA87910089989E /* InfoLabel.swift */,
 				DF6367E72BCBE28B0087A075 /* HelperView.swift */,
 				DF80206A2BDA6DD800473028 /* CountView.swift */,
 				DFADFCBE2BE36B29006367FE /* NoDataView.swift */,
+				DF745A0B2BE62C19002ACB70 /* PhotoView.swift */,
 			);
 			path = Custom;
 			sourceTree = "<group>";
@@ -721,6 +756,7 @@
 				DF806FA92BD8D8F0006046C8 /* NotificationCenter+Extension.swift */,
 				DF806FAE2BD8DCDA006046C8 /* UIVewController+RXSwift.swift */,
 				DFC680B42BE29D5C000CC3AD /* UISearchBar+Extension.swift */,
+				DF745A142BE6AEF1002ACB70 /* UITextField+Extension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -893,8 +929,10 @@
 				DF745A0A2BE626A9002ACB70 /* ShopPostViewModel.swift in Sources */,
 				DF82CCF02BCA9F190089989E /* LoginQuery.swift in Sources */,
 				DF87DD5C2BDCE0EC006C53DC /* ModifyView.swift in Sources */,
+				DF745A0E2BE6A45C002ACB70 /* ShopPostPhotoView.swift in Sources */,
 				DF73FE692BDEE33A00328279 /* CommentViewController.swift in Sources */,
 				DF76D1CD2BD23EED00257C38 /* UIViewController+Extension.swift in Sources */,
+				DF745A0C2BE62C19002ACB70 /* PhotoView.swift in Sources */,
 				DF73FE622BDEE07700328279 /* CommentModel.swift in Sources */,
 				DF892AC02BCC44B8006C69AA /* SignUpViewModel.swift in Sources */,
 				DF82CCF72BCA9F7E0089989E /* TargetType.swift in Sources */,
@@ -935,9 +973,11 @@
 				DF73FE512BDE8F0E00328279 /* LauchScreenView.swift in Sources */,
 				DF95A51B2BD0FA4D00E6FCC4 /* PostingView.swift in Sources */,
 				DF6367E62BCBD1B90087A075 /* SignUpView.swift in Sources */,
+				DF745A152BE6AEF1002ACB70 /* UITextField+Extension.swift in Sources */,
 				DF839D8B2BC93DC1001FE924 /* SignInViewController.swift in Sources */,
 				DF82CCEE2BCA9F0B0089989E /* TokenModel.swift in Sources */,
 				DF73FE672BDEE32F00328279 /* CommentView.swift in Sources */,
+				DF745A132BE6A4C0002ACB70 /* ShopPostPhotoViewModel.swift in Sources */,
 				DF806FA82BD8D8C9006046C8 /* NotificationCenterProtocol.swift in Sources */,
 				DF6367E42BCBD1A90087A075 /* SignUpViewController.swift in Sources */,
 				DF7459FD2BE5FE46002ACB70 /* ShopViewController.swift in Sources */,

@@ -18,6 +18,9 @@ class PostingViewModel: ViewModelType {
         let hashText: Observable<String>
         let textValues: Observable<String>
         let saveButtonTap: Observable<(image: [UIImage], postModel: PostingModel)>
+        
+        let textBeginEdit: Observable<String>
+        let textEndEdit: Observable<String>
     }
     
     struct Output {
@@ -26,6 +29,8 @@ class PostingViewModel: ViewModelType {
         let hasImages: Driver<Bool>
         
         let outputTextValue: Driver<String>
+        let outputTextBeginEdit: Driver<Bool>
+        let outputTextEndEdit: Driver<Bool>
         
         let networkSucces: Driver<Bool>
         let outputError: Driver<String>
@@ -43,6 +48,9 @@ class PostingViewModel: ViewModelType {
         
         let networkSuccess = BehaviorRelay(value: false)
         let resultError = BehaviorRelay(value: "")
+        
+        let resultTextBegin = BehaviorRelay(value: false)
+        let resultTextEndEdit = BehaviorRelay(value: false)
         
         input.imageCount.subscribe { count in
             imageCount.accept(5 - count)
@@ -95,7 +103,23 @@ class PostingViewModel: ViewModelType {
             
         }.disposed(by: disposeBag)
         
-        return Output(limitedImageCount: imageCount.asDriver(), currentImageCount: currentImageCount.asDriver(), hasImages: hasImages.asDriver(), outputTextValue: resultTextValue.asDriver(), networkSucces: networkSuccess.asDriver(), outputError: resultError.asDriver())
+        input.textBeginEdit.subscribe(with: self) { owner, text in
+                    if text == "본인의 내용을 작성해주세요" {
+                        resultTextBegin.accept(true)
+                    } else {
+                        resultTextBegin.accept(false)
+                    }
+                }.disposed(by: disposeBag)
+
+                input.textEndEdit.subscribe(with: self) { owner, text in
+                    if text.isEmpty {
+                        resultTextEndEdit.accept(true)
+                    } else {
+                        resultTextEndEdit.accept(false)
+                    }
+                }.disposed(by: disposeBag)
+        
+        return Output(limitedImageCount: imageCount.asDriver(), currentImageCount: currentImageCount.asDriver(), hasImages: hasImages.asDriver(), outputTextValue: resultTextValue.asDriver(), outputTextBeginEdit: resultTextBegin.asDriver(), outputTextEndEdit: resultTextEndEdit.asDriver(), networkSucces: networkSuccess.asDriver(), outputError: resultError.asDriver())
     }
     
 }
