@@ -16,15 +16,17 @@ final class ShopTableViewCell: UITableViewCell {
         $0.clipsToBounds = true
         $0.layer.cornerRadius = 10
         $0.backgroundColor = .red
+        $0.image = UIImage(systemName: "person")
     }
     let productLabel = UILabel().then {
         $0.text = "55555"
         $0.font = .systemFont(ofSize: 16)
-        $0.textColor = .white
+        $0.textColor = .black
+        $0.backgroundColor = .red
     }
     let productPriceLabel = UILabel().then {
         $0.text = "44444"
-        $0.textColor = .white
+        $0.textColor = .black
         $0.font = .boldSystemFont(ofSize: 14)
     }
     let buyButton = UIButton().then {
@@ -35,6 +37,7 @@ final class ShopTableViewCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
+        backgroundColor = .blue
         configureUI()
     }
     
@@ -51,19 +54,19 @@ extension ShopTableViewCell: UIConfigureProtocol {
     }
     
     func configureHierarchy() {
-        addSubview(productImageView)
-        addSubview(productLabel)
-        addSubview(productPriceLabel)
-        addSubview(buyButton)
+        contentView.addSubview(productImageView)
+        contentView.addSubview(productLabel)
+        contentView.addSubview(productPriceLabel)
+        contentView.addSubview(buyButton)
     }
     
     func configureLayout() {
         
         productImageView.snp.makeConstraints { make in
-            make.leading.verticalEdges.equalTo(contentView.safeAreaLayoutGuide).inset(10)
-            make.width.equalTo(productImageView.snp.height)
+            make.size.equalTo(100)
+            make.leading.equalTo(contentView.snp.leading).inset(10)
+            make.verticalEdges.equalToSuperview().inset(10)
         }
-        
         productLabel.snp.makeConstraints { make in
             make.top.equalTo(productImageView.snp.top)
             make.leading.equalTo(productImageView.snp.trailing).offset(10)

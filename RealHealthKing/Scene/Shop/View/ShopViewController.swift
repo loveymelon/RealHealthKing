@@ -19,6 +19,18 @@ class ShopViewController: BaseViewController<ShopView> {
         
     }
     
+    override func bind() {
+        Observable.of("d", "d").bind(to: mainView.tableView.rx.items(cellIdentifier: ShopTableViewCell.identifier, cellType: ShopTableViewCell.self)) { index, item, cell in
+            print(item)
+        }.disposed(by: disposeBag)
+        
+        mainView.tableView.rx.setDelegate(self).disposed(by: disposeBag)
+    }
 
+}
 
+extension ShopViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+        return UITableView.automaticDimension
+    }
 }

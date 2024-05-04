@@ -11,7 +11,11 @@ import SnapKit
 
 class ShopView: BaseView {
     
-    let tableView = UITableView()
+    let tableView = UITableView().then {
+        $0.register(ShopTableViewCell.self, forCellReuseIdentifier: ShopTableViewCell.identifier)
+        $0.estimatedRowHeight = 100
+        $0.rowHeight = UITableView.automaticDimension
+    }
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -21,4 +25,13 @@ class ShopView: BaseView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func configureHierarchy() {
+        addSubview(tableView)
+    }
+    
+    override func configureLayout() {
+        tableView.snp.makeConstraints { make in
+            make.edges.equalTo(safeAreaLayoutGuide.snp.edges)
+        }
+    }
 }
