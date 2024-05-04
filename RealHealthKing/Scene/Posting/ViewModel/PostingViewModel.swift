@@ -70,7 +70,6 @@ class PostingViewModel: ViewModelType {
             
             var datas: [Data] = []
 
-            
             for image in value.image {
                 if let imageData = image.resizeWithWidth(width: 700)?.jpegData(compressionQuality: 1) {
                     datas.append(imageData)

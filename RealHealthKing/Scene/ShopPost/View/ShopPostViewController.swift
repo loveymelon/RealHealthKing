@@ -39,7 +39,13 @@ class ShopPostViewController: BaseViewController<ShopPostView> {
         
         let imageCount = userImages.map { $0.count }.asObservable()
         
-        let input = ShopPostViewModel.Input(textBeginEdit: textBeginEdit, textEndEdit: textEndEdit, textValue: textValue, imageCount: imageCount, selectedImageCount: selectedCount.asObservable())
+        let saveButton = mainView.saveButton.rx.tap.withUnretained(self).map { owner, _ in
+            let mainView = owner.mainView
+            
+            return (image: owner.userImageArray, postData: Posts(productId: "healthShop", title: mainView.titleTextField.text, content: mainView.detailTextView.text, content1: mainView.priceTextField.text))
+        }
+        
+        let input = ShopPostViewModel.Input(textBeginEdit: textBeginEdit, textEndEdit: textEndEdit, textValue: textValue, imageCount: imageCount, selectedImageCount: selectedCount.asObservable(), saveButtonTap: saveButton)
         
         let output = viewModel.transform(input: input)
         
@@ -109,6 +115,12 @@ class ShopPostViewController: BaseViewController<ShopPostView> {
                 shopPostPhotoImageView.imageView.image = owner.userImageArray[index]
                 
                 owner.mainView.hStackView.addArrangedSubview(shopPostPhotoImageView)
+            }
+        }.disposed(by: disposeBag)
+        
+        output.networkResult.drive(with: self) { owner, isValid in
+            if isValid {
+                owner.navigationController?.popViewController(animated: true)
             }
         }.disposed(by: disposeBag)
         

@@ -8,6 +8,7 @@
 import Foundation
 import RxSwift
 import RxCocoa
+import UIKit
 
 class ShopPostViewModel: ViewModelType {
     struct Input {
@@ -16,6 +17,7 @@ class ShopPostViewModel: ViewModelType {
         let textValue: Observable<String>
         let imageCount: Observable<Int>
         let selectedImageCount: Observable<Int>
+        let saveButtonTap: Observable<(image: [UIImage], postData: Posts)>
     }
     
     struct Output {
@@ -25,6 +27,7 @@ class ShopPostViewModel: ViewModelType {
         let limitedImageCount: Driver<Int>
         let currentImageCount: Driver<Int>
         let selectedImageCount: Driver<Int>
+        let networkResult: Driver<Bool>
     }
     
     var disposeBag = DisposeBag()
@@ -37,6 +40,9 @@ class ShopPostViewModel: ViewModelType {
         
         let imageCount = BehaviorRelay(value: 5)
         let currentImageCount = PublishRelay<Int>()
+        
+        let resultError = PublishRelay<String>()
+        let networkResult = BehaviorRelay(value: false)
         
         input.textBeginEdit.subscribe(with: self) { owner, text in
                     if text == "상품에 대한 설명을 자세하게 적어주세요." {
@@ -69,6 +75,40 @@ class ShopPostViewModel: ViewModelType {
             
         }.disposed(by: disposeBag)
         
-        return Output(outputTextBeginEdit: resultTextBegin.asDriver(), outputTextEndEdit: resultTextEndEdit.asDriver(), outputTextValue: resultTextValue.asDriver(onErrorJustReturn: ""), limitedImageCount: imageCount.asDriver(), currentImageCount: currentImageCount.asDriver(onErrorJustReturn: 0), selectedImageCount:  input.selectedImageCount.asDriver(onErrorJustReturn: 0))
+        input.saveButtonTap.subscribe(with: self) { owner, value in
+            
+            var datas: [Data] = []
+            
+            for image in value.image {
+                if let imageData = image.resizeWithWidth(width: 700)?.jpegData(compressionQuality: 1) {
+                    datas.append(imageData)
+                } else {
+                    resultError.accept("이미지 압축 실패 다시 시도해주세요")
+                }
+            }
+            
+            if !datas.isEmpty {
+                NetworkManager.uploadImage(images: datas) { result in
+                    
+                    switch result {
+                    case .success(let data):
+                        
+                        NetworkManager.uploadPostContents(model: Posts(productId: value.postData.productId, title: value.postData.title, content: value.postData.content, content1: value.postData.content1, files: data)).subscribe { result in
+                            networkResult.accept(true)
+                        } onFailure: { error in
+                            print(error)
+                        }.disposed(by: owner.disposeBag)
+                        
+                    case .failure(let error):
+                        resultError.accept(error.description)
+                    }
+                }
+                
+            } else {
+                resultError.accept("이미지가 없습니다!")
+            }
+        }.disposed(by: disposeBag)
+        
+        return Output(outputTextBeginEdit: resultTextBegin.asDriver(), outputTextEndEdit: resultTextEndEdit.asDriver(), outputTextValue: resultTextValue.asDriver(onErrorJustReturn: ""), limitedImageCount: imageCount.asDriver(), currentImageCount: currentImageCount.asDriver(onErrorJustReturn: 0), selectedImageCount:  input.selectedImageCount.asDriver(onErrorJustReturn: 0), networkResult: networkResult.asDriver())
     }
 }
