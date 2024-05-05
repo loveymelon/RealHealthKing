@@ -33,11 +33,9 @@ extension UIImageView {
         
         //        let processor = DownsamplingImageProcessor(size: CGSize(width: width, height: height))
         
-        let keyChain = KeychainSwift()
-        
         let imageDownloadRequest = AnyModifier { request in
             var requestBody = request
-            requestBody.setValue(keyChain.get("accessToken") ?? "empty", forHTTPHeaderField: HTTPHeader.authorization.rawValue)
+            requestBody.setValue(KeyChainManager.shared.accessToken, forHTTPHeaderField: HTTPHeader.authorization.rawValue)
             requestBody.setValue(APIKey.secretKey.rawValue, forHTTPHeaderField: HTTPHeader.sesacKey.rawValue)
             return requestBody
         }

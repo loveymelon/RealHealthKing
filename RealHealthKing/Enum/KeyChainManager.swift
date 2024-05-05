@@ -21,28 +21,28 @@ class KeyChainManager {
     
     var userId: String {
         get {
-            keychain.get(KeyChainKeys.userId.rawValue) ?? "empty"
+            return keychain.get(KeyChainKeys.userId.rawValue) ?? "empty"
         }
         set {
-            keychain.set(KeyChainKeys.userId.rawValue, forKey: newValue)
+            keychain.set(newValue, forKey: "userId")
         }
     }
     
     var accessToken: String {
         get {
-            keychain.get(KeyChainKeys.accessToken.rawValue) ?? "empty"
+            return keychain.get(KeyChainKeys.accessToken.rawValue) ?? "empty"
         }
         set {
-            keychain.set(KeyChainKeys.accessToken.rawValue, forKey: newValue)
+            keychain.set(newValue, forKey: "accessToken")
         }
     }
     
     var refreshToken: String {
         get {
-            keychain.get(KeyChainKeys.refreshToken.rawValue) ?? "empty"
+            return keychain.get(KeyChainKeys.refreshToken.rawValue) ?? "empty"
         }
         set {
-            keychain.set(KeyChainKeys.refreshToken.rawValue, forKey: newValue)
+            keychain.set(newValue, forKey: "refreshToken")
         }
     }
     

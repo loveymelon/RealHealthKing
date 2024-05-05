@@ -11,26 +11,23 @@ import Alamofire
 
 class NetworkInterceptor: RequestInterceptor {
     
-    let keyChain = KeychainSwift()
-    
     func adapt(_ urlRequest: URLRequest, for session: Session, completion: @escaping (Result<URLRequest, any Error>) -> Void) {
         
         // 이게 다시 새로운 accessToken세팅해주는 것일까?
-        var urlRequest = urlRequest
-        urlRequest.setValue((keyChain.get("accessToken") ?? "Empty"), forHTTPHeaderField: HTTPHeader.authorization.rawValue)
-        completion(.success(urlRequest))
+        var modifiedURLRequest = urlRequest
+        modifiedURLRequest.setValue(KeyChainManager.shared.accessToken, forHTTPHeaderField: HTTPHeader.authorization.rawValue)
+        completion(.success(modifiedURLRequest))
         
     }
     
     func retry(_ request: Request, for session: Session, dueTo error: any Error, completion: @escaping (RetryResult) -> Void) {
         guard let responses = request.task?.response as? HTTPURLResponse, responses.statusCode == 419 else {
-            print("dfdfdf")
             completion(.doNotRetryWithError(error))
             return
         }
         
         do {
-            let urlRequest = try Router.tokenRefresh(model: TokenModel(accessToken: keyChain.get("accessToken") ?? "empty", refreshToken: keyChain.get("refreshToken") ?? "empty")).asURLRequest()
+            let urlRequest = try Router.tokenRefresh(model: TokenModel(accessToken: KeyChainManager.shared.accessToken, refreshToken: KeyChainManager.shared.refreshToken)).asURLRequest()
             
             AF.request(urlRequest)
                 .validate(statusCode: 200..<300)
@@ -41,7 +38,9 @@ class NetworkInterceptor: RequestInterceptor {
                     switch response.result {
                     case .success(let accessToken):
                         print("fdss")
-                        keyChain.set(accessToken.accessToken, forKey: "accessToken")
+                        print("before", KeyChainManager.shared.accessToken, "new", accessToken.accessToken)
+                        KeyChainManager.shared.accessToken = accessToken.accessToken
+                        print("after", KeyChainManager.shared.accessToken)
                         completion(.retry)
                     case .failure(let error):
                         completion(.doNotRetryWithError(error))

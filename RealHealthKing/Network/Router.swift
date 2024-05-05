@@ -29,6 +29,7 @@ enum Router {
     case following(userId: String)
     case unfollow(userId: String)
     case hashTagSearch
+    case purchase(model: PurchaseModel)
 }
 
 extension Router: TargetType {
@@ -78,6 +79,8 @@ extension Router: TargetType {
             return .delete
         case .hashTagSearch:
             return .get
+        case .purchase:
+            return .post
         }
     }
     
@@ -119,6 +122,8 @@ extension Router: TargetType {
             return "/follow/\(userId)"
         case .hashTagSearch:
             return "/posts/hashtags"
+        case .purchase:
+            return "/payments/validation"
         }
     }
     
@@ -139,8 +144,12 @@ extension Router: TargetType {
                     HTTPHeader.sesacKey.rawValue: APIKey.secretKey.rawValue,
                     HTTPHeader.refresh.rawValue: KeyChainManager.shared.refreshToken]
         case .postFetch:
-            return [HTTPHeader.authorization.rawValue: KeyChainManager.shared.accessToken,
-                    HTTPHeader.sesacKey.rawValue: APIKey.secretKey.rawValue]
+            return [
+                HTTPHeader.contentType.rawValue: HTTPHeader.json.rawValue,
+                HTTPHeader.authorization.rawValue: KeyChainManager.shared.accessToken,
+                HTTPHeader.sesacKey.rawValue: APIKey.secretKey.rawValue
+            ]
+            
         case .imageUpload:
             return [HTTPHeader.authorization.rawValue: KeyChainManager.shared.accessToken,
                     HTTPHeader.contentType.rawValue: HTTPHeader.multipart.rawValue,
@@ -201,19 +210,25 @@ extension Router: TargetType {
                 HTTPHeader.authorization.rawValue: KeyChainManager.shared.accessToken,
                 HTTPHeader.sesacKey.rawValue: APIKey.secretKey.rawValue
             ]
-        case .following(userId: let userId):
+        case .following:
             return [
                 HTTPHeader.contentType.rawValue: HTTPHeader.json.rawValue,
                 HTTPHeader.authorization.rawValue: KeyChainManager.shared.accessToken,
                 HTTPHeader.sesacKey.rawValue: APIKey.secretKey.rawValue
             ]
-        case .unfollow(userId: let userId):
+        case .unfollow:
             return [
                 HTTPHeader.contentType.rawValue: HTTPHeader.json.rawValue,
                 HTTPHeader.authorization.rawValue: KeyChainManager.shared.accessToken,
                 HTTPHeader.sesacKey.rawValue: APIKey.secretKey.rawValue
             ]
         case .hashTagSearch:
+            return [
+                HTTPHeader.contentType.rawValue: HTTPHeader.json.rawValue,
+                HTTPHeader.authorization.rawValue: KeyChainManager.shared.accessToken,
+                HTTPHeader.sesacKey.rawValue: APIKey.secretKey.rawValue
+            ]
+        case .purchase:
             return [
                 HTTPHeader.contentType.rawValue: HTTPHeader.json.rawValue,
                 HTTPHeader.authorization.rawValue: KeyChainManager.shared.accessToken,
@@ -288,10 +303,16 @@ extension Router: TargetType {
             return try? encoder.encode(model)
         case .following:
             return .none
-        case .unfollow(userId: let userId):
+        case .unfollow:
             return .none
         case .hashTagSearch:
             return .none
+        case .purchase(let model):
+            let encoder = JSONEncoder()
+            encoder.keyEncodingStrategy =
+                .convertToSnakeCase
+            
+            return try? encoder.encode(model)
         }
     }
 }

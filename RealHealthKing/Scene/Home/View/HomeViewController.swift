@@ -7,7 +7,6 @@
 
 import UIKit
 import Alamofire
-import KeychainSwift
 
 import RxSwift
 import RxCocoa

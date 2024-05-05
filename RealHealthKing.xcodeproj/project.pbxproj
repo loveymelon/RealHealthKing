@@ -46,8 +46,10 @@
 		DF745A0A2BE626A9002ACB70 /* ShopPostViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF745A092BE626A9002ACB70 /* ShopPostViewModel.swift */; };
 		DF745A0C2BE62C19002ACB70 /* PhotoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF745A0B2BE62C19002ACB70 /* PhotoView.swift */; };
 		DF745A0E2BE6A45C002ACB70 /* ShopPostPhotoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF745A0D2BE6A45C002ACB70 /* ShopPostPhotoView.swift */; };
-		DF745A132BE6A4C0002ACB70 /* ShopPostPhotoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF745A122BE6A4C0002ACB70 /* ShopPostPhotoViewModel.swift */; };
 		DF745A152BE6AEF1002ACB70 /* UITextField+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF745A142BE6AEF1002ACB70 /* UITextField+Extension.swift */; };
+		DF745A182BE6FA0B002ACB70 /* iamport-ios in Frameworks */ = {isa = PBXBuildFile; productRef = DF745A172BE6FA0B002ACB70 /* iamport-ios */; };
+		DF745A1A2BE6FBBF002ACB70 /* ShopTableViewCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF745A192BE6FBBF002ACB70 /* ShopTableViewCellViewModel.swift */; };
+		DF745A1C2BE7072C002ACB70 /* PurchaseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF745A1B2BE7072C002ACB70 /* PurchaseModel.swift */; };
 		DF76D1CD2BD23EED00257C38 /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF76D1CC2BD23EED00257C38 /* UIViewController+Extension.swift */; };
 		DF76D1D02BD2521A00257C38 /* RxGesture in Frameworks */ = {isa = PBXBuildFile; productRef = DF76D1CF2BD2521A00257C38 /* RxGesture */; };
 		DF80205D2BDA5DD100473028 /* SearchCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF80205C2BDA5DD100473028 /* SearchCollectionViewCell.swift */; };
@@ -86,7 +88,6 @@
 		DF839D642BC93B97001FE924 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = DF839D632BC93B97001FE924 /* Base */; };
 		DF839D6C2BC93BC9001FE924 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = DF839D6B2BC93BC9001FE924 /* .gitignore */; };
 		DF839D6F2BC93C67001FE924 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = DF839D6E2BC93C67001FE924 /* SnapKit */; };
-		DF839D722BC93C72001FE924 /* Then in Frameworks */ = {isa = PBXBuildFile; productRef = DF839D712BC93C72001FE924 /* Then */; };
 		DF839D752BC93C93001FE924 /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = DF839D742BC93C93001FE924 /* RxCocoa */; };
 		DF839D772BC93C93001FE924 /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = DF839D762BC93C93001FE924 /* RxSwift */; };
 		DF839D7A2BC93CA4001FE924 /* TextFieldEffects in Frameworks */ = {isa = PBXBuildFile; productRef = DF839D792BC93CA4001FE924 /* TextFieldEffects */; };
@@ -159,8 +160,9 @@
 		DF745A092BE626A9002ACB70 /* ShopPostViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopPostViewModel.swift; sourceTree = "<group>"; };
 		DF745A0B2BE62C19002ACB70 /* PhotoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoView.swift; sourceTree = "<group>"; };
 		DF745A0D2BE6A45C002ACB70 /* ShopPostPhotoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopPostPhotoView.swift; sourceTree = "<group>"; };
-		DF745A122BE6A4C0002ACB70 /* ShopPostPhotoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopPostPhotoViewModel.swift; sourceTree = "<group>"; };
 		DF745A142BE6AEF1002ACB70 /* UITextField+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Extension.swift"; sourceTree = "<group>"; };
+		DF745A192BE6FBBF002ACB70 /* ShopTableViewCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopTableViewCellViewModel.swift; sourceTree = "<group>"; };
+		DF745A1B2BE7072C002ACB70 /* PurchaseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchaseModel.swift; sourceTree = "<group>"; };
 		DF76D1CC2BD23EED00257C38 /* UIViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; };
 		DF80205C2BDA5DD100473028 /* SearchCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCollectionViewCell.swift; sourceTree = "<group>"; };
 		DF8020642BDA629500473028 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
@@ -234,11 +236,11 @@
 				DF839D752BC93C93001FE924 /* RxCocoa in Frameworks */,
 				DF839D802BC93CC2001FE924 /* Alamofire in Frameworks */,
 				DF76D1D02BD2521A00257C38 /* RxGesture in Frameworks */,
+				DF745A182BE6FA0B002ACB70 /* iamport-ios in Frameworks */,
 				DF839D6F2BC93C67001FE924 /* SnapKit in Frameworks */,
 				DF856B442BD18B1200221DFA /* Toast in Frameworks */,
 				DF8020602BDA626300473028 /* Tabman in Frameworks */,
 				DF839D772BC93C93001FE924 /* RxSwift in Frameworks */,
-				DF839D722BC93C72001FE924 /* Then in Frameworks */,
 				DF839D7A2BC93CA4001FE924 /* TextFieldEffects in Frameworks */,
 				DF43904E2BD63BBB00520CF7 /* Kingfisher in Frameworks */,
 				DF690D952BCECA3E00F3D1E0 /* KeychainSwift in Frameworks */,
@@ -368,6 +370,7 @@
 			isa = PBXGroup;
 			children = (
 				DF7459F82BE5FDDD002ACB70 /* ShopViewModel.swift */,
+				DF745A192BE6FBBF002ACB70 /* ShopTableViewCellViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -401,7 +404,6 @@
 		DF745A0F2BE6A497002ACB70 /* ShopPostPhotoView */ = {
 			isa = PBXGroup;
 			children = (
-				DF745A112BE6A4A9002ACB70 /* ViewModel */,
 				DF745A102BE6A4A2002ACB70 /* View */,
 			);
 			path = ShopPostPhotoView;
@@ -413,14 +415,6 @@
 				DF745A0D2BE6A45C002ACB70 /* ShopPostPhotoView.swift */,
 			);
 			path = View;
-			sourceTree = "<group>";
-		};
-		DF745A112BE6A4A9002ACB70 /* ViewModel */ = {
-			isa = PBXGroup;
-			children = (
-				DF745A122BE6A4C0002ACB70 /* ShopPostPhotoViewModel.swift */,
-			);
-			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		DF772DED2BD5057D00DD47B7 /* Home */ = {
@@ -590,6 +584,7 @@
 				DF87DD5F2BDD78F2006C53DC /* ModifyProfileModel.swift */,
 				DF73FE612BDEE07700328279 /* CommentModel.swift */,
 				DF8DFF212BDFFE46009BC7C4 /* FollowingModel.swift */,
+				DF745A1B2BE7072C002ACB70 /* PurchaseModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -823,7 +818,6 @@
 			name = RealHealthKing;
 			packageProductDependencies = (
 				DF839D6E2BC93C67001FE924 /* SnapKit */,
-				DF839D712BC93C72001FE924 /* Then */,
 				DF839D742BC93C93001FE924 /* RxCocoa */,
 				DF839D762BC93C93001FE924 /* RxSwift */,
 				DF839D792BC93CA4001FE924 /* TextFieldEffects */,
@@ -834,6 +828,7 @@
 				DF76D1CF2BD2521A00257C38 /* RxGesture */,
 				DF43904D2BD63BBB00520CF7 /* Kingfisher */,
 				DF80205F2BDA626300473028 /* Tabman */,
+				DF745A172BE6FA0B002ACB70 /* iamport-ios */,
 			);
 			productName = RealHealthKing;
 			productReference = DF839D542BC93B94001FE924 /* RealHealthKing.app */;
@@ -865,7 +860,6 @@
 			mainGroup = DF839D4B2BC93B94001FE924;
 			packageReferences = (
 				DF839D6D2BC93C67001FE924 /* XCRemoteSwiftPackageReference "SnapKit" */,
-				DF839D702BC93C72001FE924 /* XCRemoteSwiftPackageReference "Then" */,
 				DF839D732BC93C92001FE924 /* XCRemoteSwiftPackageReference "RxSwift" */,
 				DF839D782BC93CA4001FE924 /* XCRemoteSwiftPackageReference "TextFieldEffects" */,
 				DF839D7B2BC93CB3001FE924 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */,
@@ -875,6 +869,7 @@
 				DF76D1CE2BD2521A00257C38 /* XCRemoteSwiftPackageReference "RxGesture" */,
 				DF43904C2BD63BBB00520CF7 /* XCRemoteSwiftPackageReference "Kingfisher" */,
 				DF80205E2BDA626300473028 /* XCRemoteSwiftPackageReference "Tabman" */,
+				DF745A162BE6FA0B002ACB70 /* XCRemoteSwiftPackageReference "iamport-ios" */,
 			);
 			productRefGroup = DF839D552BC93B94001FE924 /* Products */;
 			projectDirPath = "";
@@ -934,6 +929,7 @@
 				DF76D1CD2BD23EED00257C38 /* UIViewController+Extension.swift in Sources */,
 				DF745A0C2BE62C19002ACB70 /* PhotoView.swift in Sources */,
 				DF73FE622BDEE07700328279 /* CommentModel.swift in Sources */,
+				DF745A1C2BE7072C002ACB70 /* PurchaseModel.swift in Sources */,
 				DF892AC02BCC44B8006C69AA /* SignUpViewModel.swift in Sources */,
 				DF82CCF72BCA9F7E0089989E /* TargetType.swift in Sources */,
 				DF8020692BDA62AD00473028 /* ProfileViewModel.swift in Sources */,
@@ -976,8 +972,8 @@
 				DF745A152BE6AEF1002ACB70 /* UITextField+Extension.swift in Sources */,
 				DF839D8B2BC93DC1001FE924 /* SignInViewController.swift in Sources */,
 				DF82CCEE2BCA9F0B0089989E /* TokenModel.swift in Sources */,
+				DF745A1A2BE6FBBF002ACB70 /* ShopTableViewCellViewModel.swift in Sources */,
 				DF73FE672BDEE32F00328279 /* CommentView.swift in Sources */,
-				DF745A132BE6A4C0002ACB70 /* ShopPostPhotoViewModel.swift in Sources */,
 				DF806FA82BD8D8C9006046C8 /* NotificationCenterProtocol.swift in Sources */,
 				DF6367E42BCBD1A90087A075 /* SignUpViewController.swift in Sources */,
 				DF7459FD2BE5FE46002ACB70 /* ShopViewController.swift in Sources */,
@@ -1154,6 +1150,7 @@
 				DEVELOPMENT_TEAM = QQ67S8HZ4F;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = RealHealthKing/Info.plist;
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "사진 저장을 위해서 권한을 허용해주세요. 선택하신 사진 정보는 앱 내에서만 사용됩니다.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -1182,6 +1179,7 @@
 				DEVELOPMENT_TEAM = QQ67S8HZ4F;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = RealHealthKing/Info.plist;
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "사진 저장을 위해서 권한을 허용해주세요. 선택하신 사진 정보는 앱 내에서만 사용됩니다.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -1240,6 +1238,14 @@
 				minimumVersion = 22.0.0;
 			};
 		};
+		DF745A162BE6FA0B002ACB70 /* XCRemoteSwiftPackageReference "iamport-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/iamport/iamport-ios.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.4.1;
+			};
+		};
 		DF76D1CE2BD2521A00257C38 /* XCRemoteSwiftPackageReference "RxGesture" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/RxSwiftCommunity/RxGesture.git";
@@ -1262,14 +1268,6 @@
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = 5.7.1;
-			};
-		};
-		DF839D702BC93C72001FE924 /* XCRemoteSwiftPackageReference "Then" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/devxoul/Then.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 3.0.0;
 			};
 		};
 		DF839D732BC93C92001FE924 /* XCRemoteSwiftPackageReference "RxSwift" */ = {
@@ -1325,6 +1323,11 @@
 			package = DF690D932BCECA3E00F3D1E0 /* XCRemoteSwiftPackageReference "keychain-swift" */;
 			productName = KeychainSwift;
 		};
+		DF745A172BE6FA0B002ACB70 /* iamport-ios */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DF745A162BE6FA0B002ACB70 /* XCRemoteSwiftPackageReference "iamport-ios" */;
+			productName = "iamport-ios";
+		};
 		DF76D1CF2BD2521A00257C38 /* RxGesture */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = DF76D1CE2BD2521A00257C38 /* XCRemoteSwiftPackageReference "RxGesture" */;
@@ -1339,11 +1342,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = DF839D6D2BC93C67001FE924 /* XCRemoteSwiftPackageReference "SnapKit" */;
 			productName = SnapKit;
-		};
-		DF839D712BC93C72001FE924 /* Then */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = DF839D702BC93C72001FE924 /* XCRemoteSwiftPackageReference "Then" */;
-			productName = Then;
 		};
 		DF839D742BC93C93001FE924 /* RxCocoa */ = {
 			isa = XCSwiftPackageProductDependency;

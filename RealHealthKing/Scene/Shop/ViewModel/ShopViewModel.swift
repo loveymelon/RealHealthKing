@@ -27,7 +27,7 @@ class ShopViewModel: ViewModelType {
         let noDataResult = PublishRelay<Bool>()
         
         input.viewWillAppearTrigger
-            .flatMap { NetworkManager.fetchPosts(productId: "shopping") }.subscribe { result in
+            .flatMap { NetworkManager.fetchPosts(productId: "healthShop") }.subscribe { result in
                 switch result {
 
                 case .success(let data):

@@ -1,5 +1,5 @@
 //
-//  ShopPostPhotoViewModel.swift
+//  ShopTableViewCellViewModel.swift
 //  RealHealthKing
 //
 //  Created by 김진수 on 5/5/24.
@@ -9,9 +9,9 @@ import Foundation
 import RxSwift
 import RxCocoa
 
-class ShopPostPhotoViewModel: ViewModelType {
+class ShopTableViewCellViewModel: ViewModelType {
     struct Input {
-        let buttonTapTrigger: Observable<Void>
+        let purchaseButton: Observable<Posts>
     }
     
     struct Output {
@@ -21,6 +21,7 @@ class ShopPostPhotoViewModel: ViewModelType {
     var disposeBag = DisposeBag()
     
     func transform(input: Input) -> Output {
+        
         
         
         return Output()

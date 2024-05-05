@@ -8,7 +8,6 @@
 import Foundation
 import RxSwift
 import RxCocoa
-import KeychainSwift
 
 final class SignInViewModel: ViewModelType {
     
@@ -33,10 +32,11 @@ final class SignInViewModel: ViewModelType {
             
             switch result {
             case .success(let data):
-                let keychain = KeychainSwift()
-                keychain.set(data.accessToken, forKey: "accessToken")
-                keychain.set(data.refreshToken ?? "empty", forKey: "refreshToken")
-                keychain.set(data.userId ?? "empty", forKey: "userId")
+                
+                KeyChainManager.shared.accessToken = data.accessToken
+                KeyChainManager.shared.refreshToken = data.refreshToken ?? "empty"
+                KeyChainManager.shared.userId = data.userId ?? "empty"
+                
                 networkSuccess.accept(true)
             case .failure(let error):
                 networkSuccess.accept(false)

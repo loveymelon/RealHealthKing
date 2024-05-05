@@ -70,7 +70,7 @@ class ProfileViewModel: ViewModelType {
                         postCount.accept(proFileData.posts.count)
                         leftButtonResult.accept("프로필 편집")
                         
-                        
+                        UserDefaults.standard.setValue(proFileData.nick, forKey: "nick")
                        
                         switch result {
                         case .success(let data):

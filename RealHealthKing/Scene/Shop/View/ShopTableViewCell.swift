@@ -8,6 +8,14 @@
 import UIKit
 import Then
 import SnapKit
+import RxSwift
+import RxCocoa
+import ImageIO
+import iamport_ios
+
+protocol PurchaseProtocol: AnyObject {
+    func purchaseButtonTap(payment: IamportPayment)
+}
 
 final class ShopTableViewCell: UITableViewCell {
     
@@ -15,21 +23,22 @@ final class ShopTableViewCell: UITableViewCell {
         $0.contentMode = .scaleAspectFit
         $0.clipsToBounds = true
         $0.layer.cornerRadius = 10
-        $0.backgroundColor = .red
         $0.image = UIImage(systemName: "person")
     }
     let productLabel = UILabel().then {
-        $0.text = "55555"
         $0.font = .systemFont(ofSize: 16)
-        $0.textColor = .black
-        $0.backgroundColor = .red
+        $0.textColor = .white
     }
     let productPriceLabel = UILabel().then {
-        $0.text = "44444"
-        $0.textColor = .black
+        $0.textColor = .white
         $0.font = .boldSystemFont(ofSize: 14)
     }
-    private let buyButton = UIButton().then {
+    
+    var disposeBag = DisposeBag()
+    
+    weak var delegate: PurchaseProtocol?
+    
+    private let purchaseButton = UIButton().then {
         $0.backgroundColor = .orange
         $0.setTitle("구매하기", for: .normal)
     }
@@ -37,12 +46,17 @@ final class ShopTableViewCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
-        backgroundColor = .blue
         configureUI()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
+        disposeBag = DisposeBag()
     }
     
 }
@@ -51,13 +65,15 @@ extension ShopTableViewCell: UIConfigureProtocol {
     func configureUI() {
         configureHierarchy()
         configureLayout()
+        
+        backgroundColor = .black
     }
     
     func configureHierarchy() {
         contentView.addSubview(productImageView)
         contentView.addSubview(productLabel)
         contentView.addSubview(productPriceLabel)
-        contentView.addSubview(buyButton)
+        contentView.addSubview(purchaseButton)
     }
     
     func configureLayout() {
@@ -77,7 +93,7 @@ extension ShopTableViewCell: UIConfigureProtocol {
             make.leading.equalTo(productLabel.snp.leading)
         }
         
-        buyButton.snp.makeConstraints { make in
+        purchaseButton.snp.makeConstraints { make in
             make.trailing.equalTo(contentView.snp.trailing).inset(5)
             make.bottom.equalTo(productImageView.snp.bottom)
         }
@@ -87,7 +103,32 @@ extension ShopTableViewCell: UIConfigureProtocol {
 
 extension ShopTableViewCell {
     func configureCell(data: Posts) {
-        productLabel.text = data.content
+        productLabel.text = data.title
         productPriceLabel.text = data.content1
+        
+        if let imageUrl = data.creator.profileImage {
+            
+            let url = APIKey.baseURL.rawValue + NetworkVersion.version.rawValue + "/" + imageUrl
+            productImageView.downloadImage(imageUrl: url)
+            
+        } else {
+            productImageView.image = UIImage(systemName: "person")
+        }
+        
+        purchaseButton.rx.tap.withUnretained(self).subscribe { owner, _ in
+            let price = data.content1?.extractNumbers(from: data.content1 ?? "0")
+            let pgId = PG.html5_inicis.makePgRawName(pgId: "INIpayTest")
+            
+            let payment = IamportPayment(pg: pgId, merchant_uid: "ios_\(APIKey.secretKey.rawValue)_\(Int(Date().timeIntervalSince1970))", amount: price ?? "0").then {
+                $0.pay_method = PayMethod.card.rawValue
+                $0.name = owner.productLabel.text ?? "empty"
+                $0.buyer_name = UserDefaults.standard.string(forKey: "nick") ?? "empty"
+                $0.app_scheme = "king"
+            }
+            
+            owner.delegate?.purchaseButtonTap(payment: payment)
+        }.disposed(by: disposeBag)
+
     }
+    
 }

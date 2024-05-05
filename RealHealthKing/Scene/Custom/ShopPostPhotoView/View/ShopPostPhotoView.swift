@@ -22,8 +22,6 @@ class ShopPostPhotoView: UIView {
         $0.tintColor = .white
     }
     
-    let viewModel = ShopPostViewModel()
-
     override init(frame: CGRect) {
         super.init(frame: frame)
         

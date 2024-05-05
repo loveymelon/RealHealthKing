@@ -31,7 +31,7 @@ class LauchViewModel: ViewModelType {
             case .success(let data):
                 viewWillResult.accept(!data.data.isEmpty)
             case .failure(let error):
-                print(error)
+                viewWillResult.accept(false)
             }
         } onError: { error in
             print(error)

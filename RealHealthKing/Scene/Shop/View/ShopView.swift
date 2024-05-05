@@ -9,6 +9,8 @@ import UIKit
 import Then
 import SnapKit
 
+
+
 class ShopView: BaseView {
     
     let tableView = UITableView().then {
@@ -21,6 +23,11 @@ class ShopView: BaseView {
     let noDataView = NoDataView().then {
         $0.setText("등록된 상품들이 없습니다")
         
+    }
+    
+    let plusButton = UIButton().then {
+        $0.setImage(UIImage(systemName: "plus"), for: .normal)
+        $0.tintColor = .white
     }
 
     override init(frame: CGRect) {
@@ -44,5 +51,6 @@ class ShopView: BaseView {
         noDataView.snp.makeConstraints { make in
             make.edges.equalTo(safeAreaLayoutGuide)
         }
+
     }
 }

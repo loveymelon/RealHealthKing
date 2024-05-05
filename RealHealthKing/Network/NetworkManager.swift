@@ -98,12 +98,12 @@ struct NetworkManager {
         }
     }
     
-    static func fetchPosts(productId: String = "abc123") -> Single<Result<PostsModel, AppError>> {
+    static func fetchPosts(productId: String = "") -> Single<Result<PostsModel, AppError>> {
         
         return Single.create { single in
             do {
                 let urlRequest = try Router.postFetch.postURLRequest(productId: productId)
-                
+                print(urlRequest)
                 AF.request(urlRequest, interceptor: NetworkInterceptor())
                     .validate(statusCode: 200..<300)
                     .responseDecodable(of: PostsModel.self) { response in
@@ -260,6 +260,7 @@ struct NetworkManager {
                     case .success(let data):
                         return single(.success(.success(data)))
                     case .failure(let error):
+                        print(error)
                         if let statusCode = error.responseCode, let netError = NetworkError(rawValue: statusCode) {
                             return single(.success(.failure(.networkError(netError))))
                         } else if let statusCode = error.responseCode, let netError = FetchPostError(rawValue: statusCode) {
@@ -474,6 +475,32 @@ struct NetworkManager {
             }
         } catch {
             print(error)
+        }
+    }
+    
+    static func checkPayment(model: PurchaseModel) -> Single<Result<PurchaseModel, AppError>> {
+        return Single.create { single in
+            
+            do {
+                let urlRequest = try Router.purchase(model: model).asURLRequest()
+                
+                AF.request(urlRequest).responseDecodable(of: PurchaseModel.self) { response in
+                    switch response.result {
+                    case .success(let data):
+                        single(.success(.success(data)))
+                    case .failure(let error):
+                        if let statusCode = error.responseCode, let netError = NetworkError(rawValue: statusCode) {
+                            single(.success(.failure(AppError.networkError(netError))))
+                        } else if let statusCode = error.responseCode, let netError = PaymentError(rawValue: statusCode) {
+                            single(.success(.failure(.paymentError(netError))))
+                        }
+                        
+                    }
+                }
+            } catch {
+                print(error)
+            }
+            return Disposables.create()
         }
     }
     

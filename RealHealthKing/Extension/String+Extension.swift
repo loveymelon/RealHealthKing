@@ -29,4 +29,11 @@ extension String {
         return resultString
     }
     
+    func extractNumbers(from text: String) -> String {
+        let textWithoutCommaAndWon = text.replacingOccurrences(of: "[^0-9]", with: "", options: .regularExpression)
+        let decimalCharacters = CharacterSet.decimalDigits
+        let numberString = textWithoutCommaAndWon.components(separatedBy: decimalCharacters.inverted).joined()
+        return numberString
+    }
+    
 }
