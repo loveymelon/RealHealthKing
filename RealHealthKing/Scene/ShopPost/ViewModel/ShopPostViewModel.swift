@@ -28,6 +28,7 @@ class ShopPostViewModel: ViewModelType {
         let currentImageCount: Driver<Int>
         let selectedImageCount: Driver<Int>
         let networkResult: Driver<Bool>
+        let errorResult: Driver<String>
     }
     
     var disposeBag = DisposeBag()
@@ -77,6 +78,10 @@ class ShopPostViewModel: ViewModelType {
         
         input.saveButtonTap.subscribe(with: self) { owner, value in
             
+            let checkData = value.postData
+            
+            guard let title = checkData.title, let price = checkData.content1 else { return }
+            
             var datas: [Data] = []
             
             for image in value.image {
@@ -88,19 +93,27 @@ class ShopPostViewModel: ViewModelType {
             }
             
             if !datas.isEmpty {
-                NetworkManager.uploadImage(images: datas) { result in
-                    
-                    switch result {
-                    case .success(let data):
+                
+                if title.isEmpty {
+                    resultError.accept("상품명을 명시해주세요")
+                } else if price.isEmpty {
+                    resultError.accept("가격을 명시해주세요")
+                } else {
+                    print("dddd")
+                    NetworkManager.uploadImage(images: datas) { result in
                         
-                        NetworkManager.uploadPostContents(model: Posts(productId: value.postData.productId, title: value.postData.title, content: value.postData.content, content1: value.postData.content1, files: data)).subscribe { result in
-                            networkResult.accept(true)
-                        } onFailure: { error in
-                            print(error)
-                        }.disposed(by: owner.disposeBag)
-                        
-                    case .failure(let error):
-                        resultError.accept(error.description)
+                        switch result {
+                        case .success(let data):
+                            
+                            NetworkManager.uploadPostContents(model: Posts(productId: value.postData.productId, title: value.postData.title, content: value.postData.content, content1: value.postData.content1, files: data)).subscribe { result in
+                                networkResult.accept(true)
+                            } onFailure: { error in
+                                print(error)
+                            }.disposed(by: owner.disposeBag)
+                            
+                        case .failure(let error):
+                            resultError.accept(error.description)
+                        }
                     }
                 }
                 
@@ -109,6 +122,6 @@ class ShopPostViewModel: ViewModelType {
             }
         }.disposed(by: disposeBag)
         
-        return Output(outputTextBeginEdit: resultTextBegin.asDriver(), outputTextEndEdit: resultTextEndEdit.asDriver(), outputTextValue: resultTextValue.asDriver(onErrorJustReturn: ""), limitedImageCount: imageCount.asDriver(), currentImageCount: currentImageCount.asDriver(onErrorJustReturn: 0), selectedImageCount:  input.selectedImageCount.asDriver(onErrorJustReturn: 0), networkResult: networkResult.asDriver())
+        return Output(outputTextBeginEdit: resultTextBegin.asDriver(), outputTextEndEdit: resultTextEndEdit.asDriver(), outputTextValue: resultTextValue.asDriver(onErrorJustReturn: ""), limitedImageCount: imageCount.asDriver(), currentImageCount: currentImageCount.asDriver(onErrorJustReturn: 0), selectedImageCount:  input.selectedImageCount.asDriver(onErrorJustReturn: 0), networkResult: networkResult.asDriver(), errorResult: resultError.asDriver(onErrorJustReturn: ""))
     }
 }

@@ -34,7 +34,7 @@ class SearchViewModel: ViewModelType {
         var cursor = ""
         let noDataResult = PublishSubject<Bool>()
         
-        input.viewWillAppearTrigger.flatMap { NetworkManager.fetchPosts() }.subscribe { result in
+        input.viewWillAppearTrigger.flatMap { NetworkManager.fetchPosts(productId: "myLoveGym") }.subscribe { result in
             switch result {
                 
             case .success(let data):

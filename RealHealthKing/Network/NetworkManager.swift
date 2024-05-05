@@ -154,7 +154,7 @@ struct NetworkManager {
         return Single.create { single in
             
             do {
-                let urlRequest = try Router.posting(model: model).postURLRequest(productId: "abc333")
+                let urlRequest = try Router.posting(model: model).postURLRequest(productId: model.productId ?? "empty")
                 
                 AF.request(urlRequest, interceptor: NetworkInterceptor()).responseDecodable(of: Posts.self) { response in
                     switch response.result {
@@ -440,6 +440,7 @@ struct NetworkManager {
             AF.request(urlRequest).responseDecodable(of: PostsModel.self) { response in
                 switch response.result {
                 case .success(let data):
+                    print("성공이냐?")
                     completionHandler(.success(data))
                 case .failure(let error):
                     print(error)
@@ -487,8 +488,11 @@ struct NetworkManager {
                 AF.request(urlRequest).responseDecodable(of: PurchaseModel.self) { response in
                     switch response.result {
                     case .success(let data):
+                        print("tjdhthdsjkahfldksahfljsad")
                         single(.success(.success(data)))
                     case .failure(let error):
+                        print("eerorrrr")
+                        print(error)
                         if let statusCode = error.responseCode, let netError = NetworkError(rawValue: statusCode) {
                             single(.success(.failure(AppError.networkError(netError))))
                         } else if let statusCode = error.responseCode, let netError = PaymentError(rawValue: statusCode) {

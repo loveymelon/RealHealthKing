@@ -64,7 +64,7 @@ class PostingViewModel: ViewModelType {
             }
         }.disposed(by: disposeBag)
         
-        input.saveButtonTap.subscribe(with: self) { owner, value in
+        input.saveButtonTap.throttle(.seconds(1), scheduler: MainScheduler.instance).subscribe(with: self) { owner, value in
             
             print("tap")
             
@@ -84,7 +84,7 @@ class PostingViewModel: ViewModelType {
                     switch result {
                     case .success(let data):
                         
-                        NetworkManager.uploadPostContents(model: Posts(productId: "abc333", title: value.postModel.title, content: value.postModel.hashTag, content1: value.postModel.content, files: data)).subscribe { result in
+                        NetworkManager.uploadPostContents(model: Posts(productId: "myLoveGym", title: value.postModel.title, content: value.postModel.hashTag, content1: value.postModel.content, files: data)).subscribe { result in
                             networkSuccess.accept(true)
                         } onFailure: { error in
                             print(error)

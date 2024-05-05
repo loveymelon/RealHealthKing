@@ -27,6 +27,8 @@ class ModifyViewController: BaseViewController<ModifyView> {
     }
     
     override func configureNav() {
+        super.configureNav()
+        
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.largeTitleDisplayMode = .always
         navigationController?.navigationBar.largeTitleTextAttributes = [.foregroundColor: UIColor.white]
@@ -69,6 +71,10 @@ class ModifyViewController: BaseViewController<ModifyView> {
                 owner.mainView.profileImageView.image = UIImage(systemName: "person")
             }
             
+        }.disposed(by: disposeBag)
+        
+        output.outputSaveButton.drive(with: self) { owner, isValid in
+            owner.navigationController?.popViewController(animated: isValid)
         }.disposed(by: disposeBag)
     }
 

@@ -36,7 +36,9 @@ final class DetailViewController: BaseViewController<DetailView> {
         
         output.outputPostData.drive(with: self) { owner, data in
             owner.mainView.nickNameLabel.text = data.creator.nick
-            owner.mainView.contentLabel.text = data.content
+            owner.mainView.contentLabel.text = data.content1
+            owner.mainView.hashLabel.text = data.content
+//            owner.mainView.titleLabel.text = data.title
             
             owner.mainView.updateImageViews(scrollView: owner.mainView.scrollView, pageControl: owner.mainView.pageControl, postData: data.files, width: owner.mainView.bounds.width)
             
@@ -73,6 +75,8 @@ final class DetailViewController: BaseViewController<DetailView> {
     }
     
     override func configureNav() {
+        super.configureNav()
+        
         navigationItem.largeTitleDisplayMode = .never
     }
     

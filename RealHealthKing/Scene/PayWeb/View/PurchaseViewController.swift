@@ -10,12 +10,15 @@ import iamport_ios
 import WebKit
 import RxSwift
 import RxCocoa
+import Toast
 
 class PurchaseViewController: BaseViewController<PurchaseView> {
 
     var payment: IamportPayment?
     let viewModel = PurchaseViewModel()
     let paymentResponse = PublishRelay<IamportResponse?>()
+    
+    let disposeBag = DisposeBag()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,6 +29,17 @@ class PurchaseViewController: BaseViewController<PurchaseView> {
     
     override func bind() {
         let input = PurchaseViewModel.Input(payment: paymentResponse.asObservable())
+        
+        let output = viewModel.transform(input: input)
+        
+        output.resultData.drive(with: self) { owner, isValid in
+            print("fdsahjkfdhsajkfhdjksajkfhdsajkhjkfhsadjkfhasjkh", isValid)
+            print("hererererere?")
+            Iamport.shared.close()
+            owner.mainView.makeToast("성공", duration: 1.0, position: .center)
+            owner.navigationController?.popViewController(animated: true)
+            
+        }.disposed(by: disposeBag)
     }
 
 }

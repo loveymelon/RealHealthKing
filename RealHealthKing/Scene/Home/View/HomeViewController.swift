@@ -65,6 +65,8 @@ class HomeViewController: BaseViewController<HomeView> {
     }
 
     override func configureNav() {
+        super.configureNav()
+        
         navigationItem.largeTitleDisplayMode = .never
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: mainView.plusButton)
     }

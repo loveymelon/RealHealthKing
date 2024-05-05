@@ -30,7 +30,7 @@ class HomeViewModel: ViewModelType {
         let noDataResult = BehaviorRelay(value: false)
         var cursor = ""
         
-        input.inputViewWillTirgger.flatMap { NetworkManager.fetchPosts() }.subscribe { result in
+        input.inputViewWillTirgger.flatMap { NetworkManager.fetchPosts(productId: "myLoveGym") }.subscribe { result in
             switch result {
                 
             case .success(let data):
@@ -53,13 +53,14 @@ class HomeViewModel: ViewModelType {
                     case .success(let data):
                         cursor = data.nextCursor
                         let temp = resultPostsDatas.value + data.data
-                        
+                        print("afdaf")
                         resultPostsDatas.accept(temp)
                         
                         if cursor == "0" {
                             owner.disposeBag = DisposeBag()
                         }
                     case .failure(let error):
+                        print("dsafasfads")
                         print(error.description)
                     }
                 }

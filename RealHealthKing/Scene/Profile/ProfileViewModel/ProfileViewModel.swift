@@ -111,6 +111,10 @@ class ProfileViewModel: ViewModelType {
                 }
             }.disposed(by: disposeBag)
             
+            input.inputLeftButtonTap.subscribe { _ in
+                leftButtonTapResult.accept(true)
+            }.disposed(by: disposeBag)
+            
         case .other:
             
             input.inputViewWillTrigger.withUnretained(self).flatMap { owner, _ in

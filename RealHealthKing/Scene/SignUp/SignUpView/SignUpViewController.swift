@@ -21,6 +21,8 @@ class SignUpViewController: BaseViewController<SignUpView> {
     }
     
     override func configureNav() {
+        super.configureNav()
+        
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.largeTitleDisplayMode = .always
         navigationController?.navigationBar.largeTitleTextAttributes = [.foregroundColor: UIColor.white]

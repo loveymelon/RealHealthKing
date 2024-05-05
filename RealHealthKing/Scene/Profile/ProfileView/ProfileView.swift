@@ -13,7 +13,7 @@ class ProfileView: BaseView {
     
     let profileImageView = UIImageView(image: UIImage(systemName: "person")).then {
         $0.layer.borderWidth = 1
-        $0.layer.borderColor = UIColor.red.cgColor
+        $0.layer.borderColor = UIColor.white.cgColor
         $0.clipsToBounds = true
     }
     
@@ -34,22 +34,11 @@ class ProfileView: BaseView {
         $0.font = .boldSystemFont(ofSize: 16)
     }
     
-    let rightBarButton = UIButton().then {
-        $0.setImage(UIImage(systemName: "ellipsis"), for: .normal)
-        $0.tintColor = .white
-    }
-    
     let leftButton = UIButton().then {
         $0.setTitle("프로필 수정", for: .normal)
         $0.setTitleColor(.white, for: .normal)
         $0.backgroundColor = .darkGray
         $0.layer.cornerRadius = 10
-    }
-    
-    let rightButton = UIButton().then {
-        $0.setTitle("프로필 수정", for: .normal)
-        $0.setTitleColor(.white, for: .normal)
-        $0.backgroundColor = .darkGray
     }
     
     let buttonStackView = UIStackView().then {
@@ -93,7 +82,7 @@ class ProfileView: BaseView {
     }
     
     override func configureHierarchy() {
-        [leftButton, rightButton].forEach { button in
+        [leftButton].forEach { button in
             buttonStackView.addArrangedSubview(button)
         }
         

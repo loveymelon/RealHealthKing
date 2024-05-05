@@ -23,6 +23,7 @@ final class ModifyViewModel: ViewModelType {
         let outputNick: Driver<String>
         let outputProfileImage: Driver<String>
         let outputNickValid: Driver<Bool>
+        let outputSaveButton: Driver<Bool>
     }
     
     var disposeBag = DisposeBag()
@@ -32,6 +33,7 @@ final class ModifyViewModel: ViewModelType {
         let nickResult = BehaviorRelay(value: "")
         let profileImageResult = BehaviorRelay(value: "")
         let nickValidResult = BehaviorRelay(value: false)
+        let saveButtonResult = PublishRelay<Bool>()
         
         input.inputNickName.subscribe { text in
             
@@ -66,13 +68,14 @@ final class ModifyViewModel: ViewModelType {
                 switch result {
                 case .success(let data):
                     print(data)
+                    saveButtonResult.accept(true)
                 case .failure(let error):
                     print(error)
                 }
             }
         }.disposed(by: disposeBag)
         
-        return Output(outputNick: nickResult.asDriver(), outputProfileImage: profileImageResult.asDriver(), outputNickValid: nickValidResult.asDriver())
+        return Output(outputNick: nickResult.asDriver(), outputProfileImage: profileImageResult.asDriver(), outputNickValid: nickValidResult.asDriver(), outputSaveButton: saveButtonResult.asDriver(onErrorJustReturn: false))
     }
     
     

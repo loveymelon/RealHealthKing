@@ -21,6 +21,8 @@ class SearchViewController: BaseViewController<SearchView> {
     }
     
     override func configureNav() {
+        super.configureNav()
+        
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.largeTitleDisplayMode = .always
         

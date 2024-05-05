@@ -14,7 +14,7 @@ import ImageIO
 import iamport_ios
 
 protocol PurchaseProtocol: AnyObject {
-    func purchaseButtonTap(payment: IamportPayment)
+    func purchaseButtonTap(payment: IamportPayment, postData: Posts)
 }
 
 final class ShopTableViewCell: UITableViewCell {
@@ -41,6 +41,7 @@ final class ShopTableViewCell: UITableViewCell {
     private let purchaseButton = UIButton().then {
         $0.backgroundColor = .orange
         $0.setTitle("구매하기", for: .normal)
+        $0.layer.cornerRadius = 5
     }
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -106,14 +107,10 @@ extension ShopTableViewCell {
         productLabel.text = data.title
         productPriceLabel.text = data.content1
         
-        if let imageUrl = data.creator.profileImage {
-            
-            let url = APIKey.baseURL.rawValue + NetworkVersion.version.rawValue + "/" + imageUrl
-            productImageView.downloadImage(imageUrl: url)
-            
-        } else {
-            productImageView.image = UIImage(systemName: "person")
-        }
+        let imageUrl = data.files[0]
+        
+        let url = APIKey.baseURL.rawValue + NetworkVersion.version.rawValue + "/" + imageUrl
+        productImageView.downloadImage(imageUrl: url)
         
         purchaseButton.rx.tap.withUnretained(self).subscribe { owner, _ in
             let price = data.content1?.extractNumbers(from: data.content1 ?? "0")
@@ -126,7 +123,7 @@ extension ShopTableViewCell {
                 $0.app_scheme = "king"
             }
             
-            owner.delegate?.purchaseButtonTap(payment: payment)
+            owner.delegate?.purchaseButtonTap(payment: payment, postData: data)
         }.disposed(by: disposeBag)
 
     }

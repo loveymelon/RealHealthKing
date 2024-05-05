@@ -24,6 +24,7 @@ class ShopViewController: BaseViewController<ShopView> {
     }
     
     override func configureNav() {
+        super.configureNav()
         navigationItem.largeTitleDisplayMode = .never
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: mainView.plusButton)
     }
@@ -56,10 +57,12 @@ class ShopViewController: BaseViewController<ShopView> {
 }
 
 extension ShopViewController: PurchaseProtocol {
-    func purchaseButtonTap(payment: IamportPayment) {
+    
+    func purchaseButtonTap(payment: IamportPayment, postData: Posts) {
         let vc = PurchaseViewController()
         
         vc.payment = payment
+        vc.viewModel.postData = postData
         
         navigationController?.pushViewController(vc, animated: true)
     }

@@ -109,6 +109,8 @@ class ProfileViewController: BaseViewController<ProfileView> {
     }
 
     override func configureNav() {
+        super.configureNav()
+        
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: mainView.rightBarButton)
         navigationItem.rightBarButtonItem?.tintColor = .white
         navigationItem.largeTitleDisplayMode = .never

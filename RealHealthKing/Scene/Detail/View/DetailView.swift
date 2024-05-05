@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import Then
+import SnapKit
 
 class DetailView: BaseView {
 
@@ -56,10 +58,18 @@ class DetailView: BaseView {
         $0.alignment = .fill
     }
     
+//    let titleLabel = UILabel().then {
+//        $0.textColor = .white
+//    }
+    
     let contentLabel = UILabel().then {
         $0.numberOfLines = 3
         $0.textColor = .white
         $0.font = .systemFont(ofSize: 20)
+    }
+    
+    let hashLabel = UILabel().then {
+        $0.textColor = .white
     }
     
     let moreButton = UIButton().then {
@@ -89,7 +99,9 @@ class DetailView: BaseView {
         
         addSubview(bottomStackView)
         addSubview(pageControl)
+//        addSubview(titleLabel)
         addSubview(contentLabel)
+        addSubview(hashLabel)
     }
     
     override func configureLayout() {
@@ -124,10 +136,20 @@ class DetailView: BaseView {
             make.height.equalTo(20)
         }
         
+//        titleLabel.snp.makeConstraints { make in
+//            make.top.equalTo(bottomStackView.snp.bottom).offset(10)
+//            make.leading.equalTo(safeAreaLayoutGuide.snp.leading).inset(10)
+//        }
+        
         contentLabel.snp.makeConstraints { make in
             make.horizontalEdges.equalTo(safeAreaLayoutGuide).inset(10)
             make.top.equalTo(bottomStackView.snp.bottom).offset(10)
-            make.bottom.equalTo(safeAreaLayoutGuide)
+            make.bottom.equalTo(hashLabel.snp.top)
+        }
+        
+        hashLabel.snp.makeConstraints { make in
+            make.horizontalEdges.equalTo(contentLabel)
+            make.bottom.equalTo(safeAreaLayoutGuide).inset(5)
         }
     }
 }

@@ -42,7 +42,7 @@ class ShopPostViewController: BaseViewController<ShopPostView> {
         let saveButton = mainView.saveButton.rx.tap.withUnretained(self).map { owner, _ in
             let mainView = owner.mainView
             
-            return (image: owner.userImageArray, postData: Posts(productId: "healthShop", title: mainView.titleTextField.text, content: mainView.detailTextView.text, content1: mainView.priceTextField.text))
+            return (image: owner.userImageArray, postData: Posts(productId: "healthProduct", title: mainView.titleTextField.text, content: mainView.detailTextView.text, content1: mainView.priceTextField.text))
         }
         
         let input = ShopPostViewModel.Input(textBeginEdit: textBeginEdit, textEndEdit: textEndEdit, textValue: textValue, imageCount: imageCount, selectedImageCount: selectedCount.asObservable(), saveButtonTap: saveButton)
@@ -124,6 +124,9 @@ class ShopPostViewController: BaseViewController<ShopPostView> {
             }
         }.disposed(by: disposeBag)
         
+        output.errorResult.drive(with: self) { owner, text in
+            owner.mainView.makeToast(text, duration: 1.0, position: .center)
+        }
     }
 
 }

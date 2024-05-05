@@ -58,7 +58,7 @@ extension TargetType {
         
         let cursor = URLQueryItem(name: "next", value: cursorValue)
         let limit = URLQueryItem(name: "limit", value: "15")
-        let productid = URLQueryItem(name: "product_id", value: "abc333")
+        let productid = URLQueryItem(name: "product_id", value: "myLoveGym")
         
         urlRequest.url?.append(queryItems: [cursor,limit, productid])
         
@@ -73,7 +73,7 @@ extension TargetType {
         let hashTag = URLQueryItem(name: "hashTag", value: hashTag)
         let cursor = URLQueryItem(name: "next", value: cursor)
         let limit = URLQueryItem(name: "limit", value: "15")
-        let productid = URLQueryItem(name: "product_id", value: "abc333")
+        let productid = URLQueryItem(name: "product_id", value: "myLoveGym")
         
         urlRequest.url?.append(queryItems: [hashTag, cursor, limit, productid])
         
