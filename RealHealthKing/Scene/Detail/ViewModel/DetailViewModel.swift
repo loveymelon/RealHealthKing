@@ -36,22 +36,24 @@ final class DetailViewModel: ViewModelType {
         
         let resultVC = PublishRelay<(enumValue:ScreenState, userId:String)>()
         
-        input.inputPostId.withUnretained(self).subscribe { owner, id in
+        input.inputPostId.withUnretained(self).flatMap { owner, postId in
+            return NetworkManager.fetchAccessPostDetails(postId: postId)
+        }.subscribe { detailResult in
             
-            NetworkManager.fetchAccessPostDetails(postId: id) { result in
-                switch result {
-                case .success(let data):
-                    
-                    postDataResult.accept(data)
-                    userId = data.creator.userId
-                    
-                    let state = data.likes.contains(KeyChainManager.shared.userId)
-                    
-                    resultLikeValue.accept(state)
-                case .failure(let error):
-                    print(error)
-                }
+            switch detailResult {
+            case .success(let data):
+                postDataResult.accept(data)
+                userId = data.creator.userId
+                
+                let state = data.likes.contains(KeyChainManager.shared.userId)
+                
+                resultLikeValue.accept(state)
+            case .failure(let error):
+                print(error)
             }
+            
+        } onError: { error in
+            print(error)
         }.disposed(by: disposeBag)
         
         input.inputProfileImageTap.subscribe { _ in

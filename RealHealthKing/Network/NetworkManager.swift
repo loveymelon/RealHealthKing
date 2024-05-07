@@ -225,26 +225,29 @@ struct NetworkManager {
         }
     }
     
-    static func fetchAccessPostDetails(postId: String, completionHandler: @escaping ((Result<Posts, AppError>) -> Void)) {
+    static func fetchAccessPostDetails(postId: String) -> Single<Result<Posts, AppError>> {
         
-        do {
-            let urlRequest = try Router.accessPostDetails(postID: postId).asURLRequest()
+        return Single.create { single in
             
-            AF.request(urlRequest).responseDecodable(of: Posts.self) { response in
-                switch response.result {
-                case .success(let data):
-                    completionHandler(.success(data))
-                case .failure(let error):
-                    if let statusCode = error.responseCode, let netError = NetworkError(rawValue: statusCode) {
-                        completionHandler(.failure(.networkError(netError)))
-                    } else if let statusCode = error.responseCode, let netError = PostDetailError(rawValue: statusCode) {
-                        completionHandler(.failure(AppError.postDetails(netError)))
+            do {
+                let urlRequest = try Router.accessPostDetails(postID: postId).asURLRequest()
+                
+                AF.request(urlRequest).responseDecodable(of: Posts.self) { response in
+                    switch response.result {
+                    case .success(let data):
+                        single(.success(.success(data)))
+                    case .failure(let error):
+                        if let statusCode = error.responseCode, let netError = NetworkError(rawValue: statusCode) {
+                            single(.success(.failure(.networkError(netError))))
+                        } else if let statusCode = error.responseCode, let netError = PostDetailError(rawValue: statusCode) {
+                            single(.success(.failure(.postDetails(netError))))
+                        }
                     }
                 }
+            } catch {
+                print(error)
             }
-        }
-        catch {
-            print(error)
+            return Disposables.create()
         }
         
     }

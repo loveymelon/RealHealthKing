@@ -101,7 +101,7 @@ class ProfileViewModel: ViewModelType {
                                 postDatasResult.accept(temp)
                             case .failure(let error):
                                 // 에러가 발생했을 때 처리
-                                print("fdsafdasfsafdasfdsa",error)
+                                print(error)
                             }
                         }, onFailure: { error in
                             // 에러가 발생했을 때 처리

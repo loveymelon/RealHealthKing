@@ -31,32 +31,34 @@ class CommentViewModel: ViewModelType {
         let commentsResult = BehaviorRelay<[CommentsModel]>(value: [])
         let profileImageResult = BehaviorRelay(value: "")
         
-        let commentsObservable = input.inputViewWillAppear.flatMapLatest { postId -> Observable<[CommentsModel]> in
-            return Observable.create { observer in
-                NetworkManager.fetchAccessPostDetails(postId: postId) { result in
-                    switch result {
-                    case .success(let data):
-                        noDataResult.accept(data.comments.isEmpty)
-                        observer.onNext(data.comments)
-                        tempPostId = postId
-                    case .failure(let error):
-                        observer.onError(error)
-                    }
-                }
-                
-                return Disposables.create()
-            }
-        }
-        
-        commentsObservable.subscribe(onNext: { comments in
-            tempCommentsData = comments
+        input.inputViewWillAppear.flatMap { postId in
+            return NetworkManager.fetchAccessPostDetails(postId: postId)
+        }.subscribe { detailResult in
             
-            NetworkManager.fetchProfile { result in
-                switch result {
+            NetworkManager.fetchProfile { profileResult in
+                
+                switch profileResult {
+                    
                 case .success(let data):
                     if let imageData = data.profileImage {
-                        profileImageResult.accept(imageData)
-                        commentsResult.accept(tempCommentsData)
+                        
+                        if let imageData = data.profileImage {
+                            print("comment", tempCommentsData)
+                            profileImageResult.accept(imageData)
+                        } else {
+                            profileImageResult.accept("person")
+                        }
+                        
+                        switch detailResult {
+                            
+                        case .success(let detailData):
+                            tempCommentsData = detailData.comments
+                            
+                            profileImageResult.accept(imageData)
+                            commentsResult.accept(tempCommentsData)
+                        case .failure(let error):
+                            print(error)
+                        }
                         
                     } else {
                         profileImageResult.accept("person")
@@ -65,7 +67,46 @@ class CommentViewModel: ViewModelType {
                     print(error)
                 }
             }
-        }).disposed(by: disposeBag)
+        } onError: { error in
+            print(error)
+        }.disposed(by: disposeBag)
+
+        
+//        let commentsObservable = input.inputViewWillAppear.flatMapLatest { postId -> Observable<[CommentsModel]> in
+//            return Observable.create { observer in
+//                NetworkManager.fetchAccessPostDetails(postId: postId) { result in
+//                    switch result {
+//                    case .success(let data):
+//                        print("data", data.comments)
+//                        profileImageResult.accept(imageData)
+//                        commentsResult.accept(tempCommentsData)
+//                    case .failure(let error):
+//                        observer.onError(error)
+//                    }
+//                }
+//                
+//                return Disposables.create()
+//            }
+//        }
+        
+//        commentsObservable.subscribe(onNext: { comments in
+//            
+//            NetworkManager.fetchProfile { result in
+//                switch result {
+//                case .success(let data):
+//                    if let imageData = data.profileImage {
+//                        print("comment", tempCommentsData)
+//                        profileImageResult.accept(imageData)
+//                        commentsResult.accept(tempCommentsData)
+//                        
+//                    } else {
+//                        profileImageResult.accept("person")
+//                    }
+//                case .failure(let error):
+//                    print(error)
+//                }
+//            }
+//        }).disposed(by: disposeBag)
         
         input.inputButtonTap.subscribe { text in
             print("comment", CommentsModel(content: text))
