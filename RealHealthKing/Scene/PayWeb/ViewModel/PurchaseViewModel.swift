@@ -34,14 +34,13 @@ class PurchaseViewModel: ViewModelType {
             return NetworkManager.checkPayment(model: PurchaseModel(impUid: payment?.imp_uid ?? "empty", postId: owner.postData?.postId ?? "empty", productName: owner.postData?.title ?? "empty", price: Int(owner.postData?.content1 ?? "0") ?? 0 ))
             
         }.withUnretained(self).subscribe { owner, result in
-            print("여기는 오긴 오냐")
+            
             switch result {
             case .success(let data):
-                print("성공한거야???")
+                print("purchase", data)
                 resultData.accept(true)
             case .failure(let error):
                 print(error)
-                print("nononononononoonnon")
                 resultData.accept(false)
             }
         } onError: { error in

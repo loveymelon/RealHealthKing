@@ -61,6 +61,33 @@ class ProfileView: BaseView {
         $0.backgroundColor = .white
     }
     
+    let rightBarButton = UIButton().then {
+        $0.setImage(UIImage(systemName: "ellipsis"), for: .normal)
+    }
+    
+    let menuLabel = UILabel()
+    
+    var items: [UIAction] {
+        
+        let save = UIAction(
+            title: "Save",
+            image: UIImage(systemName: "plus"),
+            handler: { [unowned self] _ in
+                menuLabel.text = "Save"
+            })
+
+        let delete = UIAction(
+            title: "Delete",
+            image: UIImage(systemName: "trash"),
+            handler: { [unowned self] _ in
+                menuLabel.text = "Delete"
+            })
+
+        let Items = [save, delete]
+
+        return Items
+    }
+    
     let scrollView = UIScrollView()
 
     override init(frame: CGRect) {
@@ -78,6 +105,19 @@ class ProfileView: BaseView {
             guard let self else { return }
             
             profileImageView.layer.cornerRadius = profileImageView.bounds.width / 2
+        }
+    }
+    
+    override func configureUI() {
+        super.configureUI()
+        
+        func setupMenu() {
+            let menu = UIMenu(title: "메뉴",
+                              children: items)
+         
+            rightBarButton.menu = menu
+            rightBarButton.showsMenuAsPrimaryAction = true
+            
         }
     }
     

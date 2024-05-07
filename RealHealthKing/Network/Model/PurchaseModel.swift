@@ -9,9 +9,9 @@ import Foundation
 
 struct PurchaseModel: Codable {
     let impUid: String?
-    let postId: String
-    let productName: String
-    let price: Int
+    let postId: String?
+    let productName: String?
+    let price: Int?
     
     enum CodingKeys: String, CodingKey {
         case impUid = "imp_uid"
