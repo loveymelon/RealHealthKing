@@ -509,5 +509,15 @@ struct NetworkManager {
         }
     }
     
+    static func getPaymentHistory() -> Single<Result<PaymentModel, AppError>> {
+        return Single.create { single in
+            do {
+                let urlRequest = try Router
+            } catch {
+                print(error)
+            }
+        }
+    }
+    
 }
 

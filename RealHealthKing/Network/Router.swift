@@ -30,6 +30,7 @@ enum Router {
     case unfollow(userId: String)
     case hashTagSearch
     case purchase(model: PurchaseModel)
+    case paymentHistory
 }
 
 extension Router: TargetType {
@@ -81,6 +82,8 @@ extension Router: TargetType {
             return .get
         case .purchase:
             return .post
+        case .paymentHistory:
+            return .get
         }
     }
     
@@ -124,6 +127,8 @@ extension Router: TargetType {
             return "/posts/hashtags"
         case .purchase:
             return "/payments/validation"
+        case .paymentHistory:
+            return "/payments/me"
         }
     }
     
@@ -234,6 +239,12 @@ extension Router: TargetType {
                 HTTPHeader.authorization.rawValue: KeyChainManager.shared.accessToken,
                 HTTPHeader.sesacKey.rawValue: APIKey.secretKey.rawValue
             ]
+        case .paymentHistory:
+            return [
+                HTTPHeader.authorization.rawValue: KeyChainManager.shared.accessToken,
+                HTTPHeader.contentType.rawValue: HTTPHeader.json.rawValue,
+                HTTPHeader.sesacKey.rawValue: APIKey.secretKey.rawValue
+            ]
         }
     }
     
@@ -297,8 +308,6 @@ extension Router: TargetType {
             return .none
         case .comment(let model, _):
             let encoder = JSONEncoder()
-//            encoder.keyEncodingStrategy =
-//                .convertToSnakeCase
             
             return try? encoder.encode(model)
         case .following:
@@ -313,6 +322,8 @@ extension Router: TargetType {
                 .convertToSnakeCase
             
             return try? encoder.encode(model)
+        case .paymentHistory:
+            return .none
         }
     }
 }

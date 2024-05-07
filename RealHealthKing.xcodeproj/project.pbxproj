@@ -25,6 +25,7 @@
 		DF690D952BCECA3E00F3D1E0 /* KeychainSwift in Frameworks */ = {isa = PBXBuildFile; productRef = DF690D942BCECA3E00F3D1E0 /* KeychainSwift */; };
 		DF690D972BCECA7700F3D1E0 /* NetworkInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF690D962BCECA7700F3D1E0 /* NetworkInterceptor.swift */; };
 		DF690D9B2BCEDB7700F3D1E0 /* PostsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF690D9A2BCEDB7700F3D1E0 /* PostsModel.swift */; };
+		DF7201312BEA6BDD0028AE99 /* PaymentModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF7201302BEA6BDD0028AE99 /* PaymentModel.swift */; };
 		DF73FE4F2BDE8EFA00328279 /* LauchScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF73FE4E2BDE8EFA00328279 /* LauchScreenViewController.swift */; };
 		DF73FE512BDE8F0E00328279 /* LauchScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF73FE502BDE8F0E00328279 /* LauchScreenView.swift */; };
 		DF73FE532BDE8F9B00328279 /* LauchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF73FE522BDE8F9B00328279 /* LauchViewModel.swift */; };
@@ -142,6 +143,7 @@
 		DF6367EB2BCBF3540087A075 /* TextWithHelperViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextWithHelperViewModel.swift; sourceTree = "<group>"; };
 		DF690D962BCECA7700F3D1E0 /* NetworkInterceptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkInterceptor.swift; sourceTree = "<group>"; };
 		DF690D9A2BCEDB7700F3D1E0 /* PostsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostsModel.swift; sourceTree = "<group>"; };
+		DF7201302BEA6BDD0028AE99 /* PaymentModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentModel.swift; sourceTree = "<group>"; };
 		DF73FE4E2BDE8EFA00328279 /* LauchScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LauchScreenViewController.swift; sourceTree = "<group>"; };
 		DF73FE502BDE8F0E00328279 /* LauchScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LauchScreenView.swift; sourceTree = "<group>"; };
 		DF73FE522BDE8F9B00328279 /* LauchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LauchViewModel.swift; sourceTree = "<group>"; };
@@ -617,6 +619,7 @@
 				DF73FE612BDEE07700328279 /* CommentModel.swift */,
 				DF8DFF212BDFFE46009BC7C4 /* FollowingModel.swift */,
 				DF745A1B2BE7072C002ACB70 /* PurchaseModel.swift */,
+				DF7201302BEA6BDD0028AE99 /* PaymentModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1002,6 +1005,7 @@
 				DF6367EA2BCBF3030087A075 /* TextViewWithHelperView.swift in Sources */,
 				DF82CCF52BCA9F670089989E /* Router.swift in Sources */,
 				DF73FE512BDE8F0E00328279 /* LauchScreenView.swift in Sources */,
+				DF7201312BEA6BDD0028AE99 /* PaymentModel.swift in Sources */,
 				DF95A51B2BD0FA4D00E6FCC4 /* PostingView.swift in Sources */,
 				DF6367E62BCBD1B90087A075 /* SignUpView.swift in Sources */,
 				DF745A152BE6AEF1002ACB70 /* UITextField+Extension.swift in Sources */,
