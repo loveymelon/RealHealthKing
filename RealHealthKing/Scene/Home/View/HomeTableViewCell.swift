@@ -55,8 +55,16 @@ class HomeTableViewCell: UITableViewCell {
         $0.setImage(UIImage(systemName: "heart.fill"), for: .selected)
     }
     
+    let likeCountLabel = UILabel().then {
+        $0.textColor = .white
+    }
+    
     let commentButton = UIButton().then {
         $0.setImage(UIImage(systemName: "message"), for: .normal)
+    }
+    
+    let commentCountLabel = UILabel().then {
+        $0.textColor = .white
     }
     
     let bottomStackView = UIStackView().then {
@@ -129,7 +137,7 @@ extension HomeTableViewCell: UIConfigureProtocol {
         contentView.addSubview(topStackView)
         contentView.addSubview(scrollView)
         
-        [likeButton, commentButton].forEach { button in
+        [likeButton, likeCountLabel, commentButton, commentCountLabel].forEach { button in
             bottomStackView.addArrangedSubview(button)
         }
         
@@ -224,6 +232,9 @@ extension HomeTableViewCell {
         nickNameLabel.text = data.creator.nick
         contentLabel.text = data.content1
         hashLabel.text = data.content
+        likeCountLabel.text = "\(data.likes.count)"
+        commentCountLabel.text = "\(data.comments.count)"
+        
         self.homeModel = homeModel
         cellIndex = index
         
@@ -231,6 +242,7 @@ extension HomeTableViewCell {
             
             let url = APIKey.baseURL.rawValue + NetworkVersion.version.rawValue + "/" + imageUrl
             profileImageView.downloadImage(imageUrl: url)
+            
             
         } else {
             profileImageView.image = UIImage(systemName: "person")

@@ -54,7 +54,6 @@ class HomeTableCellViewModel: ViewModelType {
                 switch result {
                 case .success(let data):
                     
-                    print("tap", data.likeStatus, value.1.postId)
                     resultTapLikeValue.onNext(data.likeStatus)
                     
                 case .failure(let error):

@@ -65,22 +65,20 @@ class ProfileView: BaseView {
         $0.setImage(UIImage(systemName: "ellipsis"), for: .normal)
     }
     
-    let menuLabel = UILabel()
-    
     var items: [UIAction] {
         
         let save = UIAction(
-            title: "Save",
-            image: UIImage(systemName: "plus"),
+            title: "로그아웃",
+            image: UIImage(systemName: "rectangle.portrait.and.arrow.right"),
             handler: { [unowned self] _ in
-                menuLabel.text = "Save"
+                
             })
 
         let delete = UIAction(
-            title: "Delete",
-            image: UIImage(systemName: "trash"),
+            title: "계정탈퇴",
+            image: UIImage(systemName: "person"),
             handler: { [unowned self] _ in
-                menuLabel.text = "Delete"
+                
             })
 
         let Items = [save, delete]
@@ -111,14 +109,7 @@ class ProfileView: BaseView {
     override func configureUI() {
         super.configureUI()
         
-        func setupMenu() {
-            let menu = UIMenu(title: "메뉴",
-                              children: items)
-         
-            rightBarButton.menu = menu
-            rightBarButton.showsMenuAsPrimaryAction = true
-            
-        }
+//        setupMenu()
     }
     
     override func configureHierarchy() {
@@ -214,5 +205,15 @@ class ProfileView: BaseView {
         let layout = UICollectionViewCompositionalLayout(section: section)
         
         return layout
+    }
+}
+
+extension ProfileView {
+    func setupMenu() {
+        let menu = UIMenu(title: "메뉴",
+                          children: items)
+     
+        rightBarButton.menu = menu
+        rightBarButton.showsMenuAsPrimaryAction = true
     }
 }

@@ -22,6 +22,32 @@ class ProfileViewController: BaseViewController<ProfileView> {
         
         mainView.scrollView.contentSize.height = UIScreen.main.bounds.height + 20
         
+        let saveAction = UIAlertAction(title: "Save", style: .default) { _ in
+            print("Save Action")
+        }
+        
+        let deleteAction = UIAlertAction(title: "Delete", style: .destructive) { _ in
+            print("Delete Action")
+        }
+        
+        let menu = UIAlertController(title: "Menu", message: nil, preferredStyle: .actionSheet)
+        menu.addAction(saveAction)
+        menu.addAction(deleteAction)
+        
+//        mainView.rightBarButton.rx.tap.flatMapLatest { _ in
+//            return Observable<UIAction>.create { observer in
+//                
+//                self.present(menu, animated: true, completion: {
+//                    observer.onNext(mainView.save)
+//                    observer.onNext(delete)
+//                    observer.onCompleted()
+//                })
+//                return Disposables.create()
+//            }
+//        }.subscribe { _ in
+//            print("select")
+//        }.disposed(by: disposeBag)
+
     }
     
     override func bind() {
@@ -47,6 +73,7 @@ class ProfileViewController: BaseViewController<ProfileView> {
 //            <#code#>
 //        }.disposed(by: disposeBag)
         
+        
         output.outputLeftButtonTap.drive(with: self) { owner, isValid in
             
             if isValid {
@@ -66,7 +93,6 @@ class ProfileViewController: BaseViewController<ProfileView> {
         }.disposed(by: disposeBag)
         
         output.profileImage.drive(with: self) { owner, image in
-            let size = owner.mainView.profileImageView.bounds
             
             owner.imageURL = image
             
@@ -92,8 +118,6 @@ class ProfileViewController: BaseViewController<ProfileView> {
         output.leftButton.drive(mainView.leftButton.rx.title()).disposed(by: disposeBag)
         
         output.postDatas.drive(mainView.collectionView.rx.items(cellIdentifier: SearchCollectionViewCell.identifier, cellType: SearchCollectionViewCell.self)) { index, item, cell in
-            
-            let size = cell.bounds.size
             
             let url = APIKey.baseURL.rawValue + NetworkVersion.version.rawValue + "/" + (item.files.first ?? "empty")
             
