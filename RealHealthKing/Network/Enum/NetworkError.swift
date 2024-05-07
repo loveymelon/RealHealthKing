@@ -23,6 +23,7 @@ enum AppError: Error {
     case followingError(FollowingError)
     case unfollowError(UnFollowError)
     case paymentError(PaymentError)
+    case paymentHistoryError(PaymentHistoryError)
     case unowned
     
     var description: String {
@@ -57,8 +58,11 @@ enum AppError: Error {
             return unfollowError.description
         case .paymentError(let paymentError):
             return paymentError.description
+        case .paymentHistoryError(let paymentHistoryError):
+            return paymentHistoryError.description
         case .unowned:
             return "unowned"
+        
         }
     }
 }
@@ -390,6 +394,26 @@ enum PaymentError: Int, Error {
             return "이미 존재하는 결제건"
         case .noPost:
             return "게시글이 없습니다."
+        case .unAccessToken:
+            return "재로그인 필요"
+        }
+    }
+}
+
+enum PaymentHistoryError: Int, Error {
+    case success = 200
+    case unAccess = 401
+    case forbidden = 403
+    case unAccessToken = 419
+    
+    var description: String {
+        switch self {
+        case .success:
+            return "success"
+        case .unAccess:
+            return "잚소된 접근입니다."
+        case .forbidden:
+            return "접근 권한이 없습니다."
         case .unAccessToken:
             return "재로그인 필요"
         }
