@@ -7,27 +7,25 @@
 
 import Foundation
 
-struct CommentModel: Encodable {
-    let content: String
-}
-
 struct CommentsModel: Codable {
-    let commentId: String
+    let commentId: String?
     let content: String
-    let createdAt: String
-    let creator: Creator
+    let createdAt: String?
+    let creator: Creator?
     
-    enum CodingKeys: String, CodingKey {
-        case commentId = "comment_id"
-        case content
-        case createdAt
-        case creator
-    }
-    
-    init(commentId: String = "", content: String = "", createdAt: String = "", creator: Creator = Creator()) {
+    init(commentId: String? = nil, content: String = "", createdAt: String? = nil, creator: Creator? = nil) {
         self.commentId = commentId
         self.content = content
         self.createdAt = createdAt
         self.creator = creator
     }
+    
+    init(from decoder: any Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.commentId = try container.decodeIfPresent(String.self, forKey: .commentId)
+        self.content = try container.decode(String.self, forKey: .content)
+        self.createdAt = try container.decodeIfPresent(String.self, forKey: .createdAt)
+        self.creator = try container.decodeIfPresent(Creator.self, forKey: .creator)
+    }
+    
 }

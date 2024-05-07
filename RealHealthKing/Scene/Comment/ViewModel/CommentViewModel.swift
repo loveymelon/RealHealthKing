@@ -38,6 +38,7 @@ class CommentViewModel: ViewModelType {
                     case .success(let data):
                         noDataResult.accept(data.comments.isEmpty)
                         observer.onNext(data.comments)
+                        tempPostId = postId
                     case .failure(let error):
                         observer.onError(error)
                     }
@@ -67,11 +68,13 @@ class CommentViewModel: ViewModelType {
         }).disposed(by: disposeBag)
         
         input.inputButtonTap.subscribe { text in
-            NetworkManager.createComments(commentModel: CommentModel(content: text), postId: tempPostId) { result in
+            print("comment", CommentsModel(content: text))
+            NetworkManager.createComments(commentModel: CommentsModel(content: text), postId: tempPostId) { result in
                 switch result {
                 case .success(let data):
                     tempCommentsData.insert(data, at: 0)
                     commentsResult.accept(tempCommentsData)
+                    print(data)
                 case .failure(let error):
                     print(error)
                 }

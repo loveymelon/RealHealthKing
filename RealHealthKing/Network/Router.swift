@@ -25,7 +25,7 @@ enum Router {
     case modifyProfile(model: ModifyProfileModel)
     case otherProfile(userId: String)
     case otherPosts(userId: String)
-    case comment(model: CommentModel, postId: String)
+    case comment(model: CommentsModel, postId: String)
     case following(userId: String)
     case unfollow(userId: String)
     case hashTagSearch
@@ -297,8 +297,8 @@ extension Router: TargetType {
             return .none
         case .comment(let model, _):
             let encoder = JSONEncoder()
-            encoder.keyEncodingStrategy =
-                .convertToSnakeCase
+//            encoder.keyEncodingStrategy =
+//                .convertToSnakeCase
             
             return try? encoder.encode(model)
         case .following:

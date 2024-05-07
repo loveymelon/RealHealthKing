@@ -55,10 +55,10 @@ class CommentViewController: BaseViewController<CommentView> {
         
         output.outputCommentData.drive(mainView.tableView.rx.items(cellIdentifier: CommentTableViewCell.identifier, cellType: CommentTableViewCell.self)) { index, item, cell in
             
-            cell.nickLabel.text = item.creator.nick
+            cell.nickLabel.text = item.creator?.nick
             cell.commentLabel.text = item.content
             
-            if let imageData = item.creator.profileImage {
+            if let imageData = item.creator?.profileImage {
                 
                 let url = APIKey.baseURL.rawValue + NetworkVersion.version.rawValue + "/" + imageData
                 

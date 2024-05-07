@@ -352,7 +352,7 @@ struct NetworkManager {
                     case .failure(let error):
                         print(error)
                         if let statusCode = error.responseCode, let netError = NetworkError(rawValue: statusCode) {
-                            
+                            single(.success(.failure(AppError.networkError(netError))))
                         } else if let statusCode = error.responseCode, let netError = ProfileFetchError(rawValue: statusCode) {
                             single(.success(.failure(.profileFetchError(netError))))
                         }
@@ -367,15 +367,16 @@ struct NetworkManager {
         
     }
     
-    static func createComments(commentModel: CommentModel, postId: String, completionHandler: @escaping ((Result<CommentsModel,AppError>) -> Void)) {
+    static func createComments(commentModel: CommentsModel, postId: String, completionHandler: @escaping ((Result<CommentsModel,AppError>) -> Void)) {
         do {
             let urlRequest = try Router.comment(model: commentModel, postId: postId).asURLRequest()
-            
+            print(urlRequest)
             AF.request(urlRequest).responseDecodable(of: CommentsModel.self) { response in
                 switch response.result {
                 case .success(let data):
                     completionHandler(.success(data))
                 case .failure(let error):
+                    print(response.response?.statusCode)
                     if let statusCode = error.responseCode, let netError = NetworkError(rawValue: statusCode) {
                         completionHandler(.failure(AppError.networkError(netError)))
                     } else if let statusCode = error.responseCode, let netError = CommentError(rawValue: statusCode) {

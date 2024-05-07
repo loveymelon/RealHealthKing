@@ -111,6 +111,8 @@ class HomeTableViewCell: UITableViewCell {
         
         disposeBag = DisposeBag()
         viewModel.disposeBag = DisposeBag() // 셀이 deinit이 안되니 DisposeBag인스턴스를 생성해서 정리해줘야된다 생각하면 이렇게 접근하였습니다.
+        
+        print(homeModel)
     }
     
 }

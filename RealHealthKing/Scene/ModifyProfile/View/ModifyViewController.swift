@@ -96,6 +96,7 @@ extension ModifyViewController {
             
             self.present(picker, animated: true)
         } else {
+            
             DispatchQueue.main.async {
                 self.showSettingAlert(title: "사진 라이브러리 권한 필요", message: "사진을 선택하려면 사진 라이브러리 권한이 필요합니다. 설정에서 권한을 변경할 수 있습니다.")
             }
