@@ -54,6 +54,9 @@
 		DF745A182BE6FA0B002ACB70 /* iamport-ios in Frameworks */ = {isa = PBXBuildFile; productRef = DF745A172BE6FA0B002ACB70 /* iamport-ios */; };
 		DF745A1A2BE6FBBF002ACB70 /* ShopTableViewCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF745A192BE6FBBF002ACB70 /* ShopTableViewCellViewModel.swift */; };
 		DF745A1C2BE7072C002ACB70 /* PurchaseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF745A1B2BE7072C002ACB70 /* PurchaseModel.swift */; };
+		DF746D932BEBDDE300E4F2BE /* TestAViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF746D922BEBDDE300E4F2BE /* TestAViewController.swift */; };
+		DF746D952BEBDDED00E4F2BE /* TestBViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF746D942BEBDDED00E4F2BE /* TestBViewController.swift */; };
+		DF746D972BEBE00400E4F2BE /* TabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF746D962BEBE00400E4F2BE /* TabViewController.swift */; };
 		DF76D1CD2BD23EED00257C38 /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF76D1CC2BD23EED00257C38 /* UIViewController+Extension.swift */; };
 		DF76D1D02BD2521A00257C38 /* RxGesture in Frameworks */ = {isa = PBXBuildFile; productRef = DF76D1CF2BD2521A00257C38 /* RxGesture */; };
 		DF80205D2BDA5DD100473028 /* SearchCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF80205C2BDA5DD100473028 /* SearchCollectionViewCell.swift */; };
@@ -171,6 +174,9 @@
 		DF745A142BE6AEF1002ACB70 /* UITextField+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Extension.swift"; sourceTree = "<group>"; };
 		DF745A192BE6FBBF002ACB70 /* ShopTableViewCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopTableViewCellViewModel.swift; sourceTree = "<group>"; };
 		DF745A1B2BE7072C002ACB70 /* PurchaseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchaseModel.swift; sourceTree = "<group>"; };
+		DF746D922BEBDDE300E4F2BE /* TestAViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestAViewController.swift; sourceTree = "<group>"; };
+		DF746D942BEBDDED00E4F2BE /* TestBViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestBViewController.swift; sourceTree = "<group>"; };
+		DF746D962BEBE00400E4F2BE /* TabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabViewController.swift; sourceTree = "<group>"; };
 		DF76D1CC2BD23EED00257C38 /* UIViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; };
 		DF80205C2BDA5DD100473028 /* SearchCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCollectionViewCell.swift; sourceTree = "<group>"; };
 		DF8020642BDA629500473028 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
@@ -678,6 +684,9 @@
 				DF839D872BC93D99001FE924 /* SignIn */,
 				DF839D822BC93D13001FE924 /* Base */,
 				DF8DFF1F2BDFE054009BC7C4 /* TabBarViewController.swift */,
+				DF746D922BEBDDE300E4F2BE /* TestAViewController.swift */,
+				DF746D942BEBDDED00E4F2BE /* TestBViewController.swift */,
+				DF746D962BEBE00400E4F2BE /* TabViewController.swift */,
 			);
 			path = Scene;
 			sourceTree = "<group>";
@@ -954,6 +963,7 @@
 				DF82CCE02BCA8DA70089989E /* TextFieldViewModel.swift in Sources */,
 				DF690D9B2BCEDB7700F3D1E0 /* PostsModel.swift in Sources */,
 				DF4390502BD6544100520CF7 /* UIScreen+Extension.swift in Sources */,
+				DF746D952BEBDDED00E4F2BE /* TestBViewController.swift in Sources */,
 				DF4390562BD66D4800520CF7 /* UIView+Extension.swift in Sources */,
 				DF806FB62BD92818006046C8 /* SearchViewModel.swift in Sources */,
 				DF73FE602BDEC7EB00328279 /* ScreenState.swift in Sources */,
@@ -990,6 +1000,7 @@
 				DF80205D2BDA5DD100473028 /* SearchCollectionViewCell.swift in Sources */,
 				DF73FE6B2BDEE34400328279 /* CommentViewModel.swift in Sources */,
 				DF6367E82BCBE28B0087A075 /* HelperView.swift in Sources */,
+				DF746D972BEBE00400E4F2BE /* TabViewController.swift in Sources */,
 				DF73FE582BDEB57600328279 /* DetailViewController.swift in Sources */,
 				DF8135BF2BCD1E9900126B9F /* EmailCheckModel.swift in Sources */,
 				DF82CCE72BCA9E9E0089989E /* Headers.swift in Sources */,
@@ -1033,6 +1044,7 @@
 				DF82CCD92BCA87090089989E /* TextFieldView.swift in Sources */,
 				DF806FAF2BD8DCDA006046C8 /* UIVewController+RXSwift.swift in Sources */,
 				DFADFCC12BE3820E006367FE /* HomeModel.swift in Sources */,
+				DF746D932BEBDDE300E4F2BE /* TestAViewController.swift in Sources */,
 				DF892AC32BCC50B7006C69AA /* String+Extension.swift in Sources */,
 				DF82CCEB2BCA9EE10089989E /* NetworkVersion.swift in Sources */,
 				DF73FE5C2BDEB58E00328279 /* DetailViewModel.swift in Sources */,

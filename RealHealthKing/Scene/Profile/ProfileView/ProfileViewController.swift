@@ -8,6 +8,8 @@
 import UIKit
 import RxSwift
 import RxCocoa
+import Tabman
+import Pageboy
 
 class ProfileViewController: BaseViewController<ProfileView> {
     
@@ -35,7 +37,7 @@ class ProfileViewController: BaseViewController<ProfileView> {
         }
         
         let items = [logoutAction, withdrawAction]
-
+        
         mainView.rightBarButton.rx.menu.onNext(UIMenu(title: "메뉴", children: items))
 
     }
@@ -136,4 +138,12 @@ class ProfileViewController: BaseViewController<ProfileView> {
         navigationItem.largeTitleDisplayMode = .never
         
     }
+}
+
+extension ProfileViewController {
+    
+    func configureUI() {
+        
+    }
+    
 }
