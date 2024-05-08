@@ -536,5 +536,7 @@ struct NetworkManager {
         }
     }
     
+//    static func withdraw() -> Single<Result<
+    
 }
 

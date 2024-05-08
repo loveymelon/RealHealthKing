@@ -14,6 +14,8 @@ class ProfileViewController: BaseViewController<ProfileView> {
     let viewModel = ProfileViewModel()
     
     let disposeBag = DisposeBag()
+    let logoutTap = PublishRelay<Void>()
+    let withdrawTap = PublishRelay<Void>()
     
     var imageURL: String?
 
@@ -22,31 +24,19 @@ class ProfileViewController: BaseViewController<ProfileView> {
         
         mainView.scrollView.contentSize.height = UIScreen.main.bounds.height + 20
         
-        let saveAction = UIAlertAction(title: "Save", style: .default) { _ in
-            print("Save Action")
+        let logoutAction = UIAction(title: "로그아웃") { [weak self] _ in
+            guard let self else { return }
+            logoutTap.accept(())
         }
         
-        let deleteAction = UIAlertAction(title: "Delete", style: .destructive) { _ in
-            print("Delete Action")
+        let withdrawAction = UIAction(title: "회원탈퇴") { [weak self] _ in
+            guard let self else { return }
+            withdrawTap.accept(())
         }
         
-        let menu = UIAlertController(title: "Menu", message: nil, preferredStyle: .actionSheet)
-        menu.addAction(saveAction)
-        menu.addAction(deleteAction)
-        
-//        mainView.rightBarButton.rx.tap.flatMapLatest { _ in
-//            return Observable<UIAction>.create { observer in
-//                
-//                self.present(menu, animated: true, completion: {
-//                    observer.onNext(mainView.save)
-//                    observer.onNext(delete)
-//                    observer.onCompleted()
-//                })
-//                return Disposables.create()
-//            }
-//        }.subscribe { _ in
-//            print("select")
-//        }.disposed(by: disposeBag)
+        let items = [logoutAction, withdrawAction]
+
+        mainView.rightBarButton.rx.menu.onNext(UIMenu(title: "메뉴", children: items))
 
     }
     
@@ -57,7 +47,7 @@ class ProfileViewController: BaseViewController<ProfileView> {
         
         let collectionIndex = mainView.collectionView.rx.willDisplayCell.asObservable()
         
-        let input = ProfileViewModel.Input(inputViewWillTrigger: viewWillTrigger, inputLeftButtonTap: inputLeftButtonTap, inputCollectionViewIndex: collectionIndex)
+        let input = ProfileViewModel.Input(inputViewWillTrigger: viewWillTrigger, inputLeftButtonTap: inputLeftButtonTap, inputCollectionViewIndex: collectionIndex, inputLogoutTap: logoutTap.asObservable(), inputWithrowTap: withdrawTap.asObservable())
         
         let output = viewModel.transform(input: input)
         
@@ -68,11 +58,6 @@ class ProfileViewController: BaseViewController<ProfileView> {
             vc.postId.accept(postId)
             owner.navigationController?.pushViewController(vc, animated: true)
         }.disposed(by: disposeBag)
-        
-//        mainView.rightBarButton.rx.tap.subscribe { _ in
-//            <#code#>
-//        }.disposed(by: disposeBag)
-        
         
         output.outputLeftButtonTap.drive(with: self) { owner, isValid in
             
@@ -128,6 +113,10 @@ class ProfileViewController: BaseViewController<ProfileView> {
         output.outputNodata.drive(with: self) { owner, isValid in
             owner.mainView.collectionView.isHidden = isValid
             owner.mainView.noDataView.isHidden = !isValid
+        }.disposed(by: disposeBag)
+        
+        output.outputLogout.drive(with: self) { owner, _ in
+            owner.mainView.window?.rootViewController = SignInViewController()
         }.disposed(by: disposeBag)
         
     }

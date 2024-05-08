@@ -15,6 +15,8 @@ class ProfileViewModel: ViewModelType {
         let inputViewWillTrigger: Observable<Void>
         let inputLeftButtonTap: Observable<Void>
         let inputCollectionViewIndex: Observable<(cell: UICollectionViewCell, at: IndexPath)>
+        let inputLogoutTap: Observable<Void>
+        let inputWithrowTap: Observable<Void>
     }
     
     struct Output {
@@ -29,6 +31,8 @@ class ProfileViewModel: ViewModelType {
         let leftButton: Driver<String>
         let outputLeftButtonTap: Driver<Bool>
         let outputNodata: Driver<Bool>
+        
+        let outputLogout: Driver<Void>
     }
     
     var viewState: ScreenState = .me
@@ -114,6 +118,17 @@ class ProfileViewModel: ViewModelType {
             input.inputLeftButtonTap.subscribe { _ in
                 leftButtonTapResult.accept(true)
             }.disposed(by: disposeBag)
+            
+            input.inputLogoutTap.subscribe(with: self) { owner, _ in
+                
+                KeyChainManager.shared.accessToken = ""
+                KeyChainManager.shared.refreshToken = ""
+                
+            }.disposed(by: disposeBag)
+            
+//            input.inputWithrowTap.subscribe { _ in
+//                <#code#>
+//            }.disposed(by: disposeBag)
             
         case .other:
             
@@ -222,6 +237,6 @@ class ProfileViewModel: ViewModelType {
             
         }
         
-        return Output(profileEmail: emailResult.asDriver(), profileNick: nickResult.asDriver(), profileImage: profileImage.asDriver(), follwerCount: followerCount.asDriver(), follwingCount: followingCount.asDriver(), postDatas: postDatasResult.asDriver(), postCount: postCount.asDriver(), leftButton: leftButtonResult.asDriver(), outputLeftButtonTap: leftButtonTapResult.asDriver(), outputNodata: noDataResult.asDriver())
+        return Output(profileEmail: emailResult.asDriver(), profileNick: nickResult.asDriver(), profileImage: profileImage.asDriver(), follwerCount: followerCount.asDriver(), follwingCount: followingCount.asDriver(), postDatas: postDatasResult.asDriver(), postCount: postCount.asDriver(), leftButton: leftButtonResult.asDriver(), outputLeftButtonTap: leftButtonTapResult.asDriver(), outputNodata: noDataResult.asDriver(), outputLogout: input.inputLogoutTap.asDriver(onErrorJustReturn: ()))
     }
 }
