@@ -23,6 +23,8 @@ class SignInViewController: BaseViewController<SignInView> {
     
     override func bind() {
         mainView.signUpButton.rx.tap.bind(with: self) { owner, _ in
+            print("tap")
+            
             owner.mainView.emailTextFieldView.helperView.isHidden = true
             
             owner.mainView.emailTextFieldView.textFieldView.textField.text = nil
@@ -30,7 +32,7 @@ class SignInViewController: BaseViewController<SignInView> {
             
             owner.mainView.endEditing(true)
             
-            self.navigationController?.pushViewController(SignUpViewController(), animated: true)
+            owner.navigationController?.pushViewController(SignUpViewController(), animated: true)
         }.disposed(by: disposeBag)
         
         let emailPassword = Observable.combineLatest(mainView.emailTextFieldView.textFieldView.textField.rx.text.orEmpty.asObservable(), mainView.passwordTextFieldView.textFieldView.textField.rx.text.orEmpty.asObservable()).asObservable()

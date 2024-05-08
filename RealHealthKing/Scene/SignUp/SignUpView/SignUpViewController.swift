@@ -139,6 +139,12 @@ class SignUpViewController: BaseViewController<SignUpView> {
             }
         }.disposed(by: disposeBag)
         
+        output.signUpComplete.drive(with: self) { owner, isValid in
+            if isValid {
+                owner.navigationController?.popViewController(animated: true)
+            }
+        }
+        
     }
 
 }

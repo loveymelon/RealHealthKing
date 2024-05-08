@@ -33,6 +33,7 @@ class ProfileViewModel: ViewModelType {
         let outputNodata: Driver<Bool>
         
         let outputLogout: Driver<Void>
+        let outputWithdraw: Driver<Bool>
     }
     
     var viewState: ScreenState = .me
@@ -57,6 +58,8 @@ class ProfileViewModel: ViewModelType {
         
         let leftButtonResult = BehaviorRelay(value: "")
         let leftButtonTapResult = BehaviorRelay(value: false)
+        
+        let withdrawReslut = PublishRelay<Bool>()
         
         switch viewState {
         case .me:
@@ -126,9 +129,19 @@ class ProfileViewModel: ViewModelType {
                 
             }.disposed(by: disposeBag)
             
-//            input.inputWithrowTap.subscribe { _ in
-//                <#code#>
-//            }.disposed(by: disposeBag)
+            input.inputWithrowTap.flatMap { NetworkManager.withdraw() }.subscribe { result in
+                
+                switch result {
+                
+                case .success(_):
+                    withdrawReslut.accept(true)
+                case .failure(let error):
+                    withdrawReslut.accept(false)
+                }
+                
+            } onError: { error in
+                print(error)
+            }.disposed(by: disposeBag)
             
         case .other:
             
@@ -237,6 +250,6 @@ class ProfileViewModel: ViewModelType {
             
         }
         
-        return Output(profileEmail: emailResult.asDriver(), profileNick: nickResult.asDriver(), profileImage: profileImage.asDriver(), follwerCount: followerCount.asDriver(), follwingCount: followingCount.asDriver(), postDatas: postDatasResult.asDriver(), postCount: postCount.asDriver(), leftButton: leftButtonResult.asDriver(), outputLeftButtonTap: leftButtonTapResult.asDriver(), outputNodata: noDataResult.asDriver(), outputLogout: input.inputLogoutTap.asDriver(onErrorJustReturn: ()))
+        return Output(profileEmail: emailResult.asDriver(), profileNick: nickResult.asDriver(), profileImage: profileImage.asDriver(), follwerCount: followerCount.asDriver(), follwingCount: followingCount.asDriver(), postDatas: postDatasResult.asDriver(), postCount: postCount.asDriver(), leftButton: leftButtonResult.asDriver(), outputLeftButtonTap: leftButtonTapResult.asDriver(), outputNodata: noDataResult.asDriver(), outputLogout: input.inputLogoutTap.asDriver(onErrorJustReturn: ()), outputWithdraw: withdrawReslut.asDriver(onErrorJustReturn: false))
     }
 }

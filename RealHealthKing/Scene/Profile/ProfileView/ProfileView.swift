@@ -15,6 +15,7 @@ class ProfileView: BaseView {
         $0.layer.borderWidth = 1
         $0.layer.borderColor = UIColor.white.cgColor
         $0.clipsToBounds = true
+        $0.layer.cornerRadius = 40
     }
     
     let postView = CountView().then {
@@ -65,27 +66,6 @@ class ProfileView: BaseView {
         $0.setImage(UIImage(systemName: "ellipsis"), for: .normal)
     }
     
-    var items: [UIAction] {
-        
-        let save = UIAction(
-            title: "로그아웃",
-            image: UIImage(systemName: "rectangle.portrait.and.arrow.right"),
-            handler: { [unowned self] _ in
-                
-            })
-
-        let delete = UIAction(
-            title: "계정탈퇴",
-            image: UIImage(systemName: "person"),
-            handler: { [unowned self] _ in
-                
-            })
-
-        let Items = [save, delete]
-
-        return Items
-    }
-    
     let scrollView = UIScrollView()
 
     override init(frame: CGRect) {
@@ -94,22 +74,6 @@ class ProfileView: BaseView {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        
-        DispatchQueue.main.async { [weak self] in
-            guard let self else { return }
-            
-            profileImageView.layer.cornerRadius = profileImageView.bounds.width / 2
-        }
-    }
-    
-    override func configureUI() {
-        super.configureUI()
-        
-//        setupMenu()
     }
     
     override func configureHierarchy() {
@@ -205,15 +169,5 @@ class ProfileView: BaseView {
         let layout = UICollectionViewCompositionalLayout(section: section)
         
         return layout
-    }
-}
-
-extension ProfileView {
-    func setupMenu() {
-        let menu = UIMenu(title: "메뉴",
-                          children: items)
-     
-        rightBarButton.menu = menu
-        rightBarButton.showsMenuAsPrimaryAction = true
     }
 }

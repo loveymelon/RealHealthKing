@@ -31,6 +31,7 @@ enum Router {
     case hashTagSearch
     case purchase(model: PurchaseModel)
     case paymentHistory
+    case withdraw
 }
 
 extension Router: TargetType {
@@ -84,6 +85,8 @@ extension Router: TargetType {
             return .post
         case .paymentHistory:
             return .get
+        case .withdraw:
+            return .get
         }
     }
     
@@ -129,6 +132,8 @@ extension Router: TargetType {
             return "/payments/validation"
         case .paymentHistory:
             return "/payments/me"
+        case .withdraw:
+            return "/users/withdraw"
         }
     }
     
@@ -245,6 +250,12 @@ extension Router: TargetType {
                 HTTPHeader.contentType.rawValue: HTTPHeader.json.rawValue,
                 HTTPHeader.sesacKey.rawValue: APIKey.secretKey.rawValue
             ]
+        case .withdraw:
+            return [
+                HTTPHeader.contentType.rawValue: HTTPHeader.json.rawValue,
+                HTTPHeader.authorization.rawValue: KeyChainManager.shared.accessToken,
+                HTTPHeader.sesacKey.rawValue: APIKey.secretKey.rawValue
+            ]
         }
     }
     
@@ -323,6 +334,8 @@ extension Router: TargetType {
             
             return try? encoder.encode(model)
         case .paymentHistory:
+            return .none
+        case .withdraw:
             return .none
         }
     }

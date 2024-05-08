@@ -27,6 +27,7 @@ class SignUpViewModel: ViewModelType {
         let isCheckPasswordValid: Driver<Bool>
         let isNickValid: Driver<Bool>
         let isSignUpButtonEnabled: Driver<Bool>
+        let signUpComplete: Driver<Bool>
     }
     
     var disposeBag = DisposeBag()
@@ -40,6 +41,7 @@ class SignUpViewModel: ViewModelType {
         let isSignUpButtonEnabled = BehaviorRelay(value: false)
         
         let networkResult = BehaviorRelay(value: "")
+        let signUpButtonResult = PublishRelay<Bool>()
         
         input.emailText.map { $0.checkEmail(str: $0) }.bind(to: checkButtonIs).disposed(by: disposeBag)
         
@@ -83,12 +85,13 @@ class SignUpViewModel: ViewModelType {
             .subscribe { result in
                 switch result {
                 case .success(let data):
-                    print(data)
+                    signUpButtonResult.accept(true)
                 case .failure(let error):
+                    signUpButtonResult.accept(false)
                     networkResult.accept(error.description)
                 }
             }
         
-        return Output(checkButtonIs: checkButtonIs.asDriver(), networkError: networkResult.asDriver(), isEmailValid: emailValidResult.asDriver(), isPasswordValid: passwordValidResult.asDriver(), isCheckPasswordValid: checkPasswordValidResult.asDriver(), isNickValid: nickValidResult.asDriver(), isSignUpButtonEnabled: isSignUpButtonEnabled.asDriver())
+        return Output(checkButtonIs: checkButtonIs.asDriver(), networkError: networkResult.asDriver(), isEmailValid: emailValidResult.asDriver(), isPasswordValid: passwordValidResult.asDriver(), isCheckPasswordValid: checkPasswordValidResult.asDriver(), isNickValid: nickValidResult.asDriver(), isSignUpButtonEnabled: isSignUpButtonEnabled.asDriver(), signUpComplete: signUpButtonResult.asDriver(onErrorJustReturn: false))
     }
 }

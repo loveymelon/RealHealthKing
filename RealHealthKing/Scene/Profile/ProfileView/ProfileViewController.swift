@@ -88,6 +88,7 @@ class ProfileViewController: BaseViewController<ProfileView> {
                 
                 owner.mainView.profileImageView.downloadImage(imageUrl: url)
             }
+            
         }.disposed(by: disposeBag)
         
         output.follwingCount.drive(with: self) { owner, count in
@@ -116,7 +117,13 @@ class ProfileViewController: BaseViewController<ProfileView> {
         }.disposed(by: disposeBag)
         
         output.outputLogout.drive(with: self) { owner, _ in
-            owner.mainView.window?.rootViewController = SignInViewController()
+            owner.mainView.window?.rootViewController = UINavigationController(rootViewController: SignInViewController())
+        }.disposed(by: disposeBag)
+        
+        output.outputWithdraw.drive(with: self) { owner, isValid in
+            if isValid {
+                owner.mainView.window?.rootViewController = UINavigationController(rootViewController: SignInViewController())
+            }
         }.disposed(by: disposeBag)
         
     }
