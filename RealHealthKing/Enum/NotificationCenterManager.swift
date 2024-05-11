@@ -8,12 +8,12 @@
 import Foundation
 
 enum NotificationCenterManager: NotificationCenterProtocol {
-    case like
+    case postData
     
     var name: Notification.Name {
         switch self {
-        case .like:
-            return Notification.Name("Like")
+        case .postData:
+            return Notification.Name("postData")
         }
     }
     

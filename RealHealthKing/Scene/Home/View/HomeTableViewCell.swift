@@ -282,10 +282,13 @@ extension HomeTableViewCell {
             let vc = ProfileViewController()
             
             if KeyChainManager.shared.userId == id {
+                vc.mainView.tabVC.viewState = .me
                 vc.viewModel.viewState = .me
             } else {
                 vc.viewModel.otherUserId = id
                 vc.viewModel.viewState = .other
+                vc.mainView.tabVC.viewState = .other
+                vc.mainView.tabVC.userId = id
             }
             
             owner.delegate?.profileViewTap(vc: vc)

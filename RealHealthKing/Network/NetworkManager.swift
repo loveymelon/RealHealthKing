@@ -252,11 +252,11 @@ struct NetworkManager {
         
     }
     
-    static func fetchUserPosts(cursor: String = "") -> Single<Result<PostsModel, AppError>>  {
+    static func fetchUserPosts(cursor: String = "", productId: String) -> Single<Result<PostsModel, AppError>>  {
         
         return Single.create { single in
             do {
-                let urlRequest = try Router.userPosts.pageURLRequest(cursorValue: cursor)
+                let urlRequest = try Router.userPosts.pageURLRequest(cursorValue: cursor, productId: productId)
                 
                 AF.request(urlRequest, interceptor: NetworkInterceptor()).responseDecodable(of: PostsModel.self) { response in
                     switch response.result {
@@ -316,11 +316,11 @@ struct NetworkManager {
         
     }
     
-    static func otherUserPosts(userId: String, cursor: String = "") -> Single<Result<PostsModel, AppError>>  {
+    static func otherUserPosts(userId: String, cursor: String = "", productId: String) -> Single<Result<PostsModel, AppError>>  {
         
         return Single.create { single in
             do {
-                let urlRequest = try Router.otherPosts(userId: userId).pageURLRequest(cursorValue: cursor)
+                let urlRequest = try Router.otherPosts(userId: userId).pageURLRequest(cursorValue: cursor, productId: productId)
                 
                 AF.request(urlRequest).responseDecodable(of: PostsModel.self) { response in
                     switch response.result {
@@ -437,9 +437,9 @@ struct NetworkManager {
         }
     }
     
-    static func pagePosts(cursor: String, completionHandler: @escaping ((Result<PostsModel, AppError>) -> Void)) {
+    static func pagePosts(cursor: String, productId: String, completionHandler: @escaping ((Result<PostsModel, AppError>) -> Void)) {
         do {
-            let urlRequest = try Router.postFetch.pageURLRequest(cursorValue: cursor)
+            let urlRequest = try Router.postFetch.pageURLRequest(cursorValue: cursor, productId: productId)
             
             AF.request(urlRequest).responseDecodable(of: PostsModel.self) { response in
                 switch response.result {

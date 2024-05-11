@@ -51,14 +51,14 @@ extension TargetType {
         return urlRequest
     }
     
-    func pageURLRequest(cursorValue: String) throws -> URLRequest {
+    func pageURLRequest(cursorValue: String, productId: String) throws -> URLRequest {
         let url = try baseURL.asURL()
         
         var urlRequest = try URLRequest(url: url.appendingPathComponent(version + path), method: method, headers: HTTPHeaders(header))
         
         let cursor = URLQueryItem(name: "next", value: cursorValue)
         let limit = URLQueryItem(name: "limit", value: "15")
-        let productid = URLQueryItem(name: "product_id", value: "myLoveGym")
+        let productid = URLQueryItem(name: "product_id", value: productId)
         
         urlRequest.url?.append(queryItems: [cursor,limit, productid])
         

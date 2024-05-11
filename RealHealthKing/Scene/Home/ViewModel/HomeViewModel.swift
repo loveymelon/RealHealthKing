@@ -47,7 +47,7 @@ class HomeViewModel: ViewModelType {
         
         input.inputTableViewIndex.subscribe(with: self) { owner, index in
             if index.indexPath.row == resultPostsDatas.value.count - 1 && cursor != "0" {
-                NetworkManager.pagePosts(cursor: cursor) { result in
+                NetworkManager.pagePosts(cursor: cursor, productId: "myLoveGym") { result in
                     print("net")
                     switch result {
                     case .success(let data):

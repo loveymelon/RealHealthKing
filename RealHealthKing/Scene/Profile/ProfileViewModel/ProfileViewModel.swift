@@ -14,7 +14,7 @@ class ProfileViewModel: ViewModelType {
     struct Input {
         let inputViewWillTrigger: Observable<Void>
         let inputLeftButtonTap: Observable<Void>
-        let inputCollectionViewIndex: Observable<(cell: UICollectionViewCell, at: IndexPath)>
+        
         let inputLogoutTap: Observable<Void>
         let inputWithrowTap: Observable<Void>
     }
@@ -25,12 +25,11 @@ class ProfileViewModel: ViewModelType {
         let profileImage: Driver<String>
         let follwerCount: Driver<Int>
         let follwingCount: Driver<Int>
-        let postDatas: Driver<[Posts]>
+        let postDatas: Driver<(posts: [Posts], cursor: String)>
         let postCount: Driver<Int>
         
         let leftButton: Driver<String>
         let outputLeftButtonTap: Driver<Bool>
-        let outputNodata: Driver<Bool>
         
         let outputLogout: Driver<Void>
         let outputWithdraw: Driver<Bool>
@@ -44,7 +43,8 @@ class ProfileViewModel: ViewModelType {
     var isValid = false
     
     func transform(input: Input) -> Output {
-        var cursor = ""
+        
+        let postDatasResult = BehaviorRelay<(posts: [Posts], cursor: String)>(value: (posts: [], cursor: ""))
         
         let emailResult = BehaviorRelay(value: "")
         let nickResult = BehaviorRelay(value: "")
@@ -52,9 +52,6 @@ class ProfileViewModel: ViewModelType {
         let followerCount = BehaviorRelay(value: 0)
         let followingCount = BehaviorRelay(value: 0)
         let postCount = BehaviorRelay(value: 0)
-        let noDataResult = BehaviorRelay(value: false)
-        
-        let postDatasResult = BehaviorRelay<[Posts]>(value: [])
         
         let leftButtonResult = BehaviorRelay(value: "")
         let leftButtonTapResult = BehaviorRelay(value: false)
@@ -63,9 +60,7 @@ class ProfileViewModel: ViewModelType {
         
         switch viewState {
         case .me:
-            input.inputViewWillTrigger.flatMap {
-                NetworkManager.fetchUserPosts()
-            }.subscribe { result in
+            input.inputViewWillTrigger.subscribe { _ in
                 NetworkManager.fetchProfile { profileResult in
                     switch profileResult {
                     case .success(let proFileData):
@@ -78,43 +73,10 @@ class ProfileViewModel: ViewModelType {
                         leftButtonResult.accept("프로필 편집")
                         
                         UserDefaults.standard.setValue(proFileData.nick, forKey: "nick")
-                       
-                        switch result {
-                        case .success(let data):
-                            cursor = data.nextCursor
-                            postDatasResult.accept(data.data)
-                        case .failure(let failure):
-                            print(failure)
-                        }
                         
                     case .failure(let error):
                         print(error)
                     }
-                }
-            } onError: { error in
-                print(error)
-            }.disposed(by: disposeBag)
-            
-            input.inputCollectionViewIndex.subscribe(with: self) { owner, item in
-                
-                if item.1.row == postDatasResult.value.count - 1 && cursor != "0" {
-                    NetworkManager.fetchUserPosts(cursor: cursor)
-                        .subscribe(onSuccess: { result in
-                            switch result {
-                            case .success(let data):
-                                let temp = postDatasResult.value + data.data
-                                
-                                cursor = data.nextCursor
-                                postDatasResult.accept(temp)
-                            case .failure(let error):
-                                // 에러가 발생했을 때 처리
-                                print(error)
-                            }
-                        }, onFailure: { error in
-                            // 에러가 발생했을 때 처리
-                            print("!!!!!!!!!!!!",error)
-                        })
-                        .disposed(by: owner.disposeBag)
                 }
             }.disposed(by: disposeBag)
             
@@ -137,6 +99,7 @@ class ProfileViewModel: ViewModelType {
                     withdrawReslut.accept(true)
                 case .failure(let error):
                     withdrawReslut.accept(false)
+                    print(error)
                 }
                 
             } onError: { error in
@@ -145,9 +108,7 @@ class ProfileViewModel: ViewModelType {
             
         case .other:
             
-            input.inputViewWillTrigger.withUnretained(self).flatMap { owner, _ in
-                return NetworkManager.otherUserPosts(userId: owner.otherUserId)
-            }.subscribe(with: self) { owner, result in
+            input.inputViewWillTrigger.withUnretained(self).subscribe(with: self) { owner, _ in
                 
                 NetworkManager.otherUserProfile(userId: owner.otherUserId).subscribe { profileResult in
                     switch profileResult {
@@ -179,45 +140,13 @@ class ProfileViewModel: ViewModelType {
                             
                         }
                         
-                        switch result {
-                        case .success(let data):
-                            cursor = data.nextCursor
-                            postDatasResult.accept(data.data)
-                        case .failure(let error):
-                            print(error)
-                        }
-                        
                     case .failure(let error):
                         print(error)
                     }
-                } onFailure: { error in
-                    print(error)
                 }.disposed(by: owner.disposeBag)
 
             } onError: { error,_  in
                 print(error)
-            }.disposed(by: disposeBag)
-            
-            input.inputCollectionViewIndex.subscribe(with: self) { owner, item in
-                
-                if item.1.row == postDatasResult.value.count - 1 && cursor != "0" {
-                    NetworkManager.otherUserPosts(userId: owner.otherUserId, cursor: cursor)
-                        .subscribe(onSuccess: { result in
-                            switch result {
-                            case .success(let data):
-                                let temp = postDatasResult.value + data.data
-                                
-                                cursor = data.nextCursor
-                                postDatasResult.accept(temp)
-                            case .failure(let error):
-                                print(error)
-                            }
-                        }, onFailure: { error in
-
-                            print(error)
-                        })
-                        .disposed(by: owner.disposeBag)
-                }
             }.disposed(by: disposeBag)
 
             input.inputLeftButtonTap.subscribe(with: self) { owner, _ in
@@ -250,6 +179,6 @@ class ProfileViewModel: ViewModelType {
             
         }
         
-        return Output(profileEmail: emailResult.asDriver(), profileNick: nickResult.asDriver(), profileImage: profileImage.asDriver(), follwerCount: followerCount.asDriver(), follwingCount: followingCount.asDriver(), postDatas: postDatasResult.asDriver(), postCount: postCount.asDriver(), leftButton: leftButtonResult.asDriver(), outputLeftButtonTap: leftButtonTapResult.asDriver(), outputNodata: noDataResult.asDriver(), outputLogout: input.inputLogoutTap.asDriver(onErrorJustReturn: ()), outputWithdraw: withdrawReslut.asDriver(onErrorJustReturn: false))
+        return Output(profileEmail: emailResult.asDriver(), profileNick: nickResult.asDriver(), profileImage: profileImage.asDriver(), follwerCount: followerCount.asDriver(), follwingCount: followingCount.asDriver(), postDatas: postDatasResult.asDriver(), postCount: postCount.asDriver(), leftButton: leftButtonResult.asDriver(), outputLeftButtonTap: leftButtonTapResult.asDriver(), outputLogout: input.inputLogoutTap.asDriver(onErrorJustReturn: ()), outputWithdraw: withdrawReslut.asDriver(onErrorJustReturn: false))
     }
 }

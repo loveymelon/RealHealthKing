@@ -10,6 +10,7 @@ import RxSwift
 import RxCocoa
 import Tabman
 import Pageboy
+import SnapKit
 
 class ProfileViewController: BaseViewController<ProfileView> {
     
@@ -23,6 +24,8 @@ class ProfileViewController: BaseViewController<ProfileView> {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        print("ddd", #function)
         
         mainView.scrollView.contentSize.height = UIScreen.main.bounds.height + 20
         
@@ -47,19 +50,9 @@ class ProfileViewController: BaseViewController<ProfileView> {
         
         let inputLeftButtonTap = mainView.leftButton.rx.tap.asObservable()
         
-        let collectionIndex = mainView.collectionView.rx.willDisplayCell.asObservable()
-        
-        let input = ProfileViewModel.Input(inputViewWillTrigger: viewWillTrigger, inputLeftButtonTap: inputLeftButtonTap, inputCollectionViewIndex: collectionIndex, inputLogoutTap: logoutTap.asObservable(), inputWithrowTap: withdrawTap.asObservable())
+        let input = ProfileViewModel.Input(inputViewWillTrigger: viewWillTrigger, inputLeftButtonTap: inputLeftButtonTap, inputLogoutTap: logoutTap.asObservable(), inputWithrowTap: withdrawTap.asObservable())
         
         let output = viewModel.transform(input: input)
-        
-        mainView.collectionView.rx.modelSelected(Posts.self).bind(with: self) { owner, item in
-            let vc = DetailViewController()
-            guard let postId = item.postId else { return }
-            
-            vc.postId.accept(postId)
-            owner.navigationController?.pushViewController(vc, animated: true)
-        }.disposed(by: disposeBag)
         
         output.outputLeftButtonTap.drive(with: self) { owner, isValid in
             
@@ -105,18 +98,24 @@ class ProfileViewController: BaseViewController<ProfileView> {
         
         output.leftButton.drive(mainView.leftButton.rx.title()).disposed(by: disposeBag)
         
-        output.postDatas.drive(mainView.collectionView.rx.items(cellIdentifier: SearchCollectionViewCell.identifier, cellType: SearchCollectionViewCell.self)) { index, item, cell in
-            
-            let url = APIKey.baseURL.rawValue + NetworkVersion.version.rawValue + "/" + (item.files.first ?? "empty")
-            
-            cell.postImageView.downloadImage(imageUrl: url)
-            
-        }.disposed(by: disposeBag)
+//        output.postDatas.drive(with: self) { owner, data in
+//            
+////            let tabVC = TabViewController()
+////            
+////            tabVC.postData = data.posts
+////            tabVC.cursor = data.cursor
+////            
+////            owner.delegate?.networkPostData(posts: data.posts, cursor: data.cursor)
+////            
+////            owner.mainView.containerView.addSubview(tabVC.view)
+//            
+//        }.disposed(by: disposeBag)
         
-        output.outputNodata.drive(with: self) { owner, isValid in
-            owner.mainView.collectionView.isHidden = isValid
-            owner.mainView.noDataView.isHidden = !isValid
-        }.disposed(by: disposeBag)
+//        output.postDatas.drive(with: self) { owner, datas in
+//            
+//            owner.
+//
+//        }.disposed(by: disposeBag)
         
         output.outputLogout.drive(with: self) { owner, _ in
             owner.mainView.window?.rootViewController = UINavigationController(rootViewController: SignInViewController())

@@ -42,32 +42,19 @@ class ProfileView: BaseView {
         $0.layer.cornerRadius = 10
     }
     
-    let buttonStackView = UIStackView().then {
-        $0.axis = .horizontal
-        $0.distribution = .fillEqually
-        $0.spacing = 4
-        $0.alignment = .fill
-    }
-    
-    let collectionView = UICollectionView(frame: .zero, collectionViewLayout: createThreeColumnSection()).then {
-        $0.register(SearchCollectionViewCell.self, forCellWithReuseIdentifier: SearchCollectionViewCell.identifier)
-        $0.backgroundColor = .black
-    }
-    
-    let noDataView = NoDataView().then {
-        $0.setText("게시글 없음")
-    }
-    
-    let lineView = UIView().then {
-        $0.backgroundColor = .white
-    }
-    
     let rightBarButton = UIButton().then {
         $0.setImage(UIImage(systemName: "ellipsis"), for: .normal)
     }
     
+    let containerView = UIView()
+    
+    
     let scrollView = UIScrollView()
-
+    
+    let contentView = UIView()
+    
+    let tabVC = TabViewController()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
     }
@@ -77,32 +64,38 @@ class ProfileView: BaseView {
     }
     
     override func configureHierarchy() {
-        [leftButton].forEach { button in
-            buttonStackView.addArrangedSubview(button)
-        }
         
         addSubview(scrollView)
-        scrollView.addSubview(profileImageView)
-        scrollView.addSubview(postView)
-        scrollView.addSubview(followingView)
-        scrollView.addSubview(follwerView)
-        scrollView.addSubview(nicknameLabel)
-        scrollView.addSubview(buttonStackView)
-        scrollView.addSubview(lineView)
-        scrollView.addSubview(collectionView)
-        scrollView.addSubview(noDataView)
+        scrollView.addSubview(contentView)
+        
+        contentView.addSubview(profileImageView)
+        contentView.addSubview(postView)
+        contentView.addSubview(followingView)
+        contentView.addSubview(follwerView)
+        contentView.addSubview(nicknameLabel)
+        contentView.addSubview(leftButton)
+        
+        contentView.addSubview(containerView)
+        
+        containerView.addSubview(tabVC.view)
+        
+        
     }
     
     override func configureLayout() {
         scrollView.snp.makeConstraints { make in
-            make.width.equalToSuperview()
-            make.height.equalToSuperview()
+            make.edges.equalTo(safeAreaLayoutGuide)
+        }
+        
+        contentView.snp.makeConstraints { make in
+            make.verticalEdges.equalTo(scrollView.safeAreaLayoutGuide)
+            make.width.equalTo(scrollView.safeAreaLayoutGuide.snp.width)
         }
         
         profileImageView.snp.makeConstraints { make in
             make.size.equalTo(80)
-            make.leading.equalToSuperview().inset(30)
-            make.top.equalToSuperview().inset(10)
+            make.leading.equalTo(contentView.safeAreaLayoutGuide.snp.leading).inset(30)
+            make.top.equalTo(contentView.safeAreaLayoutGuide.snp.top).inset(10)
         }
         
         postView.snp.makeConstraints { make in
@@ -128,46 +121,21 @@ class ProfileView: BaseView {
             make.leading.equalTo(profileImageView.snp.leading)
         }
         
-        buttonStackView.snp.makeConstraints { make in
-            make.leading.equalTo(profileImageView.snp.leading)
-            make.height.equalTo(26)
-            make.trailing.equalTo(follwerView.snp.trailing)
+        leftButton.snp.makeConstraints { make in
             make.top.equalTo(nicknameLabel.snp.bottom).offset(10)
+            make.leading.equalTo(nicknameLabel.snp.leading)
+            make.trailing.equalTo(follwerView.snp.trailing)
+//            make.bottom.equalTo(contentView.snp.bottom).offset(-500)
+            make.height.equalTo(26)
         }
         
-        lineView.snp.makeConstraints { make in
-            make.top.equalTo(buttonStackView.snp.bottom).offset(10)
-            make.width.equalTo(scrollView.snp.width)
-            make.height.equalTo(1)
+        containerView.snp.makeConstraints { make in
+            make.top.equalTo(leftButton.snp.bottom).offset(10)
+            make.horizontalEdges.equalTo(contentView.safeAreaLayoutGuide)
+            make.bottom.equalTo(contentView.safeAreaLayoutGuide.snp.bottom).offset(-300)
         }
         
-        collectionView.snp.makeConstraints { make in
-            make.top.equalTo(lineView.snp.bottom).offset(10)
-            make.width.equalTo(scrollView.snp.width)
-            make.height.equalTo(500)
-        }
-        
-        noDataView.snp.makeConstraints { make in
-            make.top.equalTo(lineView.snp.bottom)
-            make.width.equalTo(scrollView.snp.width)
-            make.bottom.equalTo(scrollView.snp.bottom)
-        }
     }
     
-    static func createThreeColumnSection() -> UICollectionViewLayout {
-        let inset: CGFloat = 0.5
-        
-        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalWidth(1.0))
-        let item = NSCollectionLayoutItem(layoutSize: itemSize)
-        item.contentInsets = .init(top: inset, leading: inset, bottom: inset, trailing: inset)
-        
-        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1/3), heightDimension: .fractionalWidth(1/3))
-        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, repeatingSubitem: item, count: 3)
-        
-        let section = NSCollectionLayoutSection(group: group)
-        
-        let layout = UICollectionViewCompositionalLayout(section: section)
-        
-        return layout
-    }
+    
 }

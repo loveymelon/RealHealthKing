@@ -86,7 +86,7 @@ class SearchViewModel: ViewModelType {
         input.collectionCellIndex.subscribe(with: self) { owner, item in
             
             if item.1.row == postsDatas.value.count - 1 && cursor != "0" {
-                NetworkManager.pagePosts(cursor: cursor) { result in
+                NetworkManager.pagePosts(cursor: cursor, productId: "myLoveGym") { result in
                     
                     switch result {
                     case .success(let data):
