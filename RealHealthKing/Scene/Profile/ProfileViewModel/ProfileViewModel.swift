@@ -33,6 +33,8 @@ class ProfileViewModel: ViewModelType {
         
         let outputLogout: Driver<Void>
         let outputWithdraw: Driver<Bool>
+        
+        let outputOtherIsValid: Driver<Bool>
     }
     
     var viewState: ScreenState = .me
@@ -57,6 +59,8 @@ class ProfileViewModel: ViewModelType {
         let leftButtonTapResult = BehaviorRelay(value: false)
         
         let withdrawReslut = PublishRelay<Bool>()
+        
+        let otherIsValidResult = BehaviorRelay<Bool>(value: false)
         
         switch viewState {
         case .me:
@@ -105,6 +109,8 @@ class ProfileViewModel: ViewModelType {
             } onError: { error in
                 print(error)
             }.disposed(by: disposeBag)
+            
+            otherIsValidResult.accept(false)
             
         case .other:
             
@@ -177,8 +183,10 @@ class ProfileViewModel: ViewModelType {
                 }
             }.disposed(by: disposeBag)
             
+            otherIsValidResult.accept(true)
+            
         }
         
-        return Output(profileEmail: emailResult.asDriver(), profileNick: nickResult.asDriver(), profileImage: profileImage.asDriver(), follwerCount: followerCount.asDriver(), follwingCount: followingCount.asDriver(), postDatas: postDatasResult.asDriver(), postCount: postCount.asDriver(), leftButton: leftButtonResult.asDriver(), outputLeftButtonTap: leftButtonTapResult.asDriver(), outputLogout: input.inputLogoutTap.asDriver(onErrorJustReturn: ()), outputWithdraw: withdrawReslut.asDriver(onErrorJustReturn: false))
+        return Output(profileEmail: emailResult.asDriver(), profileNick: nickResult.asDriver(), profileImage: profileImage.asDriver(), follwerCount: followerCount.asDriver(), follwingCount: followingCount.asDriver(), postDatas: postDatasResult.asDriver(), postCount: postCount.asDriver(), leftButton: leftButtonResult.asDriver(), outputLeftButtonTap: leftButtonTapResult.asDriver(), outputLogout: input.inputLogoutTap.asDriver(onErrorJustReturn: ()), outputWithdraw: withdrawReslut.asDriver(onErrorJustReturn: false), outputOtherIsValid: otherIsValidResult.asDriver())
     }
 }

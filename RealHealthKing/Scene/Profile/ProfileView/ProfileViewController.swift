@@ -110,6 +110,10 @@ class ProfileViewController: BaseViewController<ProfileView> {
             }
         }.disposed(by: disposeBag)
         
+        output.outputOtherIsValid.drive(with: self) { owner, isValid in
+            owner.mainView.rightBarButton.isHidden = isValid
+        }.disposed(by: disposeBag)
+        
 //        output.postDatas.drive(with: self) { owner, items in
 //            let tabVC = TabViewController()
 //            
