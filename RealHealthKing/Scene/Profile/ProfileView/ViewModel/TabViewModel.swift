@@ -80,7 +80,7 @@ class TabViewModel: ViewModelType {
         case .other:
             
             input.inputViewWillTrigger.withUnretained(self).flatMap { owner, _ in
-                NetworkManager.otherUserPosts(userId: owner.userId, productId: owner.productId)
+                return NetworkManager.otherUserPosts(userId: owner.userId, productId: owner.productId)
             }.subscribe { result in
                 
                 switch result {
@@ -88,6 +88,7 @@ class TabViewModel: ViewModelType {
                 case .success(let data):
                     cursor = data.nextCursor
                     postDatasResult.accept(data.data)
+                    print(data.data)
                 case .failure(let error):
                     print(error)
                 }

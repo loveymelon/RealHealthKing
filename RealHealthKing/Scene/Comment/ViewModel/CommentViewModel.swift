@@ -28,7 +28,7 @@ class CommentViewModel: ViewModelType {
         var tempCommentsData:[CommentsModel] = []
         var noDataResult = BehaviorRelay(value: false)
         
-        let commentsResult = BehaviorRelay<[CommentsModel]>(value: [])
+        let commentsResult = PublishRelay<[CommentsModel]>()
         let profileImageResult = BehaviorRelay(value: "")
         
         input.inputViewWillAppear.flatMap { postId in
@@ -43,7 +43,6 @@ class CommentViewModel: ViewModelType {
                     if let imageData = data.profileImage {
                         
                         if let imageData = data.profileImage {
-                            print("comment", tempCommentsData)
                             profileImageResult.accept(imageData)
                         } else {
                             profileImageResult.accept("person")
@@ -52,16 +51,29 @@ class CommentViewModel: ViewModelType {
                         switch detailResult {
                             
                         case .success(let detailData):
+                            print("detail")
                             tempCommentsData = detailData.comments
-                            
+                            print(detailData)
                             profileImageResult.accept(imageData)
                             commentsResult.accept(tempCommentsData)
                         case .failure(let error):
-                            print(error)
+                            print("error", error)
                         }
                         
                     } else {
                         profileImageResult.accept("person")
+                        
+                        switch detailResult {
+                            
+                        case .success(let detailData):
+                            print("detail")
+                            tempCommentsData = detailData.comments
+                            print(detailData)
+                            commentsResult.accept(tempCommentsData)
+                        case .failure(let error):
+                            print("error", error)
+                        }
+                        
                     }
                 case .failure(let error):
                     print(error)
@@ -122,6 +134,6 @@ class CommentViewModel: ViewModelType {
             }
         }.disposed(by: disposeBag)
         
-        return Output(outputCommentData: commentsResult.asDriver(), outputProfile: profileImageResult.asDriver(), outputNoData: noDataResult.asDriver())
+        return Output(outputCommentData: commentsResult.asDriver(onErrorJustReturn: []), outputProfile: profileImageResult.asDriver(), outputNoData: noDataResult.asDriver())
     }
 }

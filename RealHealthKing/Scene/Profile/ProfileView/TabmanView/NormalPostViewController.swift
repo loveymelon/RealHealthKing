@@ -9,10 +9,16 @@ import UIKit
 import RxSwift
 import RxCocoa
 
+protocol CollectionTapProtocol: AnyObject {
+    func collectionTap(vc: UIViewController)
+}
+
 class NormalPostViewController: BaseViewController<TabBaseView> {
     
     let viewModel = TabViewModel()
     let disposeBag = DisposeBag()
+    
+    weak var delegate: CollectionTapProtocol?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,13 +43,14 @@ class NormalPostViewController: BaseViewController<TabBaseView> {
         let output = viewModel.transform(input: input)
         
         mainView.collectionView.rx.modelSelected(Posts.self).bind(with: self) { owner, item in
-            print("tap")
             
             let vc = DetailViewController()
             guard let postId = item.postId else { return }
             
             vc.postId.accept(postId)
             owner.navigationController?.pushViewController(vc, animated: true)
+            
+            owner.delegate?.collectionTap(vc: vc)
         }.disposed(by: disposeBag)
         
         output.outputPostDatas.drive(mainView.collectionView.rx.items(cellIdentifier: SearchCollectionViewCell.identifier, cellType: SearchCollectionViewCell.self)) { index, item, cell in

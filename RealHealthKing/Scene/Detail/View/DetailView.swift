@@ -58,9 +58,9 @@ class DetailView: BaseView {
         $0.alignment = .fill
     }
     
-//    let titleLabel = UILabel().then {
-//        $0.textColor = .white
-//    }
+    let titleLabel = UILabel().then {
+        $0.textColor = .white
+    }
     
     let contentLabel = UILabel().then {
         $0.numberOfLines = 3
@@ -69,7 +69,7 @@ class DetailView: BaseView {
     }
     
     let hashLabel = UILabel().then {
-        $0.textColor = .white
+        $0.textColor = .systemBlue
     }
     
     let moreButton = UIButton().then {
@@ -99,7 +99,7 @@ class DetailView: BaseView {
         
         addSubview(bottomStackView)
         addSubview(pageControl)
-//        addSubview(titleLabel)
+        addSubview(titleLabel)
         addSubview(contentLabel)
         addSubview(hashLabel)
     }
@@ -136,20 +136,20 @@ class DetailView: BaseView {
             make.height.equalTo(20)
         }
         
-//        titleLabel.snp.makeConstraints { make in
-//            make.top.equalTo(bottomStackView.snp.bottom).offset(10)
-//            make.leading.equalTo(safeAreaLayoutGuide.snp.leading).inset(10)
-//        }
+        titleLabel.snp.makeConstraints { make in
+            make.top.equalTo(bottomStackView.snp.bottom).offset(10)
+            make.leading.equalTo(safeAreaLayoutGuide.snp.leading).inset(10)
+        }
         
         contentLabel.snp.makeConstraints { make in
             make.horizontalEdges.equalTo(safeAreaLayoutGuide).inset(10)
-            make.top.equalTo(bottomStackView.snp.bottom).offset(10)
-            make.bottom.equalTo(hashLabel.snp.top)
+            make.top.equalTo(titleLabel.snp.bottom).offset(10)
         }
         
         hashLabel.snp.makeConstraints { make in
+            make.top.equalTo(contentLabel.snp.bottom).offset(10)
             make.horizontalEdges.equalTo(contentLabel)
-            make.bottom.equalTo(safeAreaLayoutGuide).inset(5)
+//            make.bottom.equalTo(safeAreaLayoutGuide).inset(5)
         }
     }
 }

@@ -38,7 +38,7 @@ final class DetailViewController: BaseViewController<DetailView> {
             owner.mainView.nickNameLabel.text = data.creator.nick
             owner.mainView.contentLabel.text = data.content1
             owner.mainView.hashLabel.text = data.content
-//            owner.mainView.titleLabel.text = data.title
+            owner.mainView.titleLabel.text = data.title
             
             owner.mainView.updateImageViews(scrollView: owner.mainView.scrollView, pageControl: owner.mainView.pageControl, postData: data.files, width: owner.mainView.bounds.width)
             
