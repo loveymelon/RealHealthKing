@@ -13,7 +13,7 @@ import SnapKit
 
 final class TabViewController: TabmanViewController {
     
-    private let baseView = UIView()
+    let baseView = UIView()
 
     private let normalVC = NormalPostViewController()
     private let marketVC = MarketPostViewController()
@@ -29,7 +29,10 @@ final class TabViewController: TabmanViewController {
         super.viewDidLoad()
         
         configureUI()
+        
+        
     }
+    
     
     
 }
@@ -42,6 +45,7 @@ extension TabViewController {
         settingDatas()
         
         self.dataSource = self
+        
     }
     
     private func configureHierarchy() {
@@ -59,7 +63,7 @@ extension TabViewController {
         
         bar.layout.transitionStyle = .snap // Customize
         bar.layout.alignment = .centerDistributed
-        
+        bar.layout.contentInset = .init(top: 0, left: 0, bottom: 10, right: 0)
         
         bar.backgroundView.style = .clear
         
@@ -89,29 +93,38 @@ extension TabViewController {
 }
 
 extension TabViewController: PageboyViewControllerDataSource, TMBarDataSource {
-       func numberOfViewControllers(in pageboyViewController: Pageboy.PageboyViewController) -> Int {
-           return vcs.count
-       }
-       
-       func viewController(for pageboyViewController: Pageboy.PageboyViewController, at index: Pageboy.PageboyViewController.PageIndex) -> UIViewController? {
-           return vcs[index]
-       }
-       
-       func defaultPage(for pageboyViewController: Pageboy.PageboyViewController) -> Pageboy.PageboyViewController.Page? {
-           return nil
-       }
-       
-       func barItem(for bar: TMBar, at index: Int) -> TMBarItemable {
-
-           let item = TMBarItem(title: "")
-           
-           switch index {
-           case 0:
-               item.image = UIImage(systemName: "square.grid.3x3")
-           default:
-               item.image = UIImage(systemName: "cart")
-           }
-           
-           return item
-       }
-   }
+    func numberOfViewControllers(in pageboyViewController: Pageboy.PageboyViewController) -> Int {
+        return vcs.count
+    }
+    
+    func viewController(for pageboyViewController: Pageboy.PageboyViewController, at index: Pageboy.PageboyViewController.PageIndex) -> UIViewController? {
+        
+        let vc = vcs[index]
+        
+        vc.mainView.collectionView.snp.makeConstraints { make in
+            make.top.equalTo(barInsets.bottom).offset(50)
+            make.width.equalTo(UIScreen.main.bounds.width)
+            make.bottom.equalToSuperview()
+        }
+        
+        return vc
+    }
+    
+    func defaultPage(for pageboyViewController: Pageboy.PageboyViewController) -> Pageboy.PageboyViewController.Page? {
+        return nil
+    }
+    
+    func barItem(for bar: TMBar, at index: Int) -> TMBarItemable {
+        
+        let item = TMBarItem(title: "")
+        
+        switch index {
+        case 0:
+            item.image = UIImage(systemName: "square.grid.3x3")
+        default:
+            item.image = UIImage(systemName: "cart")
+        }
+        
+        return item
+    }
+}

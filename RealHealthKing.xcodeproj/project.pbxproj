@@ -513,7 +513,6 @@
 		DF8020622BDA627700473028 /* ProfileView */ = {
 			isa = PBXGroup;
 			children = (
-				DFB25D172BEE8C0F00CD1760 /* ViewModel */,
 				DF6D23722BED372100953464 /* TabmanView */,
 				DF8020642BDA629500473028 /* ProfileViewController.swift */,
 				DF8020662BDA62A100473028 /* ProfileView.swift */,
@@ -524,6 +523,7 @@
 		DF8020632BDA627D00473028 /* ProfileViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				DFB25D1A2BEE8EC600CD1760 /* TabViewModel.swift */,
 				DF8020682BDA62AD00473028 /* ProfileViewModel.swift */,
 			);
 			path = ProfileViewModel;
@@ -857,14 +857,6 @@
 				DFADFCC02BE3820E006367FE /* HomeModel.swift */,
 			);
 			path = Model;
-			sourceTree = "<group>";
-		};
-		DFB25D172BEE8C0F00CD1760 /* ViewModel */ = {
-			isa = PBXGroup;
-			children = (
-				DFB25D1A2BEE8EC600CD1760 /* TabViewModel.swift */,
-			);
-			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		DFB25D1C2BEE99AB00CD1760 /* PostBaseView */ = {

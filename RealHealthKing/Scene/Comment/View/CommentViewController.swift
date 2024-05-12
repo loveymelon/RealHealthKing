@@ -48,9 +48,11 @@ class CommentViewController: BaseViewController<CommentView> {
                 let isMaxHeight = estimatedSize.height >= 103.0
                 
                 guard isMaxHeight != owner.mainView.commentTextView.isScrollEnabled else { return }
+                
                 owner.mainView.commentTextView.isScrollEnabled = isMaxHeight
                 owner.mainView.commentTextView.reloadInputViews()
                 owner.mainView.commentTextView.setNeedsUpdateConstraints()
+                
             }.disposed(by: disposeBag)
         
         output.outputCommentData.drive(mainView.tableView.rx.items(cellIdentifier: CommentTableViewCell.identifier, cellType: CommentTableViewCell.self)) { index, item, cell in
@@ -71,21 +73,24 @@ class CommentViewController: BaseViewController<CommentView> {
         }.disposed(by: disposeBag)
         
         output.outputNoData.drive(with: self) { owner, isValid in
-            owner.mainView.noDataView.isHidden = !isValid
-            owner.mainView.tableView.isHidden = isValid
+            print(isValid)
+            
+            owner.mainView.noDataView.isHidden = isValid
+            owner.mainView.tableView.isHidden = !isValid
         }.disposed(by: disposeBag)
         
         output.outputProfile.drive(with: self) { owner, image in
+            
             if image == "person" {
                 owner.mainView.userImageView.image = UIImage(systemName: image)
             } else {
                 let url = APIKey.baseURL.rawValue + NetworkVersion.version.rawValue + "/" + image
                 
-//                print(url, "urlrlrlrlrl")
-                
                 owner.mainView.userImageView.downloadImage(imageUrl: url)
             }
+            
         }.disposed(by: disposeBag)
+        
     }
     
     override func configureNav() {

@@ -46,7 +46,9 @@ class ProfileView: BaseView {
         $0.setImage(UIImage(systemName: "ellipsis"), for: .normal)
     }
     
-    let containerView = UIView()
+    let containerView = UIView().then {
+        $0.backgroundColor = .red
+    }
     
     
     let scrollView = UIScrollView()
@@ -68,17 +70,13 @@ class ProfileView: BaseView {
         addSubview(scrollView)
         scrollView.addSubview(contentView)
         
-        contentView.addSubview(profileImageView)
-        contentView.addSubview(postView)
-        contentView.addSubview(followingView)
-        contentView.addSubview(follwerView)
-        contentView.addSubview(nicknameLabel)
-        contentView.addSubview(leftButton)
+        [profileImageView, postView, followingView, follwerView, nicknameLabel, leftButton].forEach { view in
+            contentView.addSubview(view)
+        }
         
         contentView.addSubview(containerView)
         
         containerView.addSubview(tabVC.view)
-        
         
     }
     
@@ -88,14 +86,14 @@ class ProfileView: BaseView {
         }
         
         contentView.snp.makeConstraints { make in
-            make.verticalEdges.equalTo(scrollView.safeAreaLayoutGuide)
-            make.width.equalTo(scrollView.safeAreaLayoutGuide.snp.width)
+            make.edges.equalTo(scrollView.contentLayoutGuide)
+            make.width.equalTo(scrollView.frameLayoutGuide)
         }
         
         profileImageView.snp.makeConstraints { make in
             make.size.equalTo(80)
-            make.leading.equalTo(contentView.safeAreaLayoutGuide.snp.leading).inset(30)
-            make.top.equalTo(contentView.safeAreaLayoutGuide.snp.top).inset(10)
+            make.leading.equalTo(contentView.snp.leading).inset(30)
+            make.top.equalTo(contentView.snp.top).inset(10)
         }
         
         postView.snp.makeConstraints { make in
@@ -122,17 +120,17 @@ class ProfileView: BaseView {
         }
         
         leftButton.snp.makeConstraints { make in
-            make.top.equalTo(nicknameLabel.snp.bottom).offset(10)
             make.leading.equalTo(nicknameLabel.snp.leading)
             make.trailing.equalTo(follwerView.snp.trailing)
-//            make.bottom.equalTo(contentView.snp.bottom).offset(-500)
-            make.height.equalTo(26)
+            make.top.equalTo(nicknameLabel.snp.bottom).offset(10)
+            make.height.equalTo(30)
         }
         
         containerView.snp.makeConstraints { make in
             make.top.equalTo(leftButton.snp.bottom).offset(10)
             make.horizontalEdges.equalTo(contentView.safeAreaLayoutGuide)
-            make.bottom.equalTo(contentView.safeAreaLayoutGuide.snp.bottom).offset(-300)
+            make.height.equalTo(tabVC.view.bounds.height)
+            make.bottom.equalTo(contentView.snp.bottom).inset(10)
         }
         
     }

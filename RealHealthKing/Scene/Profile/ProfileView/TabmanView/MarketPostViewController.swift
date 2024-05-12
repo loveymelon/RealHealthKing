@@ -37,6 +37,11 @@ class MarketPostViewController: BaseViewController<TabBaseView> {
             cell.postImageView.downloadImage(imageUrl: url)
             
         }.disposed(by: disposeBag)
+        
+        output.outputNoData.drive(with: self) { owner, isValid in
+            owner.mainView.noDataView.isHidden = isValid
+            owner.mainView.collectionView.isHidden = !isValid
+        }.disposed(by: disposeBag)
     }
     
 }

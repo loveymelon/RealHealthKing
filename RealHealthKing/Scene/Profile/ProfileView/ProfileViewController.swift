@@ -43,6 +43,8 @@ class ProfileViewController: BaseViewController<ProfileView> {
         
         mainView.rightBarButton.rx.menu.onNext(UIMenu(title: "메뉴", children: items))
 
+        print(mainView.tabVC.view.bounds.height)
+        
     }
     
     override func bind() {
@@ -98,25 +100,6 @@ class ProfileViewController: BaseViewController<ProfileView> {
         
         output.leftButton.drive(mainView.leftButton.rx.title()).disposed(by: disposeBag)
         
-//        output.postDatas.drive(with: self) { owner, data in
-//            
-////            let tabVC = TabViewController()
-////            
-////            tabVC.postData = data.posts
-////            tabVC.cursor = data.cursor
-////            
-////            owner.delegate?.networkPostData(posts: data.posts, cursor: data.cursor)
-////            
-////            owner.mainView.containerView.addSubview(tabVC.view)
-//            
-//        }.disposed(by: disposeBag)
-        
-//        output.postDatas.drive(with: self) { owner, datas in
-//            
-//            owner.
-//
-//        }.disposed(by: disposeBag)
-        
         output.outputLogout.drive(with: self) { owner, _ in
             owner.mainView.window?.rootViewController = UINavigationController(rootViewController: SignInViewController())
         }.disposed(by: disposeBag)
@@ -127,6 +110,13 @@ class ProfileViewController: BaseViewController<ProfileView> {
             }
         }.disposed(by: disposeBag)
         
+//        output.postDatas.drive(with: self) { owner, items in
+//            let tabVC = TabViewController()
+//            
+//            owner.mainView.containerView.addSubview(tabVC.view)
+//            
+//        }.disposed(by: disposeBag)
+//        
     }
 
     override func configureNav() {

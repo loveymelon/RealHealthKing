@@ -16,6 +16,10 @@ class TabBaseView: BaseView {
         $0.isScrollEnabled = false
     }
     
+    let noDataView = NoDataView().then {
+        $0.setText("게시글이 없습니다")
+    }
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
     }
@@ -26,13 +30,24 @@ class TabBaseView: BaseView {
     
     override func configureHierarchy() {
         addSubview(collectionView)
+        addSubview(noDataView)
     }
     
+    
+    
     override func configureLayout() {
-        collectionView.snp.makeConstraints { make in
-            make.width.equalTo(UIScreen.main.bounds.width)
-            make.bottom.equalTo(safeAreaLayoutGuide)
-            make.top.equalTo(safeAreaLayoutGuide.snp.top).inset(50)
+//        collectionView.snp.makeConstraints { make in
+////            make.width.equalTo(UIScreen.main.bounds.width)
+////            make.bottom.equalTo(safeAreaLayoutGuide)
+////            make.top.equalTo(safeAreaLayoutGuide.snp.top).inset(50)
+//            make.edges.equalToSuperview()
+//        }
+        
+        noDataView.snp.makeConstraints { make in
+            make.top.equalToSuperview().inset(200)
+            make.leading.equalToSuperview().inset(150)
+            make.size.equalTo(100)
+//            make.center.equalToSuperview()
         }
     }
 }

@@ -18,6 +18,7 @@ class TabViewModel: ViewModelType {
     
     struct Output {
         let outputPostDatas: Driver<[Posts]>
+        let outputNoData: Driver<Bool>
     }
     
     var viewState: ScreenState = .me
@@ -31,6 +32,7 @@ class TabViewModel: ViewModelType {
         var cursor = ""
         
         let postDatasResult = BehaviorRelay<[Posts]>(value: [])
+        let noDataResult = PublishRelay<Bool>()
         
         switch viewState {
         case .me:
@@ -44,6 +46,7 @@ class TabViewModel: ViewModelType {
                 case .success(let data):
                     cursor = data.nextCursor
                     postDatasResult.accept(data.data)
+                    noDataResult.accept(!data.data.isEmpty)
                 case .failure(let error):
                     print(error)
                 }
@@ -64,6 +67,7 @@ class TabViewModel: ViewModelType {
                                 
                                 cursor = data.nextCursor
                                 postDatasResult.accept(temp)
+                             
                             case .failure(let error):
                                 // 에러가 발생했을 때 처리
                                 print(error)
@@ -77,6 +81,8 @@ class TabViewModel: ViewModelType {
                 
             }.disposed(by: disposeBag)
             
+            
+            
         case .other:
             
             input.inputViewWillTrigger.withUnretained(self).flatMap { owner, _ in
@@ -88,7 +94,7 @@ class TabViewModel: ViewModelType {
                 case .success(let data):
                     cursor = data.nextCursor
                     postDatasResult.accept(data.data)
-                    print(data.data)
+                    noDataResult.accept(!data.data.isEmpty)
                 case .failure(let error):
                     print(error)
                 }
@@ -121,10 +127,6 @@ class TabViewModel: ViewModelType {
             }.disposed(by: disposeBag)
         }
         
-        
-        
-
-        
-        return Output(outputPostDatas: postDatasResult.asDriver(onErrorJustReturn: []))
+        return Output(outputPostDatas: postDatasResult.asDriver(onErrorJustReturn: []), outputNoData: noDataResult.asDriver(onErrorJustReturn: true))
     }
 }

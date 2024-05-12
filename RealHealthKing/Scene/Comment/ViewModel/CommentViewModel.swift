@@ -56,6 +56,7 @@ class CommentViewModel: ViewModelType {
                         
                         tempCommentsData = detailData.comments
                         commentsResult.accept(tempCommentsData)
+                        noDataResult.accept(!tempCommentsData.isEmpty) 
                         
                     case .failure(let error):
                         print("error", error)
@@ -68,43 +69,6 @@ class CommentViewModel: ViewModelType {
         } onError: { error in
             print(error)
         }.disposed(by: disposeBag)
-
-        
-//        let commentsObservable = input.inputViewWillAppear.flatMapLatest { postId -> Observable<[CommentsModel]> in
-//            return Observable.create { observer in
-//                NetworkManager.fetchAccessPostDetails(postId: postId) { result in
-//                    switch result {
-//                    case .success(let data):
-//                        print("data", data.comments)
-//                        profileImageResult.accept(imageData)
-//                        commentsResult.accept(tempCommentsData)
-//                    case .failure(let error):
-//                        observer.onError(error)
-//                    }
-//                }
-//                
-//                return Disposables.create()
-//            }
-//        }
-        
-//        commentsObservable.subscribe(onNext: { comments in
-//            
-//            NetworkManager.fetchProfile { result in
-//                switch result {
-//                case .success(let data):
-//                    if let imageData = data.profileImage {
-//                        print("comment", tempCommentsData)
-//                        profileImageResult.accept(imageData)
-//                        commentsResult.accept(tempCommentsData)
-//                        
-//                    } else {
-//                        profileImageResult.accept("person")
-//                    }
-//                case .failure(let error):
-//                    print(error)
-//                }
-//            }
-//        }).disposed(by: disposeBag)
         
         input.inputButtonTap.subscribe { text in
             print("comment", CommentsModel(content: text))
