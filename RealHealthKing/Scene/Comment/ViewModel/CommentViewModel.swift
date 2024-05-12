@@ -42,39 +42,25 @@ class CommentViewModel: ViewModelType {
                 case .success(let data):
                     if let imageData = data.profileImage {
                         
-                        if let imageData = data.profileImage {
                             profileImageResult.accept(imageData)
-                        } else {
-                            profileImageResult.accept("person")
-                        }
-                        
-                        switch detailResult {
-                            
-                        case .success(let detailData):
-                            print("detail")
-                            tempCommentsData = detailData.comments
-                            print(detailData)
-                            profileImageResult.accept(imageData)
-                            commentsResult.accept(tempCommentsData)
-                        case .failure(let error):
-                            print("error", error)
-                        }
-                        
+                         
                     } else {
+                        
                         profileImageResult.accept("person")
                         
-                        switch detailResult {
-                            
-                        case .success(let detailData):
-                            print("detail")
-                            tempCommentsData = detailData.comments
-                            print(detailData)
-                            commentsResult.accept(tempCommentsData)
-                        case .failure(let error):
-                            print("error", error)
-                        }
-                        
                     }
+                    
+                    switch detailResult {
+                        
+                    case .success(let detailData):
+                        
+                        tempCommentsData = detailData.comments
+                        commentsResult.accept(tempCommentsData)
+                        
+                    case .failure(let error):
+                        print("error", error)
+                    }
+                    
                 case .failure(let error):
                     print(error)
                 }
