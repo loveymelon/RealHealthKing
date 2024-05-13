@@ -11,6 +11,10 @@ import SnapKit
 
 class DetailView: BaseView {
 
+    let verticalScrollView = UIScrollView()
+    
+    let contentView = UIView()
+    
     let profileImageView = UIImageView().then {
         $0.clipsToBounds = true
         $0.contentMode = .scaleAspectFit
@@ -28,6 +32,7 @@ class DetailView: BaseView {
         $0.distribution = .fillProportionally
         $0.spacing = 10
         $0.alignment = .fill
+        $0.backgroundColor = .blue
     }
     
     let scrollView = UIScrollView().then {
@@ -86,70 +91,87 @@ class DetailView: BaseView {
     }
     
     override func configureHierarchy() {
-        [profileImageView, nickNameLabel].forEach { view in
-            topStackView.addArrangedSubview(view)
-        }
         
-        addSubview(topStackView)
-        addSubview(scrollView)
+        addSubview(verticalScrollView)
+        verticalScrollView.addSubview(contentView)
         
-        [likeButton, commentButton].forEach { button in
-            bottomStackView.addArrangedSubview(button)
-        }
+        contentView.addSubview(scrollView)
+        contentView.addSubview(pageControl)
         
-        addSubview(bottomStackView)
-        addSubview(pageControl)
-        addSubview(titleLabel)
-        addSubview(contentLabel)
-        addSubview(hashLabel)
+//        [topStackView, scrollView, bottomStackView, pageControl, titleLabel, contentLabel, hashLabel].forEach { view in
+//            contentView.addSubview(view)
+//        }
+//        
+//        [profileImageView, nickNameLabel].forEach { view in
+//            topStackView.addArrangedSubview(view)
+//        }
+//        
+//        [likeButton, commentButton].forEach { button in
+//            bottomStackView.addArrangedSubview(button)
+//        }
+
     }
     
     override func configureLayout() {
-        topStackView.snp.makeConstraints { make in
-            make.top.horizontalEdges.equalTo(safeAreaLayoutGuide).inset(10)
-            make.height.equalTo(40)
+        
+        verticalScrollView.snp.makeConstraints { make in
+            make.edges.equalTo(safeAreaLayoutGuide)
         }
         
-        profileImageView.snp.makeConstraints { make in
-            make.size.equalTo(topStackView.snp.height)
+        contentView.snp.makeConstraints { make in
+            make.verticalEdges.equalTo(verticalScrollView.contentLayoutGuide)
+            make.width.equalTo(verticalScrollView.snp.width)
         }
         
-        nickNameLabel.snp.makeConstraints { make in
-            make.height.equalTo(profileImageView)
-        }
+//        topStackView.snp.makeConstraints { make in
+//            make.top.equalTo(contentView).inset(10)
+//            make.horizontalEdges.equalTo(contentView).inset(10)
+//            make.height.equalTo(40)
+//        }
+//        
+//        profileImageView.snp.makeConstraints { make in
+//            make.size.equalTo(topStackView.snp.height)
+//        }
+//        
+//        nickNameLabel.snp.makeConstraints { make in
+//            make.height.equalTo(profileImageView)
+//            
+//        }
         
         scrollView.snp.makeConstraints { make in
-            make.width.equalTo(safeAreaLayoutGuide.snp.width)
-            make.top.equalTo(topStackView.snp.bottom).offset(10)
+            make.width.equalTo(contentView.snp.width)
+//            make.top.equalTo(topStackView.snp.bottom).offset(10)
+            make.top.equalTo(contentView.snp.top).inset(10)
             make.height.equalTo(safeAreaLayoutGuide.snp.height).multipliedBy(0.4)
         }
         
-        bottomStackView.snp.makeConstraints { make in
-            make.leading.equalTo(safeAreaLayoutGuide.snp.leading).inset(5)
-            make.top.equalTo(scrollView.snp.bottom).offset(10)
-            make.height.equalTo(20)
-        }
+//        bottomStackView.snp.makeConstraints { make in
+//            make.leading.equalTo(contentView).inset(5)
+//            make.top.equalTo(scrollView.snp.bottom).offset(10)
+//            make.height.equalTo(20)
+//        }
         
         pageControl.snp.makeConstraints { make in
-            make.centerX.equalTo(safeAreaLayoutGuide.snp.centerX)
-            make.centerY.equalTo(bottomStackView.snp.centerY)
+            make.centerX.equalTo(contentView)
+//            make.centerY.equalTo(bottomStackView.snp.centerY)
+            make.top.equalTo(scrollView.snp.bottom)
             make.height.equalTo(20)
         }
         
-        titleLabel.snp.makeConstraints { make in
-            make.top.equalTo(bottomStackView.snp.bottom).offset(10)
-            make.leading.equalTo(safeAreaLayoutGuide.snp.leading).inset(10)
-        }
-        
-        contentLabel.snp.makeConstraints { make in
-            make.horizontalEdges.equalTo(safeAreaLayoutGuide).inset(10)
-            make.top.equalTo(titleLabel.snp.bottom).offset(10)
-        }
-        
-        hashLabel.snp.makeConstraints { make in
-            make.top.equalTo(contentLabel.snp.bottom).offset(10)
-            make.horizontalEdges.equalTo(contentLabel)
-//            make.bottom.equalTo(safeAreaLayoutGuide).inset(5)
-        }
+//        titleLabel.snp.makeConstraints { make in
+//            make.top.equalTo(bottomStackView.snp.bottom).offset(10)
+//            make.leading.equalTo(contentView).inset(10)
+//        }
+//        
+//        contentLabel.snp.makeConstraints { make in
+//            make.horizontalEdges.equalTo(contentView).inset(10)
+//            make.top.equalTo(titleLabel.snp.bottom).offset(10)
+//        }
+//        
+//        hashLabel.snp.makeConstraints { make in
+//            make.top.equalTo(contentLabel.snp.bottom).offset(10)
+//            make.horizontalEdges.equalTo(contentLabel)
+////            make.bottom.equalTo(safeAreaLayoutGuide).inset(5)
+//        }
     }
 }

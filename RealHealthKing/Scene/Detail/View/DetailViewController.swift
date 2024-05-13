@@ -40,7 +40,9 @@ final class DetailViewController: BaseViewController<DetailView> {
             owner.mainView.hashLabel.text = data.content
             owner.mainView.titleLabel.text = data.title
             
-            owner.mainView.updateImageViews(scrollView: owner.mainView.scrollView, pageControl: owner.mainView.pageControl, postData: data.files, width: owner.mainView.bounds.width)
+            owner.mainView.updateImageViews(scrollView: owner.mainView.scrollView, pageControl: owner.mainView.pageControl, postData: data.files, width: owner.mainView.frame.width)
+            
+            print(owner.mainView.scrollView.contentSize, UIScreen.main.bounds.width, owner.mainView.scrollView.bounds.width)
             
             if let imageUrl = data.creator.profileImage {
                 let url = APIKey.baseURL.rawValue + NetworkVersion.version.rawValue + "/" + imageUrl

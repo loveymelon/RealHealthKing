@@ -77,6 +77,7 @@ class CommentViewController: BaseViewController<CommentView> {
             
             owner.mainView.noDataView.isHidden = isValid
             owner.mainView.tableView.isHidden = !isValid
+            
         }.disposed(by: disposeBag)
         
         output.outputProfile.drive(with: self) { owner, image in

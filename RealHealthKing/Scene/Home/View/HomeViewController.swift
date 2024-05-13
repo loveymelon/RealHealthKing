@@ -73,6 +73,14 @@ class HomeViewController: BaseViewController<HomeView> {
 }
 
 extension HomeViewController: CellDelegate {
+    func moreButtonTap() {
+        DispatchQueue.main.async { [weak self] in
+            guard let self else { return }
+            
+            mainView.tableView.reloadData()
+        }
+    }
+    
     func commentButtonTap(vc: UIViewController) {
         let nav = UINavigationController(rootViewController: vc)
 

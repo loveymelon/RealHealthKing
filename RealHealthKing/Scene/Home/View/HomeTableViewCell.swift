@@ -15,6 +15,7 @@ import RxGesture
 protocol CellDelegate: AnyObject {
     func profileViewTap(vc: UIViewController)
     func commentButtonTap(vc: UIViewController)
+    func moreButtonTap()
 }
 
 class HomeTableViewCell: UITableViewCell {
@@ -75,7 +76,7 @@ class HomeTableViewCell: UITableViewCell {
     }
     
     let contentLabel = UILabel().then {
-        $0.numberOfLines = 3
+        $0.numberOfLines = 1
         $0.textColor = .white
         $0.font = .systemFont(ofSize: 20)
     }
@@ -88,6 +89,7 @@ class HomeTableViewCell: UITableViewCell {
     let moreButton = UIButton().then {
         $0.setTitle("더보기", for: .normal)
         $0.setTitleColor(.systemBlue, for: .normal)
+        $0.isHidden = true
     }
     
     let postData = BehaviorRelay<Posts>(value: Posts())
@@ -130,21 +132,18 @@ extension HomeTableViewCell: UIConfigureProtocol {
     }
     
     func configureHierarchy() {
+        [topStackView,scrollView, bottomStackView, pageControl, contentLabel, moreButton, hashLabel].forEach { view in
+            contentView.addSubview(view)
+        }
+        
         [profileImageView, nickNameLabel].forEach { view in
             topStackView.addArrangedSubview(view)
         }
-        
-        contentView.addSubview(topStackView)
-        contentView.addSubview(scrollView)
         
         [likeButton, likeCountLabel, commentButton, commentCountLabel].forEach { button in
             bottomStackView.addArrangedSubview(button)
         }
         
-        contentView.addSubview(bottomStackView)
-        contentView.addSubview(pageControl)
-        contentView.addSubview(contentLabel)
-        contentView.addSubview(hashLabel)
     }
     
     func configureLayout() {
@@ -163,7 +162,7 @@ extension HomeTableViewCell: UIConfigureProtocol {
         }
         
         scrollView.snp.makeConstraints { make in
-            make.width.equalTo(contentView.safeAreaLayoutGuide.snp.width)
+            make.width.equalTo(contentView.snp.width)
             make.top.equalTo(topStackView.snp.bottom).offset(10)
             make.height.equalTo(contentView.safeAreaLayoutGuide.snp.height).multipliedBy(0.7)
         }
@@ -181,8 +180,15 @@ extension HomeTableViewCell: UIConfigureProtocol {
         }
         
         contentLabel.snp.makeConstraints { make in
-            make.horizontalEdges.equalTo(contentView.safeAreaLayoutGuide).inset(10)
+//            make.horizontalEdges.equalTo(contentView.safeAreaLayoutGuide).inset(10)
+            make.leading.equalTo(contentView.safeAreaLayoutGuide.snp.leading).inset(10)
+            make.trailing.equalTo(contentView.safeAreaLayoutGuide.snp.trailing).inset(50)
             make.top.equalTo(bottomStackView.snp.bottom).offset(10)
+        }
+        
+        moreButton.snp.makeConstraints { make in
+            make.leading.equalTo(contentLabel.snp.trailing)
+            make.centerY.equalTo(contentLabel.snp.centerY)
         }
         
         hashLabel.snp.makeConstraints { make in
@@ -207,9 +213,16 @@ extension HomeTableViewCell {
         
         let output = viewModel.transform(input: input)
         
+        moreButton.rx.tap.bind(with: self) { owner, _ in
+            
+            owner.contentLabel.numberOfLines = 0
+            owner.moreButton.isHidden = true
+            owner.delegate?.moreButtonTap()
+            
+        }.disposed(by: disposeBag)
+        
         output.outputFirstLikeValue.drive(with: self, onNext: { owner, isValid in
             
-            print(isValid)
             owner.likeButton.isSelected = isValid
              // 여기서 좋아요에 대한 포스트 아이디를 키, 좋아요 상태를 value
             
@@ -248,10 +261,15 @@ extension HomeTableViewCell {
             profileImageView.image = UIImage(systemName: "person")
         }
         
+        if contentLabel.lineCount > 2 {
+            moreButton.isHidden = false
+        }
+        
         DispatchQueue.main.async { [weak self] in
             guard let self else { return }
             
             updateImageViews(scrollView: scrollView, pageControl: pageControl, postData: data.files, width: width)
+            
         }
         
         saveAndCheckModel(data: data, cellIndex: cellIndex)

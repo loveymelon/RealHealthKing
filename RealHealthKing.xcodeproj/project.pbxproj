@@ -335,8 +335,8 @@
 		DF73FE552BDEB55900328279 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				DF73FE572BDEB57600328279 /* DetailViewController.swift */,
 				DF73FE592BDEB58300328279 /* DetailView.swift */,
+				DF73FE572BDEB57600328279 /* DetailViewController.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
