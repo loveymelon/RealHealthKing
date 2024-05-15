@@ -87,6 +87,9 @@
 		DF82CCF32BCA9F480089989E /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF82CCF22BCA9F480089989E /* NetworkManager.swift */; };
 		DF82CCF52BCA9F670089989E /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF82CCF42BCA9F670089989E /* Router.swift */; };
 		DF82CCF72BCA9F7E0089989E /* TargetType.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF82CCF62BCA9F7E0089989E /* TargetType.swift */; };
+		DF838FA02BF4E97D009EB4F2 /* MarketViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF838F9F2BF4E97D009EB4F2 /* MarketViewController.swift */; };
+		DF838FA22BF4E989009EB4F2 /* MarketView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF838FA12BF4E989009EB4F2 /* MarketView.swift */; };
+		DF838FA42BF4E994009EB4F2 /* MarketViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF838FA32BF4E994009EB4F2 /* MarketViewModel.swift */; };
 		DF839D582BC93B94001FE924 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF839D572BC93B94001FE924 /* AppDelegate.swift */; };
 		DF839D5A2BC93B94001FE924 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF839D592BC93B94001FE924 /* SceneDelegate.swift */; };
 		DF839D5F2BC93B94001FE924 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = DF839D5E2BC93B94001FE924 /* Base */; };
@@ -207,6 +210,9 @@
 		DF82CCF22BCA9F480089989E /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		DF82CCF42BCA9F670089989E /* Router.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
 		DF82CCF62BCA9F7E0089989E /* TargetType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TargetType.swift; sourceTree = "<group>"; };
+		DF838F9F2BF4E97D009EB4F2 /* MarketViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketViewController.swift; sourceTree = "<group>"; };
+		DF838FA12BF4E989009EB4F2 /* MarketView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketView.swift; sourceTree = "<group>"; };
+		DF838FA32BF4E994009EB4F2 /* MarketViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketViewModel.swift; sourceTree = "<group>"; };
 		DF839D542BC93B94001FE924 /* RealHealthKing.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RealHealthKing.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DF839D572BC93B94001FE924 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DF839D592BC93B94001FE924 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -651,6 +657,32 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		DF838F9B2BF4E952009EB4F2 /* MarketDetail */ = {
+			isa = PBXGroup;
+			children = (
+				DF838F9E2BF4E96D009EB4F2 /* View */,
+				DF838F9D2BF4E967009EB4F2 /* ViewModel */,
+			);
+			path = MarketDetail;
+			sourceTree = "<group>";
+		};
+		DF838F9D2BF4E967009EB4F2 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				DF838FA32BF4E994009EB4F2 /* MarketViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		DF838F9E2BF4E96D009EB4F2 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				DF838F9F2BF4E97D009EB4F2 /* MarketViewController.swift */,
+				DF838FA12BF4E989009EB4F2 /* MarketView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		DF839D4B2BC93B94001FE924 = {
 			isa = PBXGroup;
 			children = (
@@ -689,6 +721,7 @@
 		DF839D812BC93D05001FE924 /* Scene */ = {
 			isa = PBXGroup;
 			children = (
+				DF838F9B2BF4E952009EB4F2 /* MarketDetail */,
 				DF74103D2BE77EC700DEFA11 /* PayWeb */,
 				DF745A002BE62655002ACB70 /* ShopPost */,
 				DF7459F52BE5FDC2002ACB70 /* Shop */,
@@ -975,10 +1008,12 @@
 			files = (
 				DF8E46512BD578BC00606390 /* UILabel+Extension.swift in Sources */,
 				DF73FE5A2BDEB58300328279 /* DetailView.swift in Sources */,
+				DF838FA22BF4E989009EB4F2 /* MarketView.swift in Sources */,
 				DF745A082BE6269A002ACB70 /* ShopPostViewController.swift in Sources */,
 				DF806FBA2BD9283E006046C8 /* SearchView.swift in Sources */,
 				DFC680B52BE29D5C000CC3AD /* UISearchBar+Extension.swift in Sources */,
 				DF5FDA8E2BD418530013E1D3 /* UIImage+Extension.swift in Sources */,
+				DF838FA42BF4E994009EB4F2 /* MarketViewModel.swift in Sources */,
 				DF82CCF32BCA9F480089989E /* NetworkManager.swift in Sources */,
 				DF82CCDB2BCA87910089989E /* InfoLabel.swift in Sources */,
 				DF95A51F2BD0FA6700E6FCC4 /* PostingViewModel.swift in Sources */,
@@ -1013,6 +1048,7 @@
 				DF46AEA22BE572330025B43F /* PostingModel.swift in Sources */,
 				DF9CC6D22BD767DE00DF808A /* HomeTableCellViewModel.swift in Sources */,
 				DF82CCE42BCA9CAB0089989E /* SignInViewModel.swift in Sources */,
+				DF838FA02BF4E97D009EB4F2 /* MarketViewController.swift in Sources */,
 				DF73FE532BDE8F9B00328279 /* LauchViewModel.swift in Sources */,
 				DF80206B2BDA6DD800473028 /* CountView.swift in Sources */,
 				DF690D972BCECA7700F3D1E0 /* NetworkInterceptor.swift in Sources */,
