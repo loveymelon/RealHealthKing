@@ -91,6 +91,7 @@
 		DF838FA22BF4E989009EB4F2 /* MarketView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF838FA12BF4E989009EB4F2 /* MarketView.swift */; };
 		DF838FA42BF4E994009EB4F2 /* MarketViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF838FA32BF4E994009EB4F2 /* MarketViewModel.swift */; };
 		DF838FA62BF52EB9009EB4F2 /* UITabBar+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF838FA52BF52EB9009EB4F2 /* UITabBar+Extension.swift */; };
+		DF838FA82BF53403009EB4F2 /* ChatModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF838FA72BF53403009EB4F2 /* ChatModel.swift */; };
 		DF839D582BC93B94001FE924 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF839D572BC93B94001FE924 /* AppDelegate.swift */; };
 		DF839D5A2BC93B94001FE924 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF839D592BC93B94001FE924 /* SceneDelegate.swift */; };
 		DF839D5F2BC93B94001FE924 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = DF839D5E2BC93B94001FE924 /* Base */; };
@@ -215,6 +216,7 @@
 		DF838FA12BF4E989009EB4F2 /* MarketView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketView.swift; sourceTree = "<group>"; };
 		DF838FA32BF4E994009EB4F2 /* MarketViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketViewModel.swift; sourceTree = "<group>"; };
 		DF838FA52BF52EB9009EB4F2 /* UITabBar+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITabBar+Extension.swift"; sourceTree = "<group>"; };
+		DF838FA72BF53403009EB4F2 /* ChatModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatModel.swift; sourceTree = "<group>"; };
 		DF839D542BC93B94001FE924 /* RealHealthKing.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RealHealthKing.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DF839D572BC93B94001FE924 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DF839D592BC93B94001FE924 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -655,6 +657,7 @@
 				DF8DFF212BDFFE46009BC7C4 /* FollowingModel.swift */,
 				DF745A1B2BE7072C002ACB70 /* PurchaseModel.swift */,
 				DF7201302BEA6BDD0028AE99 /* PaymentModel.swift */,
+				DF838FA72BF53403009EB4F2 /* ChatModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1020,6 +1023,7 @@
 				DF82CCF32BCA9F480089989E /* NetworkManager.swift in Sources */,
 				DF82CCDB2BCA87910089989E /* InfoLabel.swift in Sources */,
 				DF95A51F2BD0FA6700E6FCC4 /* PostingViewModel.swift in Sources */,
+				DF838FA82BF53403009EB4F2 /* ChatModel.swift in Sources */,
 				DF73FE4F2BDE8EFA00328279 /* LauchScreenViewController.swift in Sources */,
 				DF73FE6D2BDEEAFF00328279 /* CommentTableViewCell.swift in Sources */,
 				DF74104F2BE7809900DEFA11 /* PurchaseViewController.swift in Sources */,

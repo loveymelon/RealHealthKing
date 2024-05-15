@@ -560,5 +560,30 @@ struct NetworkManager {
         }
     }
     
+    static func connectChat(userId: String) -> Single<Result<ChatModel, AppError>> {
+        return Single.create { single in
+            do {
+                let urlRequest = try Router.chat(model: ChatUserId(opponentId: userId)).asURLRequest()
+                
+                AF.request(urlRequest).responseDecodable(of: ChatModel.self) { response in
+                    switch response.result {
+                    case .success(let data):
+                        single(.success(.success(data)))
+                    case .failure(let error):
+                        if let statusCode = error.responseCode, let netError = NetworkError(rawValue: statusCode) {
+                            single(.success(.failure(AppError.networkError(netError))))
+                        } else if let statusCode = error.responseCode, let netError = WithdrawError(rawValue: statusCode) {
+                            single(.success(.failure(.withdrawError(netError))))
+                        }
+                    }
+                }
+            } catch {
+                print(error)
+            }
+            
+            return Disposables.create()
+        }
+    }
+    
 }
 

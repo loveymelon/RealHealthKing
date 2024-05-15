@@ -56,6 +56,12 @@ class MarketView: BaseView {
         $0.backgroundColor = .black
     }
     
+    let chatButton = UIButton().then {
+        $0.setImage(UIImage(systemName: "message"), for: .normal)
+        $0.layer.cornerRadius = 5
+        
+    }
+    
     let purchaseButton = UIButton().then {
         $0.backgroundColor = .orange
         $0.setTitle("구매하기", for: .normal)
@@ -80,7 +86,7 @@ class MarketView: BaseView {
             addSubview(view)
         }
         
-        [purchaseButton, priceLabel].forEach { view in
+        [priceLabel, purchaseButton, chatButton].forEach { view in
             bottomView.addSubview(view)
         }
         
@@ -140,6 +146,12 @@ class MarketView: BaseView {
         purchaseButton.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
             make.trailing.equalToSuperview().inset(10)
+            make.height.equalTo(26)
+        }
+        
+        chatButton.snp.makeConstraints { make in
+            make.centerY.equalToSuperview()
+            make.trailing.equalTo(purchaseButton.snp.leading).offset(-20)
             make.height.equalTo(26)
         }
         

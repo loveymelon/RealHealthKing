@@ -37,7 +37,7 @@ class MarketViewController: BaseViewController<MarketView> {
             owner.mainView.commentLabel.text = data.content
             
             if let price = data.content1 {
-                owner.mainView.priceLabel.text = "\(price.extractNumbers(from: price))원"
+                owner.mainView.priceLabel.text = "가격 \(price.extractNumbers(from: price))원"
             } else {
                 owner.mainView.priceLabel.text = "0원"
             }
