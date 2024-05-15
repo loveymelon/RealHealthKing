@@ -62,8 +62,6 @@ final class DetailViewController: BaseViewController<DetailView> {
             owner.navigationController?.pushViewController(vc, animated: true)
         }.disposed(by: disposeBag)
         
-        output.outputLikeValue.drive(mainView.likeButton.rx.isSelected).disposed(by: disposeBag)
-        
         mainView.commentButton.rx.tap.subscribe(with: self) { owner, _ in
             let vc = CommentViewController()
                 

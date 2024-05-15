@@ -90,6 +90,7 @@
 		DF838FA02BF4E97D009EB4F2 /* MarketViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF838F9F2BF4E97D009EB4F2 /* MarketViewController.swift */; };
 		DF838FA22BF4E989009EB4F2 /* MarketView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF838FA12BF4E989009EB4F2 /* MarketView.swift */; };
 		DF838FA42BF4E994009EB4F2 /* MarketViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF838FA32BF4E994009EB4F2 /* MarketViewModel.swift */; };
+		DF838FA62BF52EB9009EB4F2 /* UITabBar+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF838FA52BF52EB9009EB4F2 /* UITabBar+Extension.swift */; };
 		DF839D582BC93B94001FE924 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF839D572BC93B94001FE924 /* AppDelegate.swift */; };
 		DF839D5A2BC93B94001FE924 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF839D592BC93B94001FE924 /* SceneDelegate.swift */; };
 		DF839D5F2BC93B94001FE924 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = DF839D5E2BC93B94001FE924 /* Base */; };
@@ -213,6 +214,7 @@
 		DF838F9F2BF4E97D009EB4F2 /* MarketViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketViewController.swift; sourceTree = "<group>"; };
 		DF838FA12BF4E989009EB4F2 /* MarketView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketView.swift; sourceTree = "<group>"; };
 		DF838FA32BF4E994009EB4F2 /* MarketViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketViewModel.swift; sourceTree = "<group>"; };
+		DF838FA52BF52EB9009EB4F2 /* UITabBar+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITabBar+Extension.swift"; sourceTree = "<group>"; };
 		DF839D542BC93B94001FE924 /* RealHealthKing.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RealHealthKing.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DF839D572BC93B94001FE924 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DF839D592BC93B94001FE924 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -848,6 +850,7 @@
 				DF806FAE2BD8DCDA006046C8 /* UIVewController+RXSwift.swift */,
 				DFC680B42BE29D5C000CC3AD /* UISearchBar+Extension.swift */,
 				DF745A142BE6AEF1002ACB70 /* UITextField+Extension.swift */,
+				DF838FA52BF52EB9009EB4F2 /* UITabBar+Extension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -1091,6 +1094,7 @@
 				DF73FE672BDEE32F00328279 /* CommentView.swift in Sources */,
 				DF7410512BE7809F00DEFA11 /* PurchaseViewModel.swift in Sources */,
 				DF806FA82BD8D8C9006046C8 /* NotificationCenterProtocol.swift in Sources */,
+				DF838FA62BF52EB9009EB4F2 /* UITabBar+Extension.swift in Sources */,
 				DF6367E42BCBD1A90087A075 /* SignUpViewController.swift in Sources */,
 				DF7459FD2BE5FE46002ACB70 /* ShopViewController.swift in Sources */,
 				DF82CCE22BCA8DF80089989E /* ViewModelType.swift in Sources */,

@@ -23,8 +23,6 @@ final class DetailViewModel: ViewModelType {
         let outputVC: Driver<(enumValue: ScreenState, userId: String)>
     }
     
-    
-    
     var disposeBag = DisposeBag()
     
     func transform(input: Input) -> Output {

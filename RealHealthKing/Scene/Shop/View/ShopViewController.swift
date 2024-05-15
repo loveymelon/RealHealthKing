@@ -40,6 +40,16 @@ class ShopViewController: BaseViewController<ShopView> {
             owner.navigationController?.pushViewController(ShopPostViewController(), animated: true)
         }.disposed(by: disposeBag)
         
+        mainView.tableView.rx.modelSelected(Posts.self).bind(with: self) { owner, data in
+            let vc = MarketViewController()
+            guard let postId = data.postId else { return }
+            
+            vc.postId.accept(postId)
+            
+            owner.navigationController?.pushViewController(vc, animated: true)
+            
+        }.disposed(by: disposeBag)
+        
         output.shopDatas.drive(mainView.tableView.rx.items(cellIdentifier: ShopTableViewCell.identifier, cellType: ShopTableViewCell.self)) { index, item, cell in
             
             cell.configureCell(data: item)
@@ -52,6 +62,8 @@ class ShopViewController: BaseViewController<ShopView> {
             owner.mainView.tableView.isHidden = !isValid
             owner.mainView.noDataView.isHidden = isValid
         }.disposed(by: disposeBag)
+        
+        
     }
 
 }
