@@ -50,7 +50,6 @@ class ProfileView: BaseView {
         $0.backgroundColor = .red
     }
     
-    
     let scrollView = UIScrollView()
     
     let contentView = UIView()
@@ -77,6 +76,17 @@ class ProfileView: BaseView {
         contentView.addSubview(containerView)
         
         containerView.addSubview(tabVC.view)
+        
+//        tabVC.closure = {
+//            
+//            self.containerView.snp.updateConstraints { make in
+//                make.top.equalTo(self.leftButton.snp.bottom).offset(10)
+//                make.horizontalEdges.equalTo(self.contentView.safeAreaLayoutGuide)
+//                make.height.equalTo(self.tabVC.view.bounds.height)
+//                make.bottom.equalTo(self.contentView.snp.bottom).inset(10)
+//            }
+//            print("tabVC Height", self.tabVC.view.frame.height)
+//        }
         
     }
     
@@ -129,8 +139,9 @@ class ProfileView: BaseView {
         containerView.snp.makeConstraints { make in
             make.top.equalTo(leftButton.snp.bottom).offset(10)
             make.horizontalEdges.equalTo(contentView.safeAreaLayoutGuide)
-            make.height.equalTo(tabVC.view.bounds.height)
-            make.bottom.equalTo(contentView.snp.bottom).inset(10)
+//            make.height.equalTo(contentView.safeAreaLayoutGuide)
+            make.height.equalTo(967)
+            make.bottom.equalTo(contentView.safeAreaLayoutGuide).inset(10)
         }
         
     }

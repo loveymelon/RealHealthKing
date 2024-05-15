@@ -12,6 +12,12 @@ import TextFieldEffects
 
 class SignInView: BaseView {
     
+    let mainTitle = UILabel().then {
+        $0.text = "나의짐"
+        $0.textColor = .white
+        $0.font = .boldSystemFont(ofSize: 50)
+    }
+    
     let emailTextFieldView = TextViewWithHelperView().then {
         $0.textFieldView.infoLabel.text = "이메일 주소"
         $0.helperView.isHidden = true
@@ -54,6 +60,7 @@ class SignInView: BaseView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        
     }
     
     required init?(coder: NSCoder) {
@@ -66,6 +73,7 @@ class SignInView: BaseView {
             stackView.addArrangedSubview(item)
         }
         
+        addSubview(mainTitle)
         addSubview(stackView)
         addSubview(signInButton)
         addSubview(signUpButton)
@@ -73,12 +81,18 @@ class SignInView: BaseView {
     
     override func configureLayout() {
         
+        mainTitle.snp.makeConstraints { make in
+            make.top.equalTo(safeAreaLayoutGuide).inset(70)
+            make.centerX.equalToSuperview()
+            make.height.equalTo(100)
+        }
+        
         stackView.snp.makeConstraints { make in
             make.center.equalTo(snp.center)
             make.horizontalEdges.equalTo(snp.horizontalEdges).inset(30)
             make.height.equalTo(textViewHeight * 2 + 18)
         }
-        
+      
         signInButton.snp.makeConstraints { make in
             make.top.equalTo(stackView.snp.bottom).offset(18)
             make.horizontalEdges.equalTo(stackView.snp.horizontalEdges)

@@ -20,6 +20,7 @@ final class TabViewController: TabmanViewController {
     
     var viewState: ScreenState = .me
     var userId = ""
+    var closure: (() -> Void)?
     
     private lazy var vcs = [normalVC, marketVC]
     
@@ -32,8 +33,6 @@ final class TabViewController: TabmanViewController {
         
         
     }
-    
-    
     
 }
 
@@ -101,11 +100,22 @@ extension TabViewController: PageboyViewControllerDataSource, TMBarDataSource {
         
         let vc = vcs[index]
         
+        if let normalVC = vc as? NormalPostViewController {
+            normalVC.closure = {
+                self.closure?()
+            }
+        }
+        
         vc.mainView.collectionView.snp.makeConstraints { make in
             make.top.equalTo(barInsets.bottom).offset(50)
             make.width.equalTo(UIScreen.main.bounds.width)
+            make.height.equalTo(vc.mainView.collectionView.collectionViewLayout.collectionViewContentSize.height)
             make.bottom.equalToSuperview()
         }
+        
+        print("vcvcvcvcvcvcvcvc", vc.mainView.collectionView.collectionViewLayout.collectionViewContentSize.height)
+        
+        vc.mainView.collectionView.backgroundColor = .blue
         
         return vc
     }

@@ -19,6 +19,7 @@ class TabViewModel: ViewModelType {
     struct Output {
         let outputPostDatas: Driver<[Posts]>
         let outputNoData: Driver<Bool>
+        let outputUpdate: Driver<Bool>
     }
     
     var viewState: ScreenState = .me
@@ -33,6 +34,7 @@ class TabViewModel: ViewModelType {
         
         let postDatasResult = BehaviorRelay<[Posts]>(value: [])
         let noDataResult = PublishRelay<Bool>()
+        let updateResult = PublishRelay<Bool>()
         
         switch viewState {
         case .me:
@@ -47,6 +49,7 @@ class TabViewModel: ViewModelType {
                     cursor = data.nextCursor
                     postDatasResult.accept(data.data)
                     noDataResult.accept(!data.data.isEmpty)
+                    updateResult.accept(false)
                 case .failure(let error):
                     print(error)
                 }
@@ -64,10 +67,11 @@ class TabViewModel: ViewModelType {
                             switch result {
                             case .success(let data):
                                 let temp = postDatasResult.value + data.data
-                                
+
                                 cursor = data.nextCursor
                                 postDatasResult.accept(temp)
-                             
+                                updateResult.accept(true)
+                                
                             case .failure(let error):
                                 // 에러가 발생했을 때 처리
                                 print(error)
@@ -95,6 +99,7 @@ class TabViewModel: ViewModelType {
                     cursor = data.nextCursor
                     postDatasResult.accept(data.data)
                     noDataResult.accept(!data.data.isEmpty)
+                    updateResult.accept(false)
                 case .failure(let error):
                     print(error)
                 }
@@ -113,6 +118,7 @@ class TabViewModel: ViewModelType {
                                 
                                 cursor = data.nextCursor
                                 postDatasResult.accept(temp)
+                                updateResult.accept(true)
                             case .failure(let error):
                                 // 에러가 발생했을 때 처리
                                 print(error)
@@ -127,6 +133,6 @@ class TabViewModel: ViewModelType {
             }.disposed(by: disposeBag)
         }
         
-        return Output(outputPostDatas: postDatasResult.asDriver(onErrorJustReturn: []), outputNoData: noDataResult.asDriver(onErrorJustReturn: true))
+        return Output(outputPostDatas: postDatasResult.asDriver(onErrorJustReturn: []), outputNoData: noDataResult.asDriver(onErrorJustReturn: true), outputUpdate: updateResult.asDriver(onErrorJustReturn: false))
     }
 }

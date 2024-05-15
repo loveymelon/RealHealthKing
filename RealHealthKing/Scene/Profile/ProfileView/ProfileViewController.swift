@@ -116,11 +116,11 @@ class ProfileViewController: BaseViewController<ProfileView> {
         
 //        output.postDatas.drive(with: self) { owner, items in
 //            let tabVC = TabViewController()
-//            
+//
 //            owner.mainView.containerView.addSubview(tabVC.view)
-//            
+//
 //        }.disposed(by: disposeBag)
-//        
+//
     }
 
     override func configureNav() {
