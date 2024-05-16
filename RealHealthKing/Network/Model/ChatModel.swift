@@ -82,7 +82,15 @@ struct ChatHistoryModel: Decodable {
     let data: [LastChatModel]
 }
 
-struct ChatPostModel: Encodable {
-    let content: String
+struct ChatPostModel: Codable {
+    let content: String?
     let files: [String]
+    
+    init(from decoder: any Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.content = try container.decodeIfPresent(String.self, forKey: .content)
+        self.files = try container.decode([String].self, forKey: .files)
+    }
 }
+
+

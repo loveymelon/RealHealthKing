@@ -640,13 +640,13 @@ struct NetworkManager {
         
     }
     
-    static func chatPost(chatRoomId: String) -> Single<Result<LastChatModel, AppError>> {
+    static func chatPost(chatRoomId: String, chatPostModel: ChatPostModel) -> Single<Result<LastChatModel, AppError>> {
         
         return Single.create { single in
             
             do {
                 
-                let urlRequest = try Router.chatPost(roomId: chatRoomId).asURLRequest()
+                let urlRequest = try Router.chatPost(roomId: chatRoomId, model: chatPostModel).asURLRequest()
                 
                 AF.request(urlRequest).responseDecodable(of: LastChatModel.self) { response in
                     switch response.result {
@@ -670,6 +670,34 @@ struct NetworkManager {
             
         }
         
+    }
+    
+    static func chatImageUpload(chatRoomId: String, images: [Data]) -> Single<Result<ChatPostModel, AppError>> {
+        return Single.create { single in
+                
+            let chatImageUpload = Router.chatImageUpload(roomId: chatRoomId)
+            
+            AF.upload(multipartFormData: { multipartForm in
+                for image in images {
+                    multipartForm.append(image, withName: "files", fileName: "images", mimeType: "image/png")
+                }
+                
+            }, to: chatImageUpload.baseURL + chatImageUpload.version + chatImageUpload.path, headers: HTTPHeaders(chatImageUpload.header), interceptor: NetworkInterceptor())
+            .responseDecodable(of: ChatPostModel.self) { response in
+                switch response.result {
+                case .success(let data):
+                    single(.success(.success(data)))
+                case .failure(let error):
+                    if let statusCode = error.responseCode, let netError = NetworkError(rawValue: statusCode) {
+                        single(.success(.failure(AppError.networkError(netError))))
+                    } else if let statusCode = error.responseCode, let netError = ChatImageUploadError(rawValue: statusCode) {
+                        single(.success(.failure(.chatImageUploadError(netError))))
+                    }
+                }
+            }
+            
+            return Disposables.create()
+        }
     }
     
 }

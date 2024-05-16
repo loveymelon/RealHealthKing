@@ -35,7 +35,8 @@ enum Router {
     case chat(model: ChatUserId)
     case chatRoom
     case chatHistory(roomId: String)
-    case chatPost(roomId: String)
+    case chatPost(roomId: String, model: ChatPostModel)
+    case chatImageUpload(roomId: String)
 }
 
 extension Router: TargetType {
@@ -99,6 +100,8 @@ extension Router: TargetType {
             return .get
         case .chatPost:
             return .post
+        case .chatImageUpload:
+            return .post
         }
     }
     
@@ -152,7 +155,9 @@ extension Router: TargetType {
             return "/chats"
         case .chatHistory(let roomId):
             return "/chats/\(roomId)"
-        case .chatPost(let roomId):
+        case .chatPost(let roomId, _):
+            return "/chats/\(roomId)"
+        case .chatImageUpload(let roomId):
             return "/chats/\(roomId)"
         }
     }
@@ -300,6 +305,12 @@ extension Router: TargetType {
                 HTTPHeader.sesacKey.rawValue: APIKey.secretKey.rawValue,
                 HTTPHeader.authorization.rawValue: KeyChainManager.shared.accessToken
             ]
+        case .chatImageUpload:
+            return [
+                HTTPHeader.authorization.rawValue: KeyChainManager.shared.accessToken,
+                HTTPHeader.contentType.rawValue: HTTPHeader.multipart.rawValue,
+                HTTPHeader.sesacKey.rawValue: APIKey.secretKey.rawValue
+            ]
         }
     }
     
@@ -391,7 +402,13 @@ extension Router: TargetType {
             return .none
         case .chatHistory:
             return .none
-        case .chatPost:
+        case .chatPost(_, let model):
+            let encoder = JSONEncoder()
+            encoder.keyEncodingStrategy =
+                .convertToSnakeCase
+            
+            return try? encoder.encode(model)
+        case .chatImageUpload:
             return .none
         }
     }
