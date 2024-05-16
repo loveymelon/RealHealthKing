@@ -12,6 +12,7 @@ import RxCocoa
 class MarketViewController: BaseViewController<MarketView> {
 
     let postId = BehaviorRelay(value: "")
+    var createrId = ""
     
     let disposeBag = DisposeBag()
     
@@ -35,6 +36,7 @@ class MarketViewController: BaseViewController<MarketView> {
             owner.mainView.nickLabel.text = data.creator.nick
             owner.mainView.titleLabel.text = data.title
             owner.mainView.commentLabel.text = data.content
+            owner.createrId = data.creator.userId
             
             if let price = data.content1 {
                 owner.mainView.priceLabel.text = "가격 \(price.extractNumbers(from: price))원"
@@ -52,6 +54,19 @@ class MarketViewController: BaseViewController<MarketView> {
                 owner.mainView.profileImageView.image = UIImage(systemName: "person")
             }
             
+            
+        }.disposed(by: disposeBag)
+        
+        mainView.chatButton.rx.tap.withUnretained(self).flatMap { owner, _ in
+            return NetworkManager.connectChat(userId: owner.createrId)
+        }.bind(with: self) { owner, result  in
+            
+            switch result {
+            case .success(let data):
+                print(data)
+            case .failure(let error):
+                print(error)
+            }
             
         }.disposed(by: disposeBag)
     }

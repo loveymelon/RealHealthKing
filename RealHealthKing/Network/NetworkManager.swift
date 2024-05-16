@@ -570,10 +570,11 @@ struct NetworkManager {
                     case .success(let data):
                         single(.success(.success(data)))
                     case .failure(let error):
+                        print(error)
                         if let statusCode = error.responseCode, let netError = NetworkError(rawValue: statusCode) {
                             single(.success(.failure(AppError.networkError(netError))))
-                        } else if let statusCode = error.responseCode, let netError = WithdrawError(rawValue: statusCode) {
-                            single(.success(.failure(.withdrawError(netError))))
+                        } else if let statusCode = error.responseCode, let netError = ChatError(rawValue: statusCode) {
+                            single(.success(.failure(.chatError(netError))))
                         }
                     }
                 }
@@ -582,6 +583,30 @@ struct NetworkManager {
             }
             
             return Disposables.create()
+        }
+    }
+    
+    static func fetchChatRoom() -> Single<Result<ChatRoomsModel, AppError>> {
+        return Single.create { single in
+            do {
+                let urlRequest = try Router.chatRoom.asURLRequest()
+                
+                AF.request(urlRequest).responseDecodable(of: ChatRoomsModel.self) { response in
+                    switch response.result {
+                    case .success(let data):
+                        single(.success(.success(data)))
+                    case .failure(let error):
+                        print(error)
+                        if let statusCode = error.responseCode, let netError = NetworkError(rawValue: statusCode) {
+                            single(.success(.failure(AppError.networkError(netError))))
+                        } else if let statusCode = error.responseCode, let netError = ChatRoomError(rawValue: statusCode) {
+                            single(.success(.failure(.chatRoomError(netError))))
+                        }
+                    }
+                }
+            } catch {
+                print(error)
+            }
         }
     }
     

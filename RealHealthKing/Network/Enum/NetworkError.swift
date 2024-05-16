@@ -26,6 +26,7 @@ enum AppError: Error {
     case paymentHistoryError(PaymentHistoryError)
     case withdrawError(WithdrawError)
     case chatError(ChatError)
+    case chatRoomError(ChatRoomError)
     case unowned
     
     var description: String {
@@ -66,6 +67,8 @@ enum AppError: Error {
             return withdrawError.description
         case .chatError(let chatError):
             return chatError.description
+        case .chatRoomError(let chatRoomError):
+            return chatRoomError.description
         case .unowned:
             return "unowned"
         }
@@ -462,6 +465,26 @@ enum ChatError: Int, Error {
             return "접근 권한이 없습니다."
         case .unAccessUser:
             return "알 수 없는 계정입니다."
+        case .unAccessToken:
+            return "재로그인 필요"
+        }
+    }
+}
+
+enum ChatRoomError: Int, Error {
+    case success = 200
+    case unAccess = 401
+    case forbidden = 403
+    case unAccessToken = 419
+    
+    var description: String {
+        switch self {
+        case .success:
+            return "success"
+        case .unAccess:
+            return "잚소된 접근입니다."
+        case .forbidden:
+            return "접근 권한이 없습니다."
         case .unAccessToken:
             return "재로그인 필요"
         }

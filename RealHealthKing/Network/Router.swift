@@ -33,6 +33,7 @@ enum Router {
     case paymentHistory
     case withdraw
     case chat(model: ChatUserId)
+    case chatRoom
 }
 
 extension Router: TargetType {
@@ -90,6 +91,8 @@ extension Router: TargetType {
             return .get
         case .chat:
             return .post
+        case .chatRoom:
+            return .get
         }
     }
     
@@ -137,7 +140,9 @@ extension Router: TargetType {
             return "/payments/me"
         case .withdraw:
             return "/users/withdraw"
-        case .chat(model: let model):
+        case .chat:
+            return "/chats"
+        case .chatRoom:
             return "/chats"
         }
     }
@@ -261,7 +266,13 @@ extension Router: TargetType {
                 HTTPHeader.authorization.rawValue: KeyChainManager.shared.accessToken,
                 HTTPHeader.sesacKey.rawValue: APIKey.secretKey.rawValue
             ]
-        case .chat(model: let model):
+        case .chat:
+            return [
+                HTTPHeader.contentType.rawValue: HTTPHeader.json.rawValue,
+                HTTPHeader.sesacKey.rawValue: APIKey.secretKey.rawValue,
+                HTTPHeader.authorization.rawValue: KeyChainManager.shared.accessToken
+            ]
+        case .chatRoom:
             return [
                 HTTPHeader.contentType.rawValue: HTTPHeader.json.rawValue,
                 HTTPHeader.sesacKey.rawValue: APIKey.secretKey.rawValue,
@@ -354,6 +365,8 @@ extension Router: TargetType {
                 .convertToSnakeCase
             
             return try? encoder.encode(model)
+        case .chatRoom:
+            return .none
         }
     }
 }

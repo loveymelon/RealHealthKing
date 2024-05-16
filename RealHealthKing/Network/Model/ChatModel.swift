@@ -17,12 +17,58 @@ struct ChatUserId: Encodable {
 
 struct ChatModel: Decodable {
     let roomId: String
-    let updatedAt: Date
+    let updatedAt: String
     let participants: [UserInform]
+    
+    enum CodingKeys: String, CodingKey {
+        case roomId = "room_id"
+        case updatedAt
+        case participants
+    }
 }
 
 struct UserInform: Decodable {
     let userId: String
     let nick: String
     let profileImage: String?
+    
+    enum CodingKeys: String, CodingKey {
+        case userId = "user_id"
+        case nick
+        case profileImage
+    }
+}
+
+struct ChatRoomsModel: Decodable {
+    let data: [ChatRoomModel]
+    let lastChat: LastChatModel
+    let files: [String]
+}
+
+struct ChatRoomModel: Decodable {
+    let roomId: String
+    let updatedAt: String
+    let participants: [UserInform]
+    
+    enum CodingKeys: String, CodingKey {
+        case roomId = "room_id"
+        case updatedAt
+        case participants
+    }
+}
+
+struct LastChatModel: Decodable {
+    let chatId: String
+    let roomId: String
+    let content: String
+    let createdAt: String
+    let sender: UserInform
+    
+    enum CodingKeys: String, CodingKey {
+        case chatId = "chat_id"
+        case roomId = "room_id"
+        case content
+        case createdAt
+        case sender
+    }
 }

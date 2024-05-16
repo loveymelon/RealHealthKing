@@ -128,11 +128,11 @@ class DetailView: BaseView {
 //            make.horizontalEdges.equalTo(contentView).inset(10)
 //            make.height.equalTo(40)
 //        }
-//        
+        
 //        profileImageView.snp.makeConstraints { make in
 //            make.size.equalTo(topStackView.snp.height)
 //        }
-//        
+        
 //        nickNameLabel.snp.makeConstraints { make in
 //            make.height.equalTo(profileImageView)
 //            
