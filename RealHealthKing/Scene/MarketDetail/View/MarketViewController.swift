@@ -58,7 +58,8 @@ class MarketViewController: BaseViewController<MarketView> {
         }.disposed(by: disposeBag)
         
         mainView.chatButton.rx.tap.withUnretained(self).flatMap { owner, _ in
-            return NetworkManager.connectChat(userId: owner.createrId)
+//            return NetworkManager.connectChat(userId: owner.createrId)
+            return NetworkManager.fetchChatRoom()
         }.bind(with: self) { owner, result  in
             
             switch result {

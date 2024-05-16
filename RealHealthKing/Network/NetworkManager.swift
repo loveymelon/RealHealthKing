@@ -607,7 +607,37 @@ struct NetworkManager {
             } catch {
                 print(error)
             }
+            return Disposables.create()
         }
+    }
+    
+    static func fetchChatMessage(roomId: String, cursor: String) -> Single<Result<ChatHistoryModel, AppError>> {
+        
+        return Single.create { single in
+            
+            do {
+                let urlRequest = try Router.chatHistory(roomId: roomId).asChatURLRequest(cusorDate: cursor)
+                
+                AF.request(urlRequest).responseDecodable(of: ChatHistoryModel.self) { response in
+                    switch response.result {
+                    case .success(let data):
+                        single(.success(.success(data)))
+                    case .failure(let error):
+                        print(error)
+                        if let statusCode = error.responseCode, let netError = NetworkError(rawValue: statusCode) {
+                            single(.success(.failure(AppError.networkError(netError))))
+                        } else if let statusCode = error.responseCode, let netError = ChatRoomError(rawValue: statusCode) {
+                            single(.success(.failure(.chatRoomError(netError))))
+                        }
+                    }
+                }
+            } catch {
+                print(error)
+            }
+            
+            return Disposables.create()
+        }
+        
     }
     
 }

@@ -41,8 +41,7 @@ struct UserInform: Decodable {
 
 struct ChatRoomsModel: Decodable {
     let data: [ChatRoomModel]
-    let lastChat: LastChatModel
-    let files: [String]
+    let lastChat: LastChatModel?
 }
 
 struct ChatRoomModel: Decodable {
@@ -63,6 +62,7 @@ struct LastChatModel: Decodable {
     let content: String
     let createdAt: String
     let sender: UserInform
+    let files: [String]
     
     enum CodingKeys: String, CodingKey {
         case chatId = "chat_id"
@@ -70,5 +70,14 @@ struct LastChatModel: Decodable {
         case content
         case createdAt
         case sender
+        case files
     }
+}
+
+struct ChatMessageModel: Decodable {
+    let cursor_date: String
+}
+
+struct ChatHistoryModel: Decodable {
+    let data: [LastChatModel]
 }

@@ -79,4 +79,16 @@ extension TargetType {
         
         return urlRequest
     }
+    
+    func asChatURLRequest(cusorDate: String) throws -> URLRequest {
+        let url = try baseURL.asURL()
+        
+        var urlRequest = try URLRequest(url: url.appendingPathComponent(version + path), method: method, headers: HTTPHeaders(header))
+        
+        let cursorDate = URLQueryItem(name: "cursor_date", value: cusorDate)
+        
+        urlRequest.url?.append(queryItems: [cursorDate])
+        
+        return urlRequest
+    }
 }

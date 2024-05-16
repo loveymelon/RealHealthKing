@@ -34,6 +34,7 @@ enum Router {
     case withdraw
     case chat(model: ChatUserId)
     case chatRoom
+    case chatHistory(roomId: String)
 }
 
 extension Router: TargetType {
@@ -93,6 +94,8 @@ extension Router: TargetType {
             return .post
         case .chatRoom:
             return .get
+        case .chatHistory:
+            return .get
         }
     }
     
@@ -144,6 +147,8 @@ extension Router: TargetType {
             return "/chats"
         case .chatRoom:
             return "/chats"
+        case .chatHistory(let roomId):
+            return "chats/\(roomId)"
         }
     }
     
@@ -278,6 +283,12 @@ extension Router: TargetType {
                 HTTPHeader.sesacKey.rawValue: APIKey.secretKey.rawValue,
                 HTTPHeader.authorization.rawValue: KeyChainManager.shared.accessToken
             ]
+        case .chatHistory:
+            return [
+                HTTPHeader.contentType.rawValue: HTTPHeader.json.rawValue,
+                HTTPHeader.sesacKey.rawValue: APIKey.secretKey.rawValue,
+                HTTPHeader.authorization.rawValue: KeyChainManager.shared.accessToken
+            ]
         }
     }
     
@@ -366,6 +377,8 @@ extension Router: TargetType {
             
             return try? encoder.encode(model)
         case .chatRoom:
+            return .none
+        case .chatHistory:
             return .none
         }
     }
