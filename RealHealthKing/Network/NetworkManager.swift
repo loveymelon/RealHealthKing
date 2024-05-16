@@ -626,8 +626,8 @@ struct NetworkManager {
                         print(error)
                         if let statusCode = error.responseCode, let netError = NetworkError(rawValue: statusCode) {
                             single(.success(.failure(AppError.networkError(netError))))
-                        } else if let statusCode = error.responseCode, let netError = ChatRoomError(rawValue: statusCode) {
-                            single(.success(.failure(.chatRoomError(netError))))
+                        } else if let statusCode = error.responseCode, let netError = ChatMessageError(rawValue: statusCode) {
+                            single(.success(.failure(.chatMessageError(netError))))
                         }
                     }
                 }
@@ -636,6 +636,38 @@ struct NetworkManager {
             }
             
             return Disposables.create()
+        }
+        
+    }
+    
+    static func chatPost(chatRoomId: String) -> Single<Result<LastChatModel, AppError>> {
+        
+        return Single.create { single in
+            
+            do {
+                
+                let urlRequest = try Router.chatPost(roomId: chatRoomId).asURLRequest()
+                
+                AF.request(urlRequest).responseDecodable(of: LastChatModel.self) { response in
+                    switch response.result {
+                    case .success(let data):
+                        single(.success(.success(data)))
+                    case .failure(let error):
+                        print(error)
+                        if let statusCode = error.responseCode, let netError = NetworkError(rawValue: statusCode) {
+                            single(.success(.failure(AppError.networkError(netError))))
+                        } else if let statusCode = error.responseCode, let netError = ChatPostError(rawValue: statusCode) {
+                            single(.success(.failure(.chatPostError(netError))))
+                        }
+                    }
+                }
+                
+            } catch {
+                print(error)
+            }
+            
+            return Disposables.create()
+            
         }
         
     }

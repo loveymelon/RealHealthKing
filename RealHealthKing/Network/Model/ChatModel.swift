@@ -81,3 +81,8 @@ struct ChatMessageModel: Decodable {
 struct ChatHistoryModel: Decodable {
     let data: [LastChatModel]
 }
+
+struct ChatPostModel: Encodable {
+    let content: String
+    let files: [String]
+}
