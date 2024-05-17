@@ -18,6 +18,7 @@
 		DF5F99B22BF79D2F00E8EFA4 /* ChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF5F99B12BF79D2F00E8EFA4 /* ChatView.swift */; };
 		DF5F99B42BF79D3C00E8EFA4 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF5F99B32BF79D3C00E8EFA4 /* ChatViewController.swift */; };
 		DF5F99B62BF79D4800E8EFA4 /* ChatViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF5F99B52BF79D4800E8EFA4 /* ChatViewModel.swift */; };
+		DF5F99B82BF79F6F00E8EFA4 /* ChatTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF5F99B72BF79F6F00E8EFA4 /* ChatTableViewCell.swift */; };
 		DF5FDA8E2BD418530013E1D3 /* UIImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF5FDA8D2BD418520013E1D3 /* UIImage+Extension.swift */; };
 		DF5FDA902BD43D6F0013E1D3 /* ImageFilesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF5FDA8F2BD43D6F0013E1D3 /* ImageFilesModel.swift */; };
 		DF6367DF2BCB8F480087A075 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF6367DE2BCB8F480087A075 /* NetworkError.swift */; };
@@ -152,6 +153,7 @@
 		DF5F99B12BF79D2F00E8EFA4 /* ChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatView.swift; sourceTree = "<group>"; };
 		DF5F99B32BF79D3C00E8EFA4 /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
 		DF5F99B52BF79D4800E8EFA4 /* ChatViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewModel.swift; sourceTree = "<group>"; };
+		DF5F99B72BF79F6F00E8EFA4 /* ChatTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatTableViewCell.swift; sourceTree = "<group>"; };
 		DF5FDA8D2BD418520013E1D3 /* UIImage+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extension.swift"; sourceTree = "<group>"; };
 		DF5FDA8F2BD43D6F0013E1D3 /* ImageFilesModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageFilesModel.swift; sourceTree = "<group>"; };
 		DF6367DE2BCB8F480087A075 /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
@@ -315,6 +317,7 @@
 			children = (
 				DF5F99B12BF79D2F00E8EFA4 /* ChatView.swift */,
 				DF5F99B32BF79D3C00E8EFA4 /* ChatViewController.swift */,
+				DF5F99B72BF79F6F00E8EFA4 /* ChatTableViewCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1129,6 +1132,7 @@
 				DF839D862BC93D3E001FE924 /* BaseController.swift in Sources */,
 				DF6367EA2BCBF3030087A075 /* TextViewWithHelperView.swift in Sources */,
 				DF82CCF52BCA9F670089989E /* Router.swift in Sources */,
+				DF5F99B82BF79F6F00E8EFA4 /* ChatTableViewCell.swift in Sources */,
 				DF73FE512BDE8F0E00328279 /* LauchScreenView.swift in Sources */,
 				DF7201312BEA6BDD0028AE99 /* PaymentModel.swift in Sources */,
 				DF95A51B2BD0FA4D00E6FCC4 /* PostingView.swift in Sources */,
