@@ -19,6 +19,10 @@
 		DF5F99B42BF79D3C00E8EFA4 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF5F99B32BF79D3C00E8EFA4 /* ChatViewController.swift */; };
 		DF5F99B62BF79D4800E8EFA4 /* ChatViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF5F99B52BF79D4800E8EFA4 /* ChatViewModel.swift */; };
 		DF5F99B82BF79F6F00E8EFA4 /* ChatTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF5F99B72BF79F6F00E8EFA4 /* ChatTableViewCell.swift */; };
+		DF5F99BA2BF8CA2000E8EFA4 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF5F99B92BF8CA2000E8EFA4 /* UIColor+Extension.swift */; };
+		DF5F99BD2BF8E36F00E8EFA4 /* SocketIO in Frameworks */ = {isa = PBXBuildFile; productRef = DF5F99BC2BF8E36F00E8EFA4 /* SocketIO */; };
+		DF5F99BF2BF8E73700E8EFA4 /* ChatTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF5F99BE2BF8E73700E8EFA4 /* ChatTextView.swift */; };
+		DF5F99C12BF8E8F100E8EFA4 /* InputTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF5F99C02BF8E8F100E8EFA4 /* InputTextView.swift */; };
 		DF5FDA8E2BD418530013E1D3 /* UIImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF5FDA8D2BD418520013E1D3 /* UIImage+Extension.swift */; };
 		DF5FDA902BD43D6F0013E1D3 /* ImageFilesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF5FDA8F2BD43D6F0013E1D3 /* ImageFilesModel.swift */; };
 		DF6367DF2BCB8F480087A075 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF6367DE2BCB8F480087A075 /* NetworkError.swift */; };
@@ -60,8 +64,6 @@
 		DF745A182BE6FA0B002ACB70 /* iamport-ios in Frameworks */ = {isa = PBXBuildFile; productRef = DF745A172BE6FA0B002ACB70 /* iamport-ios */; };
 		DF745A1A2BE6FBBF002ACB70 /* ShopTableViewCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF745A192BE6FBBF002ACB70 /* ShopTableViewCellViewModel.swift */; };
 		DF745A1C2BE7072C002ACB70 /* PurchaseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF745A1B2BE7072C002ACB70 /* PurchaseModel.swift */; };
-		DF75CA472BF3488D00E77A87 /* Differentiator in Frameworks */ = {isa = PBXBuildFile; productRef = DF75CA462BF3488D00E77A87 /* Differentiator */; };
-		DF75CA492BF3488D00E77A87 /* RxDataSources in Frameworks */ = {isa = PBXBuildFile; productRef = DF75CA482BF3488D00E77A87 /* RxDataSources */; };
 		DF76D1CD2BD23EED00257C38 /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF76D1CC2BD23EED00257C38 /* UIViewController+Extension.swift */; };
 		DF76D1D02BD2521A00257C38 /* RxGesture in Frameworks */ = {isa = PBXBuildFile; productRef = DF76D1CF2BD2521A00257C38 /* RxGesture */; };
 		DF80205D2BDA5DD100473028 /* SearchCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF80205C2BDA5DD100473028 /* SearchCollectionViewCell.swift */; };
@@ -107,7 +109,6 @@
 		DF839D6F2BC93C67001FE924 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = DF839D6E2BC93C67001FE924 /* SnapKit */; };
 		DF839D752BC93C93001FE924 /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = DF839D742BC93C93001FE924 /* RxCocoa */; };
 		DF839D772BC93C93001FE924 /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = DF839D762BC93C93001FE924 /* RxSwift */; };
-		DF839D7A2BC93CA4001FE924 /* TextFieldEffects in Frameworks */ = {isa = PBXBuildFile; productRef = DF839D792BC93CA4001FE924 /* TextFieldEffects */; };
 		DF839D7D2BC93CB3001FE924 /* IQKeyboardManagerSwift in Frameworks */ = {isa = PBXBuildFile; productRef = DF839D7C2BC93CB3001FE924 /* IQKeyboardManagerSwift */; };
 		DF839D802BC93CC2001FE924 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = DF839D7F2BC93CC2001FE924 /* Alamofire */; };
 		DF839D842BC93D2C001FE924 /* BaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF839D832BC93D2C001FE924 /* BaseView.swift */; };
@@ -154,6 +155,9 @@
 		DF5F99B32BF79D3C00E8EFA4 /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
 		DF5F99B52BF79D4800E8EFA4 /* ChatViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewModel.swift; sourceTree = "<group>"; };
 		DF5F99B72BF79F6F00E8EFA4 /* ChatTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatTableViewCell.swift; sourceTree = "<group>"; };
+		DF5F99B92BF8CA2000E8EFA4 /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
+		DF5F99BE2BF8E73700E8EFA4 /* ChatTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatTextView.swift; sourceTree = "<group>"; };
+		DF5F99C02BF8E8F100E8EFA4 /* InputTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputTextView.swift; sourceTree = "<group>"; };
 		DF5FDA8D2BD418520013E1D3 /* UIImage+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extension.swift"; sourceTree = "<group>"; };
 		DF5FDA8F2BD43D6F0013E1D3 /* ImageFilesModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageFilesModel.swift; sourceTree = "<group>"; };
 		DF6367DE2BCB8F480087A075 /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
@@ -274,19 +278,17 @@
 			buildActionMask = 2147483647;
 			files = (
 				DF839D752BC93C93001FE924 /* RxCocoa in Frameworks */,
-				DF75CA472BF3488D00E77A87 /* Differentiator in Frameworks */,
 				DF839D802BC93CC2001FE924 /* Alamofire in Frameworks */,
 				DF76D1D02BD2521A00257C38 /* RxGesture in Frameworks */,
 				DF745A182BE6FA0B002ACB70 /* iamport-ios in Frameworks */,
 				DF839D6F2BC93C67001FE924 /* SnapKit in Frameworks */,
+				DF5F99BD2BF8E36F00E8EFA4 /* SocketIO in Frameworks */,
 				DF856B442BD18B1200221DFA /* Toast in Frameworks */,
 				DF8020602BDA626300473028 /* Tabman in Frameworks */,
 				DF40ECAC2BF629950090A60B /* RealmSwift in Frameworks */,
 				DF839D772BC93C93001FE924 /* RxSwift in Frameworks */,
 				DF40ECAA2BF629950090A60B /* Realm in Frameworks */,
-				DF839D7A2BC93CA4001FE924 /* TextFieldEffects in Frameworks */,
 				DF43904E2BD63BBB00520CF7 /* Kingfisher in Frameworks */,
-				DF75CA492BF3488D00E77A87 /* RxDataSources in Frameworks */,
 				DF690D952BCECA3E00F3D1E0 /* KeychainSwift in Frameworks */,
 				DF839D7D2BC93CB3001FE924 /* IQKeyboardManagerSwift in Frameworks */,
 			);
@@ -318,6 +320,7 @@
 				DF5F99B12BF79D2F00E8EFA4 /* ChatView.swift */,
 				DF5F99B32BF79D3C00E8EFA4 /* ChatViewController.swift */,
 				DF5F99B72BF79F6F00E8EFA4 /* ChatTableViewCell.swift */,
+				DF5F99BE2BF8E73700E8EFA4 /* ChatTextView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -833,6 +836,7 @@
 				DF80206A2BDA6DD800473028 /* CountView.swift */,
 				DFADFCBE2BE36B29006367FE /* NoDataView.swift */,
 				DF745A0B2BE62C19002ACB70 /* PhotoView.swift */,
+				DF5F99C02BF8E8F100E8EFA4 /* InputTextView.swift */,
 			);
 			path = Custom;
 			sourceTree = "<group>";
@@ -894,6 +898,7 @@
 				DFC680B42BE29D5C000CC3AD /* UISearchBar+Extension.swift */,
 				DF745A142BE6AEF1002ACB70 /* UITextField+Extension.swift */,
 				DF838FA52BF52EB9009EB4F2 /* UITabBar+Extension.swift */,
+				DF5F99B92BF8CA2000E8EFA4 /* UIColor+Extension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -970,7 +975,6 @@
 				DF839D6E2BC93C67001FE924 /* SnapKit */,
 				DF839D742BC93C93001FE924 /* RxCocoa */,
 				DF839D762BC93C93001FE924 /* RxSwift */,
-				DF839D792BC93CA4001FE924 /* TextFieldEffects */,
 				DF839D7C2BC93CB3001FE924 /* IQKeyboardManagerSwift */,
 				DF839D7F2BC93CC2001FE924 /* Alamofire */,
 				DF690D942BCECA3E00F3D1E0 /* KeychainSwift */,
@@ -979,10 +983,9 @@
 				DF43904D2BD63BBB00520CF7 /* Kingfisher */,
 				DF80205F2BDA626300473028 /* Tabman */,
 				DF745A172BE6FA0B002ACB70 /* iamport-ios */,
-				DF75CA462BF3488D00E77A87 /* Differentiator */,
-				DF75CA482BF3488D00E77A87 /* RxDataSources */,
 				DF40ECA92BF629950090A60B /* Realm */,
 				DF40ECAB2BF629950090A60B /* RealmSwift */,
+				DF5F99BC2BF8E36F00E8EFA4 /* SocketIO */,
 			);
 			productName = RealHealthKing;
 			productReference = DF839D542BC93B94001FE924 /* RealHealthKing.app */;
@@ -1015,7 +1018,6 @@
 			packageReferences = (
 				DF839D6D2BC93C67001FE924 /* XCRemoteSwiftPackageReference "SnapKit" */,
 				DF839D732BC93C92001FE924 /* XCRemoteSwiftPackageReference "RxSwift" */,
-				DF839D782BC93CA4001FE924 /* XCRemoteSwiftPackageReference "TextFieldEffects" */,
 				DF839D7B2BC93CB3001FE924 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */,
 				DF839D7E2BC93CC1001FE924 /* XCRemoteSwiftPackageReference "Alamofire" */,
 				DF690D932BCECA3E00F3D1E0 /* XCRemoteSwiftPackageReference "keychain-swift" */,
@@ -1024,8 +1026,8 @@
 				DF43904C2BD63BBB00520CF7 /* XCRemoteSwiftPackageReference "Kingfisher" */,
 				DF80205E2BDA626300473028 /* XCRemoteSwiftPackageReference "Tabman" */,
 				DF745A162BE6FA0B002ACB70 /* XCRemoteSwiftPackageReference "iamport-ios" */,
-				DF75CA452BF3488D00E77A87 /* XCRemoteSwiftPackageReference "RxDataSources" */,
 				DF40ECA82BF629950090A60B /* XCRemoteSwiftPackageReference "realm-swift" */,
+				DF5F99BB2BF8E36F00E8EFA4 /* XCRemoteSwiftPackageReference "socket.io-client-swift" */,
 			);
 			productRefGroup = DF839D552BC93B94001FE924 /* Products */;
 			projectDirPath = "";
@@ -1074,6 +1076,7 @@
 				DF87DD5E2BDCE11C006C53DC /* ModifyViewModel.swift in Sources */,
 				DF6367E12BCBD0CA0087A075 /* SignUpModel.swift in Sources */,
 				DF87DD602BDD78F2006C53DC /* ModifyProfileModel.swift in Sources */,
+				DF5F99BA2BF8CA2000E8EFA4 /* UIColor+Extension.swift in Sources */,
 				DF839D8D2BC93DCF001FE924 /* SignInView.swift in Sources */,
 				DF82CCE02BCA8DA70089989E /* TextFieldViewModel.swift in Sources */,
 				DF690D9B2BCEDB7700F3D1E0 /* PostsModel.swift in Sources */,
@@ -1102,6 +1105,7 @@
 				DF82CCE42BCA9CAB0089989E /* SignInViewModel.swift in Sources */,
 				DF838FA02BF4E97D009EB4F2 /* MarketViewController.swift in Sources */,
 				DF73FE532BDE8F9B00328279 /* LauchViewModel.swift in Sources */,
+				DF5F99C12BF8E8F100E8EFA4 /* InputTextView.swift in Sources */,
 				DF80206B2BDA6DD800473028 /* CountView.swift in Sources */,
 				DF690D972BCECA7700F3D1E0 /* NetworkInterceptor.swift in Sources */,
 				DF7459FB2BE5FE38002ACB70 /* ShopView.swift in Sources */,
@@ -1144,6 +1148,7 @@
 				DF73FE672BDEE32F00328279 /* CommentView.swift in Sources */,
 				DF7410512BE7809F00DEFA11 /* PurchaseViewModel.swift in Sources */,
 				DF806FA82BD8D8C9006046C8 /* NotificationCenterProtocol.swift in Sources */,
+				DF5F99BF2BF8E73700E8EFA4 /* ChatTextView.swift in Sources */,
 				DF838FA62BF52EB9009EB4F2 /* UITabBar+Extension.swift in Sources */,
 				DF6367E42BCBD1A90087A075 /* SignUpViewController.swift in Sources */,
 				DF7459FD2BE5FE46002ACB70 /* ShopViewController.swift in Sources */,
@@ -1422,6 +1427,14 @@
 				minimumVersion = 7.11.0;
 			};
 		};
+		DF5F99BB2BF8E36F00E8EFA4 /* XCRemoteSwiftPackageReference "socket.io-client-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/socketio/socket.io-client-swift.git";
+			requirement = {
+				kind = exactVersion;
+				version = 16.1.0;
+			};
+		};
 		DF690D932BCECA3E00F3D1E0 /* XCRemoteSwiftPackageReference "keychain-swift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/evgenyneu/keychain-swift.git";
@@ -1436,14 +1449,6 @@
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = 1.4.1;
-			};
-		};
-		DF75CA452BF3488D00E77A87 /* XCRemoteSwiftPackageReference "RxDataSources" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/RxSwiftCommunity/RxDataSources.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 5.0.2;
 			};
 		};
 		DF76D1CE2BD2521A00257C38 /* XCRemoteSwiftPackageReference "RxGesture" */ = {
@@ -1476,14 +1481,6 @@
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = 6.6.0;
-			};
-		};
-		DF839D782BC93CA4001FE924 /* XCRemoteSwiftPackageReference "TextFieldEffects" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/raulriera/TextFieldEffects.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.7.0;
 			};
 		};
 		DF839D7B2BC93CB3001FE924 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */ = {
@@ -1528,6 +1525,11 @@
 			package = DF43904C2BD63BBB00520CF7 /* XCRemoteSwiftPackageReference "Kingfisher" */;
 			productName = Kingfisher;
 		};
+		DF5F99BC2BF8E36F00E8EFA4 /* SocketIO */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DF5F99BB2BF8E36F00E8EFA4 /* XCRemoteSwiftPackageReference "socket.io-client-swift" */;
+			productName = SocketIO;
+		};
 		DF690D942BCECA3E00F3D1E0 /* KeychainSwift */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = DF690D932BCECA3E00F3D1E0 /* XCRemoteSwiftPackageReference "keychain-swift" */;
@@ -1537,16 +1539,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = DF745A162BE6FA0B002ACB70 /* XCRemoteSwiftPackageReference "iamport-ios" */;
 			productName = "iamport-ios";
-		};
-		DF75CA462BF3488D00E77A87 /* Differentiator */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = DF75CA452BF3488D00E77A87 /* XCRemoteSwiftPackageReference "RxDataSources" */;
-			productName = Differentiator;
-		};
-		DF75CA482BF3488D00E77A87 /* RxDataSources */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = DF75CA452BF3488D00E77A87 /* XCRemoteSwiftPackageReference "RxDataSources" */;
-			productName = RxDataSources;
 		};
 		DF76D1CF2BD2521A00257C38 /* RxGesture */ = {
 			isa = XCSwiftPackageProductDependency;
@@ -1572,11 +1564,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = DF839D732BC93C92001FE924 /* XCRemoteSwiftPackageReference "RxSwift" */;
 			productName = RxSwift;
-		};
-		DF839D792BC93CA4001FE924 /* TextFieldEffects */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = DF839D782BC93CA4001FE924 /* XCRemoteSwiftPackageReference "TextFieldEffects" */;
-			productName = TextFieldEffects;
 		};
 		DF839D7C2BC93CB3001FE924 /* IQKeyboardManagerSwift */ = {
 			isa = XCSwiftPackageProductDependency;

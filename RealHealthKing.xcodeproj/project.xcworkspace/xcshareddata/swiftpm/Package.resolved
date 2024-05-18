@@ -1,5 +1,5 @@
 {
-  "originHash" : "9cfdd7f06a64829197e5ee6e42de06f358a4884c059e9535fa433e0d5932ea08",
+  "originHash" : "cf3f8bbdde65fd584b5ff967c6de5671a2f1f6e99970b3c06e9b912bca18a1b0",
   "pins" : [
     {
       "identity" : "alamofire",
@@ -83,15 +83,6 @@
       }
     },
     {
-      "identity" : "rxdatasources",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/RxSwiftCommunity/RxDataSources.git",
-      "state" : {
-        "revision" : "90c29b48b628479097fe775ed1966d75ac374518",
-        "version" : "5.0.2"
-      }
-    },
-    {
       "identity" : "rxgesture",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/RxSwiftCommunity/RxGesture.git",
@@ -119,21 +110,30 @@
       }
     },
     {
+      "identity" : "socket.io-client-swift",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/socketio/socket.io-client-swift.git",
+      "state" : {
+        "revision" : "175da8b5156f6b132436f0676cc84c2f6a766b6e",
+        "version" : "16.1.0"
+      }
+    },
+    {
+      "identity" : "starscream",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/daltoniam/Starscream",
+      "state" : {
+        "revision" : "ac6c0fc9da221873e01bd1a0d4818498a71eef33",
+        "version" : "4.0.6"
+      }
+    },
+    {
       "identity" : "tabman",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/uias/Tabman.git",
       "state" : {
         "revision" : "3b2213290eb93e55bb50b49d1a179033005c11ab",
         "version" : "3.2.0"
-      }
-    },
-    {
-      "identity" : "textfieldeffects",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/raulriera/TextFieldEffects.git",
-      "state" : {
-        "revision" : "7e563d4d6d755bb1ab6c1c049f8c215d7c489100",
-        "version" : "1.7.0"
       }
     },
     {

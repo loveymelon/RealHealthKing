@@ -27,6 +27,8 @@ class ChatTableViewCell: UITableViewCell {
         $0.textColor = .white
         $0.font = .systemFont(ofSize: 12)
     }
+    
+    var state: ScreenState = .me
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -40,10 +42,26 @@ class ChatTableViewCell: UITableViewCell {
     
 }
 
+
+extension ChatTableViewCell {
+    func configureCell(text: String) {
+        configureLayout()
+        
+        if state == .me {
+            messageBoxView.backgroundColor = UIColor(hexCode: "D2DAFF", alpha: 1)
+        } else {
+            messageBoxView.backgroundColor = UIColor(hexCode: "AAC4FF", alpha: 1)
+        }
+        
+        messageBoxView.text = text
+        dateLabel.text = "\(Date())"
+    }
+}
+
+
 extension ChatTableViewCell: UIConfigureProtocol {
     func configureUI() {
         configureHierarchy()
-        configureLayout()
     }
     
     func configureHierarchy() {
@@ -52,18 +70,41 @@ extension ChatTableViewCell: UIConfigureProtocol {
     }
     
     func configureLayout() {
-        messageBoxView.snp.makeConstraints { make in
-            make.top.equalToSuperview()
-            make.height.greaterThanOrEqualTo(45)
-            make.width.lessThanOrEqualTo(255)
-            make.centerY.equalToSuperview()
+        
+        if state == .me {
+            
+            messageBoxView.snp.makeConstraints { make in
+                make.top.equalToSuperview()
+                make.height.greaterThanOrEqualTo(45)
+                make.width.lessThanOrEqualTo(255)
+                make.centerY.equalTo(contentView.safeAreaLayoutGuide)
+                
+                make.trailing.equalTo(contentView.safeAreaLayoutGuide).inset(15)
+            }
+            
+            dateLabel.snp.makeConstraints { make in
+                make.trailing.equalTo(messageBoxView.snp.leading).offset(-5)
+                make.bottom.equalTo(messageBoxView.snp.bottom)
+            }
+            
+        } else {
+            
+            messageBoxView.snp.makeConstraints { make in
+                make.top.equalToSuperview()
+                make.height.greaterThanOrEqualTo(45)
+                make.width.lessThanOrEqualTo(255)
+                make.centerY.equalTo(contentView.safeAreaLayoutGuide)
+                
+                make.leading.equalTo(contentView.safeAreaLayoutGuide).inset(15)
+            }
+            
+            dateLabel.snp.makeConstraints { make in
+                make.trailing.equalTo(messageBoxView.snp.leading).offset(-5)
+                make.bottom.equalTo(messageBoxView.snp.bottom)
+            }
+            
         }
         
-        dateLabel.snp.makeConstraints { make in
-            make.trailing.equalTo(messageBoxView.snp.leading).offset(-5)
-            make.bottom.equalTo(messageBoxView.snp.bottom)
-        }
     }
-    
-    
+
 }
