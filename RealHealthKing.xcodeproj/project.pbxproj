@@ -7,8 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		DF40ECAA2BF629950090A60B /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = DF40ECA92BF629950090A60B /* Realm */; };
-		DF40ECAC2BF629950090A60B /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = DF40ECAB2BF629950090A60B /* RealmSwift */; };
+		DF32337A2BFA43F900110825 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = DF3233792BFA43F900110825 /* RealmSwift */; };
+		DF32337C2BFA46DC00110825 /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF32337B2BFA46DC00110825 /* Date+Extension.swift */; };
+		DF3233812BFA688900110825 /* ChatListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF3233802BFA688900110825 /* ChatListViewModel.swift */; };
+		DF3233832BFA68AA00110825 /* ChatListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF3233822BFA68AA00110825 /* ChatListViewController.swift */; };
+		DF3233852BFA68B700110825 /* ChatListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF3233842BFA68B700110825 /* ChatListView.swift */; };
+		DF3233872BFA69C400110825 /* ChatListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF3233862BFA69C400110825 /* ChatListTableViewCell.swift */; };
 		DF43904E2BD63BBB00520CF7 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = DF43904D2BD63BBB00520CF7 /* Kingfisher */; };
 		DF4390502BD6544100520CF7 /* UIScreen+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF43904F2BD6544100520CF7 /* UIScreen+Extension.swift */; };
 		DF4390522BD66CD800520CF7 /* HomeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF4390512BD66CD800520CF7 /* HomeTableViewCell.swift */; };
@@ -149,6 +153,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		DF32337B2BFA46DC00110825 /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
+		DF3233802BFA688900110825 /* ChatListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatListViewModel.swift; sourceTree = "<group>"; };
+		DF3233822BFA68AA00110825 /* ChatListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatListViewController.swift; sourceTree = "<group>"; };
+		DF3233842BFA68B700110825 /* ChatListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatListView.swift; sourceTree = "<group>"; };
+		DF3233862BFA69C400110825 /* ChatListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatListTableViewCell.swift; sourceTree = "<group>"; };
 		DF43904F2BD6544100520CF7 /* UIScreen+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIScreen+Extension.swift"; sourceTree = "<group>"; };
 		DF4390512BD66CD800520CF7 /* HomeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTableViewCell.swift; sourceTree = "<group>"; };
 		DF4390532BD66D2200520CF7 /* ReusableProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReusableProtocol.swift; sourceTree = "<group>"; };
@@ -286,14 +295,13 @@
 				DF839D752BC93C93001FE924 /* RxCocoa in Frameworks */,
 				DF839D802BC93CC2001FE924 /* Alamofire in Frameworks */,
 				DF76D1D02BD2521A00257C38 /* RxGesture in Frameworks */,
+				DF32337A2BFA43F900110825 /* RealmSwift in Frameworks */,
 				DF745A182BE6FA0B002ACB70 /* iamport-ios in Frameworks */,
 				DF839D6F2BC93C67001FE924 /* SnapKit in Frameworks */,
 				DF5F99BD2BF8E36F00E8EFA4 /* SocketIO in Frameworks */,
 				DF856B442BD18B1200221DFA /* Toast in Frameworks */,
 				DF8020602BDA626300473028 /* Tabman in Frameworks */,
-				DF40ECAC2BF629950090A60B /* RealmSwift in Frameworks */,
 				DF839D772BC93C93001FE924 /* RxSwift in Frameworks */,
-				DF40ECAA2BF629950090A60B /* Realm in Frameworks */,
 				DF43904E2BD63BBB00520CF7 /* Kingfisher in Frameworks */,
 				DF690D952BCECA3E00F3D1E0 /* KeychainSwift in Frameworks */,
 				DF839D7D2BC93CB3001FE924 /* IQKeyboardManagerSwift in Frameworks */,
@@ -303,6 +311,33 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		DF32337D2BFA686E00110825 /* ChatList */ = {
+			isa = PBXGroup;
+			children = (
+				DF32337F2BFA687B00110825 /* ViewModel */,
+				DF32337E2BFA687700110825 /* View */,
+			);
+			path = ChatList;
+			sourceTree = "<group>";
+		};
+		DF32337E2BFA687700110825 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				DF3233822BFA68AA00110825 /* ChatListViewController.swift */,
+				DF3233842BFA68B700110825 /* ChatListView.swift */,
+				DF3233862BFA69C400110825 /* ChatListTableViewCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		DF32337F2BFA687B00110825 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				DF3233802BFA688900110825 /* ChatListViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 		DF46AEA02BE572260025B43F /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -785,6 +820,7 @@
 		DF839D812BC93D05001FE924 /* Scene */ = {
 			isa = PBXGroup;
 			children = (
+				DF32337D2BFA686E00110825 /* ChatList */,
 				DF5F99AE2BF7331A00E8EFA4 /* Chat */,
 				DF838F9B2BF4E952009EB4F2 /* MarketDetail */,
 				DF74103D2BE77EC700DEFA11 /* PayWeb */,
@@ -916,6 +952,7 @@
 				DF745A142BE6AEF1002ACB70 /* UITextField+Extension.swift */,
 				DF838FA52BF52EB9009EB4F2 /* UITabBar+Extension.swift */,
 				DF5F99B92BF8CA2000E8EFA4 /* UIColor+Extension.swift */,
+				DF32337B2BFA46DC00110825 /* Date+Extension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -1000,9 +1037,8 @@
 				DF43904D2BD63BBB00520CF7 /* Kingfisher */,
 				DF80205F2BDA626300473028 /* Tabman */,
 				DF745A172BE6FA0B002ACB70 /* iamport-ios */,
-				DF40ECA92BF629950090A60B /* Realm */,
-				DF40ECAB2BF629950090A60B /* RealmSwift */,
 				DF5F99BC2BF8E36F00E8EFA4 /* SocketIO */,
+				DF3233792BFA43F900110825 /* RealmSwift */,
 			);
 			productName = RealHealthKing;
 			productReference = DF839D542BC93B94001FE924 /* RealHealthKing.app */;
@@ -1043,8 +1079,8 @@
 				DF43904C2BD63BBB00520CF7 /* XCRemoteSwiftPackageReference "Kingfisher" */,
 				DF80205E2BDA626300473028 /* XCRemoteSwiftPackageReference "Tabman" */,
 				DF745A162BE6FA0B002ACB70 /* XCRemoteSwiftPackageReference "iamport-ios" */,
-				DF40ECA82BF629950090A60B /* XCRemoteSwiftPackageReference "realm-swift" */,
 				DF5F99BB2BF8E36F00E8EFA4 /* XCRemoteSwiftPackageReference "socket.io-client-swift" */,
+				DF3233782BFA43F900110825 /* XCRemoteSwiftPackageReference "realm-swift" */,
 			);
 			productRefGroup = DF839D552BC93B94001FE924 /* Products */;
 			projectDirPath = "";
@@ -1090,6 +1126,7 @@
 				DF73FE4F2BDE8EFA00328279 /* LauchScreenViewController.swift in Sources */,
 				DF73FE6D2BDEEAFF00328279 /* CommentTableViewCell.swift in Sources */,
 				DF74104F2BE7809900DEFA11 /* PurchaseViewController.swift in Sources */,
+				DF3233852BFA68B700110825 /* ChatListView.swift in Sources */,
 				DF87DD5E2BDCE11C006C53DC /* ModifyViewModel.swift in Sources */,
 				DF6367E12BCBD0CA0087A075 /* SignUpModel.swift in Sources */,
 				DF87DD602BDD78F2006C53DC /* ModifyProfileModel.swift in Sources */,
@@ -1110,7 +1147,9 @@
 				DF745A0E2BE6A45C002ACB70 /* ShopPostPhotoView.swift in Sources */,
 				DF73FE692BDEE33A00328279 /* CommentViewController.swift in Sources */,
 				DF76D1CD2BD23EED00257C38 /* UIViewController+Extension.swift in Sources */,
+				DF3233812BFA688900110825 /* ChatListViewModel.swift in Sources */,
 				DF745A0C2BE62C19002ACB70 /* PhotoView.swift in Sources */,
+				DF32337C2BFA46DC00110825 /* Date+Extension.swift in Sources */,
 				DF5F99B42BF79D3C00E8EFA4 /* ChatViewController.swift in Sources */,
 				DF73FE622BDEE07700328279 /* CommentModel.swift in Sources */,
 				DF745A1C2BE7072C002ACB70 /* PurchaseModel.swift in Sources */,
@@ -1122,6 +1161,7 @@
 				DF9CC6D22BD767DE00DF808A /* HomeTableCellViewModel.swift in Sources */,
 				DF82CCE42BCA9CAB0089989E /* SignInViewModel.swift in Sources */,
 				DF838FA02BF4E97D009EB4F2 /* MarketViewController.swift in Sources */,
+				DF3233872BFA69C400110825 /* ChatListTableViewCell.swift in Sources */,
 				DF73FE532BDE8F9B00328279 /* LauchViewModel.swift in Sources */,
 				DF5F99C12BF8E8F100E8EFA4 /* InputTextView.swift in Sources */,
 				DF80206B2BDA6DD800473028 /* CountView.swift in Sources */,
@@ -1190,6 +1230,7 @@
 				DF5F99B62BF79D4800E8EFA4 /* ChatViewModel.swift in Sources */,
 				DF82CCD92BCA87090089989E /* TextFieldView.swift in Sources */,
 				DF806FAF2BD8DCDA006046C8 /* UIVewController+RXSwift.swift in Sources */,
+				DF3233832BFA68AA00110825 /* ChatListViewController.swift in Sources */,
 				DFADFCC12BE3820E006367FE /* HomeModel.swift in Sources */,
 				DF892AC32BCC50B7006C69AA /* String+Extension.swift in Sources */,
 				DFB25D1B2BEE8EC600CD1760 /* TabViewModel.swift in Sources */,
@@ -1431,12 +1472,12 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		DF40ECA82BF629950090A60B /* XCRemoteSwiftPackageReference "realm-swift" */ = {
+		DF3233782BFA43F900110825 /* XCRemoteSwiftPackageReference "realm-swift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/realm/realm-swift.git";
 			requirement = {
 				kind = exactVersion;
-				version = 10.47.0;
+				version = 10.50.0;
 			};
 		};
 		DF43904C2BD63BBB00520CF7 /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
@@ -1530,14 +1571,9 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		DF40ECA92BF629950090A60B /* Realm */ = {
+		DF3233792BFA43F900110825 /* RealmSwift */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = DF40ECA82BF629950090A60B /* XCRemoteSwiftPackageReference "realm-swift" */;
-			productName = Realm;
-		};
-		DF40ECAB2BF629950090A60B /* RealmSwift */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = DF40ECA82BF629950090A60B /* XCRemoteSwiftPackageReference "realm-swift" */;
+			package = DF3233782BFA43F900110825 /* XCRemoteSwiftPackageReference "realm-swift" */;
 			productName = RealmSwift;
 		};
 		DF43904D2BD63BBB00520CF7 /* Kingfisher */ = {

@@ -12,16 +12,20 @@ import RxCocoa
 class MarketViewModel: ViewModelType {
     struct Input {
         let inputPostId: Observable<String>
+        let messageButtonTap: Observable<Void>
     }
     
     struct Output {
         let outputPostData: Driver<Posts>
+        let outputRoomId: Driver<ChatModel>
     }
     
     var disposeBag = DisposeBag()
     
     func transform(input: Input) -> Output {
         let postDataResult = PublishRelay<Posts>()
+        let roomIdResult = PublishRelay<ChatModel>()
+        var userId = ""
         
         input.inputPostId.withUnretained(self).flatMap { owner, postId in
             return NetworkManager.fetchAccessPostDetails(postId: postId)
@@ -30,8 +34,7 @@ class MarketViewModel: ViewModelType {
             switch detailResult {
             case .success(let data):
                 postDataResult.accept(data)
-                
-                
+                userId = data.creator.userId
             case .failure(let error):
                 print(error)
             }
@@ -40,6 +43,22 @@ class MarketViewModel: ViewModelType {
             print(error)
         }.disposed(by: disposeBag)
         
-        return Output(outputPostData: postDataResult.asDriver(onErrorJustReturn: Posts()))
+        input.messageButtonTap.flatMap {
+            NetworkManager.connectChat(userId: userId)
+        }.subscribe { result in
+            switch result {
+                
+            case .success(let data):
+                print(data.lastChat, data.roomId)
+                roomIdResult.accept(data)
+            case .failure(let error):
+                print(error)
+            }
+            
+        } onError: { error in
+            print(error)
+        }.disposed(by: disposeBag)
+        
+        return Output(outputPostData: postDataResult.asDriver(onErrorJustReturn: Posts()), outputRoomId: roomIdResult.asDriver(onErrorJustReturn: ChatModel()))
     }
 }

@@ -10,7 +10,7 @@ import RealmSwift
 final class RealmRepository {
     private let realm = try! Realm()
     
-    func createItem(item: RealmModel) throws {
+    func createItem(item: ChatRoomRealmModel) throws {
         
         do {
             try realm.write {
@@ -22,9 +22,11 @@ final class RealmRepository {
         
     }
     
-    func fetchItem() -> Results<RealmModel> {
-        return realm.objects(RealmModel.self)
-    }
+//    func fetchItem() -> ChatRoomRealmModel {
+//                print(realm.configuration.fileURL)
+//        
+//        return realm.objects(ChatRoomRealmModel.self)
+//    }
     
     
 }

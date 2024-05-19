@@ -611,19 +611,19 @@ struct NetworkManager {
         }
     }
     
-    static func fetchChatMessage(roomId: String, cursor: String) -> Single<Result<ChatHistoryModel, AppError>> {
+    static func fetchChatMessage(roomId: String, cursor: String) -> Single<Result<ChatModels, AppError>> {
         
         return Single.create { single in
             
             do {
                 let urlRequest = try Router.chatHistory(roomId: roomId).asChatURLRequest(cusorDate: cursor)
                 
-                AF.request(urlRequest).responseDecodable(of: ChatHistoryModel.self) { response in
+                AF.request(urlRequest).responseDecodable(of: ChatModels.self) { response in
                     switch response.result {
                     case .success(let data):
                         single(.success(.success(data)))
                     case .failure(let error):
-                        print(error)
+                        print(error, error.responseCode)
                         if let statusCode = error.responseCode, let netError = NetworkError(rawValue: statusCode) {
                             single(.success(.failure(AppError.networkError(netError))))
                         } else if let statusCode = error.responseCode, let netError = ChatMessageError(rawValue: statusCode) {
@@ -640,7 +640,7 @@ struct NetworkManager {
         
     }
     
-    static func chatPost(chatRoomId: String, chatPostModel: ChatPostModel) -> Single<Result<LastChatModel, AppError>> {
+    static func chatPost(chatRoomId: String, chatPostModel: ChatPostModel) -> Single<Result<ChatHistoryModel, AppError>> {
         
         return Single.create { single in
             
@@ -648,7 +648,7 @@ struct NetworkManager {
                 
                 let urlRequest = try Router.chatPost(roomId: chatRoomId, model: chatPostModel).asURLRequest()
                 
-                AF.request(urlRequest).responseDecodable(of: LastChatModel.self) { response in
+                AF.request(urlRequest).responseDecodable(of: ChatHistoryModel.self) { response in
                     switch response.result {
                     case .success(let data):
                         single(.success(.success(data)))

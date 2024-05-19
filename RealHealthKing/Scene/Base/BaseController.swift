@@ -13,6 +13,7 @@ class BaseViewController<T: BaseView>: UIViewController {
     
     override func loadView() {
         self.view = mainView
+        
     }
 
     override func viewDidLoad() {

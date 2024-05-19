@@ -15,15 +15,25 @@ struct ChatUserId: Encodable {
     }
 }
 
+
 struct ChatModel: Decodable {
     let roomId: String
     let updatedAt: String
     let participants: [UserInform]
+    let lastChat: ChatHistoryModel?
     
     enum CodingKeys: String, CodingKey {
         case roomId = "room_id"
         case updatedAt
         case participants
+        case lastChat
+    }
+    
+    init(roomId: String = "", updatedAt: String = "", participants: [UserInform] = [], lastChat: ChatHistoryModel? = nil) {
+        self.roomId = roomId
+        self.updatedAt = updatedAt
+        self.participants = participants
+        self.lastChat = lastChat
     }
 }
 
@@ -37,11 +47,20 @@ struct UserInform: Decodable {
         case nick
         case profileImage
     }
+    
+    init(userId: String = "", nick: String = "", profileImage: String? = nil) {
+        self.userId = userId
+        self.nick = nick
+        self.profileImage = profileImage
+    }
 }
 
+// 채팅방 리스트 모델
 struct ChatRoomsModel: Decodable {
     let data: [ChatRoomModel]
-    let lastChat: LastChatModel?
+    let lastChat: ChatHistoryModel
+    
+    
 }
 
 struct ChatRoomModel: Decodable {
@@ -56,7 +75,8 @@ struct ChatRoomModel: Decodable {
     }
 }
 
-struct LastChatModel: Decodable {
+// 채팅 기록 모델
+struct ChatHistoryModel: Decodable {
     let chatId: String
     let roomId: String
     let content: String
@@ -78,8 +98,8 @@ struct ChatMessageModel: Decodable {
     let cursor_date: String
 }
 
-struct ChatHistoryModel: Decodable {
-    let data: [LastChatModel]
+struct ChatModels: Decodable {
+    let data: [ChatHistoryModel]
 }
 
 struct ChatPostModel: Codable {

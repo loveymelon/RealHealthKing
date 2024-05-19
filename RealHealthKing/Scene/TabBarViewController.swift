@@ -34,10 +34,14 @@ extension TabBarViewController {
         
         shopVC.tabBarItem = UITabBarItem(title: "", image: UIImage(systemName: "cart"), selectedImage: UIImage(systemName: "cart.fill"))
         
+        let chatVC = UINavigationController(rootViewController: ChatListViewController())
+        
+        chatVC.tabBarItem = UITabBarItem(title: "", image: UIImage(systemName: "message"), selectedImage: UIImage(systemName: "message"))
+        
         let profileVC = UINavigationController(rootViewController: ProfileViewController())
         
         profileVC.tabBarItem = UITabBarItem(title: "", image: UIImage(systemName: "person"), selectedImage: UIImage(systemName: "person"))
         
-        viewControllers = [homeVC, shopVC, searchVC, profileVC]
+        viewControllers = [homeVC, shopVC, searchVC, chatVC, profileVC]
     }
 }

@@ -25,7 +25,9 @@ class MarketViewController: BaseViewController<MarketView> {
     }
 
     override func bind() {
-        let input = MarketViewModel.Input(inputPostId: postId.asObservable())
+        let messageButtonTap = mainView.chatButton.rx.tap.asObservable()
+        
+        let input = MarketViewModel.Input(inputPostId: postId.asObservable(), messageButtonTap: messageButtonTap)
         
         let output = viewModel.transform(input: input)
         
@@ -57,17 +59,12 @@ class MarketViewController: BaseViewController<MarketView> {
             
         }.disposed(by: disposeBag)
         
-        mainView.chatButton.rx.tap.withUnretained(self).flatMap { owner, _ in
-//            return NetworkManager.connectChat(userId: owner.createrId)
-            return NetworkManager.fetchChatRoom()
-        }.bind(with: self) { owner, result  in
+        output.outputRoomId.drive(with: self) { owner, model in
+            let chatVC = ChatViewController()
             
-            switch result {
-            case .success(let data):
-                print(data)
-            case .failure(let error):
-                print(error)
-            }
+//            chatVC.roomId = id
+            
+            owner.navigationController?.pushViewController(chatVC, animated: true)
             
         }.disposed(by: disposeBag)
     }

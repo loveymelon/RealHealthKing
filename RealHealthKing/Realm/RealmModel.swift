@@ -8,16 +8,27 @@
 import Foundation
 import RealmSwift
 
-class RealmModel: Object {
+class ChatRealmModel: Object {
     @Persisted(primaryKey: true) var id: ObjectId
+    @Persisted var chatRoom: List<ChatRoomRealmModel>
+    
+    convenience init(id: ObjectId) {
+        self.init()
+    }
+}
+
+class ChatRoomRealmModel: Object {
+    @Persisted(primaryKey: true) var id: String
     @Persisted var date: Date
     @Persisted var content: String
-    @Persisted var user: Bool
+    @Persisted var isUser: Bool
     
-    convenience init(id: ObjectId, date: Date, content: String, user: Bool) {
+    convenience init(id: String, date: Date, content: String, isUser: Bool) {
         self.init()
+        
+        self.id = id
         self.date = date
         self.content = content
-        self.user = user
+        self.isUser = isUser
     }
 }

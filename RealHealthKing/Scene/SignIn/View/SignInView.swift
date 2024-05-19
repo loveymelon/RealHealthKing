@@ -8,7 +8,6 @@
 import UIKit
 import Then
 import SnapKit
-import TextFieldEffects
 
 class SignInView: BaseView {
     

@@ -6,12 +6,16 @@
 //
 
 import UIKit
+import Then
 import RxCocoa
 import RxSwift
 
 class ChatViewController: BaseViewController<ChatView> {
     
     let a = Observable.of([1,2,3])
+    var chatModel = ChatModel()
+    
+    let viewModel = ChatViewModel()
     
     let disposeBag = DisposeBag()
 
@@ -21,6 +25,15 @@ class ChatViewController: BaseViewController<ChatView> {
     }
 
     override func bind() {
+        
+        let viewWillTrigger = rx.viewWillAppear.withUnretained(self).map { owner, _ in
+            return owner.chatModel
+        }
+        
+        let input = ChatViewModel.Input(viewWillAppearTrigger: viewWillTrigger)
+        
+        _ = viewModel.transform(input: input)
+        
         a.bind(to: mainView.tableView.rx.items(cellIdentifier: ChatTableViewCell.identifier, cellType: ChatTableViewCell.self)) { index, item, cell in
             
             cell.state = .other
@@ -43,7 +56,6 @@ class ChatViewController: BaseViewController<ChatView> {
             owner.mainView.chatTextView.userTextView.isScrollEnabled = isMaxHeight
             owner.mainView.chatTextView.setNeedsUpdateConstraints()
             owner.mainView.chatTextView.reloadInputViews()
-            
             
             print("height", estimated.height)
             
