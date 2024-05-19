@@ -18,7 +18,6 @@ class ChatViewController: BaseViewController<ChatView> {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
     }
 
     override func bind() {

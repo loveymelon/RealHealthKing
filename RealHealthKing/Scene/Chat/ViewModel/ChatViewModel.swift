@@ -18,6 +18,8 @@ class ChatViewModel: ViewModelType {
         
     }
     
+    let realmRepository = RealmRepository()
+    
     var disposeBag = DisposeBag()
     
     func transform(input: Input) -> Output {

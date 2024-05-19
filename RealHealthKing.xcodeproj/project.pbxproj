@@ -36,6 +36,9 @@
 		DF690D972BCECA7700F3D1E0 /* NetworkInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF690D962BCECA7700F3D1E0 /* NetworkInterceptor.swift */; };
 		DF690D9B2BCEDB7700F3D1E0 /* PostsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF690D9A2BCEDB7700F3D1E0 /* PostsModel.swift */; };
 		DF7201312BEA6BDD0028AE99 /* PaymentModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF7201302BEA6BDD0028AE99 /* PaymentModel.swift */; };
+		DF727FFE2BF9FBE5006FEBCD /* RealmModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF727FFD2BF9FBE5006FEBCD /* RealmModel.swift */; };
+		DF7280002BFA1739006FEBCD /* RealmRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF727FFF2BFA1739006FEBCD /* RealmRepository.swift */; };
+		DF7280022BFA17BC006FEBCD /* RealmError.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF7280012BFA17BC006FEBCD /* RealmError.swift */; };
 		DF73FE4F2BDE8EFA00328279 /* LauchScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF73FE4E2BDE8EFA00328279 /* LauchScreenViewController.swift */; };
 		DF73FE512BDE8F0E00328279 /* LauchScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF73FE502BDE8F0E00328279 /* LauchScreenView.swift */; };
 		DF73FE532BDE8F9B00328279 /* LauchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF73FE522BDE8F9B00328279 /* LauchViewModel.swift */; };
@@ -170,6 +173,9 @@
 		DF690D962BCECA7700F3D1E0 /* NetworkInterceptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkInterceptor.swift; sourceTree = "<group>"; };
 		DF690D9A2BCEDB7700F3D1E0 /* PostsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostsModel.swift; sourceTree = "<group>"; };
 		DF7201302BEA6BDD0028AE99 /* PaymentModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentModel.swift; sourceTree = "<group>"; };
+		DF727FFD2BF9FBE5006FEBCD /* RealmModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmModel.swift; sourceTree = "<group>"; };
+		DF727FFF2BFA1739006FEBCD /* RealmRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmRepository.swift; sourceTree = "<group>"; };
+		DF7280012BFA17BC006FEBCD /* RealmError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmError.swift; sourceTree = "<group>"; };
 		DF73FE4E2BDE8EFA00328279 /* LauchScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LauchScreenViewController.swift; sourceTree = "<group>"; };
 		DF73FE502BDE8F0E00328279 /* LauchScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LauchScreenView.swift; sourceTree = "<group>"; };
 		DF73FE522BDE8F9B00328279 /* LauchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LauchViewModel.swift; sourceTree = "<group>"; };
@@ -351,6 +357,16 @@
 				DFB25D132BEE868200CD1760 /* MarketPostViewController.swift */,
 			);
 			path = TabmanView;
+			sourceTree = "<group>";
+		};
+		DF727FFC2BF9FB71006FEBCD /* Realm */ = {
+			isa = PBXGroup;
+			children = (
+				DF727FFD2BF9FBE5006FEBCD /* RealmModel.swift */,
+				DF727FFF2BFA1739006FEBCD /* RealmRepository.swift */,
+				DF7280012BFA17BC006FEBCD /* RealmError.swift */,
+			);
+			path = Realm;
 			sourceTree = "<group>";
 		};
 		DF73FE4B2BDE8ECA00328279 /* Launch */ = {
@@ -750,6 +766,7 @@
 		DF839D562BC93B94001FE924 /* RealHealthKing */ = {
 			isa = PBXGroup;
 			children = (
+				DF727FFC2BF9FB71006FEBCD /* Realm */,
 				DF806FAB2BD8D95D006046C8 /* Enum */,
 				DF892AC12BCC50A9006C69AA /* Extension */,
 				DF82CCE52BCA9E860089989E /* Network */,
@@ -1086,6 +1103,7 @@
 				DF806FB62BD92818006046C8 /* SearchViewModel.swift in Sources */,
 				DF73FE602BDEC7EB00328279 /* ScreenState.swift in Sources */,
 				DF8020652BDA629500473028 /* ProfileViewController.swift in Sources */,
+				DF727FFE2BF9FBE5006FEBCD /* RealmModel.swift in Sources */,
 				DF745A0A2BE626A9002ACB70 /* ShopPostViewModel.swift in Sources */,
 				DF82CCF02BCA9F190089989E /* LoginQuery.swift in Sources */,
 				DF87DD5C2BDCE0EC006C53DC /* ModifyView.swift in Sources */,
@@ -1121,6 +1139,7 @@
 				DF80205D2BDA5DD100473028 /* SearchCollectionViewCell.swift in Sources */,
 				DF73FE6B2BDEE34400328279 /* CommentViewModel.swift in Sources */,
 				DF6367E82BCBE28B0087A075 /* HelperView.swift in Sources */,
+				DF7280002BFA1739006FEBCD /* RealmRepository.swift in Sources */,
 				DF73FE582BDEB57600328279 /* DetailViewController.swift in Sources */,
 				DFB25D0E2BEE85FA00CD1760 /* TabViewController.swift in Sources */,
 				DF8135BF2BCD1E9900126B9F /* EmailCheckModel.swift in Sources */,
@@ -1133,6 +1152,7 @@
 				DF5FDA902BD43D6F0013E1D3 /* ImageFilesModel.swift in Sources */,
 				DF74104E2BE7809900DEFA11 /* PurchaseView.swift in Sources */,
 				DF7459FF2BE5FF36002ACB70 /* ShopTableViewCell.swift in Sources */,
+				DF7280022BFA17BC006FEBCD /* RealmError.swift in Sources */,
 				DF839D862BC93D3E001FE924 /* BaseController.swift in Sources */,
 				DF6367EA2BCBF3030087A075 /* TextViewWithHelperView.swift in Sources */,
 				DF82CCF52BCA9F670089989E /* Router.swift in Sources */,
