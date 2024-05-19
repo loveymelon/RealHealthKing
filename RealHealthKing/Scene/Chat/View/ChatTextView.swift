@@ -12,8 +12,10 @@ import SnapKit
 class ChatTextView: UIView {
 
     let userTextView = InputTextView().then {
-        $0.layer.cornerRadius = 20
+        $0.layer.cornerRadius = 15
         $0.backgroundColor = .lightGray
+        $0.isScrollEnabled = false
+        $0.textContainerInset = UIEdgeInsets(top: 10, left: 30, bottom: 10, right: 40)
     }
     
     override init(frame: CGRect) {
@@ -41,7 +43,6 @@ extension ChatTextView: UIConfigureProtocol {
     func configureLayout() {
         userTextView.snp.makeConstraints { make in
             make.horizontalEdges.bottom.equalTo(safeAreaLayoutGuide).inset(10)
-            make.height.greaterThanOrEqualTo(32)
             make.centerY.equalTo(safeAreaLayoutGuide)
         }
     }

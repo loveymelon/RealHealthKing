@@ -40,7 +40,8 @@ class ChatView: BaseView {
         
         chatTextView.snp.makeConstraints { make in
             make.horizontalEdges.bottom.equalTo(safeAreaLayoutGuide)
-            make.height.equalTo(40)
+            make.height.greaterThanOrEqualTo(54)
+            make.height.lessThanOrEqualTo(120)
         }
     }
     

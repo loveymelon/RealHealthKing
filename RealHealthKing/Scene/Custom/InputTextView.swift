@@ -15,7 +15,12 @@ class InputTextView: UITextView {
         $0.setImage(UIImage(systemName: "plus"), for: .normal)
     }
     
-    let sendButton = UIButton()
+    let sendButton = UIButton().then {
+        $0.setImage(UIImage(systemName: "arrow.up"), for: .normal)
+        $0.backgroundColor = .red
+        $0.tintColor = .white
+        $0.layer.cornerRadius = 10
+    }
 
     override init(frame: CGRect, textContainer: NSTextContainer?) {
         super.init(frame: frame, textContainer: textContainer)
@@ -48,6 +53,7 @@ extension InputTextView: UIConfigureProtocol {
         sendButton.snp.makeConstraints { make in
             make.trailing.equalTo(safeAreaLayoutGuide).inset(10)
             make.bottom.equalTo(safeAreaLayoutGuide).inset(5)
+            make.width.equalTo(30)
         }
     }
     
