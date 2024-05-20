@@ -23,7 +23,23 @@ class ChatListViewController: BaseViewController<ChatListView> {
     override func bind() {
         let input = ChatListViewModel.Input(viewWillAppearTrigger: rx.viewWillAppear.map { _ in })
         
+        let output = viewModel.transform(input: input)
         
+        output.chatListData.drive(mainView.tableView.rx.items(cellIdentifier: ChatListTableViewCell.identifier, cellType: ChatListTableViewCell.self)) { index, item, cell in
+            
+            print(item)
+            
+            if let image = item.participants[0].profileImage, image.isEmpty {
+                cell.profileImageView.downloadImage(imageUrl: image)
+            } else {
+                cell.profileImageView.image = UIImage(systemName: "person")
+            }
+            
+            cell.nickLabel.text = item.participants[0].nick
+            
+            
+            
+        }.disposed(by: disposeBag)
     }
 
 }

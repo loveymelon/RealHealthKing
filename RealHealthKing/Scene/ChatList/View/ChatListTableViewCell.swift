@@ -26,6 +26,8 @@ class ChatListTableViewCell: UITableViewCell {
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        
+        configureUI()
     }
     
     required init?(coder: NSCoder) {
@@ -51,8 +53,8 @@ extension ChatListTableViewCell: UIConfigureProtocol {
     
     func configureLayout() {
         profileImageView.snp.makeConstraints { make in
-            make.leading.equalTo(self.contentView.snp.leading).inset(10)
-            make.centerY.equalTo(self.stackView.snp.centerY)
+            make.leading.equalTo(contentView.snp.leading).inset(10)
+            make.centerY.equalTo(contentView.snp.centerY)
             make.size.equalTo(40)
         }
         
@@ -65,8 +67,8 @@ extension ChatListTableViewCell: UIConfigureProtocol {
         }
         
         stackView.snp.makeConstraints { make in
-            make.verticalEdges.equalTo(self.contentView).inset(10)
-            make.leading.equalTo(self.profileImageView.snp.trailing).offset(10)
+            make.verticalEdges.equalTo(contentView).inset(10)
+            make.leading.equalTo(profileImageView.snp.trailing).offset(10)
         }
     }
     

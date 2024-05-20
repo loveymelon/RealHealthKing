@@ -16,14 +16,14 @@ class ChatListViewModel: ViewModelType {
     }
     
     struct Output {
-        let chatListData: Driver<ChatRoomsModel>
+        let chatListData: Driver<[ChatRoomModel]>
     }
     
     var disposeBag = DisposeBag()
     
     func transform(input: Input) -> Output {
         
-        let chatListResult = PublishRelay<ChatRoomsModel>()
+        let chatListResult = PublishRelay<[ChatRoomModel]>()
         
         input.viewWillAppearTrigger.flatMap {
             NetworkManager.fetchChatRoom()
@@ -31,7 +31,8 @@ class ChatListViewModel: ViewModelType {
             switch result {
         
             case .success(let data):
-                chatListResult.accept(data)
+                print(data.data.count)
+                chatListResult.accept(data.data)
             case .failure(let error):
                 print(error)
             }
@@ -40,6 +41,6 @@ class ChatListViewModel: ViewModelType {
             print(error)
         }.disposed(by: disposeBag)
  
-        return Output(chatListData: chatListResult.asDriver(onErrorJustReturn: ChatRoom))
+        return Output(chatListData: chatListResult.asDriver(onErrorJustReturn: []))
     }
 }

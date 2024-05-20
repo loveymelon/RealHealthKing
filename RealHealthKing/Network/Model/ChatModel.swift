@@ -15,28 +15,6 @@ struct ChatUserId: Encodable {
     }
 }
 
-
-struct ChatModel: Decodable {
-    let roomId: String
-    let updatedAt: String
-    let participants: [UserInform]
-    let lastChat: ChatHistoryModel?
-    
-    enum CodingKeys: String, CodingKey {
-        case roomId = "room_id"
-        case updatedAt
-        case participants
-        case lastChat
-    }
-    
-    init(roomId: String = "", updatedAt: String = "", participants: [UserInform] = [], lastChat: ChatHistoryModel? = nil) {
-        self.roomId = roomId
-        self.updatedAt = updatedAt
-        self.participants = participants
-        self.lastChat = lastChat
-    }
-}
-
 struct UserInform: Decodable {
     let userId: String
     let nick: String
@@ -58,20 +36,33 @@ struct UserInform: Decodable {
 // 채팅방 리스트 모델
 struct ChatRoomsModel: Decodable {
     let data: [ChatRoomModel]
-    let lastChat: ChatHistoryModel
     
-    
+    init(data: [ChatRoomModel] = []) {
+        self.data = data
+    }
 }
 
 struct ChatRoomModel: Decodable {
     let roomId: String
+    let createdAt: String
     let updatedAt: String
     let participants: [UserInform]
+    let lastChat: ChatHistoryModel?
     
     enum CodingKeys: String, CodingKey {
         case roomId = "room_id"
+        case createdAt
         case updatedAt
         case participants
+        case lastChat
+    }
+    
+    init(roomId: String = "", createdAt: String = "", updatedAt: String = "", participants: [UserInform] = [], lastChat: ChatHistoryModel? = nil) {
+        self.roomId = roomId
+        self.createdAt = createdAt
+        self.updatedAt = updatedAt
+        self.participants = participants
+        self.lastChat = lastChat
     }
 }
 
@@ -91,6 +82,15 @@ struct ChatHistoryModel: Decodable {
         case createdAt
         case sender
         case files
+    }
+    
+    init(chatId: String = "", roomId: String = "", content: String = "", createdAt: String = "", sender: UserInform = UserInform(), files: [String] = []) {
+        self.chatId = chatId
+        self.roomId = roomId
+        self.content = content
+        self.createdAt = createdAt
+        self.sender = sender
+        self.files = files
     }
 }
 

@@ -17,14 +17,14 @@ class MarketViewModel: ViewModelType {
     
     struct Output {
         let outputPostData: Driver<Posts>
-        let outputRoomId: Driver<ChatModel>
+        let outputRoomId: Driver<ChatRoomModel>
     }
     
     var disposeBag = DisposeBag()
     
     func transform(input: Input) -> Output {
         let postDataResult = PublishRelay<Posts>()
-        let roomIdResult = PublishRelay<ChatModel>()
+        let roomIdResult = PublishRelay<ChatRoomModel>()
         var userId = ""
         
         input.inputPostId.withUnretained(self).flatMap { owner, postId in
@@ -59,6 +59,6 @@ class MarketViewModel: ViewModelType {
             print(error)
         }.disposed(by: disposeBag)
         
-        return Output(outputPostData: postDataResult.asDriver(onErrorJustReturn: Posts()), outputRoomId: roomIdResult.asDriver(onErrorJustReturn: ChatModel()))
+        return Output(outputPostData: postDataResult.asDriver(onErrorJustReturn: Posts()), outputRoomId: roomIdResult.asDriver(onErrorJustReturn: ChatRoomModel()))
     }
 }

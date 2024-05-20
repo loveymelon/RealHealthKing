@@ -11,7 +11,7 @@ import RxCocoa
 
 class ChatViewModel: ViewModelType {
     struct Input {
-        let viewWillAppearTrigger: Observable<ChatModel>
+//        let viewWillAppearTrigger: Observable<ChatModel>
     }
     
     struct Output {

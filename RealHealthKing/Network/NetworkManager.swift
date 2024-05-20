@@ -560,12 +560,12 @@ struct NetworkManager {
         }
     }
     
-    static func connectChat(userId: String) -> Single<Result<ChatModel, AppError>> {
+    static func connectChat(userId: String) -> Single<Result<ChatRoomModel, AppError>> {
         return Single.create { single in
             do {
                 let urlRequest = try Router.chat(model: ChatUserId(opponentId: userId)).asURLRequest()
                 
-                AF.request(urlRequest).responseDecodable(of: ChatModel.self) { response in
+                AF.request(urlRequest).responseDecodable(of: ChatRoomModel.self) { response in
                     switch response.result {
                     case .success(let data):
                         single(.success(.success(data)))

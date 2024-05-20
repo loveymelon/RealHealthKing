@@ -13,7 +13,7 @@ import RxSwift
 class ChatViewController: BaseViewController<ChatView> {
     
     let a = Observable.of([1,2,3])
-    var chatModel = ChatModel()
+//    var chatModel = ChatModel()
     
     let viewModel = ChatViewModel()
     
@@ -26,13 +26,13 @@ class ChatViewController: BaseViewController<ChatView> {
 
     override func bind() {
         
-        let viewWillTrigger = rx.viewWillAppear.withUnretained(self).map { owner, _ in
-            return owner.chatModel
-        }
+//        let viewWillTrigger = rx.viewWillAppear.withUnretained(self).map { owner, _ in
+//            return owner.chatModel
+//        }
         
-        let input = ChatViewModel.Input(viewWillAppearTrigger: viewWillTrigger)
-        
-        _ = viewModel.transform(input: input)
+//        let input = ChatViewModel.Input(viewWillAppearTrigger: viewWillTrigger)
+//        
+//        _ = viewModel.transform(input: input)
         
         a.bind(to: mainView.tableView.rx.items(cellIdentifier: ChatTableViewCell.identifier, cellType: ChatTableViewCell.self)) { index, item, cell in
             
