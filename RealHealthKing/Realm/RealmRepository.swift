@@ -10,11 +10,13 @@ import RealmSwift
 final class RealmRepository {
     private let realm = try! Realm()
     
-    func createItem(item: ChatRoomRealmModel) throws {
+    func createItem(roomId: String) throws {
         
         do {
             try realm.write {
-                realm.add(item)
+                let chatRoomModel = ChatRoomRealmModel(roomId: roomId)
+                
+                realm.add(chatRoomModel)
             }
         } catch {
             throw RealmError.createFail
@@ -22,11 +24,14 @@ final class RealmRepository {
         
     }
     
-//    func fetchItem() -> ChatRoomRealmModel {
-//                print(realm.configuration.fileURL)
-//        
-//        return realm.objects(ChatRoomRealmModel.self)
-//    }
+    func fetchItem(roomId: String) -> Results<ChatRealmModel> {
+        
+        let roomObject = realm.objects(ChatRealmModel.self).sorted(byKeyPath: "date", ascending: true)
+        
+        return roomObject
+        
+    }
+    
     
     
 }

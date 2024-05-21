@@ -8,27 +8,33 @@
 import Foundation
 import RealmSwift
 
-class ChatRealmModel: Object {
-    @Persisted(primaryKey: true) var id: ObjectId
-    @Persisted var chatRoom: List<ChatRoomRealmModel>
+class ChatRoomRealmModel: Object {
+    @Persisted(primaryKey: true) var roomId: String
+
     
-    convenience init(id: ObjectId) {
+    convenience init(roomId: String) {
         self.init()
+        
+        self.roomId = roomId
     }
 }
 
-class ChatRoomRealmModel: Object {
+class ChatRealmModel: Object {
     @Persisted(primaryKey: true) var id: String
     @Persisted var date: Date
-    @Persisted var content: String
+    @Persisted var textContent: String
+    @Persisted var imageContent: List<String>
     @Persisted var isUser: Bool
     
-    convenience init(id: String, date: Date, content: String, isUser: Bool) {
+    convenience init(id: String, date: Date, textContent: String, imageContent: [String], isUser: Bool) {
         self.init()
         
         self.id = id
         self.date = date
-        self.content = content
+        self.textContent = textContent
+        self.imageContent.append(objectsIn: imageContent)
         self.isUser = isUser
     }
 }
+
+

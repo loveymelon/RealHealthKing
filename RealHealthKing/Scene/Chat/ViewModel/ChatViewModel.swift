@@ -11,7 +11,7 @@ import RxCocoa
 
 class ChatViewModel: ViewModelType {
     struct Input {
-//        let viewWillAppearTrigger: Observable<ChatModel>
+        let viewWillAppearTrigger: Observable<String>
     }
     
     struct Output {
@@ -24,27 +24,24 @@ class ChatViewModel: ViewModelType {
     
     func transform(input: Input) -> Output {
         
-//        input.viewWillAppearTrigger.withUnretained(self).flatMap { owner, model in
-//            
-//            let datas = owner.realmRepository.fetchItem()
-//            
-//            if datas.isEmpty {
-//                
-//            } else {
-//                
-//            }
-//            
-//            return NetworkManager.fetchChatMessage(roomId: model.roomId, cursor: Date().toString())
-//        }.subscribe(with: self) { owner, result in
-//            
-//            switch result {
-//            case .success(let data):
-//                print(data.data.count)
-//            case .failure(let error):
-//                print(error)
-//            }
-//            
-//        }.disposed(by: disposeBag)
+        input.viewWillAppearTrigger.withUnretained(self).flatMap { owner, roomId in
+            
+            if let model = owner.realmRepository.fetchItem(roomId: roomId).last {
+                return NetworkManager.fetchChatMessage(roomId: roomId, cursor: model.date.toString())
+            } else {
+                return NetworkManager.fetchChatMessage(roomId: roomId, cursor: Date().toString())
+            }
+            
+        }.subscribe(with: self) { owner, result in
+            
+            switch result {
+            case .success(let data):
+                print(data.data.count)
+            case .failure(let error):
+                print(error)
+            }
+            
+        }.disposed(by: disposeBag)
         
         return Output()
     }
