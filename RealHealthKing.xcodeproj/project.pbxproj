@@ -150,6 +150,7 @@
 		DFB25D1B2BEE8EC600CD1760 /* TabViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFB25D1A2BEE8EC600CD1760 /* TabViewModel.swift */; };
 		DFB25D1E2BEE99CB00CD1760 /* TabBaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFB25D1D2BEE99CB00CD1760 /* TabBaseView.swift */; };
 		DFC680B52BE29D5C000CC3AD /* UISearchBar+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC680B42BE29D5C000CC3AD /* UISearchBar+Extension.swift */; };
+		DFC74E232BFCA77500A624A0 /* SocketIOManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC74E222BFCA77500A624A0 /* SocketIOManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -285,6 +286,7 @@
 		DFB25D1A2BEE8EC600CD1760 /* TabViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabViewModel.swift; sourceTree = "<group>"; };
 		DFB25D1D2BEE99CB00CD1760 /* TabBaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBaseView.swift; sourceTree = "<group>"; };
 		DFC680B42BE29D5C000CC3AD /* UISearchBar+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UISearchBar+Extension.swift"; sourceTree = "<group>"; };
+		DFC74E222BFCA77500A624A0 /* SocketIOManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocketIOManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -718,6 +720,7 @@
 				DF82CCF42BCA9F670089989E /* Router.swift */,
 				DF82CCF62BCA9F7E0089989E /* TargetType.swift */,
 				DF690D962BCECA7700F3D1E0 /* NetworkInterceptor.swift */,
+				DFC74E222BFCA77500A624A0 /* SocketIOManager.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -1229,6 +1232,7 @@
 				DF6367EC2BCBF3540087A075 /* TextWithHelperViewModel.swift in Sources */,
 				DF5F99B62BF79D4800E8EFA4 /* ChatViewModel.swift in Sources */,
 				DF82CCD92BCA87090089989E /* TextFieldView.swift in Sources */,
+				DFC74E232BFCA77500A624A0 /* SocketIOManager.swift in Sources */,
 				DF806FAF2BD8DCDA006046C8 /* UIVewController+RXSwift.swift in Sources */,
 				DF3233832BFA68AA00110825 /* ChatListViewController.swift in Sources */,
 				DFADFCC12BE3820E006367FE /* HomeModel.swift in Sources */,
