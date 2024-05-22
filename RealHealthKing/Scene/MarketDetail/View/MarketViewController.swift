@@ -62,7 +62,7 @@ class MarketViewController: BaseViewController<MarketView> {
         output.outputRoomId.drive(with: self) { owner, model in
             let chatVC = ChatViewController()
             
-//            chatVC.roomId = id
+            chatVC.roomId.accept(model.roomId) 
             
             owner.navigationController?.pushViewController(chatVC, animated: true)
             

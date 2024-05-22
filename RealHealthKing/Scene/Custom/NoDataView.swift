@@ -12,7 +12,7 @@ import SnapKit
 final class NoDataView: UIView {
     
     private let noDataLabel = UILabel().then {
-        $0.textColor = .white
+        $0.textColor = .black
         $0.textAlignment = .center
         $0.font = .boldSystemFont(ofSize: 20)
     }

@@ -12,7 +12,6 @@ import RxSwift
 
 class ChatViewController: BaseViewController<ChatView> {
     
-    let a = Observable.of([1,2,3])
 //    var chatModel = ChatModel()
     let roomId = PublishRelay<String>()
     
@@ -23,21 +22,22 @@ class ChatViewController: BaseViewController<ChatView> {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
     }
-
+    
     override func bind() {
         
         let viewWillTrigger = rx.viewWillAppear.withLatestFrom(roomId)
         
         let input = ChatViewModel.Input(viewWillAppearTrigger: viewWillTrigger)
 
-        _ = viewModel.transform(input: input)
+        let output = viewModel.transform(input: input)
         
-        a.bind(to: mainView.tableView.rx.items(cellIdentifier: ChatTableViewCell.identifier, cellType: ChatTableViewCell.self)) { index, item, cell in
+        output.chatDatas.drive(mainView.tableView.rx.items(cellIdentifier: ChatTableViewCell.identifier, cellType: ChatTableViewCell.self)) { index, item, cell in
             
-            cell.state = .other
+            cell.state = item.isUser ? .me : .other
             
-            cell.configureCell(text: "\(item) df,ahklsdfjklasdklgjklajslfhjkhdjkshvjkbcjkxbzkvbiuberwuibnikfahnks\ndfsjkahfjklsdaklfjklasdfjkldjsklfjsadklfjklsajfjkhljjk")
+            cell.configureCell(text: item.textContent)
             
         }.disposed(by: disposeBag)
         

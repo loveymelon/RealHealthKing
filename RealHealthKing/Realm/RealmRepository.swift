@@ -24,14 +24,16 @@ final class RealmRepository {
         
     }
     
-    func fetchItem(roomId: String) -> Results<ChatRealmModel> {
+    func fetchItem(roomId: String) -> List<ChatRealmModel> {
         
-        let roomObject = realm.objects(ChatRealmModel.self).sorted(byKeyPath: "date", ascending: true)
+        print("abc")
         
-        return roomObject
+        let roomObject = realm.objects(ChatRoomRealmModel.self).filter("id == %@", roomId)[0]
+        
+        print("dddd", realm.configuration.fileURL)
+        
+        return roomObject.chatmodel
         
     }
-    
-    
     
 }

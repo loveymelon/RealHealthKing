@@ -8,6 +8,7 @@
 import Foundation
 import RxSwift
 import RxCocoa
+import RealmSwift
 
 class ChatViewModel: ViewModelType {
     struct Input {
@@ -15,7 +16,7 @@ class ChatViewModel: ViewModelType {
     }
     
     struct Output {
-        
+        let chatDatas: Driver<List<ChatRealmModel>>
     }
     
     private let realmRepository = RealmRepository()
@@ -24,25 +25,40 @@ class ChatViewModel: ViewModelType {
     
     func transform(input: Input) -> Output {
         
-        input.viewWillAppearTrigger.withUnretained(self).flatMap { owner, roomId in
+        let chatDatasResult = PublishRelay<List<ChatRealmModel>>()
+        
+//        input.viewWillAppearTrigger.subscribe(with: self) { owner, roomId in
+//            let data = owner.realmRepository.fetchItem(roomId: roomId)
+//            
+//            chatDatasResult.accept(data)
+//        }.disposed(by: disposeBag)
+        
+//        input.viewWillAppearTrigger.withUnretained(self).flatMap { owner, roomId in
+//            
+//            if let model = owner.realmRepository.fetchItem(roomId: roomId).last {
+//                return NetworkManager.fetchChatMessage(roomId: roomId, cursor: model.date.toString())
+//            } else {
+//                return NetworkManager.fetchChatMessage(roomId: roomId, cursor: Date().toString())
+//            }
+//            
+//        }.subscribe(with: self) { owner, result in
+//            
+//            switch result {
+//            case .success(let data):
+//                print(data.data.count)
+//            case .failure(let error):
+//                print(error)
+//            }
+//            
+//        }.disposed(by: disposeBag)
+        
+        input.viewWillAppearTrigger.subscribe(with: self) { owner, roomId in
+            let data = owner.realmRepository.fetchItem(roomId: roomId)
             
-            if let model = owner.realmRepository.fetchItem(roomId: roomId).last {
-                return NetworkManager.fetchChatMessage(roomId: roomId, cursor: model.date.toString())
-            } else {
-                return NetworkManager.fetchChatMessage(roomId: roomId, cursor: Date().toString())
-            }
-            
-        }.subscribe(with: self) { owner, result in
-            
-            switch result {
-            case .success(let data):
-                print(data.data.count)
-            case .failure(let error):
-                print(error)
-            }
+            chatDatasResult.accept(data)
             
         }.disposed(by: disposeBag)
         
-        return Output()
+        return Output(chatDatas: chatDatasResult.asDriver(onErrorJustReturn: List<ChatRealmModel>()))
     }
 }

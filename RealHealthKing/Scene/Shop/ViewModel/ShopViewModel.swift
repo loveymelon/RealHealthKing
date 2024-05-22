@@ -31,7 +31,7 @@ class ShopViewModel: ViewModelType {
                 switch result {
 
                 case .success(let data):
-                    print(data)
+//                    print(data)
                     shopResult.accept(data.data)
                     noDataResult.accept(!data.data.isEmpty)
                 case .failure(let error):

@@ -17,6 +17,12 @@ class ChatView: BaseView {
     
     let chatTextView = ChatTextView().then {
         $0.backgroundColor = .black
+        $0.isHidden = false
+    }
+    
+    let noDataView = NoDataView().then {
+        $0.setText("메세지를 시작해보세요")
+        $0.backgroundColor = .black
     }
 
     override init(frame: CGRect) {
@@ -30,6 +36,7 @@ class ChatView: BaseView {
     override func configureHierarchy() {
         addSubview(tableView)
         addSubview(chatTextView)
+        addSubview(noDataView)
     }
     
     override func configureLayout() {
@@ -42,6 +49,10 @@ class ChatView: BaseView {
             make.horizontalEdges.bottom.equalTo(safeAreaLayoutGuide)
             make.height.greaterThanOrEqualTo(54)
             make.height.lessThanOrEqualTo(120)
+        }
+        
+        noDataView.snp.makeConstraints { make in
+            make.edges.equalTo(safeAreaLayoutGuide)
         }
     }
     
