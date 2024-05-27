@@ -12,9 +12,6 @@ import RxSwift
 
 class ChatViewController: BaseViewController<ChatView> {
     
-//    var chatModel = ChatModel()
-    let roomId = PublishRelay<String>()
-    
     let viewModel = ChatViewModel()
     
     let disposeBag = DisposeBag()
@@ -27,9 +24,11 @@ class ChatViewController: BaseViewController<ChatView> {
     
     override func bind() {
         
-        let viewWillTrigger = rx.viewWillAppear.withLatestFrom(roomId)
+        let viewWillTrigger = rx.viewWillAppear.map { _ in }
         
-        let input = ChatViewModel.Input(viewWillAppearTrigger: viewWillTrigger)
+        let viewDidAppearTrigger = rx.viewDidAppear.map { _ in }
+        
+        let input = ChatViewModel.Input(viewWillAppearTrigger: viewWillTrigger, viewDidAppearTrigger: viewDidAppearTrigger)
 
         let output = viewModel.transform(input: input)
         

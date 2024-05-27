@@ -12,27 +12,54 @@ final class RealmRepository {
     
     func createItem(roomId: String) throws {
         
-        do {
-            try realm.write {
-                let chatRoomModel = ChatRoomRealmModel(roomId: roomId)
+        if realm.objects(ChatRoomRealmModel.self).filter("roomId == %@", roomId).isEmpty {
+            do {
                 
-                realm.add(chatRoomModel)
+                try realm.write {
+                    let chatRoomModel = ChatRoomRealmModel(roomId: roomId)
+                    
+                    realm.add(chatRoomModel)
+                }
+                
+            } catch {
+                
+                throw RealmError.createFail
+                
             }
-        } catch {
-            throw RealmError.createFail
         }
         
     }
     
-    func fetchItem(roomId: String) -> List<ChatRealmModel> {
+    func createChatItems(roomId: String, chatModel: ChatHistoryModel, isUser: Bool) throws {
         
-        print("abc")
+        do {
+            
+            let roomObject = realm.objects(ChatRoomRealmModel.self).filter("roomId == %@", roomId)
+            
+            guard let date = chatModel.createdAt.toDate() else { return }
+            
+            try realm.write {
+                let chatData = ChatRealmModel(id: chatModel.chatId, date: date, textContent: chatModel.content, imageContent: chatModel.files, isUser: isUser)
+                
+                realm.add(chatData)
+            }
+            
+        } catch {
+            
+            throw RealmError.createFail
+            
+        }
         
-        let roomObject = realm.objects(ChatRoomRealmModel.self).filter("id == %@", roomId)[0]
+    }
+    
+    func fetchItem(roomId: String) -> Results<ChatRoomRealmModel> {
         
+        let roomObject = realm.objects(ChatRoomRealmModel.self).filter("roomId == %@", roomId)
+        
+        print("dasfadsf")
         print("dddd", realm.configuration.fileURL)
         
-        return roomObject.chatmodel
+        return roomObject
         
     }
     

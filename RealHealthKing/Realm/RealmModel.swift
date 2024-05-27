@@ -26,6 +26,8 @@ class ChatRealmModel: Object {
     @Persisted var imageContent: List<String>
     @Persisted var isUser: Bool
     
+    @Persisted(originProperty: "chatmodel") var chatModel: LinkingObjects<ChatRoomRealmModel>
+    
     convenience init(id: String, date: Date, textContent: String, imageContent: [String], isUser: Bool) {
         self.init()
         

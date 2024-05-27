@@ -29,6 +29,7 @@
 		DF5F99C12BF8E8F100E8EFA4 /* InputTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF5F99C02BF8E8F100E8EFA4 /* InputTextView.swift */; };
 		DF5FDA8E2BD418530013E1D3 /* UIImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF5FDA8D2BD418520013E1D3 /* UIImage+Extension.swift */; };
 		DF5FDA902BD43D6F0013E1D3 /* ImageFilesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF5FDA8F2BD43D6F0013E1D3 /* ImageFilesModel.swift */; };
+		DF615A2A2C0488B1008EBCB3 /* aaa.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF615A292C0488B1008EBCB3 /* aaa.swift */; };
 		DF6367DF2BCB8F480087A075 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF6367DE2BCB8F480087A075 /* NetworkError.swift */; };
 		DF6367E12BCBD0CA0087A075 /* SignUpModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF6367E02BCBD0CA0087A075 /* SignUpModel.swift */; };
 		DF6367E42BCBD1A90087A075 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF6367E32BCBD1A90087A075 /* SignUpViewController.swift */; };
@@ -173,6 +174,7 @@
 		DF5F99C02BF8E8F100E8EFA4 /* InputTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputTextView.swift; sourceTree = "<group>"; };
 		DF5FDA8D2BD418520013E1D3 /* UIImage+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extension.swift"; sourceTree = "<group>"; };
 		DF5FDA8F2BD43D6F0013E1D3 /* ImageFilesModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageFilesModel.swift; sourceTree = "<group>"; };
+		DF615A292C0488B1008EBCB3 /* aaa.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = aaa.swift; sourceTree = "<group>"; };
 		DF6367DE2BCB8F480087A075 /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
 		DF6367E02BCBD0CA0087A075 /* SignUpModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpModel.swift; sourceTree = "<group>"; };
 		DF6367E32BCBD1A90087A075 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
@@ -816,6 +818,7 @@
 				DF839D602BC93B97001FE924 /* Assets.xcassets */,
 				DF839D622BC93B97001FE924 /* LaunchScreen.storyboard */,
 				DF839D652BC93B97001FE924 /* Info.plist */,
+				DF615A292C0488B1008EBCB3 /* aaa.swift */,
 			);
 			path = RealHealthKing;
 			sourceTree = "<group>";
@@ -1120,6 +1123,7 @@
 				DF5F99B22BF79D2F00E8EFA4 /* ChatView.swift in Sources */,
 				DF806FBA2BD9283E006046C8 /* SearchView.swift in Sources */,
 				DFC680B52BE29D5C000CC3AD /* UISearchBar+Extension.swift in Sources */,
+				DF615A2A2C0488B1008EBCB3 /* aaa.swift in Sources */,
 				DF5FDA8E2BD418530013E1D3 /* UIImage+Extension.swift in Sources */,
 				DF838FA42BF4E994009EB4F2 /* MarketViewModel.swift in Sources */,
 				DF82CCF32BCA9F480089989E /* NetworkManager.swift in Sources */,

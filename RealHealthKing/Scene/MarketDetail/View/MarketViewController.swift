@@ -51,7 +51,6 @@ class MarketViewController: BaseViewController<MarketView> {
                 let url = APIKey.baseURL.rawValue + NetworkVersion.version.rawValue + "/" + imageUrl
                 owner.mainView.profileImageView.downloadImage(imageUrl: url)
                 
-                
             } else {
                 owner.mainView.profileImageView.image = UIImage(systemName: "person")
             }
@@ -61,8 +60,8 @@ class MarketViewController: BaseViewController<MarketView> {
         
         output.outputRoomId.drive(with: self) { owner, model in
             let chatVC = ChatViewController()
-            
-            chatVC.roomId.accept(model.roomId) 
+    
+            chatVC.viewModel.roomId = model.roomId
             
             owner.navigationController?.pushViewController(chatVC, animated: true)
             

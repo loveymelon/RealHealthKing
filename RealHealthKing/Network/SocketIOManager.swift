@@ -12,10 +12,9 @@ class SocketIOManager {
     
     static let shared = SocketIOManager()
     
-    var manager: SocketManager!
-    var socket: SocketIOClient!
-    
-    let baseURL = APIKey.baseURL.rawValue
+    private var manager: SocketManager!
+    private var socket: SocketIOClient!
+    private let baseURL = APIKey.baseURL.rawValue
     
     private init() { }
     

@@ -20,6 +20,8 @@ class MarketViewModel: ViewModelType {
         let outputRoomId: Driver<ChatRoomModel>
     }
     
+    let realmRepository = RealmRepository()
+    
     var disposeBag = DisposeBag()
     
     func transform(input: Input) -> Output {
@@ -45,17 +47,30 @@ class MarketViewModel: ViewModelType {
         
         input.messageButtonTap.flatMap {
             NetworkManager.connectChat(userId: userId)
-        }.subscribe { result in
+        }.subscribe(with: self) { owner, result in
             switch result {
                 
             case .success(let data):
-                print(data.lastChat, data.roomId)
+
                 roomIdResult.accept(data)
+                
+                if data.lastChat == nil {
+                    do {
+                        
+                        try owner.realmRepository.createItem(roomId: data.roomId)
+                        
+                    } catch {
+                        
+                        print(error)
+                        
+                    }
+                }
+                
             case .failure(let error):
                 print(error)
             }
             
-        } onError: { error in
+        } onError: { error,_  in
             print(error)
         }.disposed(by: disposeBag)
         
