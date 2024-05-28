@@ -21,7 +21,7 @@ class SocketIOManager {
 }
 
 extension SocketIOManager {
-    func startNetwork(roomId: String, completionHandler: @escaping (ChatRoomsModel) -> Void) {
+    func startNetwork(roomId: String, completionHandler: @escaping (ChatHistoryModel) -> Void) {
         
         manager = SocketManager(socketURL: URL(string: baseURL) ?? URL(fileURLWithPath: ""), config: [.log(true), .compress])
         
@@ -44,7 +44,7 @@ extension SocketIOManager {
                 do {
                     let result = try JSONSerialization.data(withJSONObject: data)
                     
-                    let decodedData = try JSONDecoder().decode(ChatRoomsModel.self, from: result)
+                    let decodedData = try JSONDecoder().decode(ChatHistoryModel.self, from: result)
                     
                     completionHandler(decodedData)
                     

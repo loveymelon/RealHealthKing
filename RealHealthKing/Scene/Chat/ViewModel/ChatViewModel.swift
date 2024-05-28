@@ -22,12 +22,13 @@ class ChatViewModel: ViewModelType {
     
     private let realmRepository = RealmRepository()
     
+    private let isValidData = PublishRelay<Bool>()
+    
     var roomId = ""
-    var latestDate = ""
+    private var latestDate = ""
     var disposeBag = DisposeBag()
     
     func transform(input: Input) -> Output {
-        
         
         
         let chatDatasResult = PublishRelay<List<ChatRealmModel>>()
@@ -57,28 +58,12 @@ class ChatViewModel: ViewModelType {
 //            
 //        }.disposed(by: disposeBag)
         
-        input.viewWillAppearTrigger.withUnretained(self).flatMap { owner, _ in
+        input.viewWillAppearTrigger.subscribe(with: self) { owner, _ in
+            
             let data = owner.realmRepository.fetchItem(roomId: owner.roomId)
             
-            if data.isEmpty {
-                return NetworkManager.fetchChatMessage(roomId: owner.roomId, cursor: "")
-            } else {
-                SocketIOManager.shared.startNetwork(roomId: owner.roomId) { <#ChatRoomsModel#> in
-                    <#code#>
-                }
-                return NetworkManager.fetchChatMessage(roomId: owner.roomId, cursor: data[0].chatmodel[0].date.toString())
-            }
+            owner.checkMessageData(data: data)
             
-        }.subscribe(with: self) { owner, result in
-            
-            switch result {
-                
-            case .success(let data):
-                print(data)
-            case .failure(let error):
-                print(error)
-                
-            }
 //            owner.latestDate = data[0].date.toString()
 //            chatDatasResult.accept(data)
             
@@ -94,5 +79,61 @@ class ChatViewModel: ViewModelType {
         
         
         return Output(chatDatas: chatDatasResult.asDriver(onErrorJustReturn: List<ChatRealmModel>()))
+    }
+    
+    func checkMessageData(data: Results<ChatRoomRealmModel>) {
+        
+        if data.isEmpty {
+            
+            isValidData.withUnretained(self).flatMap { owner, _ in
+                NetworkManager.fetchChatMessage(roomId: owner.roomId, cursor: "")
+            }.withUnretained(self).subscribe { owner, result in
+                
+                switch result {
+                    
+                case .success(let data):
+                    
+                    for chat in data.data {
+                        
+                        let isValid = chat.sender.userId == KeyChainManager.shared.userId
+                        
+                        do {
+                            
+                            try owner.realmRepository.createChatItems(roomId: owner.roomId, chatModel: chat, isUser: isValid)
+                            
+                        } catch {
+                            
+                            print(error)
+                            
+                        }
+                        
+                    }
+                    
+                    SocketIOManager.shared.startNetwork(roomId: owner.roomId) { model in
+                        
+                        let isValid = model.sender.userId == KeyChainManager.shared.userId
+                        
+                        do {
+                            
+                            try owner.realmRepository.createChatItems(roomId: owner.roomId, chatModel: model, isUser: isValid)
+                            
+                        } catch {
+                            
+                            print(error)
+                            
+                        }
+
+                    }
+                    
+                case .failure(let error):
+                    print(error)
+                }
+                
+            } onError: { error in
+                print(error)
+            }.disposed(by: disposeBag)
+            
+        }
+        
     }
 }

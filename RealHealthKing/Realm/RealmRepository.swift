@@ -8,6 +8,7 @@
 import RealmSwift
 
 final class RealmRepository {
+    
     private let realm = try! Realm()
     
     func createItem(roomId: String) throws {
@@ -61,6 +62,10 @@ final class RealmRepository {
         
         return roomObject
         
+    }
+    
+    func startNotification(roomId: String) {
+        let chatObject = realm.objects(ChatRoomRealmModel.self).filter("roomId == %@", roomId)
     }
     
 }
