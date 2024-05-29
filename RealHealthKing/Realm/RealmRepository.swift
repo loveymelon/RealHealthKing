@@ -64,8 +64,19 @@ final class RealmRepository {
         
     }
     
-    func startNotification(roomId: String) {
+    func startNotification(roomId: String, completionHandler: @escaping (Result<Void, Error>) -> Void) {
         let chatObject = realm.objects(ChatRoomRealmModel.self).filter("roomId == %@", roomId)
+        
+        chatObject[0].chatmodel.observe { changes in
+            switch changes {
+            case .initial(let collectionType):
+                completionHandler(.success(()))
+            case .update(let collectionType, let deletions, let insertions, let modifications):
+                completionHandler(.success(()))
+            case .error(let error):
+                completionHandler(.failure(error))
+            }
+        }
     }
     
 }
