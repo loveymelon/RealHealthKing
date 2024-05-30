@@ -37,19 +37,24 @@ final class RealmRepository {
             
             let roomObject = realm.objects(ChatRoomRealmModel.self).filter("roomId == %@", roomId)
             
+            print("asssss")
+            print(chatModel.createdAt)
             guard let date = chatModel.createdAt.toDate() else { return }
             
             try realm.write {
                 let chatData = ChatRealmModel(id: chatModel.chatId, date: date, textContent: chatModel.content, imageContent: chatModel.files, isUser: isUser)
                 
                 
+                
+                
                 roomObject[0].chatmodel.append(chatData)
 
                 realm.add(roomObject)
+                
             }
             
         } catch {
-            
+            print("error")
             throw RealmError.createFail
             
         }

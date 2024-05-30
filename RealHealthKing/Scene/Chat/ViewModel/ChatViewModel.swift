@@ -62,9 +62,32 @@ class ChatViewModel: ViewModelType {
             }
         }.disposed(by: disposeBag)
         
-        input.sendButtonTap.subscribe { text in
-            print(text)
-        }.disposed(by: disposeBag)
+        input.sendButtonTap.withUnretained(self).flatMap { owner, text in
+            
+            NetworkManager.chatPost(chatRoomId: owner.roomId, chatPostModel: ChatPostModel(content: text, files: []))
+            
+        }.subscribe(with: self, onNext: { owner, result in
+            
+            switch result {
+                
+            case .success(let data):
+                
+                do {
+                    
+                    try owner.realmRepository.createChatItems(roomId: owner.roomId, chatModel: data, isUser: true)
+                    
+                } catch {
+                    print(error)
+                }
+                
+            case .failure(let error):
+                print(error)
+                
+            }
+            
+        }, onError: { owner, error in
+            print(error)
+        }).disposed(by: disposeBag)
         
         isValidData.withUnretained(self).flatMap { owner, _ in
             NetworkManager.fetchChatMessage(roomId: owner.roomId, cursor: "")

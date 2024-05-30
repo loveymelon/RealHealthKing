@@ -103,12 +103,17 @@ struct ChatModels: Decodable {
 }
 
 struct ChatPostModel: Codable {
-    let content: String?
+    let content: String
     let files: [String]
+    
+    init(content: String, files: [String]) {
+        self.content = content
+        self.files = files
+    }
     
     init(from decoder: any Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.content = try container.decodeIfPresent(String.self, forKey: .content)
+        self.content = try container.decode(String.self, forKey: .content)
         self.files = try container.decode([String].self, forKey: .files)
     }
 }
