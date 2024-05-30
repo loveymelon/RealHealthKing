@@ -25,10 +25,11 @@ class ChatViewController: BaseViewController<ChatView> {
     override func bind() {
         
         let viewWillTrigger = rx.viewWillAppear.map { _ in }
-        
         let viewDidAppearTrigger = rx.viewDidAppear.map { _ in }
         
-        let input = ChatViewModel.Input(viewWillAppearTrigger: viewWillTrigger, viewDidAppearTrigger: viewDidAppearTrigger)
+        let sendButtonTap = mainView.chatTextView.userTextView.sendButton.rx.tap.withLatestFrom(mainView.chatTextView.userTextView.rx.text.orEmpty.asObservable())
+        
+        let input = ChatViewModel.Input(viewWillAppearTrigger: viewWillTrigger, viewDidAppearTrigger: viewDidAppearTrigger, sendButtonTap: sendButtonTap)
 
         let output = viewModel.transform(input: input)
         

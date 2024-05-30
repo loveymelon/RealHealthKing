@@ -42,7 +42,10 @@ final class RealmRepository {
             try realm.write {
                 let chatData = ChatRealmModel(id: chatModel.chatId, date: date, textContent: chatModel.content, imageContent: chatModel.files, isUser: isUser)
                 
-                realm.add(chatData)
+                
+                roomObject[0].chatmodel.append(chatData)
+
+                realm.add(roomObject)
             }
             
         } catch {
@@ -57,7 +60,6 @@ final class RealmRepository {
         
         let roomObject = realm.objects(ChatRoomRealmModel.self).filter("roomId == %@", roomId)
         
-        print("dasfadsf")
         print("dddd", realm.configuration.fileURL)
         
         return roomObject

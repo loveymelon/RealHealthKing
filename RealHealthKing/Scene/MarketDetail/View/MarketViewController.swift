@@ -62,6 +62,7 @@ class MarketViewController: BaseViewController<MarketView> {
             let chatVC = ChatViewController()
     
             chatVC.viewModel.roomId = model.roomId
+            print(model.participants[0])
             
             owner.navigationController?.pushViewController(chatVC, animated: true)
             
