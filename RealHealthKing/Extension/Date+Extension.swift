@@ -19,4 +19,18 @@ extension Date {
     
         return dateFormatter.string(from: self)
     }
+    
+    func forMessage() -> String {
+        let dateFormatter = DateFormatter()
+        
+        dateFormatter.dateStyle = .medium
+        dateFormatter.timeStyle = .none
+        dateFormatter.locale = .current
+        
+        dateFormatter.dateFormat = "a h:mm"
+        dateFormatter.amSymbol = "오전"
+        dateFormatter.pmSymbol = "오후"
+        
+        return dateFormatter.string(from: self)
+    }
 }

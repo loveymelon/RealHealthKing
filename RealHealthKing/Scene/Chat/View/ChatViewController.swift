@@ -35,9 +35,8 @@ class ChatViewController: BaseViewController<ChatView> {
         
         output.chatDatas.drive(mainView.tableView.rx.items(cellIdentifier: ChatTableViewCell.identifier, cellType: ChatTableViewCell.self)) { index, item, cell in
             
-            cell.state = item.isUser ? .me : .other
-            
-            cell.configureCell(text: item.textContent)
+            cell.selectionStyle = .none
+            cell.configureCell(model: item)
             
         }.disposed(by: disposeBag)
         

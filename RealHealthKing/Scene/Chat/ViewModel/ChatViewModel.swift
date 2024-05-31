@@ -26,7 +26,7 @@ class ChatViewModel: ViewModelType {
     private let isValidData = PublishRelay<Bool>()
     
     var roomId = ""
-    private var latestDate = ""
+    
     var disposeBag = DisposeBag()
     
     func transform(input: Input) -> Output {
@@ -34,12 +34,12 @@ class ChatViewModel: ViewModelType {
         let chatDatasResult = PublishRelay<List<ChatRealmModel>>()
         
         input.viewWillAppearTrigger.subscribe(with: self) { owner, _ in
+            
             let data = owner.realmRepository.fetchItem(roomId: owner.roomId)[0]
             
             if data.chatmodel.isEmpty {
                 
                 owner.isValidData.accept(data.chatmodel.isEmpty)
-
                 
             } else {
                 
@@ -48,22 +48,6 @@ class ChatViewModel: ViewModelType {
             }
             
         }.disposed(by: disposeBag)
-        
-        realmRepository.startNotification(roomId: roomId) { [weak self] result in
-            
-            guard let self else { return }
-            
-            switch result {
-            case .success(_):
-                
-                let data = realmRepository.fetchItem(roomId: roomId)
-                
-                chatDatasResult.accept(data[0].chatmodel)
-                
-            case .failure(let error):
-                print(error)
-            }
-        }
         
         input.sendButtonTap.withUnretained(self).flatMap { owner, text in
             
@@ -95,8 +79,6 @@ class ChatViewModel: ViewModelType {
         isValidData.withUnretained(self).flatMap { owner, _ in
             NetworkManager.fetchChatMessage(roomId: owner.roomId, cursor: "")
         }.withUnretained(self).subscribe { owner, result in
-            
-            print("fuck fucking coding fuck fuck fuck Is Here?")
             
             switch result {
                 
@@ -144,6 +126,21 @@ class ChatViewModel: ViewModelType {
             print(error)
         }.disposed(by: disposeBag)
         
+        realmRepository.startNotification(roomId: roomId) { [weak self] result in
+            
+            guard let self else { return }
+            
+            switch result {
+            case .success(_):
+                
+                let data = realmRepository.fetchItem(roomId: roomId)
+                
+                chatDatasResult.accept(data[0].chatmodel)
+                
+            case .failure(let error):
+                print(error)
+            }
+        }
         
         return Output(chatDatas: chatDatasResult.asDriver(onErrorJustReturn: List<ChatRealmModel>()))
     }

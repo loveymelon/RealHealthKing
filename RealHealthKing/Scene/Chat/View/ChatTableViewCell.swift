@@ -24,7 +24,7 @@ class ChatTableViewCell: UITableViewCell {
     let dateLabel = UILabel().then {
         $0.numberOfLines = 0
         $0.backgroundColor = .clear
-        $0.textColor = .white
+        $0.textColor = .black
         $0.font = .systemFont(ofSize: 12)
     }
     
@@ -44,7 +44,10 @@ class ChatTableViewCell: UITableViewCell {
 
 
 extension ChatTableViewCell {
-    func configureCell(text: String) {
+    func configureCell(model: ChatRealmModel) {
+        
+        state = model.isUser ? .me : .other
+        
         configureLayout()
         
         if state == .me {
@@ -53,8 +56,8 @@ extension ChatTableViewCell {
             messageBoxView.backgroundColor = UIColor(hexCode: "AAC4FF", alpha: 1)
         }
         
-        messageBoxView.text = text
-        dateLabel.text = "\(Date())"
+        messageBoxView.text = model.textContent
+        dateLabel.text = "\(model.date.forMessage())"
     }
 }
 
@@ -74,11 +77,10 @@ extension ChatTableViewCell: UIConfigureProtocol {
         if state == .me {
             
             messageBoxView.snp.makeConstraints { make in
-                make.top.equalToSuperview()
-                make.height.greaterThanOrEqualTo(45)
+                make.top.equalToSuperview().inset(5)
+                make.height.greaterThanOrEqualTo(30)
                 make.width.lessThanOrEqualTo(255)
                 make.centerY.equalTo(contentView.safeAreaLayoutGuide)
-                
                 make.trailing.equalTo(contentView.safeAreaLayoutGuide).inset(15)
             }
             
@@ -90,7 +92,7 @@ extension ChatTableViewCell: UIConfigureProtocol {
         } else {
             
             messageBoxView.snp.makeConstraints { make in
-                make.top.equalToSuperview()
+                make.top.equalToSuperview().inset(5)
                 make.height.greaterThanOrEqualTo(45)
                 make.width.lessThanOrEqualTo(255)
                 make.centerY.equalTo(contentView.safeAreaLayoutGuide)
