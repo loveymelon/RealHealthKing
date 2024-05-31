@@ -13,6 +13,7 @@ class ChatView: BaseView {
     
     let tableView = UITableView().then {
         $0.register(ChatTableViewCell.self, forCellReuseIdentifier: ChatTableViewCell.identifier)
+        $0.separatorStyle = .none
     }
     
     let chatTextView = ChatTextView().then {

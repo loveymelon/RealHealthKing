@@ -9,6 +9,8 @@ import RealmSwift
 
 final class RealmRepository {
     
+    var notificationToken: NotificationToken?
+    
     private let realm = try! Realm()
     
     func createItem(roomId: String) throws {
@@ -36,16 +38,11 @@ final class RealmRepository {
         do {
             
             let roomObject = realm.objects(ChatRoomRealmModel.self).filter("roomId == %@", roomId)
-            
-            print("asssss")
-            print(chatModel.createdAt)
+
             guard let date = chatModel.createdAt.toDate() else { return }
             
             try realm.write {
                 let chatData = ChatRealmModel(id: chatModel.chatId, date: date, textContent: chatModel.content, imageContent: chatModel.files, isUser: isUser)
-                
-                
-                
                 
                 roomObject[0].chatmodel.append(chatData)
 
@@ -74,12 +71,14 @@ final class RealmRepository {
     func startNotification(roomId: String, completionHandler: @escaping (Result<Void, Error>) -> Void) {
         let chatObject = realm.objects(ChatRoomRealmModel.self).filter("roomId == %@", roomId)
         
-        chatObject[0].chatmodel.observe { changes in
+        notificationToken = chatObject[0].chatmodel.observe { changes in
             switch changes {
-            case .initial(let collectionType):
+            case .initial(_):
                 completionHandler(.success(()))
-            case .update(let collectionType, let deletions, let insertions, let modifications):
-                completionHandler(.success(()))
+            case .update(let collectionType, _, let insertions, _):
+                if insertions.count > 0 {
+                    completionHandler(.success(()))
+                }
             case .error(let error):
                 completionHandler(.failure(error))
             }

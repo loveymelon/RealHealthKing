@@ -38,29 +38,32 @@ class ChatViewModel: ViewModelType {
             
             if data.chatmodel.isEmpty {
                 
-                print("abcdefg")
                 owner.isValidData.accept(data.chatmodel.isEmpty)
-//                owner.checkMessageData(data: data)`
+
                 
             } else {
                 
                 chatDatasResult.accept(data.chatmodel)
+                
             }
             
         }.disposed(by: disposeBag)
         
-        input.viewDidAppearTrigger.subscribe(with: self) { owner, _ in
-            owner.realmRepository.startNotification(roomId: owner.roomId) { result in
-                switch result {
-                case .success(_):
-                    let data = owner.realmRepository.fetchItem(roomId: owner.roomId)
-                    
-                    chatDatasResult.accept(data[0].chatmodel)
-                case .failure(let error):
-                    print(error)
-                }
+        realmRepository.startNotification(roomId: roomId) { [weak self] result in
+            
+            guard let self else { return }
+            
+            switch result {
+            case .success(_):
+                
+                let data = realmRepository.fetchItem(roomId: roomId)
+                
+                chatDatasResult.accept(data[0].chatmodel)
+                
+            case .failure(let error):
+                print(error)
             }
-        }.disposed(by: disposeBag)
+        }
         
         input.sendButtonTap.withUnretained(self).flatMap { owner, text in
             
