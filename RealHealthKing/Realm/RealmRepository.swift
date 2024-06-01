@@ -13,22 +13,19 @@ final class RealmRepository {
     
     private let realm = try! Realm()
     
-    func createItem(roomId: String) throws {
-        
-        if realm.objects(ChatRoomRealmModel.self).filter("roomId == %@", roomId).isEmpty {
-            do {
+    func createChatRoom(roomId: String) throws {
+
+        do {
+            
+            try realm.write {
+                let chatRoomModel = ChatRoomRealmModel(roomId: roomId)
                 
-                try realm.write {
-                    let chatRoomModel = ChatRoomRealmModel(roomId: roomId)
-                    
-                    realm.add(chatRoomModel)
-                }
-                
-            } catch {
-                
-                throw RealmError.createFail
-                
+                realm.add(chatRoomModel, update: .modified)
             }
+            
+        } catch {
+            
+            throw RealmError.createFail
             
         }
         
@@ -59,31 +56,35 @@ final class RealmRepository {
         
     }
     
-    func fetchItem(roomId: String) -> Results<ChatRoomRealmModel> {
+    func fetchItem(roomId: String) -> [ChatRoomRealmModel] {
+        
+        print("fetch")
         
         let roomObject = realm.objects(ChatRoomRealmModel.self).filter("roomId == %@", roomId)
         
         print("dddd", realm.configuration.fileURL)
         
-        return roomObject
+        return Array(roomObject)
         
     }
     
-    func startNotification(roomId: String, completionHandler: @escaping (Result<Void, Error>) -> Void) {
-        let chatObject = realm.objects(ChatRoomRealmModel.self).filter("roomId == %@", roomId)
+    func startNotification(roomId: String, completionHandler: @escaping (Result<[ChatRealmModel], Error>) -> Void) {
         
-        notificationToken = chatObject[0].chatmodel.observe { changes in
+        let chatObject = realm.object(ofType: ChatRoomRealmModel.self, forPrimaryKey: roomId)
+        
+        guard let chatData = chatObject else { return }
+        
+        notificationToken = chatData.chatmodel.observe { changes in
             switch changes {
-            case .initial(_):
-                completionHandler(.success(()))
-            case .update(_, _, let insertions, _):
-                if insertions.count > 0 {
-                    completionHandler(.success(()))
-                }
+            case .initial(let data):
+                completionHandler(.success(Array(data)))
+            case .update(let data, _, _, _):
+                completionHandler(.success(Array(data)))
             case .error(let error):
                 completionHandler(.failure(error))
             }
         }
+        
     }
     
 }

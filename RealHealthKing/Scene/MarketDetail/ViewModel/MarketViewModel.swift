@@ -57,7 +57,7 @@ class MarketViewModel: ViewModelType {
                 if data.lastChat == nil {
                     do {
                         
-                        try owner.realmRepository.createItem(roomId: data.roomId)
+                        try owner.realmRepository.createChatRoom(roomId: data.roomId)
                         
                     } catch {
                         

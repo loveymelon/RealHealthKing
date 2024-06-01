@@ -18,7 +18,7 @@ class ChatViewModel: ViewModelType {
     }
     
     struct Output {
-        let chatDatas: Driver<List<ChatRealmModel>>
+        let chatDatas: Driver<[ChatRealmModel]>
     }
     
     private let realmRepository = RealmRepository()
@@ -31,21 +31,40 @@ class ChatViewModel: ViewModelType {
     
     func transform(input: Input) -> Output {
         
-        let chatDatasResult = PublishRelay<List<ChatRealmModel>>()
+        let chatDatasResult = PublishRelay<[ChatRealmModel]>()
         
         input.viewWillAppearTrigger.subscribe(with: self) { owner, _ in
             
-            let data = owner.realmRepository.fetchItem(roomId: owner.roomId)[0]
+            print("realm에 접근하니?")
             
-            if data.chatmodel.isEmpty {
+            let data = owner.realmRepository.fetchItem(roomId: owner.roomId)
+            
+            if data.isEmpty {
                 
-                owner.isValidData.accept(data.chatmodel.isEmpty)
+                do {
+                    
+                    try owner.realmRepository.createChatRoom(roomId: owner.roomId)
+                    
+                } catch {
+                    
+                    print(error)
+                    
+                }
                 
             } else {
                 
-                chatDatasResult.accept(data.chatmodel)
-                
+                chatDatasResult.accept(Array(data[0].chatmodel))
             }
+            
+//            if data.isEmpty {
+//                
+//                owner.isValidData.accept(data.chatmodel.isEmpty)
+//                
+//            } else {
+//                
+//                chatDatasResult.accept(data.chatmodel)
+//                
+//            }
             
         }.disposed(by: disposeBag)
         
@@ -102,23 +121,23 @@ class ChatViewModel: ViewModelType {
                     
                 }
                 
-                SocketIOManager.shared.establishConnection()
-                
-                SocketIOManager.shared.startNetwork(roomId: owner.roomId) { model in
-                    
-                    let isValid = model.sender.userId == KeyChainManager.shared.userId
-                    
-                    do {
-                        
-                        try owner.realmRepository.createChatItems(roomId: owner.roomId, chatModel: model, isUser: isValid)
-                        
-                    } catch {
-                        
-                        print(error)
-                        
-                    }
-
-                }
+//                SocketIOManager.shared.establishConnection()
+//                
+//                SocketIOManager.shared.startNetwork(roomId: owner.roomId) { model in
+//                    
+//                    let isValid = model.sender.userId == KeyChainManager.shared.userId
+//                    
+//                    do {
+//                        
+//                        try owner.realmRepository.createChatItems(roomId: owner.roomId, chatModel: model, isUser: isValid)
+//                        
+//                    } catch {
+//                        
+//                        print(error)
+//                        
+//                    }
+//
+//                }
                 
             case .failure(let error):
                 print(error)
@@ -133,18 +152,16 @@ class ChatViewModel: ViewModelType {
             guard let self else { return }
             
             switch result {
-            case .success(_):
+            case .success(let data):
                 
-                let data = realmRepository.fetchItem(roomId: roomId)
-                
-                chatDatasResult.accept(data[0].chatmodel)
+                chatDatasResult.accept(data)
                 
             case .failure(let error):
                 print(error)
             }
         }
         
-        return Output(chatDatas: chatDatasResult.asDriver(onErrorJustReturn: List<ChatRealmModel>()))
+        return Output(chatDatas: chatDatasResult.asDriver(onErrorJustReturn: []))
     }
 
 }
