@@ -27,7 +27,6 @@ class ChatTextView: UIView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
 }
 
 extension ChatTextView: UIConfigureProtocol {
@@ -42,7 +41,7 @@ extension ChatTextView: UIConfigureProtocol {
     
     func configureLayout() {
         userTextView.snp.makeConstraints { make in
-            make.horizontalEdges.bottom.equalTo(safeAreaLayoutGuide).inset(10)
+            make.horizontalEdges.equalTo(safeAreaLayoutGuide).inset(10)
             make.centerY.equalTo(safeAreaLayoutGuide)
         }
     }

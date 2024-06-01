@@ -19,7 +19,6 @@ class ChatViewController: BaseViewController<ChatView> {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
     }
     
     override func bind() {
@@ -47,17 +46,14 @@ class ChatViewController: BaseViewController<ChatView> {
             
             let isMaxHeight = estimated.height >= 113
             
-            print("contentSize", owner.mainView.chatTextView.userTextView.contentSize.height, owner.mainView.chatTextView.userTextView.frame.height)
-            
             guard isMaxHeight != owner.mainView.chatTextView.userTextView.isScrollEnabled else { return }
             
             owner.mainView.chatTextView.userTextView.isScrollEnabled = isMaxHeight
             owner.mainView.chatTextView.setNeedsUpdateConstraints()
             owner.mainView.chatTextView.reloadInputViews()
             
-            print("height", estimated.height)
-            
         }.disposed(by: disposeBag)
+
     }
 
 }

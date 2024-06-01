@@ -25,7 +25,7 @@ class BaseViewController<T: BaseView>: UIViewController {
     
     func configureNav() {
         navigationController?.navigationBar.tintColor = .white
-        navigationController?.navigationBar.topItem?.title = ""
+//        navigationController?.navigationBar.topItem?.title = ""
     }
     
     func bind() {

@@ -55,4 +55,12 @@ extension SocketIOManager {
             }
         }
     }
+    
+    func establishConnection() {
+        socket.connect()
+    }
+    
+    func leaveConnection() {
+        socket.disconnect()
+    }
 }

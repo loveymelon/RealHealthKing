@@ -132,11 +132,3 @@ class ProfileViewController: BaseViewController<ProfileView> {
         
     }
 }
-
-extension ProfileViewController {
-    
-    func configureUI() {
-        
-    }
-    
-}

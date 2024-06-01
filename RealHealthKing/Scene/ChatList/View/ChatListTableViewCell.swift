@@ -15,7 +15,9 @@ class ChatListTableViewCell: UITableViewCell {
     
     let nickLabel = UILabel()
     
-    let contentLabel = UILabel()
+    let contentLabel = UILabel().then {
+        $0.text = "adss"
+    }
     
     let stackView = UIStackView().then {
         $0.axis = .vertical
@@ -56,14 +58,6 @@ extension ChatListTableViewCell: UIConfigureProtocol {
             make.leading.equalTo(contentView.snp.leading).inset(10)
             make.centerY.equalTo(contentView.snp.centerY)
             make.size.equalTo(40)
-        }
-        
-        nickLabel.snp.makeConstraints { make in
-            make.height.equalTo(22)
-        }
-        
-        contentLabel.snp.makeConstraints { make in
-            make.height.equalTo(22)
         }
         
         stackView.snp.makeConstraints { make in

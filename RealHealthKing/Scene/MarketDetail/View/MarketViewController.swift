@@ -21,9 +21,8 @@ class MarketViewController: BaseViewController<MarketView> {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.tabBarController?.tabBar.changeTabBar(hidden: true, animated: false)
     }
-
+    
     override func bind() {
         let messageButtonTap = mainView.chatButton.rx.tap.asObservable()
         

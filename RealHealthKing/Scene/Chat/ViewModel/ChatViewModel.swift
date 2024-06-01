@@ -102,21 +102,23 @@ class ChatViewModel: ViewModelType {
                     
                 }
                 
-//                SocketIOManager.shared.startNetwork(roomId: owner.roomId) { model in
-//                    
-//                    let isValid = model.sender.userId == KeyChainManager.shared.userId
-//                    
-//                    do {
-//                        
-//                        try owner.realmRepository.createChatItems(roomId: owner.roomId, chatModel: model, isUser: isValid)
-//                        
-//                    } catch {
-//                        
-//                        print(error)
-//                        
-//                    }
-//
-//                }
+                SocketIOManager.shared.establishConnection()
+                
+                SocketIOManager.shared.startNetwork(roomId: owner.roomId) { model in
+                    
+                    let isValid = model.sender.userId == KeyChainManager.shared.userId
+                    
+                    do {
+                        
+                        try owner.realmRepository.createChatItems(roomId: owner.roomId, chatModel: model, isUser: isValid)
+                        
+                    } catch {
+                        
+                        print(error)
+                        
+                    }
+
+                }
                 
             case .failure(let error):
                 print(error)

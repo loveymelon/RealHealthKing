@@ -13,7 +13,7 @@ class ChatListView: BaseView {
     
     let tableView = UITableView().then {
         $0.register(ChatListTableViewCell.self, forCellReuseIdentifier: ChatListTableViewCell.identifier)
-        $0.rowHeight = 50
+        $0.rowHeight = 70
     }
 
     override init(frame: CGRect) {

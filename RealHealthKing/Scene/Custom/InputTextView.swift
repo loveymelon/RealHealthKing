@@ -10,10 +10,6 @@ import Then
 import SnapKit
 
 class InputTextView: UITextView {
-
-    let plusButton = UIButton().then {
-        $0.setImage(UIImage(systemName: "plus"), for: .normal)
-    }
     
     let sendButton = UIButton().then {
         $0.setImage(UIImage(systemName: "arrow.up"), for: .normal)
@@ -40,22 +36,17 @@ extension InputTextView: UIConfigureProtocol {
     }
     
     func configureHierarchy() {
-        addSubview(plusButton)
         addSubview(sendButton)
     }
     
     func configureLayout() {
-        plusButton.snp.makeConstraints { make in
-            make.leading.equalTo(safeAreaLayoutGuide).inset(10)
-            make.bottom.equalTo(safeAreaLayoutGuide).inset(5)
-        }
         
         sendButton.snp.makeConstraints { make in
             make.trailing.equalTo(safeAreaLayoutGuide).inset(10)
             make.bottom.equalTo(safeAreaLayoutGuide).inset(5)
             make.width.equalTo(30)
         }
+        
     }
-    
     
 }

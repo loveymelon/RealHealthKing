@@ -16,6 +16,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Iamport.shared.receivedURL(url)
         return true
     }
+    
+    func applicationDidEnterBackground(_ application: UIApplication) {
+        SocketIOManager.shared.leaveConnection()
+    }
+    
+    func applicationWillEnterForeground(_ application: UIApplication) {
+        SocketIOManager.shared.establishConnection()
+    }
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         

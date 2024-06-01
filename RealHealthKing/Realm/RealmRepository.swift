@@ -29,6 +29,7 @@ final class RealmRepository {
                 throw RealmError.createFail
                 
             }
+            
         }
         
     }
@@ -75,7 +76,7 @@ final class RealmRepository {
             switch changes {
             case .initial(_):
                 completionHandler(.success(()))
-            case .update(let collectionType, _, let insertions, _):
+            case .update(_, _, let insertions, _):
                 if insertions.count > 0 {
                     completionHandler(.success(()))
                 }
