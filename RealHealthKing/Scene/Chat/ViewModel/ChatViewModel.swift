@@ -14,6 +14,7 @@ class ChatViewModel: ViewModelType {
     struct Input {
         let viewWillAppearTrigger: Observable<Void>
         let viewDidAppearTrigger: Observable<Void>
+        let viewDidDisappearTrigger: Observable<Void>
         let sendButtonTap: Observable<String>
     }
     
@@ -35,15 +36,16 @@ class ChatViewModel: ViewModelType {
         
         input.viewWillAppearTrigger.subscribe(with: self) { owner, _ in
             
-            print("realm에 접근하니?")
-            
+//            print("realm에 접근하니?")
+//            
             let data = owner.realmRepository.fetchItem(roomId: owner.roomId)
-            
-            if data.isEmpty {
+//            
+            guard let data else {
                 
                 do {
                     
                     try owner.realmRepository.createChatRoom(roomId: owner.roomId)
+                    owner.isValidData.accept(true)
                     
                 } catch {
                     
@@ -51,20 +53,28 @@ class ChatViewModel: ViewModelType {
                     
                 }
                 
-            } else {
-                
-                chatDatasResult.accept(Array(data[0].chatmodel))
+                return
             }
             
-//            if data.isEmpty {
-//                
-//                owner.isValidData.accept(data.chatmodel.isEmpty)
-//                
-//            } else {
-//                
-//                chatDatasResult.accept(data.chatmodel)
-//                
-//            }
+            chatDatasResult.accept(Array(data.chatmodel))
+            
+            SocketIOManager.shared.startNetwork(roomId: owner.roomId) { model in
+                
+                let isValid = model.sender.userId == KeyChainManager.shared.userId
+                
+                do {
+                    
+                    try owner.realmRepository.createChatItems(roomId: owner.roomId, chatModel: model, isUser: isValid)
+                    
+                } catch {
+                    
+                    print(error)
+                    
+                }
+
+            }
+            
+            SocketIOManager.shared.establishConnection()
             
         }.disposed(by: disposeBag)
         
@@ -95,6 +105,11 @@ class ChatViewModel: ViewModelType {
             print(error)
         }).disposed(by: disposeBag)
         
+        input.viewDidDisappearTrigger.subscribe(with: self) { owner, _ in
+            owner.realmRepository.stopNotification()
+            SocketIOManager.shared.leaveConnection()
+        }.disposed(by: disposeBag)
+        
         isValidData.withUnretained(self).flatMap { owner, _ in
             NetworkManager.fetchChatMessage(roomId: owner.roomId, cursor: "")
         }.withUnretained(self).subscribe { owner, result in
@@ -121,23 +136,23 @@ class ChatViewModel: ViewModelType {
                     
                 }
                 
-//                SocketIOManager.shared.establishConnection()
-//                
-//                SocketIOManager.shared.startNetwork(roomId: owner.roomId) { model in
-//                    
-//                    let isValid = model.sender.userId == KeyChainManager.shared.userId
-//                    
-//                    do {
-//                        
-//                        try owner.realmRepository.createChatItems(roomId: owner.roomId, chatModel: model, isUser: isValid)
-//                        
-//                    } catch {
-//                        
-//                        print(error)
-//                        
-//                    }
-//
-//                }
+                SocketIOManager.shared.establishConnection()
+                
+                SocketIOManager.shared.startNetwork(roomId: owner.roomId) { model in
+                    
+                    let isValid = model.sender.userId == KeyChainManager.shared.userId
+                    
+                    do {
+                        
+                        try owner.realmRepository.createChatItems(roomId: owner.roomId, chatModel: model, isUser: isValid)
+                        
+                    } catch {
+                        
+                        print(error)
+                        
+                    }
+
+                }
                 
             case .failure(let error):
                 print(error)

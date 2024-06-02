@@ -56,16 +56,11 @@ final class RealmRepository {
         
     }
     
-    func fetchItem(roomId: String) -> [ChatRoomRealmModel] {
-        
-        print("fetch")
-        
-        let roomObject = realm.objects(ChatRoomRealmModel.self).filter("roomId == %@", roomId)
+    func fetchItem(roomId: String) -> ChatRoomRealmModel? {
         
         print("dddd", realm.configuration.fileURL)
-        
-        return Array(roomObject)
-        
+
+        return realm.object(ofType: ChatRoomRealmModel.self, forPrimaryKey: roomId)
     }
     
     func startNotification(roomId: String, completionHandler: @escaping (Result<[ChatRealmModel], Error>) -> Void) {
@@ -85,6 +80,10 @@ final class RealmRepository {
             }
         }
         
+    }
+    
+    func stopNotification() {
+        notificationToken?.invalidate()
     }
     
 }

@@ -621,6 +621,7 @@ struct NetworkManager {
                 AF.request(urlRequest).responseDecodable(of: ChatModels.self) { response in
                     switch response.result {
                     case .success(let data):
+                        print(data)
                         single(.success(.success(data)))
                     case .failure(let error):
                         print(error, error.responseCode)

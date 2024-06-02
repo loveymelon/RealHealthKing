@@ -12,7 +12,7 @@ class ChatRoomRealmModel: Object {
     @Persisted(primaryKey: true) var roomId: String
     @Persisted var chatmodel: List<ChatRealmModel>
     
-    convenience init(roomId: String) {
+    convenience init(roomId: String = "") {
         self.init()
         
         self.roomId = roomId
