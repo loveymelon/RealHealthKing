@@ -370,7 +370,7 @@ struct NetworkManager {
         
     }
     
-    static func createComments(commentModel: CommentsModel, postId: String, completionHandler: @escaping ((Result<CommentsModel,AppError>) -> Void)) {
+    static func createComments(commentModel: CommentsModel, postId: String = "", completionHandler: @escaping ((Result<CommentsModel,AppError>) -> Void)) {
         do {
             let urlRequest = try Router.comment(model: commentModel, postId: postId).asURLRequest()
             print(urlRequest)

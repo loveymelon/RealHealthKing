@@ -58,23 +58,7 @@ class ChatViewModel: ViewModelType {
             
             chatDatasResult.accept(Array(data.chatmodel))
             
-            SocketIOManager.shared.startNetwork(roomId: owner.roomId) { model in
-                
-                let isValid = model.sender.userId == KeyChainManager.shared.userId
-                
-                do {
-                    
-                    try owner.realmRepository.createChatItems(roomId: owner.roomId, chatModel: model, isUser: isValid)
-                    
-                } catch {
-                    
-                    print(error)
-                    
-                }
-
-            }
-            
-            SocketIOManager.shared.establishConnection()
+            owner.socketStart()
             
         }.disposed(by: disposeBag)
         
@@ -136,23 +120,7 @@ class ChatViewModel: ViewModelType {
                     
                 }
                 
-                SocketIOManager.shared.establishConnection()
-                
-                SocketIOManager.shared.startNetwork(roomId: owner.roomId) { model in
-                    
-                    let isValid = model.sender.userId == KeyChainManager.shared.userId
-                    
-                    do {
-                        
-                        try owner.realmRepository.createChatItems(roomId: owner.roomId, chatModel: model, isUser: isValid)
-                        
-                    } catch {
-                        
-                        print(error)
-                        
-                    }
-
-                }
+                owner.socketStart()
                 
             case .failure(let error):
                 print(error)
@@ -179,4 +147,28 @@ class ChatViewModel: ViewModelType {
         return Output(chatDatas: chatDatasResult.asDriver(onErrorJustReturn: []))
     }
 
+}
+
+extension ChatViewModel {
+    private func socketStart() {
+        SocketIOManager.shared.startNetwork(roomId: roomId) { [weak self] model in
+            
+            guard let self else { return }
+            
+            let isValid = model.sender.userId == KeyChainManager.shared.userId
+            
+            do {
+                
+                try realmRepository.createChatItems(roomId: roomId, chatModel: model, isUser: isValid)
+                
+            } catch {
+                
+                print(error)
+                
+            }
+
+        }
+        
+        SocketIOManager.shared.establishConnection()
+    }
 }

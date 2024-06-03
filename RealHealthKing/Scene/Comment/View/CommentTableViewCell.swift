@@ -8,6 +8,9 @@
 import UIKit
 import SnapKit
 import Then
+import RxGesture
+import RxSwift
+import RxCocoa
 
 class CommentTableViewCell: UITableViewCell {
     
@@ -19,16 +22,17 @@ class CommentTableViewCell: UITableViewCell {
     }
     let nickLabel = UILabel().then {
         $0.textColor = .white
-        $0.text = "fdfdfd"
         $0.font = .boldSystemFont(ofSize: 16)
-        
     }
     let commentLabel = UILabel().then {
         $0.textColor = .white
-        $0.text = "fdfdfdfdfdfdsafd"
         $0.font = .systemFont(ofSize: 12)
         $0.numberOfLines = 0
     }
+    
+    weak var delegate: CellDelegate?
+    
+    let disposeBag = DisposeBag()
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -42,6 +46,8 @@ class CommentTableViewCell: UITableViewCell {
     }
     
 }
+
+
 
 extension CommentTableViewCell: UIConfigureProtocol {
     func configureUI() {
@@ -79,4 +85,50 @@ extension CommentTableViewCell: UIConfigureProtocol {
     
 }
 
-
+extension CommentTableViewCell {
+    func configureCell(data: CommentsModel) {
+        nickLabel.text = data.creator?.nick
+        commentLabel.text = data.content
+        
+        print(data.creator?.userId)
+        
+        if let imageData = data.creator?.profileImage {
+            
+            let url = APIKey.baseURL.rawValue + NetworkVersion.version.rawValue + "/" + imageData
+            
+            profileImageView.downloadImage(imageUrl: url)
+            
+        } else {
+            profileImageView.image = UIImage(systemName: "person")
+        }
+        
+        cellBind(userId: data.creator?.userId)
+        
+    }
+    
+    private func cellBind(userId: String?) {
+        
+        profileImageView.rx.tapGesture().when(.recognized).map { _ in
+            guard let userId else { return "" }
+            
+            return userId
+        }.subscribe(with: self) { owner, id in
+            let vc = ProfileViewController()
+            
+            if KeyChainManager.shared.userId == id {
+                print("here?")
+                vc.mainView.tabVC.viewState = .me
+                vc.viewModel.viewState = .me
+            } else {
+                print("otherHere?")
+                vc.viewModel.otherUserId = id
+                vc.viewModel.viewState = .other
+                vc.mainView.tabVC.viewState = .other
+                vc.mainView.tabVC.userId = id
+            }
+     
+            owner.delegate?.profileViewTap(vc: vc)
+            
+        }.disposed(by: disposeBag)
+    }
+}

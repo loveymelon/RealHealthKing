@@ -31,17 +31,9 @@ class ChatListViewController: BaseViewController<ChatListView> {
         
         let output = viewModel.transform(input: input)
         
-//        let cellload = Observable.zip(mainView.tableView.rx.itemSelected, mainView.tableView.rx.modelSelected(ChatRoomsModel.self))
-        
         output.chatListData.drive(mainView.tableView.rx.items(cellIdentifier: ChatListTableViewCell.identifier, cellType: ChatListTableViewCell.self)) { index, item, cell in
             
-            if let image = item.participants[1].profileImage, image.isEmpty {
-                cell.profileImageView.downloadImage(imageUrl: image)
-            } else {
-                cell.profileImageView.image = UIImage(systemName: "person")
-            }
-            
-            cell.nickLabel.text = item.participants[1].nick
+            cell.configureCell(data: item)
             
         }.disposed(by: disposeBag)
         
@@ -53,26 +45,6 @@ class ChatListViewController: BaseViewController<ChatListView> {
             owner.navigationController?.pushViewController(chatVC, animated: true)
             
         }.disposed(by: disposeBag)
-        
-//        cellload.bind(with: self) { owner, item in
-//            print("tap")
-//        }.disposed(by: disposeBag)
-        
-//        cellload.map { item in
-//            return (index: item.0, tableItem: item.1)
-//        }.bind(with: self) { owner, cellInfo in
-//            
-//            let chatVC = ChatViewController()
-//            
-//            let id = cellInfo.tableItem.data[cellInfo.index.row].roomId
-//            
-//            print(id)
-//            
-//            chatVC.viewModel.roomId = id
-//            
-//            owner.navigationController?.pushViewController(chatVC, animated: true)
-//            
-//        }.disposed(by: disposeBag)
         
     }
 

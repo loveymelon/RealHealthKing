@@ -12,10 +12,10 @@ import RxSwift
 import RxCocoa
 import RxGesture
 
-protocol CellDelegate: AnyObject {
+@objc protocol CellDelegate: AnyObject {
     func profileViewTap(vc: UIViewController)
-    func commentButtonTap(vc: UIViewController)
-    func moreButtonTap()
+    @objc optional func commentButtonTap(vc: UIViewController)
+    @objc optional func moreButtonTap()
 }
 
 class HomeTableViewCell: UITableViewCell {
@@ -110,6 +110,7 @@ class HomeTableViewCell: UITableViewCell {
         
         configureUI()
         backgroundColor = .black
+        
     }
     
     required init?(coder: NSCoder) {
@@ -217,7 +218,7 @@ extension HomeTableViewCell {
             
             owner.contentLabel.numberOfLines = 0
             owner.moreButton.isHidden = true
-            owner.delegate?.moreButtonTap()
+            owner.delegate?.moreButtonTap?()
             
         }.disposed(by: disposeBag)
         
@@ -317,7 +318,7 @@ extension HomeTableViewCell {
             
             vc.postId.accept(id)
             
-            owner.delegate?.commentButtonTap(vc: vc)
+            owner.delegate?.commentButtonTap?(vc: vc)
             
         }.disposed(by: disposeBag)
     }

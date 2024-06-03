@@ -57,18 +57,8 @@ class CommentViewController: BaseViewController<CommentView> {
         
         output.outputCommentData.drive(mainView.tableView.rx.items(cellIdentifier: CommentTableViewCell.identifier, cellType: CommentTableViewCell.self)) { index, item, cell in
             
-            cell.nickLabel.text = item.creator?.nick
-            cell.commentLabel.text = item.content
-            
-            if let imageData = item.creator?.profileImage {
-                
-                let url = APIKey.baseURL.rawValue + NetworkVersion.version.rawValue + "/" + imageData
-                
-                cell.profileImageView.downloadImage(imageUrl: url)
-                
-            } else {
-                cell.profileImageView.image = UIImage(systemName: "person")
-            }
+            cell.configureCell(data: item)
+            cell.delegate = self
             
         }.disposed(by: disposeBag)
         
@@ -121,4 +111,11 @@ extension CommentViewController: UISheetPresentationControllerDelegate {
             sheetPresentationController.selectedDetentIdentifier = .large
         }
     }
+}
+
+extension CommentViewController: CellDelegate {
+    func profileViewTap(vc: UIViewController) {
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    
 }

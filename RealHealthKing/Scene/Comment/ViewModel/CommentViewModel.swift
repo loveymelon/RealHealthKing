@@ -24,9 +24,8 @@ class CommentViewModel: ViewModelType {
     var disposeBag = DisposeBag()
     
     func transform(input: Input) -> Output {
-        var tempPostId = ""
         var tempCommentsData:[CommentsModel] = []
-        var noDataResult = BehaviorRelay(value: false)
+        let noDataResult = BehaviorRelay(value: false)
         
         let commentsResult = PublishRelay<[CommentsModel]>()
         let profileImageResult = BehaviorRelay(value: "")
@@ -42,7 +41,7 @@ class CommentViewModel: ViewModelType {
                 case .success(let data):
                     if let imageData = data.profileImage {
                         
-                            profileImageResult.accept(imageData)
+                        profileImageResult.accept(imageData)
                          
                     } else {
                         
@@ -72,7 +71,7 @@ class CommentViewModel: ViewModelType {
         
         input.inputButtonTap.subscribe { text in
             print("comment", CommentsModel(content: text))
-            NetworkManager.createComments(commentModel: CommentsModel(content: text), postId: tempPostId) { result in
+            NetworkManager.createComments(commentModel: CommentsModel(content: text)) { result in
                 switch result {
                 case .success(let data):
                     tempCommentsData.insert(data, at: 0)

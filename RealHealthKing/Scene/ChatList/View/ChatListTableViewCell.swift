@@ -15,9 +15,7 @@ class ChatListTableViewCell: UITableViewCell {
     
     let nickLabel = UILabel()
     
-    let contentLabel = UILabel().then {
-        $0.text = "adss"
-    }
+    let contentLabel = UILabel()
     
     let stackView = UIStackView().then {
         $0.axis = .vertical
@@ -67,4 +65,18 @@ extension ChatListTableViewCell: UIConfigureProtocol {
     }
     
     
+}
+
+extension ChatListTableViewCell {
+    func configureCell(data: ChatRoomModel) {
+        if let image = data.participants[1].profileImage, image.isEmpty {
+            profileImageView.downloadImage(imageUrl: image)
+        } else {
+            profileImageView.image = UIImage(systemName: "person")
+        }
+        print(data.participants[0].nick)
+        nickLabel.text = data.participants[0].nick
+        contentLabel.text = data.lastChat?.content
+        
+    }
 }

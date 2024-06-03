@@ -14,7 +14,7 @@ class SocketIOManager {
     
     private var manager: SocketManager!
     private var socket: SocketIOClient!
-    private let baseURL = APIKey.baseURL.rawValue
+    private let baseURL = APIKey.baseURL.rawValue + NetworkVersion.version.rawValue
     
     private init() { }
     
@@ -25,7 +25,7 @@ extension SocketIOManager {
         
         manager = SocketManager(socketURL: URL(string: baseURL) ?? URL(fileURLWithPath: ""), config: [.log(true), .compress])
         
-        socket = manager.socket(forNamespace: roomId)
+        socket = manager.socket(forNamespace: "/\(roomId)")
         
         socket.on(clientEvent: .connect) { data, ack in
             print("socket connected", data, ack)
@@ -57,6 +57,7 @@ extension SocketIOManager {
     }
     
     func establishConnection() {
+        leaveConnection()
         socket.connect()
     }
     
