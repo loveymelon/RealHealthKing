@@ -41,8 +41,10 @@ extension ChatTextView: UIConfigureProtocol {
     
     func configureLayout() {
         userTextView.snp.makeConstraints { make in
+            make.top.equalTo(safeAreaLayoutGuide.snp.top).inset(10)
             make.horizontalEdges.equalTo(safeAreaLayoutGuide).inset(10)
             make.centerY.equalTo(safeAreaLayoutGuide)
+            make.height.lessThanOrEqualTo(110)
         }
     }
 }

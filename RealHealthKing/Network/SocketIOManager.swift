@@ -25,7 +25,7 @@ extension SocketIOManager {
         
         manager = SocketManager(socketURL: URL(string: baseURL) ?? URL(fileURLWithPath: ""), config: [.log(true), .compress])
         
-        socket = manager.socket(forNamespace: "/\(roomId)")
+        socket = manager.socket(forNamespace: "/chats-\(roomId)")
         
         socket.on(clientEvent: .connect) { data, ack in
             print("socket connected", data, ack)

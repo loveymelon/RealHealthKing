@@ -35,21 +35,21 @@ class ChatView: BaseView {
     }
     
     override func configureHierarchy() {
-        addSubview(tableView)
         addSubview(chatTextView)
+        addSubview(tableView)
         addSubview(noDataView)
     }
     
     override func configureLayout() {
-        tableView.snp.makeConstraints { make in
-            make.top.horizontalEdges.equalTo(safeAreaLayoutGuide)
-            make.bottom.equalTo(safeAreaLayoutGuide)
-        }
         
         chatTextView.snp.makeConstraints { make in
             make.horizontalEdges.bottom.equalTo(safeAreaLayoutGuide)
             make.height.greaterThanOrEqualTo(54)
-            make.height.lessThanOrEqualTo(120)
+        }
+        
+        tableView.snp.makeConstraints { make in
+            make.top.horizontalEdges.equalTo(safeAreaLayoutGuide)
+            make.bottom.equalTo(chatTextView.snp.top)
         }
         
         noDataView.snp.makeConstraints { make in

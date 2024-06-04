@@ -45,7 +45,7 @@ class ChatViewController: BaseViewController<ChatView> {
             let size = CGSize(width: owner.mainView.chatTextView.userTextView.bounds.width, height: .infinity)
             let estimated = owner.mainView.chatTextView.userTextView.sizeThatFits(size)
             
-            let isMaxHeight = estimated.height >= 113
+            let isMaxHeight = estimated.height >= 116
             
             guard isMaxHeight != owner.mainView.chatTextView.userTextView.isScrollEnabled else { return }
             

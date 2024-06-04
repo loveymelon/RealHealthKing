@@ -35,16 +35,18 @@ final class RealmRepository {
         
         do {
             
-            let roomObject = realm.objects(ChatRoomRealmModel.self).filter("roomId == %@", roomId)
-
-            guard let date = chatModel.createdAt.toDate() else { return }
+            let roomObject = realm.object(ofType: ChatRoomRealmModel.self, forPrimaryKey: roomId)
+            let chatObject = realm.object(ofType: ChatRealmModel.self, forPrimaryKey: chatModel.chatId)
+            
+            guard let date = chatModel.createdAt.toDate(), let roomData = roomObject else { return }
             
             try realm.write {
-                let chatData = ChatRealmModel(id: chatModel.chatId, date: date, textContent: chatModel.content, imageContent: chatModel.files, isUser: isUser)
                 
-                roomObject[0].chatmodel.append(chatData)
-
-                realm.add(roomObject)
+                if chatObject == nil {
+                    let chatData = ChatRealmModel(id: chatModel.chatId, date: date, textContent: chatModel.content, imageContent: chatModel.files, isUser: isUser)
+                    
+                    roomData.chatmodel.append(chatData)
+                }
                 
             }
             

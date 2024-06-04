@@ -401,7 +401,7 @@ extension Router: TargetType {
         case .chatRoom:
             return .none
         case .chatHistory:
-            return .none
+            return nil
         case .chatPost(_, let model):
             let encoder = JSONEncoder()
             encoder.keyEncodingStrategy =

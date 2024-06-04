@@ -9,14 +9,11 @@ import Foundation
 
 extension Date {
     func toString() -> String {
-        let dateFormatter = DateFormatter()
+        let dateFormatter = ISO8601DateFormatter()
         
-        dateFormatter.dateStyle = .medium
-        dateFormatter.timeStyle = .none
-        dateFormatter.locale = .current
+        dateFormatter.timeZone = .autoupdatingCurrent
+        dateFormatter.formatOptions = [.withFullDate, .withTime, .withColonSeparatorInTime]
         
-        dateFormatter.dateFormat = "yyyy-dd-MM'T'HH:mm:ssZZZZZ"
-    
         return dateFormatter.string(from: self)
     }
     
@@ -33,4 +30,5 @@ extension Date {
         
         return dateFormatter.string(from: self)
     }
+    
 }

@@ -93,15 +93,14 @@ extension ChatTableViewCell: UIConfigureProtocol {
             
             messageBoxView.snp.makeConstraints { make in
                 make.top.equalToSuperview().inset(5)
-                make.height.greaterThanOrEqualTo(45)
+                make.height.greaterThanOrEqualTo(30)
                 make.width.lessThanOrEqualTo(255)
                 make.centerY.equalTo(contentView.safeAreaLayoutGuide)
-                
-                make.leading.equalTo(contentView.safeAreaLayoutGuide).inset(15)
+                make.leading.equalTo(contentView.safeAreaLayoutGuide.snp.leading).inset(15)
             }
             
             dateLabel.snp.makeConstraints { make in
-                make.trailing.equalTo(messageBoxView.snp.leading).offset(-5)
+                make.leading.equalTo(messageBoxView.snp.trailing).offset(5)
                 make.bottom.equalTo(messageBoxView.snp.bottom)
             }
             

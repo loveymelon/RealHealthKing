@@ -36,16 +36,14 @@ class ChatViewModel: ViewModelType {
         
         input.viewWillAppearTrigger.subscribe(with: self) { owner, _ in
             
-//            print("realm에 접근하니?")
-//            
             let data = owner.realmRepository.fetchItem(roomId: owner.roomId)
-//            
+
             guard let data else {
                 
                 do {
                     
                     try owner.realmRepository.createChatRoom(roomId: owner.roomId)
-                    owner.isValidData.accept(true)
+                    owner.isValidData.accept(false)
                     
                 } catch {
                     
@@ -57,8 +55,7 @@ class ChatViewModel: ViewModelType {
             }
             
             chatDatasResult.accept(Array(data.chatmodel))
-            
-            owner.socketStart()
+            owner.isValidData.accept(true)
             
         }.disposed(by: disposeBag)
         
@@ -72,13 +69,7 @@ class ChatViewModel: ViewModelType {
                 
             case .success(let data):
                 
-                do {
-                    
-                    try owner.realmRepository.createChatItems(roomId: owner.roomId, chatModel: data, isUser: true)
-                    
-                } catch {
-                    print(error)
-                }
+                print("success")
                 
             case .failure(let error):
                 print(error)
@@ -94,15 +85,21 @@ class ChatViewModel: ViewModelType {
             SocketIOManager.shared.leaveConnection()
         }.disposed(by: disposeBag)
         
-        isValidData.withUnretained(self).flatMap { owner, _ in
-            NetworkManager.fetchChatMessage(roomId: owner.roomId, cursor: "")
+        isValidData.withUnretained(self).flatMap { owner, isValid in
+            
+            let date = owner.realmRepository.fetchItem(roomId: owner.roomId)?.chatmodel.last?.date
+            
+            if isValid {
+                return NetworkManager.fetchChatMessage(roomId: owner.roomId, cursor: date?.toString() ?? Date().toString())
+            } else {
+                return NetworkManager.fetchChatMessage(roomId: owner.roomId, cursor: "")
+            }
+
         }.withUnretained(self).subscribe { owner, result in
             
             switch result {
                 
             case .success(let data):
-                
-                print(owner.roomId, data.data)
                 
                 for chat in data.data {
                     
