@@ -40,6 +40,12 @@ class ChatViewController: BaseViewController<ChatView> {
             
         }.disposed(by: disposeBag)
         
+        output.chatCount.drive(with: self) { owner, count in
+            let index = IndexPath(row: count-1, section: 0)
+            
+            owner.mainView.tableView.scrollToRow(at: index, at: .bottom, animated: false)
+        }.disposed(by: disposeBag)
+        
         mainView.chatTextView.userTextView.rx.didChange.subscribe(with: self) { owner, _ in
             
             let size = CGSize(width: owner.mainView.chatTextView.userTextView.bounds.width, height: .infinity)

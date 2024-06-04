@@ -20,6 +20,7 @@ class ChatViewModel: ViewModelType {
     
     struct Output {
         let chatDatas: Driver<[ChatRealmModel]>
+        let chatCount: Driver<Int>
     }
     
     private let realmRepository = RealmRepository()
@@ -33,6 +34,7 @@ class ChatViewModel: ViewModelType {
     func transform(input: Input) -> Output {
         
         let chatDatasResult = PublishRelay<[ChatRealmModel]>()
+        let countResult = PublishRelay<Int>()
         
         input.viewWillAppearTrigger.subscribe(with: self) { owner, _ in
             
@@ -135,13 +137,14 @@ class ChatViewModel: ViewModelType {
             case .success(let data):
                 
                 chatDatasResult.accept(data)
+                countResult.accept(data.count)
                 
             case .failure(let error):
                 print(error)
             }
         }
         
-        return Output(chatDatas: chatDatasResult.asDriver(onErrorJustReturn: []))
+        return Output(chatDatas: chatDatasResult.asDriver(onErrorJustReturn: []), chatCount: countResult.asDriver(onErrorJustReturn: 0))
     }
 
 }
