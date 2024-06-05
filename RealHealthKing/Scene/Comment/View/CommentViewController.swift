@@ -70,14 +70,12 @@ class CommentViewController: BaseViewController<CommentView> {
             
         }.disposed(by: disposeBag)
         
-        output.outputProfile.drive(with: self) { owner, image in
+        output.outputProfile.drive(with: self) { owner, imageUrl in
             
-            if image == "person" {
-                owner.mainView.userImageView.image = UIImage(systemName: image)
+            if imageUrl == "person" {
+                owner.mainView.userImageView.image = UIImage(systemName: imageUrl)
             } else {
-                let url = APIKey.baseURL.rawValue + NetworkVersion.version.rawValue + "/" + image
-                
-                owner.mainView.userImageView.downloadImage(imageUrl: url)
+                owner.mainView.userImageView.downloadImage(imageUrl: imageUrl)
             }
             
         }.disposed(by: disposeBag)

@@ -46,6 +46,9 @@ class ChatTableViewCell: UITableViewCell {
 extension ChatTableViewCell {
     func configureCell(model: ChatRealmModel) {
         
+        messageBoxView.text = model.textContent
+        dateLabel.text = "\(model.date.forMessage())"
+        
         state = model.isUser ? .me : .other
         
         configureLayout()
@@ -55,9 +58,7 @@ extension ChatTableViewCell {
         } else {
             messageBoxView.backgroundColor = UIColor(hexCode: "AAC4FF", alpha: 1)
         }
-        
-        messageBoxView.text = model.textContent
-        dateLabel.text = "\(model.date.forMessage())"
+
     }
 }
 
@@ -75,7 +76,7 @@ extension ChatTableViewCell: UIConfigureProtocol {
     func configureLayout() {
         
         if state == .me {
-            
+            print("me")
             messageBoxView.snp.makeConstraints { make in
                 make.top.equalToSuperview().inset(5)
                 make.height.greaterThanOrEqualTo(30)
@@ -90,7 +91,7 @@ extension ChatTableViewCell: UIConfigureProtocol {
             }
             
         } else {
-            
+            print("other")
             messageBoxView.snp.makeConstraints { make in
                 make.top.equalToSuperview().inset(5)
                 make.height.greaterThanOrEqualTo(30)

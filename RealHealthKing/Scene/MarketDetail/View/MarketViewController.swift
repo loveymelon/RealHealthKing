@@ -47,8 +47,7 @@ class MarketViewController: BaseViewController<MarketView> {
             
             if let imageUrl = data.creator.profileImage {
                 
-                let url = APIKey.baseURL.rawValue + NetworkVersion.version.rawValue + "/" + imageUrl
-                owner.mainView.profileImageView.downloadImage(imageUrl: url)
+                owner.mainView.profileImageView.downloadImage(imageUrl: imageUrl)
                 
             } else {
                 owner.mainView.profileImageView.image = UIImage(systemName: "person")

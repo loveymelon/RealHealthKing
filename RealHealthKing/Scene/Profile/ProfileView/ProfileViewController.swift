@@ -74,16 +74,14 @@ class ProfileViewController: BaseViewController<ProfileView> {
             owner.mainView.nicknameLabel.text = nick
         }.disposed(by: disposeBag)
         
-        output.profileImage.drive(with: self) { owner, image in
+        output.profileImage.drive(with: self) { owner, imageUrl in
             
-            owner.imageURL = image
+            owner.imageURL = imageUrl
             
-            if image.isEmpty {
+            if imageUrl.isEmpty {
                 owner.mainView.profileImageView.image = UIImage(systemName: "person")
             } else {
-                let url = APIKey.baseURL.rawValue + NetworkVersion.version.rawValue + "/" + image
-                
-                owner.mainView.profileImageView.downloadImage(imageUrl: url)
+                owner.mainView.profileImageView.downloadImage(imageUrl: imageUrl)
             }
             
         }.disposed(by: disposeBag)

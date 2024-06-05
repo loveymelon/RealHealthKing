@@ -57,16 +57,10 @@ class ModifyViewController: BaseViewController<ModifyView> {
             owner.mainView.nickTextField.textField.text = text
         }.disposed(by: disposeBag)
         
-        output.outputProfileImage.drive(with: self) { owner, imageData in
+        output.outputProfileImage.drive(with: self) { owner, imageUrl in
             
-            print(imageData)
-            
-            if !imageData.isEmpty {
-                let url = APIKey.baseURL.rawValue + NetworkVersion.version.rawValue + "/" + imageData
-                
-                print(url)
-                
-                owner.mainView.profileImageView.downloadImage(imageUrl: url)
+            if !imageUrl.isEmpty {
+                owner.mainView.profileImageView.downloadImage(imageUrl: imageUrl)
             } else {
                 owner.mainView.profileImageView.image = UIImage(systemName: "person")
             }

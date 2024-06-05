@@ -24,6 +24,18 @@ class BaseViewController<T: BaseView>: UIViewController {
     }
     
     func configureNav() {
+        
+//        UINavigationBar.appearance().backgroundColor = .orange
+        let navBarAppearance = UINavigationBarAppearance()
+        // 객체 생성
+        navBarAppearance.backgroundColor = UIColor.orange
+        navBarAppearance.shadowColor = .clear
+        
+        UINavigationBar.appearance().standardAppearance = navBarAppearance
+        UINavigationBar.appearance().compactAppearance = navBarAppearance
+        UINavigationBar.appearance().scrollEdgeAppearance = navBarAppearance
+        
+        
         navigationController?.navigationBar.tintColor = .white
 //        navigationController?.navigationBar.topItem?.title = ""
     }

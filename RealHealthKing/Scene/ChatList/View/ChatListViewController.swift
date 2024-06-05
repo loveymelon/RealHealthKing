@@ -38,6 +38,7 @@ class ChatListViewController: BaseViewController<ChatListView> {
         }.disposed(by: disposeBag)
         
         mainView.tableView.rx.modelSelected(ChatRoomModel.self).bind(with: self) { owner, item in
+            
             let chatVC = ChatViewController()
             
             chatVC.viewModel.roomId = item.roomId

@@ -32,9 +32,9 @@ class MarketPostViewController: BaseViewController<TabBaseView> {
         
         output.outputPostDatas.drive(mainView.collectionView.rx.items(cellIdentifier: SearchCollectionViewCell.identifier, cellType: SearchCollectionViewCell.self)) { index, item, cell in
             
-            let url = APIKey.baseURL.rawValue + NetworkVersion.version.rawValue + "/" + (item.files.first ?? "empty")
+            guard let imageUrl = item.files.first else { return }
             
-            cell.postImageView.downloadImage(imageUrl: url)
+            cell.postImageView.downloadImage(imageUrl: imageUrl)
             
         }.disposed(by: disposeBag)
         

@@ -29,7 +29,7 @@ extension UIImageView {
     
     func downloadImage(imageUrl: String) {
         
-        guard let url = URL(string: imageUrl), let scale = UIScreen.current?.scale else { return }
+        guard let url = URL(string: APIKey.baseURL.rawValue + NetworkVersion.version.rawValue + "/" + imageUrl), let scale = UIScreen.current?.scale else { return }
         
         //        let processor = DownsamplingImageProcessor(size: CGSize(width: width, height: height))
         

@@ -42,13 +42,12 @@ final class DetailViewController: BaseViewController<DetailView> {
             
             owner.mainView.updateImageViews(scrollView: owner.mainView.scrollView, pageControl: owner.mainView.pageControl, postData: data.files, width: owner.mainView.frame.width)
             
-            print(owner.mainView.scrollView.contentSize, UIScreen.main.bounds.width, owner.mainView.scrollView.bounds.width)
+//            print(owner.mainView.scrollView.contentSize, UIScreen.main.bounds.width, owner.mainView.scrollView.bounds.width)
             
-            if let imageUrl = data.creator.profileImage {
-                let url = APIKey.baseURL.rawValue + NetworkVersion.version.rawValue + "/" + imageUrl
-                
-                owner.mainView.profileImageView.downloadImage(imageUrl: url)
-            }
+            guard let imageUrl = data.creator.profileImage else { return }
+            
+            owner.mainView.profileImageView.downloadImage(imageUrl: imageUrl)
+            
         }.disposed(by: disposeBag)
         
         output.outputLikeValue.drive(mainView.likeButton.rx.isSelected).disposed(by: disposeBag)

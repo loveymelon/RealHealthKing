@@ -62,9 +62,9 @@ class NormalPostViewController: BaseViewController<TabBaseView> {
             
 //            self.closure?()
             
-            let url = APIKey.baseURL.rawValue + NetworkVersion.version.rawValue + "/" + (item.files.first ?? "empty")
+            guard let imageUrl = item.files.first else { return }
             
-            cell.postImageView.downloadImage(imageUrl: url)
+            cell.postImageView.downloadImage(imageUrl: imageUrl)
             
         }.disposed(by: disposeBag)
         

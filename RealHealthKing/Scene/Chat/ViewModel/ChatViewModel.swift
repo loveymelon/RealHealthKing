@@ -56,7 +56,6 @@ class ChatViewModel: ViewModelType {
                 return
             }
             
-            chatDatasResult.accept(Array(data.chatmodel))
             owner.isValidData.accept(true)
             
         }.disposed(by: disposeBag)
@@ -69,7 +68,7 @@ class ChatViewModel: ViewModelType {
             
             switch result {
                 
-            case .success(let data):
+            case .success(_):
                 
                 print("success")
                 

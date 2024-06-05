@@ -22,7 +22,7 @@ class HomeTableViewCell: UITableViewCell {
     
     let profileImageView = UIImageView().then {
         $0.clipsToBounds = true
-        $0.contentMode = .scaleAspectFit
+        $0.contentMode = .scaleToFill
         $0.image = UIImage(systemName: "person")
         $0.tintColor = .blue
         $0.layer.cornerRadius = 20
@@ -254,9 +254,7 @@ extension HomeTableViewCell {
         
         if let imageUrl = data.creator.profileImage {
             
-            let url = APIKey.baseURL.rawValue + NetworkVersion.version.rawValue + "/" + imageUrl
-            profileImageView.downloadImage(imageUrl: url)
-            
+            profileImageView.downloadImage(imageUrl: imageUrl)
             
         } else {
             profileImageView.image = UIImage(systemName: "person")

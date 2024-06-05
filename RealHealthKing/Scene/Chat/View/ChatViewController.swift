@@ -35,6 +35,8 @@ class ChatViewController: BaseViewController<ChatView> {
         
         output.chatDatas.drive(mainView.tableView.rx.items(cellIdentifier: ChatTableViewCell.identifier, cellType: ChatTableViewCell.self)) { index, item, cell in
             
+            print("content", item.textContent)
+            
             cell.selectionStyle = .none
             cell.configureCell(model: item)
             
@@ -44,6 +46,7 @@ class ChatViewController: BaseViewController<ChatView> {
             let index = IndexPath(row: count-1, section: 0)
             
             owner.mainView.tableView.scrollToRow(at: index, at: .bottom, animated: false)
+            
         }.disposed(by: disposeBag)
         
         mainView.chatTextView.userTextView.rx.didChange.subscribe(with: self) { owner, _ in

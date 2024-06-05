@@ -25,9 +25,7 @@ extension UIView {
  
             imageView.frame = CGRect(x: postionX, y: 0, width: width, height: height)
             
-            let url = APIKey.baseURL.rawValue + NetworkVersion.version.rawValue + "/" + postData[num]
-            
-            imageView.downloadImage(imageUrl: url)
+            imageView.downloadImage(imageUrl: postData[num])
             
             scrollView.addSubview(imageView)
             

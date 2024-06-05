@@ -109,8 +109,7 @@ extension ShopTableViewCell {
         
         let imageUrl = data.files[0]
         
-        let url = APIKey.baseURL.rawValue + NetworkVersion.version.rawValue + "/" + imageUrl
-        productImageView.downloadImage(imageUrl: url)
+        productImageView.downloadImage(imageUrl: imageUrl)
         
         purchaseButton.rx.tap.withUnretained(self).subscribe { owner, _ in
             let price = data.content1?.extractNumbers(from: data.content1 ?? "0")

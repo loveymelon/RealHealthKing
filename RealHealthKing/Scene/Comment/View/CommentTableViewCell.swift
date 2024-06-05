@@ -90,19 +90,16 @@ extension CommentTableViewCell {
         nickLabel.text = data.creator?.nick
         commentLabel.text = data.content
         
-        print(data.creator?.userId)
+        cellBind(userId: data.creator?.userId)
         
-        if let imageData = data.creator?.profileImage {
+        guard let imageUrl = data.creator?.profileImage else {
             
-            let url = APIKey.baseURL.rawValue + NetworkVersion.version.rawValue + "/" + imageData
-            
-            profileImageView.downloadImage(imageUrl: url)
-            
-        } else {
             profileImageView.image = UIImage(systemName: "person")
+            
+            return
         }
         
-        cellBind(userId: data.creator?.userId)
+        profileImageView.downloadImage(imageUrl: imageUrl)
         
     }
     

@@ -11,7 +11,13 @@ import SnapKit
 
 class ChatListTableViewCell: UITableViewCell {
     
-    let profileImageView = UIImageView()
+    let profileImageView = UIImageView().then {
+        $0.clipsToBounds = true
+        $0.layer.borderWidth = 1
+        $0.layer.borderColor = UIColor.black.cgColor
+        $0.layer.cornerRadius = 20
+        $0.contentMode = .scaleToFill
+    }
     
     let nickLabel = UILabel()
     
@@ -69,12 +75,13 @@ extension ChatListTableViewCell: UIConfigureProtocol {
 
 extension ChatListTableViewCell {
     func configureCell(data: ChatRoomModel) {
-        if let image = data.participants[1].profileImage, image.isEmpty {
-            profileImageView.downloadImage(imageUrl: image)
+        
+        if let imageUrl = data.participants[0].profileImage {
+            profileImageView.downloadImage(imageUrl: imageUrl)
         } else {
             profileImageView.image = UIImage(systemName: "person")
         }
-        print(data.participants[0].nick)
+        
         nickLabel.text = data.participants[0].nick
         contentLabel.text = data.lastChat?.content
         
