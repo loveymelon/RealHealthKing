@@ -141,6 +141,7 @@
 		DF9CC6D22BD767DE00DF808A /* HomeTableCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF9CC6D12BD767DE00DF808A /* HomeTableCellViewModel.swift */; };
 		DF9CC6D42BD7694A00DF808A /* LikeQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF9CC6D32BD7694A00DF808A /* LikeQuery.swift */; };
 		DF9CC6DE2BD7CA5C00DF808A /* LikeDatas.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF9CC6DD2BD7CA5C00DF808A /* LikeDatas.swift */; };
+		DF9D73812C103E8A009E3F85 /* HKColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF9D73802C103E8A009E3F85 /* HKColor.swift */; };
 		DFADFCBF2BE36B29006367FE /* NoDataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFADFCBE2BE36B29006367FE /* NoDataView.swift */; };
 		DFADFCC12BE3820E006367FE /* HomeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFADFCC02BE3820E006367FE /* HomeModel.swift */; };
 		DFB25D0E2BEE85FA00CD1760 /* TabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFB25D0D2BEE85FA00CD1760 /* TabViewController.swift */; };
@@ -276,6 +277,7 @@
 		DF9CC6D12BD767DE00DF808A /* HomeTableCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTableCellViewModel.swift; sourceTree = "<group>"; };
 		DF9CC6D32BD7694A00DF808A /* LikeQuery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeQuery.swift; sourceTree = "<group>"; };
 		DF9CC6DD2BD7CA5C00DF808A /* LikeDatas.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeDatas.swift; sourceTree = "<group>"; };
+		DF9D73802C103E8A009E3F85 /* HKColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HKColor.swift; sourceTree = "<group>"; };
 		DFADFCBE2BE36B29006367FE /* NoDataView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoDataView.swift; sourceTree = "<group>"; };
 		DFADFCC02BE3820E006367FE /* HomeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeModel.swift; sourceTree = "<group>"; };
 		DFB25D0D2BEE85FA00CD1760 /* TabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabViewController.swift; sourceTree = "<group>"; };
@@ -641,6 +643,7 @@
 				DF806FAC2BD8D971006046C8 /* NotificationCenterManager.swift */,
 				DF806FB02BD8FFE3006046C8 /* KeyChainManager.swift */,
 				DF73FE5F2BDEC7EB00328279 /* ScreenState.swift */,
+				DF9D73802C103E8A009E3F85 /* HKColor.swift */,
 			);
 			path = Enum;
 			sourceTree = "<group>";
@@ -1194,6 +1197,7 @@
 				DF7459FF2BE5FF36002ACB70 /* ShopTableViewCell.swift in Sources */,
 				DF7280022BFA17BC006FEBCD /* RealmError.swift in Sources */,
 				DF839D862BC93D3E001FE924 /* BaseController.swift in Sources */,
+				DF9D73812C103E8A009E3F85 /* HKColor.swift in Sources */,
 				DF6367EA2BCBF3030087A075 /* TextViewWithHelperView.swift in Sources */,
 				DF82CCF52BCA9F670089989E /* Router.swift in Sources */,
 				DF5F99B82BF79F6F00E8EFA4 /* ChatTableViewCell.swift in Sources */,

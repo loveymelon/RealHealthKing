@@ -13,7 +13,7 @@ class CommentView: BaseView {
 
     let tableView = UITableView().then {
         $0.register(CommentTableViewCell.self, forCellReuseIdentifier: CommentTableViewCell.identifier)
-        $0.backgroundColor = .black
+        $0.backgroundColor = HKColor.background.color
         $0.rowHeight = 70
     }
     

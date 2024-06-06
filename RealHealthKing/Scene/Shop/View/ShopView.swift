@@ -17,7 +17,7 @@ class ShopView: BaseView {
         $0.register(ShopTableViewCell.self, forCellReuseIdentifier: ShopTableViewCell.identifier)
         $0.estimatedRowHeight = 100
         $0.rowHeight = UITableView.automaticDimension
-        $0.backgroundColor = .black
+        $0.backgroundColor = HKColor.background.color
     }
     
     let noDataView = NoDataView().then {
@@ -27,7 +27,7 @@ class ShopView: BaseView {
     
     let plusButton = UIButton().then {
         $0.setImage(UIImage(systemName: "plus"), for: .normal)
-        $0.tintColor = .white
+        $0.tintColor = HKColor.text.color
     }
 
     override init(frame: CGRect) {

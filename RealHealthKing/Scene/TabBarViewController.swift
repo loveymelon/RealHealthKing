@@ -12,10 +12,10 @@ final class TabBarViewController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        tabBar.barTintColor = .black
-        tabBar.tintColor = .white
-        addVC()
+        tabBar.barTintColor = HKColor.background.color
+        tabBar.tintColor = HKColor.text.color
         
+        addVC()
     }
 
 }

@@ -19,7 +19,7 @@ class InfoLabel: UILabel {
     }
     
     func configureUI() {
-        textColor = .white
+        textColor = HKColor.text.color
     }
     
 }

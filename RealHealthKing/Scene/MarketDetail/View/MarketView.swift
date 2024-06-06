@@ -27,7 +27,6 @@ class MarketView: BaseView {
         $0.clipsToBounds = true
         $0.contentMode = .scaleAspectFit
         $0.image = UIImage(systemName: "person")
-        $0.tintColor = .blue
         $0.layer.cornerRadius = 20
         $0.layer.borderWidth = 1
         $0.layer.borderColor = UIColor.white.cgColor

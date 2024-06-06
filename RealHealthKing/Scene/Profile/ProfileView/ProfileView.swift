@@ -31,7 +31,7 @@ class ProfileView: BaseView {
     }
     
     let nicknameLabel = UILabel().then {
-        $0.textColor = .white
+        $0.textColor = HKColor.text.color
         $0.font = .boldSystemFont(ofSize: 16)
     }
     

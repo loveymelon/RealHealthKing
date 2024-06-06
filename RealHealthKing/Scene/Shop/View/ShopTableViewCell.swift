@@ -20,17 +20,19 @@ protocol PurchaseProtocol: AnyObject {
 final class ShopTableViewCell: UITableViewCell {
     
     let productImageView = UIImageView().then {
-        $0.contentMode = .scaleAspectFit
+        $0.contentMode = .scaleToFill
         $0.clipsToBounds = true
         $0.layer.cornerRadius = 10
+        $0.layer.borderWidth = 1
+        $0.layer.borderColor = HKColor.background.color.cgColor
         $0.image = UIImage(systemName: "person")
     }
     let productLabel = UILabel().then {
-        $0.font = .systemFont(ofSize: 16)
-        $0.textColor = .white
+        $0.font = .boldSystemFont(ofSize: 16)
+        $0.textColor = HKColor.text.color
     }
     let productPriceLabel = UILabel().then {
-        $0.textColor = .white
+        $0.textColor = HKColor.text.color
         $0.font = .boldSystemFont(ofSize: 14)
     }
     
@@ -39,7 +41,8 @@ final class ShopTableViewCell: UITableViewCell {
     weak var delegate: PurchaseProtocol?
     
     private let purchaseButton = UIButton().then {
-        $0.backgroundColor = .orange
+        $0.backgroundColor = HKColor.point.color
+        $0.contentEdgeInsets = UIEdgeInsets(top: 8, left: 10, bottom: 8, right: 10)
         $0.setTitle("구매하기", for: .normal)
         $0.layer.cornerRadius = 5
     }
@@ -67,7 +70,7 @@ extension ShopTableViewCell: UIConfigureProtocol {
         configureHierarchy()
         configureLayout()
         
-        backgroundColor = .black
+        backgroundColor = HKColor.background.color
     }
     
     func configureHierarchy() {

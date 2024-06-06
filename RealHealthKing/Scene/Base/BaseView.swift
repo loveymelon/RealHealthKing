@@ -20,7 +20,7 @@ class BaseView: UIView {
     }
     
     func configureUI() {
-        backgroundColor = .black
+        backgroundColor = HKColor.background.color
         
         configureHierarchy()
         configureLayout()

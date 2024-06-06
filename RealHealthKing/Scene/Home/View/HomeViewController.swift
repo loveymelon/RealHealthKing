@@ -57,6 +57,7 @@ class HomeViewController: BaseViewController<HomeView> {
             
             vc.postId.accept(postId)
             owner.navigationController?.pushViewController(vc, animated: true)
+            
         }.disposed(by: disposeBag)
         
         mainView.plusButton.rx.tap.bind(with: self) { owner, _ in

@@ -17,15 +17,15 @@ class CommentTableViewCell: UITableViewCell {
     let profileImageView = UIImageView().then {
         $0.clipsToBounds = true
         $0.layer.borderWidth = 1
-        $0.layer.borderColor = UIColor.white.cgColor
+        $0.layer.borderColor = HKColor.text.color.cgColor
         $0.layer.cornerRadius = 20
     }
     let nickLabel = UILabel().then {
-        $0.textColor = .white
+        $0.textColor = HKColor.text.color
         $0.font = .boldSystemFont(ofSize: 16)
     }
     let commentLabel = UILabel().then {
-        $0.textColor = .white
+        $0.textColor = HKColor.text.color
         $0.font = .systemFont(ofSize: 12)
         $0.numberOfLines = 0
     }
@@ -36,7 +36,7 @@ class CommentTableViewCell: UITableViewCell {
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        backgroundColor = .black
+        backgroundColor = HKColor.background.color
         
         configureUI()
     }

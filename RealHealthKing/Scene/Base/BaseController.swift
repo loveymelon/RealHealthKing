@@ -28,8 +28,8 @@ class BaseViewController<T: BaseView>: UIViewController {
 //        UINavigationBar.appearance().backgroundColor = .orange
         let navBarAppearance = UINavigationBarAppearance()
         // 객체 생성
-        navBarAppearance.backgroundColor = UIColor.orange
-        navBarAppearance.shadowColor = .clear
+        navBarAppearance.backgroundColor = HKColor.background.color
+//        navBarAppearance.shadowColor = .clear
         
         UINavigationBar.appearance().standardAppearance = navBarAppearance
         UINavigationBar.appearance().compactAppearance = navBarAppearance

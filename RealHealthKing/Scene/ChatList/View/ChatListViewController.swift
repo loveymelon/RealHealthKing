@@ -56,7 +56,8 @@ extension ChatListViewController {
         let label = UILabel()
         
         label.text = "채팅"
-        label.textColor = .white
+        label.textColor = HKColor.text.color
+        label.font = .boldSystemFont(ofSize: 18)
         
         navigationItem.leftBarButtonItem = UIBarButtonItem(customView: label)
     }

@@ -69,8 +69,8 @@ extension TabViewController {
         bar.buttons.customize{
             (button)
             in
-            button.tintColor = .gray
-            button.selectedTintColor = .white
+            button.tintColor = HKColor.assistant.color
+            button.selectedTintColor = HKColor.text.color
         }
         
 //        bar.indicator.weight = .custom(value: 3)
@@ -113,9 +113,7 @@ extension TabViewController: PageboyViewControllerDataSource, TMBarDataSource {
             make.bottom.equalToSuperview()
         }
         
-        print("vcvcvcvcvcvcvcvc", vc.mainView.collectionView.collectionViewLayout.collectionViewContentSize.height)
-        
-        vc.mainView.collectionView.backgroundColor = .blue
+        vc.mainView.collectionView.backgroundColor = HKColor.background.color
         
         return vc
     }

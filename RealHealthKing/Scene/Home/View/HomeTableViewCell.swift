@@ -54,10 +54,11 @@ class HomeTableViewCell: UITableViewCell {
     let likeButton = UIButton().then {
         $0.setImage(UIImage(systemName: "heart"), for: .normal)
         $0.setImage(UIImage(systemName: "heart.fill"), for: .selected)
+        $0.tintColor = .red
     }
     
     let likeCountLabel = UILabel().then {
-        $0.textColor = .white
+        $0.textColor = HKColor.text.color
     }
     
     let commentButton = UIButton().then {
@@ -65,7 +66,7 @@ class HomeTableViewCell: UITableViewCell {
     }
     
     let commentCountLabel = UILabel().then {
-        $0.textColor = .white
+        $0.textColor = HKColor.text.color
     }
     
     let bottomStackView = UIStackView().then {
@@ -77,18 +78,19 @@ class HomeTableViewCell: UITableViewCell {
     
     let contentLabel = UILabel().then {
         $0.numberOfLines = 1
-        $0.textColor = .white
-        $0.font = .systemFont(ofSize: 20)
+        $0.textColor = HKColor.text.color
+        $0.font = .systemFont(ofSize: 16)
     }
     
     let hashLabel = UILabel().then {
-        $0.textColor = .systemBlue
+        $0.textColor = HKColor.text.color
         $0.font = .systemFont(ofSize: 14)
     }
     
     let moreButton = UIButton().then {
         $0.setTitle("더보기", for: .normal)
-        $0.setTitleColor(.systemBlue, for: .normal)
+        $0.titleLabel?.font = .boldSystemFont(ofSize: 14)
+        $0.setTitleColor(HKColor.assistant.color, for: .normal)
         $0.isHidden = true
     }
     
@@ -109,7 +111,7 @@ class HomeTableViewCell: UITableViewCell {
         scrollView.delegate = self
         
         configureUI()
-        backgroundColor = .black
+        backgroundColor = HKColor.background.color
         
     }
     
@@ -181,7 +183,6 @@ extension HomeTableViewCell: UIConfigureProtocol {
         }
         
         contentLabel.snp.makeConstraints { make in
-//            make.horizontalEdges.equalTo(contentView.safeAreaLayoutGuide).inset(10)
             make.leading.equalTo(contentView.safeAreaLayoutGuide.snp.leading).inset(10)
             make.trailing.equalTo(contentView.safeAreaLayoutGuide.snp.trailing).inset(50)
             make.top.equalTo(bottomStackView.snp.bottom).offset(10)
@@ -268,7 +269,6 @@ extension HomeTableViewCell {
             guard let self else { return }
             
             updateImageViews(scrollView: scrollView, pageControl: pageControl, postData: data.files, width: width)
-            
         }
         
         saveAndCheckModel(data: data, cellIndex: cellIndex)

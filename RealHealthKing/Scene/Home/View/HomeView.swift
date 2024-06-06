@@ -23,7 +23,7 @@ class HomeView: BaseView {
     
     let plusButton = UIButton().then {
         $0.setImage(UIImage(systemName: "plus"), for: .normal)
-        $0.tintColor = .white
+        $0.tintColor = HKColor.text.color
     }
     
     override init(frame: CGRect) {

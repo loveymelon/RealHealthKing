@@ -12,12 +12,12 @@ import SnapKit
 class CountView: UIView {
 
     let countLabel = UILabel().then {
-        $0.textColor = .white
+        $0.textColor = HKColor.text.color
         $0.textAlignment = .center
         $0.font = .systemFont(ofSize: 18)
     }
     let titleLabel = UILabel().then {
-        $0.textColor = .white
+        $0.textColor = HKColor.text.color
         $0.textAlignment = .center
         $0.font = .systemFont(ofSize: 18)
     }
