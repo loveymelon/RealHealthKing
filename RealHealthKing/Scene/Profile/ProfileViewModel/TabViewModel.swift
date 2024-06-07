@@ -23,8 +23,8 @@ final class TabViewModel: ViewModelType {
     }
     
     var viewState: ScreenState = .me
-    private var userId = ""
-    private var productId = ""
+    var userId = ""
+    var productId = ""
     
     var disposeBag = DisposeBag()
     

@@ -8,12 +8,14 @@
 import UIKit
 import RxSwift
 import RxCocoa
+import Lottie
 
 final class LauchScreenViewController: BaseViewController<LauchScreenView> {
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        lottieStart()
     }
     
     let viewModel = LauchViewModel()
@@ -37,6 +39,15 @@ final class LauchScreenViewController: BaseViewController<LauchScreenView> {
             owner.view.window?.makeKeyAndVisible()
         }.disposed(by: disposeBag)
 
+    }
+    
+}
+
+extension LauchScreenViewController {
+    
+    func lottieStart() {
+        mainView.animationView.loopMode = .loop
+        mainView.animationView.play()
     }
     
 }

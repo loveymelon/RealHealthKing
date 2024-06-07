@@ -129,6 +129,8 @@
 		DF88FEA32BDB811400FB9C24 /* ProfileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF88FEA22BDB811400FB9C24 /* ProfileModel.swift */; };
 		DF892AC02BCC44B8006C69AA /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF892ABF2BCC44B8006C69AA /* SignUpViewModel.swift */; };
 		DF892AC32BCC50B7006C69AA /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF892AC22BCC50B7006C69AA /* String+Extension.swift */; };
+		DF8A92C62C12F0E100AF040C /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = DF8A92C52C12F0E100AF040C /* Lottie */; };
+		DF8A92CC2C12F55700AF040C /* HKLoading.json in Resources */ = {isa = PBXBuildFile; fileRef = DF8A92CB2C12F55700AF040C /* HKLoading.json */; };
 		DF8DFF202BDFE054009BC7C4 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF8DFF1F2BDFE054009BC7C4 /* TabBarViewController.swift */; };
 		DF8DFF222BDFFE46009BC7C4 /* FollowingModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF8DFF212BDFFE46009BC7C4 /* FollowingModel.swift */; };
 		DF8E464B2BD56CE900606390 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF8E464A2BD56CE900606390 /* HomeViewController.swift */; };
@@ -265,6 +267,7 @@
 		DF88FEA22BDB811400FB9C24 /* ProfileModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileModel.swift; sourceTree = "<group>"; };
 		DF892ABF2BCC44B8006C69AA /* SignUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
 		DF892AC22BCC50B7006C69AA /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
+		DF8A92CB2C12F55700AF040C /* HKLoading.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = HKLoading.json; sourceTree = SOURCE_ROOT; };
 		DF8DFF1F2BDFE054009BC7C4 /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
 		DF8DFF212BDFFE46009BC7C4 /* FollowingModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowingModel.swift; sourceTree = "<group>"; };
 		DF8E464A2BD56CE900606390 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
@@ -295,6 +298,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DF839D752BC93C93001FE924 /* RxCocoa in Frameworks */,
+				DF8A92C62C12F0E100AF040C /* Lottie in Frameworks */,
 				DF839D802BC93CC2001FE924 /* Alamofire in Frameworks */,
 				DF76D1D02BD2521A00257C38 /* RxGesture in Frameworks */,
 				DF32337A2BFA43F900110825 /* RealmSwift in Frameworks */,
@@ -409,6 +413,7 @@
 		DF73FE4B2BDE8ECA00328279 /* Launch */ = {
 			isa = PBXGroup;
 			children = (
+				DF8A92CA2C12F54D00AF040C /* Model */,
 				DF73FE4D2BDE8EDD00328279 /* ViewModel */,
 				DF73FE4C2BDE8ED600328279 /* View */,
 			);
@@ -969,6 +974,14 @@
 			path = TextWithHelper;
 			sourceTree = "<group>";
 		};
+		DF8A92CA2C12F54D00AF040C /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				DF8A92CB2C12F55700AF040C /* HKLoading.json */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		DF95A5172BD0FA2100E6FCC4 /* Posting */ = {
 			isa = PBXGroup;
 			children = (
@@ -1042,6 +1055,7 @@
 				DF745A172BE6FA0B002ACB70 /* iamport-ios */,
 				DF5F99BC2BF8E36F00E8EFA4 /* SocketIO */,
 				DF3233792BFA43F900110825 /* RealmSwift */,
+				DF8A92C52C12F0E100AF040C /* Lottie */,
 			);
 			productName = RealHealthKing;
 			productReference = DF839D542BC93B94001FE924 /* RealHealthKing.app */;
@@ -1084,6 +1098,7 @@
 				DF745A162BE6FA0B002ACB70 /* XCRemoteSwiftPackageReference "iamport-ios" */,
 				DF5F99BB2BF8E36F00E8EFA4 /* XCRemoteSwiftPackageReference "socket.io-client-swift" */,
 				DF3233782BFA43F900110825 /* XCRemoteSwiftPackageReference "realm-swift" */,
+				DF8A92C42C12F0E100AF040C /* XCRemoteSwiftPackageReference "lottie-ios" */,
 			);
 			productRefGroup = DF839D552BC93B94001FE924 /* Products */;
 			projectDirPath = "";
@@ -1099,6 +1114,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DF8A92CC2C12F55700AF040C /* HKLoading.json in Resources */,
 				DF839D6C2BC93BC9001FE924 /* .gitignore in Resources */,
 				DF839D612BC93B97001FE924 /* Assets.xcassets in Resources */,
 				DF839D642BC93B97001FE924 /* Base in Resources */,
@@ -1572,6 +1588,14 @@
 				minimumVersion = 5.1.1;
 			};
 		};
+		DF8A92C42C12F0E100AF040C /* XCRemoteSwiftPackageReference "lottie-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/airbnb/lottie-ios.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.4.3;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -1639,6 +1663,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = DF856B422BD18B1200221DFA /* XCRemoteSwiftPackageReference "Toast-Swift" */;
 			productName = Toast;
+		};
+		DF8A92C52C12F0E100AF040C /* Lottie */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DF8A92C42C12F0E100AF040C /* XCRemoteSwiftPackageReference "lottie-ios" */;
+			productName = Lottie;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
