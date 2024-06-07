@@ -23,6 +23,12 @@ class MarketViewController: BaseViewController<MarketView> {
 
     }
     
+    override func configureNav() {
+        super.configureNav()
+        
+        navigationController?.navigationBar.topItem?.title = ""
+    }
+    
     override func bind() {
         let messageButtonTap = mainView.chatButton.rx.tap.asObservable()
         

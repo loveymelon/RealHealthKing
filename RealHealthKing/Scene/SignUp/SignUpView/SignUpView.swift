@@ -61,6 +61,7 @@ class SignUpView: BaseView {
         $0.layer.borderWidth = 1
         $0.layer.borderColor = UIColor.lightGray.cgColor
         $0.setTitle("완료", for: .normal)
+        $0.setTitleColor(HKColor.text.color, for: .normal)
         $0.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
         $0.isEnabled = false
     }

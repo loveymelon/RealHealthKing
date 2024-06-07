@@ -13,7 +13,7 @@ class ChatTextView: UIView {
 
     let userTextView = InputTextView().then {
         $0.layer.cornerRadius = 15
-        $0.backgroundColor = .lightGray
+        $0.backgroundColor = HKColor.background.color
         $0.isScrollEnabled = false
         $0.textContainerInset = UIEdgeInsets(top: 10, left: 30, bottom: 10, right: 40)
     }

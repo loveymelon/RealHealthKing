@@ -21,6 +21,12 @@ class ChatViewController: BaseViewController<ChatView> {
         
     }
     
+    override func configureNav() {
+        super.configureNav()
+        
+        navigationController?.navigationBar.topItem?.title = ""
+    }
+    
     override func bind() {
         
         let viewWillTrigger = rx.viewWillAppear.map { _ in }
@@ -34,8 +40,6 @@ class ChatViewController: BaseViewController<ChatView> {
         let output = viewModel.transform(input: input)
         
         output.chatDatas.drive(mainView.tableView.rx.items(cellIdentifier: ChatTableViewCell.identifier, cellType: ChatTableViewCell.self)) { index, item, cell in
-            
-            print("content", item.textContent)
             
             cell.selectionStyle = .none
             cell.configureCell(model: item)

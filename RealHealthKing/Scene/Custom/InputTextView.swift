@@ -13,8 +13,8 @@ class InputTextView: UITextView {
     
     let sendButton = UIButton().then {
         $0.setImage(UIImage(systemName: "arrow.up"), for: .normal)
-        $0.backgroundColor = .red
-        $0.tintColor = .white
+        $0.backgroundColor = HKColor.assistant.color
+        $0.tintColor = HKColor.background.color
         $0.layer.cornerRadius = 10
     }
 

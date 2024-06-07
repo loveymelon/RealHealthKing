@@ -23,7 +23,7 @@ class ChatListViewController: BaseViewController<ChatListView> {
     override func configureNav() {
         super.configureNav()
         
-        setNavigationBarTitleLabel()
+        setNavigationBarTitleLabel(title: "채팅목록")
     }
     
     override func bind() {
@@ -52,13 +52,5 @@ class ChatListViewController: BaseViewController<ChatListView> {
 }
 
 extension ChatListViewController {
-    func setNavigationBarTitleLabel() {
-        let label = UILabel()
-        
-        label.text = "채팅"
-        label.textColor = HKColor.text.color
-        label.font = .boldSystemFont(ofSize: 18)
-        
-        navigationItem.leftBarButtonItem = UIBarButtonItem(customView: label)
-    }
+    
 }

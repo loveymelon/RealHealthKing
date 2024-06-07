@@ -15,7 +15,7 @@ class TextFieldView: UIView, UIConfigureProtocol {
     
     let textField = UITextField().then {
         $0.backgroundColor = .clear
-        $0.textColor = .white
+        $0.textColor = HKColor.text.color
         $0.tintColor = .white
         $0.autocorrectionType = .no
         $0.spellCheckingType = .no
@@ -23,7 +23,7 @@ class TextFieldView: UIView, UIConfigureProtocol {
     let infoLabel = InfoLabel()
     let secureButton = UIButton().then {
         $0.setTitle("표시", for: .normal)
-        $0.setTitleColor(.white, for: .normal)
+        $0.setTitleColor(.lightGray, for: .normal)
         $0.titleLabel?.font = UIFont.systemFont(ofSize: 14, weight: .light)
         $0.isEnabled = false
         $0.isHidden = true
@@ -73,9 +73,12 @@ class TextFieldView: UIView, UIConfigureProtocol {
     }
     
     func configureUI() {
-        backgroundColor = .darkGray
+        backgroundColor = HKColor.background.color
         clipsToBounds = true
         layer.cornerRadius = 10
+        
+        layer.borderWidth = 1
+        layer.borderColor = UIColor.gray.cgColor
         
         configureHierarchy()
         configureLayout()

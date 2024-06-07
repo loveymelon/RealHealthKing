@@ -25,7 +25,7 @@ class MarketView: BaseView {
     
     let profileImageView = UIImageView().then {
         $0.clipsToBounds = true
-        $0.contentMode = .scaleAspectFit
+        $0.contentMode = .scaleToFill
         $0.image = UIImage(systemName: "person")
         $0.layer.cornerRadius = 20
         $0.layer.borderWidth = 1
@@ -33,7 +33,7 @@ class MarketView: BaseView {
     }
     
     let nickLabel = UILabel().then {
-        $0.textColor = .white
+        $0.textColor = HKColor.text.color
         $0.font = .systemFont(ofSize: 18)
     }
     
@@ -42,23 +42,22 @@ class MarketView: BaseView {
     }
     
     let titleLabel = UILabel().then {
-        $0.textColor = .white
-        $0.font = .boldSystemFont(ofSize: 16)
+        $0.textColor = HKColor.text.color
+        $0.font = .boldSystemFont(ofSize: 20)
     }
     
     let commentLabel = UILabel().then {
-        $0.textColor = .white
-        $0.font = .systemFont(ofSize: 14)
+        $0.textColor = HKColor.text.color
+        $0.font = .systemFont(ofSize: 16)
     }
     
     let bottomView = UIView().then {
-        $0.backgroundColor = .black
+        $0.backgroundColor = HKColor.background.color
     }
     
     let chatButton = UIButton().then {
         $0.setImage(UIImage(systemName: "message"), for: .normal)
         $0.layer.cornerRadius = 5
-        
     }
     
     let purchaseButton = UIButton().then {
@@ -68,7 +67,7 @@ class MarketView: BaseView {
     }
     
     let priceLabel = UILabel().then {
-        $0.textColor = .white
+        $0.textColor = HKColor.text.color
         $0.font = .systemFont(ofSize: 18)
     }
 
@@ -122,13 +121,13 @@ class MarketView: BaseView {
         }
         
         titleLabel.snp.makeConstraints { make in
-            make.top.equalTo(lineView.snp.bottom).offset(10)
-            make.horizontalEdges.equalTo(safeAreaLayoutGuide).inset(10)
+            make.top.equalTo(lineView.snp.bottom).offset(20)
+            make.horizontalEdges.equalTo(safeAreaLayoutGuide).inset(20)
         }
         
         commentLabel.snp.makeConstraints { make in
-            make.top.equalTo(titleLabel.snp.bottom).offset(10)
-            make.horizontalEdges.equalTo(safeAreaLayoutGuide).inset(10)
+            make.top.equalTo(titleLabel.snp.bottom).offset(20)
+            make.horizontalEdges.equalTo(safeAreaLayoutGuide).inset(20)
         }
         
         bottomView.snp.makeConstraints { make in

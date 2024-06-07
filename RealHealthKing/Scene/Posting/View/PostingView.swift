@@ -35,7 +35,7 @@ final class PostingView: BaseView {
     
     let imageInfoLabel = UILabel().then {
         $0.text = "여기를 클릭하여 사진을 추가할 수 있습니다."
-        $0.textColor = .white
+        $0.textColor = HKColor.text.color
         $0.textAlignment = .center
     }
     
@@ -62,7 +62,7 @@ final class PostingView: BaseView {
     
     let memoTextView = UITextView().then {
         $0.clipsToBounds = true
-        $0.backgroundColor = .gray
+        $0.backgroundColor = HKColor.background.color
         $0.text = "본인의 내용을 작성해주세요"
         $0.font = .systemFont(ofSize: 15)
         $0.textContainerInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
@@ -73,6 +73,7 @@ final class PostingView: BaseView {
     
     let saveButton = UIButton().then {
         $0.setTitle("저장", for: .normal)
+        $0.setTitleColor(HKColor.text.color, for: .normal)
     }
 
     override init(frame: CGRect) {

@@ -84,9 +84,10 @@ extension ShopTableViewCell: UIConfigureProtocol {
         
         productImageView.snp.makeConstraints { make in
             make.size.equalTo(100)
-            make.leading.equalTo(contentView.snp.leading).inset(10)
-            make.verticalEdges.equalToSuperview().inset(10)
+            make.leading.equalTo(contentView.safeAreaLayoutGuide.snp.leading).inset(10)
+            make.verticalEdges.equalTo(contentView.safeAreaLayoutGuide).inset(10)
         }
+        
         productLabel.snp.makeConstraints { make in
             make.top.equalTo(productImageView.snp.top)
             make.leading.equalTo(productImageView.snp.trailing).offset(10)
@@ -98,7 +99,7 @@ extension ShopTableViewCell: UIConfigureProtocol {
         }
         
         purchaseButton.snp.makeConstraints { make in
-            make.trailing.equalTo(contentView.snp.trailing).inset(5)
+            make.trailing.equalTo(contentView.safeAreaLayoutGuide.snp.trailing).inset(5)
             make.bottom.equalTo(productImageView.snp.bottom)
         }
         

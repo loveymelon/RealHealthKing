@@ -25,8 +25,11 @@ class ShopViewController: BaseViewController<ShopView> {
     
     override func configureNav() {
         super.configureNav()
+        
         navigationItem.largeTitleDisplayMode = .never
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: mainView.plusButton)
+        
+        setNavigationBarTitleLabel(title: "중고물품")
     }
     
     override func bind() {
@@ -62,7 +65,6 @@ class ShopViewController: BaseViewController<ShopView> {
             owner.mainView.tableView.isHidden = !isValid
             owner.mainView.noDataView.isHidden = isValid
         }.disposed(by: disposeBag)
-        
         
     }
 

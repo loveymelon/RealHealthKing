@@ -25,19 +25,26 @@ class BaseViewController<T: BaseView>: UIViewController {
     
     func configureNav() {
         
-//        UINavigationBar.appearance().backgroundColor = .orange
         let navBarAppearance = UINavigationBarAppearance()
-        // 객체 생성
+        
         navBarAppearance.backgroundColor = HKColor.background.color
-//        navBarAppearance.shadowColor = .clear
         
         UINavigationBar.appearance().standardAppearance = navBarAppearance
         UINavigationBar.appearance().compactAppearance = navBarAppearance
         UINavigationBar.appearance().scrollEdgeAppearance = navBarAppearance
         
+        navigationController?.navigationBar.tintColor = HKColor.assistant.color
+
+    }
+    
+    func setNavigationBarTitleLabel(title: String) {
+        let label = UILabel()
         
-        navigationController?.navigationBar.tintColor = .white
-//        navigationController?.navigationBar.topItem?.title = ""
+        label.text = title
+        label.textColor = HKColor.text.color
+        label.font = .boldSystemFont(ofSize: 18)
+        
+        navigationItem.leftBarButtonItem = UIBarButtonItem(customView: label)
     }
     
     func bind() {

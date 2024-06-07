@@ -46,7 +46,7 @@ class HomeTableViewCell: UITableViewCell {
     
     let pageControl = UIPageControl().then {
         $0.pageIndicatorTintColor = .gray
-        $0.currentPageIndicatorTintColor = .white
+        $0.currentPageIndicatorTintColor = HKColor.point.color
         $0.hidesForSinglePage = true
         $0.currentPage = 0
     }
@@ -194,9 +194,9 @@ extension HomeTableViewCell: UIConfigureProtocol {
         }
         
         hashLabel.snp.makeConstraints { make in
-            make.horizontalEdges.equalTo(contentView.safeAreaLayoutGuide)
+            make.leading.equalTo(contentLabel.snp.leading)
             make.top.equalTo(contentLabel.snp.bottom).offset(10)
-            make.bottom.equalTo(contentView.safeAreaLayoutGuide.snp.bottom)
+            make.bottom.equalTo(contentView.safeAreaLayoutGuide.snp.bottom).offset(-10)
         }
     }
 

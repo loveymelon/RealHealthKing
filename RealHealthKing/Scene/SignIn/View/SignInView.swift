@@ -13,7 +13,7 @@ class SignInView: BaseView {
     
     let mainTitle = UILabel().then {
         $0.text = "나의짐"
-        $0.textColor = .white
+        $0.textColor = HKColor.text.color
         $0.font = .boldSystemFont(ofSize: 50)
     }
     
@@ -39,6 +39,7 @@ class SignInView: BaseView {
         $0.layer.borderColor = UIColor.lightGray.cgColor
         $0.setTitle("로그인", for: .normal)
         $0.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
+        $0.setTitleColor(HKColor.text.color, for: .normal)
         $0.isEnabled = true
     }
     
@@ -53,6 +54,7 @@ class SignInView: BaseView {
         $0.backgroundColor = .clear
         $0.setTitle("회원가입", for: .normal)
         $0.titleLabel?.font = UIFont.boldSystemFont(ofSize: 14)
+        $0.setTitleColor(.gray, for: .normal)
     }
     
     private let textViewHeight: CGFloat = 62

@@ -14,6 +14,7 @@ enum HKColor {
     case assistant
     case chatUser
     case chatOpponent
+    case yellow
     
     var color: UIColor {
         return switch self {
@@ -29,6 +30,8 @@ enum HKColor {
             UIColor(hexCode: "D2DAFF", alpha: 1)
         case .chatOpponent:
             UIColor(hexCode: "AAC4FF", alpha: 1)
+        case .yellow:
+            UIColor(hexCode: "#FFFAE6", alpha: 1)
         }
     }
 }

@@ -36,9 +36,8 @@ class ProfileView: BaseView {
     }
     
     let leftButton = UIButton().then {
-        $0.setTitle("프로필 수정", for: .normal)
         $0.setTitleColor(.white, for: .normal)
-        $0.backgroundColor = .darkGray
+        $0.backgroundColor = HKColor.assistant.color
         $0.layer.cornerRadius = 10
     }
     

@@ -25,8 +25,6 @@ class ProfileViewController: BaseViewController<ProfileView> {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        print("ddd", #function)
-        
         mainView.scrollView.contentSize.height = UIScreen.main.bounds.height + 20
         
         let logoutAction = UIAction(title: "로그아웃") { [weak self] _ in
@@ -123,6 +121,8 @@ class ProfileViewController: BaseViewController<ProfileView> {
 
     override func configureNav() {
         super.configureNav()
+        
+        setNavigationBarTitleLabel(title: "프로필")
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: mainView.rightBarButton)
         navigationItem.rightBarButtonItem?.tintColor = .white

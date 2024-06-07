@@ -15,14 +15,12 @@ class ShopView: BaseView {
     
     let tableView = UITableView().then {
         $0.register(ShopTableViewCell.self, forCellReuseIdentifier: ShopTableViewCell.identifier)
-        $0.estimatedRowHeight = 100
-        $0.rowHeight = UITableView.automaticDimension
+        $0.rowHeight = 120
         $0.backgroundColor = HKColor.background.color
     }
     
     let noDataView = NoDataView().then {
         $0.setText("등록된 상품들이 없습니다")
-        
     }
     
     let plusButton = UIButton().then {

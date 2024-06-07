@@ -19,10 +19,6 @@ class TextViewWithHelperView: UIView {
         $0.isHidden = true
     }
     
-    let disposeBag = DisposeBag()
-    
-    let viewModel = TextWithHelperViewModel()
-    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -39,6 +35,7 @@ extension TextViewWithHelperView: UIConfigureProtocol {
     func configureUI() {
         configureHierarchy()
         configureLayout()
+        
     }
     
     func configureHierarchy() {

@@ -8,6 +8,7 @@
 import UIKit
 import Then
 import SnapKit
+import RxSwift
 
 class ChatTableViewCell: UITableViewCell {
     
@@ -28,6 +29,8 @@ class ChatTableViewCell: UITableViewCell {
         $0.font = .systemFont(ofSize: 12)
     }
     
+    var disposeBag = DisposeBag()
+    
     var state: ScreenState = .me
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -38,6 +41,12 @@ class ChatTableViewCell: UITableViewCell {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
+        disposeBag = DisposeBag()
     }
     
 }

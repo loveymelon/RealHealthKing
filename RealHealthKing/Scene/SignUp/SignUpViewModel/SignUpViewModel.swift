@@ -34,7 +34,7 @@ class SignUpViewModel: ViewModelType {
     
     func transform(input: Input) -> Output {
         let checkButtonIs = BehaviorRelay(value: false)
-        let emailValidResult = BehaviorRelay(value: false)
+        let emailValidResult = PublishRelay<Bool>()
         let passwordValidResult = BehaviorRelay(value: false)
         let checkPasswordValidResult = BehaviorRelay(value: false)
         let nickValidResult = BehaviorRelay(value: false)
@@ -92,6 +92,6 @@ class SignUpViewModel: ViewModelType {
                 }
             }
         
-        return Output(checkButtonIs: checkButtonIs.asDriver(), networkError: networkResult.asDriver(), isEmailValid: emailValidResult.asDriver(), isPasswordValid: passwordValidResult.asDriver(), isCheckPasswordValid: checkPasswordValidResult.asDriver(), isNickValid: nickValidResult.asDriver(), isSignUpButtonEnabled: isSignUpButtonEnabled.asDriver(), signUpComplete: signUpButtonResult.asDriver(onErrorJustReturn: false))
+        return Output(checkButtonIs: checkButtonIs.asDriver(), networkError: networkResult.asDriver(), isEmailValid: emailValidResult.asDriver(onErrorJustReturn: false), isPasswordValid: passwordValidResult.asDriver(), isCheckPasswordValid: checkPasswordValidResult.asDriver(), isNickValid: nickValidResult.asDriver(), isSignUpButtonEnabled: isSignUpButtonEnabled.asDriver(), signUpComplete: signUpButtonResult.asDriver(onErrorJustReturn: false))
     }
 }

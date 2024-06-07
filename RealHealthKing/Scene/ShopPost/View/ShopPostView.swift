@@ -34,14 +34,14 @@ class ShopPostView: BaseView {
     
     let titleLabel = UILabel().then {
         $0.text = "상품명"
-        $0.textColor = .white
+        $0.textColor = HKColor.text.color
         $0.font = .boldSystemFont(ofSize: 16)
     }
     
     let titleTextField = UITextField().then {
         $0.setPlaceholder(string: "상품명 입력해주세요.", color: .gray)
         $0.addLeftPadding()
-        $0.textColor = .white
+        $0.textColor = HKColor.text.color
         $0.layer.borderColor = UIColor.lightGray.cgColor
         $0.layer.borderWidth = 1
         $0.layer.cornerRadius = 3
@@ -49,7 +49,7 @@ class ShopPostView: BaseView {
     
     let priceLabel = UILabel().then {
         $0.text = "가격"
-        $0.textColor = .white
+        $0.textColor = HKColor.text.color
         $0.font = .boldSystemFont(ofSize: 16)
     }
 
@@ -75,13 +75,13 @@ class ShopPostView: BaseView {
     
     let detailLabel = UILabel().then {
         $0.text = "자세한 설명"
-        $0.textColor = .white
+        $0.textColor = HKColor.text.color
         $0.font = .boldSystemFont(ofSize: 16)
     }
     
     let detailTextView = UITextView().then {
         $0.text = "상품에 대한 설명을 자세하게 적어주세요."
-        $0.textColor = .white
+        $0.textColor = HKColor.text.color
         $0.layer.borderColor = UIColor.lightGray.cgColor
         $0.layer.borderWidth = 1
         $0.layer.cornerRadius = 3
@@ -91,9 +91,11 @@ class ShopPostView: BaseView {
     
     let saveButton = UIButton().then {
         $0.setTitle("작성 완료", for: .normal)
-        $0.backgroundColor = .white
-        $0.setTitleColor(.black, for: .normal)
+//        $0.backgroundColor = HKColor.assistant.color
+        $0.setTitleColor(HKColor.text.color, for: .normal)
         $0.layer.cornerRadius = 5
+        $0.layer.borderColor = HKColor.text.color.cgColor
+        $0.layer.borderWidth = 1
     }
     
     let vContentView = UIView()

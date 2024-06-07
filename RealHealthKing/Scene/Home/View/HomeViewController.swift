@@ -70,6 +70,9 @@ class HomeViewController: BaseViewController<HomeView> {
         
         navigationItem.largeTitleDisplayMode = .never
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: mainView.plusButton)
+        navigationController?.navigationBar.topItem?.title = ""
+        
+        setNavigationBarTitleLabel(title: "나의짐")
     }
 }
 

@@ -29,6 +29,12 @@ class ShopPostViewController: BaseViewController<ShopPostView> {
         mainView.priceTextField.rightView = mainView.clearButton
     }
     
+    override func configureNav() {
+        super.configureNav()
+        
+        navigationController?.navigationBar.topItem?.title = ""
+    }
+    
     override func bind() {
         
         let textBeginEdit = mainView.detailTextView.rx.didBeginEditing.withLatestFrom(mainView.detailTextView.rx.text.orEmpty.asObservable())
@@ -126,7 +132,7 @@ class ShopPostViewController: BaseViewController<ShopPostView> {
         
         output.errorResult.drive(with: self) { owner, text in
             owner.mainView.makeToast(text, duration: 1.0, position: .center)
-        }
+        }.disposed(by: disposeBag)
     }
 
 }
