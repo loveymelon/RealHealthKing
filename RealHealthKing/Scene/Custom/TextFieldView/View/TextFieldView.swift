@@ -11,7 +11,7 @@ import Then
 import RxSwift
 import RxCocoa
 
-class TextFieldView: UIView, UIConfigureProtocol {
+final class TextFieldView: UIView, UIConfigureProtocol {
     
     let textField = UITextField().then {
         $0.backgroundColor = .clear

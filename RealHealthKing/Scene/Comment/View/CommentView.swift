@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 import Then
 
-class CommentView: BaseView {
+final class CommentView: BaseView {
 
     let tableView = UITableView().then {
         $0.register(CommentTableViewCell.self, forCellReuseIdentifier: CommentTableViewCell.identifier)

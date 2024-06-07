@@ -9,7 +9,7 @@ import UIKit
 import Then
 import SnapKit
 
-class ChatTextView: UIView {
+final class ChatTextView: UIView {
 
     let userTextView = InputTextView().then {
         $0.layer.cornerRadius = 15

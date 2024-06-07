@@ -10,7 +10,7 @@ import WebKit
 import Then
 import SnapKit
 
-class PurchaseView: BaseView {
+final class PurchaseView: BaseView {
     
     let webView = WKWebView().then {
         $0.backgroundColor = .white

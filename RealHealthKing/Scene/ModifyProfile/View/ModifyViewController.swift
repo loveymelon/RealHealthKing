@@ -11,11 +11,11 @@ import RxCocoa
 import RxGesture
 import PhotosUI
 
-class ModifyViewController: BaseViewController<ModifyView> {
+final class ModifyViewController: BaseViewController<ModifyView> {
 
-    let viewModel = ModifyViewModel()
+    private let viewModel = ModifyViewModel()
     
-    let disposeBag = DisposeBag()
+    private let disposeBag = DisposeBag()
     
     let inputNickName = BehaviorRelay<String>(value: "")
     let profileImage = BehaviorRelay<String>(value: "")

@@ -9,7 +9,7 @@ import UIKit
 import Then
 import SnapKit
 
-class ProfileView: BaseView {
+final class ProfileView: BaseView {
     
     let profileImageView = UIImageView(image: UIImage(systemName: "person")).then {
         $0.layer.borderWidth = 1

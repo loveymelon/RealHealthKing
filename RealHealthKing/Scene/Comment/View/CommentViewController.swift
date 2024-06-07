@@ -9,13 +9,13 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-class CommentViewController: BaseViewController<CommentView> {
+final class CommentViewController: BaseViewController<CommentView> {
     
     let postId = BehaviorRelay(value: "")
     
-    let viewModel = CommentViewModel()
+    private let viewModel = CommentViewModel()
     
-    let disposeBag = DisposeBag()
+    private let disposeBag = DisposeBag()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -91,7 +91,7 @@ class CommentViewController: BaseViewController<CommentView> {
 }
 
 extension CommentViewController {
-    func setupSheet() {
+    private func setupSheet() {
         if let sheet = sheetPresentationController {
             sheet.detents = [.medium(), .large(), .medium()]
             sheet.selectedDetentIdentifier = .medium

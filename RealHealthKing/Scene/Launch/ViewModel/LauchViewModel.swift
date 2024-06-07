@@ -9,7 +9,7 @@ import Foundation
 import RxSwift
 import RxCocoa
 
-class LauchViewModel: ViewModelType {
+final class LauchViewModel: ViewModelType {
     
     struct Input {
         let inputViewWillAppear: Observable<Void>

@@ -11,7 +11,7 @@ import RxSwift
 import RxCocoa
 import Then
 
-class TextViewWithHelperView: UIView {
+final class TextViewWithHelperView: UIView {
 
     let textFieldView = TextFieldView()
     

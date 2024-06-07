@@ -14,9 +14,9 @@ final class DetailViewController: BaseViewController<DetailView> {
     
     let postId = BehaviorRelay(value: "")
     
-    let disposeBag = DisposeBag()
+    private let disposeBag = DisposeBag()
     
-    let viewModel = DetailViewModel()
+    private let viewModel = DetailViewModel()
 
     override func viewDidLoad() {
         super.viewDidLoad()

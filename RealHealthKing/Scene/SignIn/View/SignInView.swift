@@ -9,7 +9,7 @@ import UIKit
 import Then
 import SnapKit
 
-class SignInView: BaseView {
+final class SignInView: BaseView {
     
     let mainTitle = UILabel().then {
         $0.text = "나의짐"

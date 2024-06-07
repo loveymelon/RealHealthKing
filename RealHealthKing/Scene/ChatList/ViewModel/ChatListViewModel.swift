@@ -9,7 +9,7 @@ import Foundation
 import RxSwift
 import RxCocoa
 
-class ChatListViewModel: ViewModelType {
+final class ChatListViewModel: ViewModelType {
     
     struct Input {
         let viewWillAppearTrigger: Observable<Void>

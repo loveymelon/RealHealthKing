@@ -9,7 +9,7 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-class SignUpViewController: BaseViewController<SignUpView> {
+final class SignUpViewController: BaseViewController<SignUpView> {
     
     let disposeBag = DisposeBag()
     
@@ -143,7 +143,7 @@ class SignUpViewController: BaseViewController<SignUpView> {
             if isValid {
                 owner.navigationController?.popViewController(animated: true)
             }
-        }
+        }.disposed(by: disposeBag)
         
     }
 

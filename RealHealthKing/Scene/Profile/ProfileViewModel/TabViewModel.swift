@@ -10,7 +10,7 @@ import RxSwift
 import RxCocoa
 import UIKit
 
-class TabViewModel: ViewModelType {
+final class TabViewModel: ViewModelType {
     struct Input {
         let inputViewWillTrigger: Observable<Void>
         let inputCollectionViewIndex: Observable<(cell: UICollectionViewCell, at: IndexPath)>
@@ -23,8 +23,8 @@ class TabViewModel: ViewModelType {
     }
     
     var viewState: ScreenState = .me
-    var userId = ""
-    var productId = ""
+    private var userId = ""
+    private var productId = ""
     
     var disposeBag = DisposeBag()
     

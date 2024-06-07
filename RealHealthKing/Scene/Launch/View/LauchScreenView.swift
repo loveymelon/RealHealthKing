@@ -9,7 +9,7 @@ import UIKit
 import Then
 import SnapKit
 
-class LauchScreenView: BaseView {
+final class LauchScreenView: BaseView {
 
     override init(frame: CGRect) {
         super.init(frame: frame)

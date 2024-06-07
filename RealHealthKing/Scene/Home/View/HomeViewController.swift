@@ -12,11 +12,11 @@ import RxSwift
 import RxCocoa
 import RxGesture
 
-class HomeViewController: BaseViewController<HomeView> {
+final class HomeViewController: BaseViewController<HomeView> {
     
-    let viewModel = HomeViewModel()
+    private let viewModel = HomeViewModel()
     
-    let disposeBag = DisposeBag()
+    private let disposeBag = DisposeBag()
     
     private let homeModel = HomeModel()
 

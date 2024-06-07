@@ -12,14 +12,14 @@ import RxGesture
 import PhotosUI
 import SnapKit
 
-class ShopPostViewController: BaseViewController<ShopPostView> {
+final class ShopPostViewController: BaseViewController<ShopPostView> {
 
     private var userImageArray: [UIImage] = []
     private var userImages = BehaviorRelay<[UIImage]>(value: [])
     private var configuration = PHPickerConfiguration()
     private var selectedCount = PublishRelay<Int>()
     
-    let viewModel = ShopPostViewModel()
+    private let viewModel = ShopPostViewModel()
     
     let disposeBag = DisposeBag()
     
@@ -173,7 +173,7 @@ extension ShopPostViewController: PHPickerViewControllerDelegate, UINavigationCo
 }
 
 extension ShopPostViewController {
-    func handleImage(images: [UIImage]) {
+    private func handleImage(images: [UIImage]) {
         photoAuth()
         
         if images.count != 5 {
@@ -200,7 +200,7 @@ extension ShopPostViewController {
 //        }
     }
     
-    func photoAuth() {
+    private func photoAuth() {
         let requiredAccessLevel: PHAccessLevel = .readWrite
         PHPhotoLibrary.requestAuthorization(for: requiredAccessLevel) { [weak self] authorizationStatus in
             
@@ -219,7 +219,7 @@ extension ShopPostViewController {
         }
     }
     
-    func openPhotoLibrary() {
+    private func openPhotoLibrary() {
         
         if PHPhotoLibrary.authorizationStatus() == .authorized || PHPhotoLibrary.authorizationStatus() == .restricted {
             

@@ -9,9 +9,7 @@ import UIKit
 import Then
 import SnapKit
 
-
-
-class ShopView: BaseView {
+final class ShopView: BaseView {
     
     let tableView = UITableView().then {
         $0.register(ShopTableViewCell.self, forCellReuseIdentifier: ShopTableViewCell.identifier)

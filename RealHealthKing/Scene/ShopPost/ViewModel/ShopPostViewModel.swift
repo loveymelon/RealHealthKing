@@ -10,7 +10,7 @@ import RxSwift
 import RxCocoa
 import UIKit
 
-class ShopPostViewModel: ViewModelType {
+final class ShopPostViewModel: ViewModelType {
     struct Input {
         let textBeginEdit: Observable<String>
         let textEndEdit: Observable<String>

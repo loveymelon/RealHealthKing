@@ -9,7 +9,7 @@ import Foundation
 import RxSwift
 import RxCocoa
 
-class CommentViewModel: ViewModelType {
+final class CommentViewModel: ViewModelType {
     struct Input {
         let inputViewWillAppear: Observable<String>
         let inputButtonTap: Observable<String>

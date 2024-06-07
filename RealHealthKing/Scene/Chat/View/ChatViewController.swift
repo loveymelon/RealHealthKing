@@ -10,11 +10,11 @@ import Then
 import RxCocoa
 import RxSwift
 
-class ChatViewController: BaseViewController<ChatView> {
+final class ChatViewController: BaseViewController<ChatView> {
     
     let viewModel = ChatViewModel()
     
-    let disposeBag = DisposeBag()
+    private let disposeBag = DisposeBag()
 
     override func viewDidLoad() {
         super.viewDidLoad()

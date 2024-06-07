@@ -11,11 +11,11 @@ import RxCocoa
 import iamport_ios
 import WebKit
 
-class ShopViewController: BaseViewController<ShopView> {
+final class ShopViewController: BaseViewController<ShopView> {
 
-    let viewModel = ShopViewModel()
+    private let viewModel = ShopViewModel()
     
-    let disposeBag = DisposeBag()
+    private let disposeBag = DisposeBag()
     
     override func viewDidLoad() {
         super.viewDidLoad()

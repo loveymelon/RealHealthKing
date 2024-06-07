@@ -9,7 +9,7 @@ import UIKit
 import Then
 import SnapKit
 
-class MarketView: BaseView {
+final class MarketView: BaseView {
     
     let scrollView = UIScrollView().then {
         $0.isPagingEnabled = true

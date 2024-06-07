@@ -9,9 +9,9 @@ import UIKit
 import SnapKit
 import Then
 
-class ShopPostView: BaseView {
+final class ShopPostView: BaseView {
     
-    let vScrollView = UIScrollView().then {
+    private let vScrollView = UIScrollView().then {
         $0.isScrollEnabled = true
         $0.bounces = false
     }

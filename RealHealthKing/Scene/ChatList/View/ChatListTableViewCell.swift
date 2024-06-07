@@ -9,9 +9,9 @@ import UIKit
 import Then
 import SnapKit
 
-class ChatListTableViewCell: UITableViewCell {
+final class ChatListTableViewCell: UITableViewCell {
     
-    let profileImageView = UIImageView().then {
+    private let profileImageView = UIImageView().then {
         $0.clipsToBounds = true
         $0.layer.borderWidth = 1
         $0.layer.borderColor = UIColor.black.cgColor
@@ -19,11 +19,11 @@ class ChatListTableViewCell: UITableViewCell {
         $0.contentMode = .scaleToFill
     }
     
-    let nickLabel = UILabel()
+    private let nickLabel = UILabel()
     
-    let contentLabel = UILabel()
+    private let contentLabel = UILabel()
     
-    let stackView = UIStackView().then {
+    private let stackView = UIStackView().then {
         $0.axis = .vertical
         $0.alignment = .leading
         $0.distribution = .fillProportionally

@@ -9,11 +9,11 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-class ChatListViewController: BaseViewController<ChatListView> {
+final class ChatListViewController: BaseViewController<ChatListView> {
     
-    let viewModel = ChatListViewModel()
+    private let viewModel = ChatListViewModel()
     
-    let disposeBag = DisposeBag()
+    private let disposeBag = DisposeBag()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,8 +49,4 @@ class ChatListViewController: BaseViewController<ChatListView> {
         
     }
 
-}
-
-extension ChatListViewController {
-    
 }

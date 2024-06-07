@@ -10,7 +10,7 @@ import RxSwift
 import RxCocoa
 import UIKit
 
-class ProfileViewModel: ViewModelType {
+final class ProfileViewModel: ViewModelType {
     struct Input {
         let inputViewWillTrigger: Observable<Void>
         let inputLeftButtonTap: Observable<Void>
@@ -42,7 +42,7 @@ class ProfileViewModel: ViewModelType {
     var disposeBag = DisposeBag()
     var otherUserId = ""
     
-    var isValid = false
+    private var isValid = false
     
     func transform(input: Input) -> Output {
         

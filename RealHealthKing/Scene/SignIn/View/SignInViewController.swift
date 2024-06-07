@@ -10,7 +10,7 @@ import RxSwift
 import RxCocoa
 import Toast
 
-class SignInViewController: BaseViewController<SignInView> {
+final class SignInViewController: BaseViewController<SignInView> {
 
     let viewModel = SignInViewModel()
     

@@ -10,7 +10,7 @@ import RxSwift
 import RxCocoa
 import RealmSwift
 
-class ChatViewModel: ViewModelType {
+final class ChatViewModel: ViewModelType {
     struct Input {
         let viewWillAppearTrigger: Observable<Void>
         let viewDidAppearTrigger: Observable<Void>

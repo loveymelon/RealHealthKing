@@ -9,7 +9,7 @@ import UIKit
 import Then
 import SnapKit
 
-class HelperView: UIView {
+final class HelperView: UIView {
     
     let imageView = UIImageView(image: UIImage(systemName: "exclamationmark.circle")).then {
         $0.tintColor = .red

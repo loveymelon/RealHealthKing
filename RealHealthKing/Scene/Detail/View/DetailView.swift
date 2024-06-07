@@ -9,7 +9,7 @@ import UIKit
 import Then
 import SnapKit
 
-class DetailView: BaseView {
+final class DetailView: BaseView {
     
     let profileImageView = UIImageView().then {
         $0.clipsToBounds = true

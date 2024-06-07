@@ -9,7 +9,7 @@ import UIKit
 import Then
 import SnapKit
 
-class ShopPostPhotoView: UIView {
+final class ShopPostPhotoView: UIView {
     
     let imageView = UIImageView().then {
         $0.image = UIImage(systemName: "person")

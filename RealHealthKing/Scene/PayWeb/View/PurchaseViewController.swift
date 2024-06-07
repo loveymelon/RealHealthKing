@@ -12,13 +12,13 @@ import RxSwift
 import RxCocoa
 import Toast
 
-class PurchaseViewController: BaseViewController<PurchaseView> {
+final class PurchaseViewController: BaseViewController<PurchaseView> {
 
     var payment: IamportPayment?
     let viewModel = PurchaseViewModel()
-    let paymentResponse = PublishRelay<IamportResponse?>()
+    private let paymentResponse = PublishRelay<IamportResponse?>()
     
-    let disposeBag = DisposeBag()
+    private let disposeBag = DisposeBag()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,7 +45,7 @@ class PurchaseViewController: BaseViewController<PurchaseView> {
 }
 
 extension PurchaseViewController {
-    func setWebView() {
+    private func setWebView() {
         if let paymentData = payment {
             Iamport.shared.paymentWebView(webViewMode: mainView.webView, userCode: APIKey.userCode.rawValue, payment: paymentData) { [weak self] iamportResponse in
                 guard let self else { return }

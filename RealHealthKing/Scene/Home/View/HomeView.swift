@@ -9,7 +9,7 @@ import UIKit
 import Then
 import SnapKit
 
-class HomeView: BaseView {
+final class HomeView: BaseView {
     
     let tableView = UITableView().then {
         $0.register(HomeTableViewCell.self, forCellReuseIdentifier: HomeTableViewCell.identifier)

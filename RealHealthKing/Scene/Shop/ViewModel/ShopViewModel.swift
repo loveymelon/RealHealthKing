@@ -9,7 +9,7 @@ import Foundation
 import RxSwift
 import RxCocoa
 
-class ShopViewModel: ViewModelType {
+final class ShopViewModel: ViewModelType {
     struct Input {
         let viewWillAppearTrigger: Observable<Void>
     }

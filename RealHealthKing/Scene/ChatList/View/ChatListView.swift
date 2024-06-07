@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 import Then
 
-class ChatListView: BaseView {
+final class ChatListView: BaseView {
     
     let tableView = UITableView().then {
         $0.register(ChatListTableViewCell.self, forCellReuseIdentifier: ChatListTableViewCell.identifier)

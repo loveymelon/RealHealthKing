@@ -10,7 +10,7 @@ import RxSwift
 import RxCocoa
 import UIKit
 
-class PostingViewModel: ViewModelType {
+final class PostingViewModel: ViewModelType {
     
     struct Input {
         let imageCount: Observable<Int>

@@ -9,7 +9,7 @@ import Foundation
 import RxSwift
 import RxCocoa
 
-class HomeViewModel: ViewModelType {
+final class HomeViewModel: ViewModelType {
     
     struct Input {
         let inputViewWillTirgger: Observable<Void>
@@ -22,7 +22,6 @@ class HomeViewModel: ViewModelType {
     }
     
     var disposeBag = DisposeBag()
-    
     
     func transform(input: Input) -> Output {
         

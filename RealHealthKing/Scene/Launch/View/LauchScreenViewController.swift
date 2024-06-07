@@ -9,7 +9,7 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-class LauchScreenViewController: BaseViewController<LauchScreenView> {
+final class LauchScreenViewController: BaseViewController<LauchScreenView> {
 
     override func viewDidLoad() {
         super.viewDidLoad()

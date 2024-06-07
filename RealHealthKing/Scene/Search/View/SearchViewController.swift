@@ -9,11 +9,11 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-class SearchViewController: BaseViewController<SearchView> {
+final class SearchViewController: BaseViewController<SearchView> {
     
-    let viewModel = SearchViewModel()
+    private let viewModel = SearchViewModel()
     
-    let disposeBag = DisposeBag()
+    private let disposeBag = DisposeBag()
     
     override func viewDidLoad() {
         super.viewDidLoad()

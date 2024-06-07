@@ -9,14 +9,14 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-class MarketViewController: BaseViewController<MarketView> {
+final class MarketViewController: BaseViewController<MarketView> {
 
     let postId = BehaviorRelay(value: "")
     var createrId = ""
     
-    let disposeBag = DisposeBag()
+    private let disposeBag = DisposeBag()
     
-    let viewModel = MarketViewModel()
+    private let viewModel = MarketViewModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()

@@ -9,7 +9,7 @@ import UIKit
 import Then
 import SnapKit
 
-class SearchView: BaseView {
+final class SearchView: BaseView {
     
     let searchController = UISearchController(searchResultsController: nil)
     

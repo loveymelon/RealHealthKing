@@ -18,7 +18,7 @@ import RxGesture
     @objc optional func moreButtonTap()
 }
 
-class HomeTableViewCell: UITableViewCell {
+final class HomeTableViewCell: UITableViewCell {
     
     let profileImageView = UIImageView().then {
         $0.clipsToBounds = true
@@ -69,7 +69,7 @@ class HomeTableViewCell: UITableViewCell {
         $0.textColor = HKColor.text.color
     }
     
-    let bottomStackView = UIStackView().then {
+    private let bottomStackView = UIStackView().then {
         $0.axis = .horizontal
         $0.distribution = .equalSpacing
         $0.spacing = 10

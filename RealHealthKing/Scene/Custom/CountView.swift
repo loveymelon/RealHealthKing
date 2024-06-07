@@ -9,7 +9,7 @@ import UIKit
 import Then
 import SnapKit
 
-class CountView: UIView {
+final class CountView: UIView {
 
     let countLabel = UILabel().then {
         $0.textColor = HKColor.text.color

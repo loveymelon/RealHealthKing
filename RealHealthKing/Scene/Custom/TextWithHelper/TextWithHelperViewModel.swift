@@ -9,7 +9,7 @@ import Foundation
 import RxSwift
 import RxCocoa
 
-class TextWithHelperViewModel: ViewModelType {
+final class TextWithHelperViewModel: ViewModelType {
     struct Input {
         let textFieldEndEdit: Observable<String>
     }

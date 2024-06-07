@@ -9,7 +9,7 @@ import UIKit
 import Then
 import SnapKit
 
-class InputTextView: UITextView {
+final class InputTextView: UITextView {
     
     let sendButton = UIButton().then {
         $0.setImage(UIImage(systemName: "arrow.up"), for: .normal)

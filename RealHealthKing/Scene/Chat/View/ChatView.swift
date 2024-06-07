@@ -9,7 +9,7 @@ import UIKit
 import Then
 import SnapKit
 
-class ChatView: BaseView {
+final class ChatView: BaseView {
     
     let tableView = UITableView().then {
         $0.register(ChatTableViewCell.self, forCellReuseIdentifier: ChatTableViewCell.identifier)
@@ -21,7 +21,7 @@ class ChatView: BaseView {
         $0.isHidden = false
     }
     
-    let noDataView = NoDataView().then {
+    private let noDataView = NoDataView().then {
         $0.setText("메세지를 시작해보세요")
         $0.backgroundColor = .black
     }

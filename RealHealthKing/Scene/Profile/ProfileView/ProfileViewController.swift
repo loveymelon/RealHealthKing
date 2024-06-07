@@ -12,7 +12,7 @@ import Tabman
 import Pageboy
 import SnapKit
 
-class ProfileViewController: BaseViewController<ProfileView> {
+final class ProfileViewController: BaseViewController<ProfileView> {
     
     let viewModel = ProfileViewModel()
     

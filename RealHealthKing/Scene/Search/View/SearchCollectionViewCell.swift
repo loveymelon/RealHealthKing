@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 import Then
 
-class SearchCollectionViewCell: UICollectionViewCell {
+final class SearchCollectionViewCell: UICollectionViewCell {
     let postImageView = UIImageView()
     
     override init(frame: CGRect) {

@@ -10,9 +10,9 @@ import Then
 import SnapKit
 import RxSwift
 
-class ChatTableViewCell: UITableViewCell {
+final class ChatTableViewCell: UITableViewCell {
     
-    let messageBoxView = UITextView().then {
+    private let messageBoxView = UITextView().then {
         $0.isScrollEnabled = false
         $0.isEditable = false
         $0.backgroundColor = .white
@@ -22,14 +22,14 @@ class ChatTableViewCell: UITableViewCell {
         $0.sizeToFit()
     }
     
-    let dateLabel = UILabel().then {
+    private let dateLabel = UILabel().then {
         $0.numberOfLines = 0
         $0.backgroundColor = .clear
         $0.textColor = .black
         $0.font = .systemFont(ofSize: 12)
     }
     
-    var disposeBag = DisposeBag()
+    private var disposeBag = DisposeBag()
     
     var state: ScreenState = .me
 

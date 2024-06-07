@@ -9,7 +9,7 @@ import Foundation
 import RxSwift
 import RxCocoa
 
-class HomeTableCellViewModel: ViewModelType {
+final class HomeTableCellViewModel: ViewModelType {
     struct Input {
         let inputLikeButtonTap: Observable<(Bool, Posts)>
         let inputLikeValue: Observable<[String]>

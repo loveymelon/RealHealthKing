@@ -7,7 +7,7 @@
 
 import UIKit
 
-class InfoLabel: UILabel {
+final class InfoLabel: UILabel {
 
     override init(frame: CGRect) {
         super.init(frame: frame)

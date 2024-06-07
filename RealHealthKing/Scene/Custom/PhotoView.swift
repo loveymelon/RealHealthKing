@@ -7,7 +7,7 @@
 
 import UIKit
 
-class PhotoView: UIView {
+final class PhotoView: UIView {
     
     let photoImageView = UIImageView(image: UIImage(systemName: "camera.fill")).then {
         $0.contentMode = .scaleAspectFit
