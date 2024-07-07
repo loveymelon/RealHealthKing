@@ -19,7 +19,7 @@ final class ShopPostPhotoView: UIView {
     
     let cancelButton = UIButton().then {
         $0.setImage(UIImage(systemName: "xmark.circle.fill"), for: .normal)
-        $0.tintColor = .white
+        $0.tintColor = HKColor.text.color
     }
     
     override init(frame: CGRect) {

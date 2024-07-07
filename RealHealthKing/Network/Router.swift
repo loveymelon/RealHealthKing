@@ -9,7 +9,6 @@ import Foundation
 import Alamofire
 import KeychainSwift
 
-
 enum Router {
     case login(query: LoginQuery)
     case emailCheck(model: EmailCheckModel)
