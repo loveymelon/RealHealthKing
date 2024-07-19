@@ -11,13 +11,13 @@ final class PhotoView: UIView {
     
     let photoImageView = UIImageView(image: UIImage(systemName: "camera.fill")).then {
         $0.contentMode = .scaleAspectFit
-        $0.tintColor = .white
+        $0.tintColor = .lightGray
     }
     
     let countLabel = UILabel().then {
         $0.text = "0/5"
         $0.textAlignment = .center
-        $0.textColor = .white
+        $0.textColor = .lightGray
     }
     
     let stackView = UIStackView().then {

@@ -39,9 +39,8 @@ final class ChatViewModel: ViewModelType {
         input.viewWillAppearTrigger.subscribe(with: self) { owner, _ in
             
             let data = owner.realmRepository.fetchItem(roomId: owner.roomId)
-
-            guard let data else {
-                
+            
+            if data == nil {
                 do {
                     
                     try owner.realmRepository.createChatRoom(roomId: owner.roomId)
@@ -55,6 +54,21 @@ final class ChatViewModel: ViewModelType {
                 
                 return
             }
+//            guard let data else {
+//                do {
+//                    
+//                    try owner.realmRepository.createChatRoom(roomId: owner.roomId)
+//                    owner.isValidData.accept(false)
+//                    
+//                } catch {
+//                    
+//                    print(error)
+//                    
+//                }
+//                
+//                return
+//                
+//            }
             
             owner.isValidData.accept(true)
             

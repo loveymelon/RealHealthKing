@@ -25,6 +25,7 @@ final class ChatViewController: BaseViewController<ChatView> {
         super.configureNav()
         
         navigationController?.navigationBar.topItem?.title = ""
+        navigationItem.title = "덤벨귀신"
     }
     
     override func bind() {

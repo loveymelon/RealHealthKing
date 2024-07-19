@@ -17,7 +17,7 @@ final class ChatView: BaseView {
     }
     
     let chatTextView = ChatTextView().then {
-        $0.backgroundColor = .lightGray
+        $0.backgroundColor = .white
         $0.isHidden = false
     }
     

@@ -29,7 +29,7 @@ final class ShopPostView: BaseView {
     }
     
     let photoView = PhotoView().then {
-        $0.backgroundColor = .black
+        $0.backgroundColor = .white
     }
     
     let titleLabel = UILabel().then {
