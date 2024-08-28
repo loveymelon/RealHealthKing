@@ -36,13 +36,48 @@
 > 원할한 토큰 갱신을 위해서 Alamofire의 Interceptor를 사용하였습니다.
 MVVM: UI 로직과 비즈니스 로직을 좀 더 분리하여 데이터의 흐름 명확하게 할 수 있는 Input / Output을 사용하였습니다.
 
-### KingFisher
-
-> 이미지를 보다 효율적으로 다운받기 위해서 캐싱기능이 있는 KingFisher를 사용하였습니다.
-
+```swift
+protocol ViewModelType {
+    associatedtype Input
+    associatedtype Output
+    
+    var disposeBag: DisposeBag { get set }
+    
+    func transform(input: Input) -> Output
+}
+```
 ### RxSwift 
 
 > 값들을 관찰함으로써 사용자의 이벤트처리를 비동기적으로 수행하기위해서 <br>RxSwift를 사용하였습니다.
+```swift
+
+final class ChatViewModel: ViewModelType {
+    struct Input {
+        let viewWillAppearTrigger: Observable<Void>
+        ...
+    }
+    
+    struct Output {
+        let chatDatas: Driver<[ChatRealmModel]>
+        ...
+    }
+    
+    private let realmRepository = RealmRepository()
+    
+    private let isValidData = PublishRelay<Bool>()
+    
+    var disposeBag = DisposeBag()
+    
+    func transform(input: Input) -> Output {
+        ...
+    }
+
+}
+```
+
+### KingFisher
+
+> 이미지를 보다 효율적으로 다운받기 위해서 캐싱기능이 있는 KingFisher를 사용하였습니다.
 
 ### Alamofire
 
@@ -107,13 +142,13 @@ extension Reactive where Base: UIViewController {
 
 이미지 압축시 퀄리티를 1보다 아래로 낮추면 이미지를 쓸때마다 퀄리티가 낮아지는 것을 인지하여서 이미지 자체의 사이즈를 줄이는 방식으로 접근을 하였습니다.
 
-```jsx
+```swift
 image.resizeWithWidth(width: 700)?.jpegData(compressionQuality: 1)
 ```
 
 이미지를 다시 불러올때는 이미 다운을 받았던 이미지를 다시 통신을 통해 받으면 비용발생 및 속도가 느려지는 것을 방지하기 위해서 retrieveImage를 사용하여서 캐싱처리를 하였습니다.
 
-```jsx
+```swift
 KingfisherManager.shared.retrieveImage(with: url, options: [
             .requestModifier(imageDownloadRequest),
             .scaleFactor(scale),
