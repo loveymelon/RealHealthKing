@@ -38,7 +38,7 @@ enum Router {
     case chatImageUpload(roomId: String)
 }
 
-extension Router: TargetType {
+extension Routmer: TargetType {
     var baseURL: String {
         return APIKey.baseURL.rawValue
     }

@@ -129,6 +129,7 @@
 		DF88FEA32BDB811400FB9C24 /* ProfileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF88FEA22BDB811400FB9C24 /* ProfileModel.swift */; };
 		DF892AC02BCC44B8006C69AA /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF892ABF2BCC44B8006C69AA /* SignUpViewModel.swift */; };
 		DF892AC32BCC50B7006C69AA /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF892AC22BCC50B7006C69AA /* String+Extension.swift */; };
+		DF8A90E52C7EECF9003D2515 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = DF8A90E42C7EECF9003D2515 /* README.md */; };
 		DF8A92C62C12F0E100AF040C /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = DF8A92C52C12F0E100AF040C /* Lottie */; };
 		DF8A92CC2C12F55700AF040C /* HKLoading.json in Resources */ = {isa = PBXBuildFile; fileRef = DF8A92CB2C12F55700AF040C /* HKLoading.json */; };
 		DF8DFF202BDFE054009BC7C4 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF8DFF1F2BDFE054009BC7C4 /* TabBarViewController.swift */; };
@@ -267,6 +268,7 @@
 		DF88FEA22BDB811400FB9C24 /* ProfileModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileModel.swift; sourceTree = "<group>"; };
 		DF892ABF2BCC44B8006C69AA /* SignUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
 		DF892AC22BCC50B7006C69AA /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
+		DF8A90E42C7EECF9003D2515 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		DF8A92CB2C12F55700AF040C /* HKLoading.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = HKLoading.json; sourceTree = SOURCE_ROOT; };
 		DF8DFF1F2BDFE054009BC7C4 /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
 		DF8DFF212BDFFE46009BC7C4 /* FollowingModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowingModel.swift; sourceTree = "<group>"; };
@@ -792,6 +794,7 @@
 		DF839D4B2BC93B94001FE924 = {
 			isa = PBXGroup;
 			children = (
+				DF8A90E42C7EECF9003D2515 /* README.md */,
 				DF839D6B2BC93BC9001FE924 /* .gitignore */,
 				DF839D562BC93B94001FE924 /* RealHealthKing */,
 				DF839D552BC93B94001FE924 /* Products */,
@@ -1114,6 +1117,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DF8A90E52C7EECF9003D2515 /* README.md in Resources */,
 				DF8A92CC2C12F55700AF040C /* HKLoading.json in Resources */,
 				DF839D6C2BC93BC9001FE924 /* .gitignore in Resources */,
 				DF839D612BC93B97001FE924 /* Assets.xcassets in Resources */,

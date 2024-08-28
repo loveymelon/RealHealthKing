@@ -43,7 +43,6 @@ extension TargetType {
         urlRequest.httpBody = body
         
         let limit = URLQueryItem(name: "limit", value: "15")
-        
 
         let productid = URLQueryItem(name: "product_id", value: productId)
         
